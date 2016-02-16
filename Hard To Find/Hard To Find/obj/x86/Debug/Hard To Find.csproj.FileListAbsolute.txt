@@ -1,0 +1,13 @@
+E:\Programming\Hard To Find\Hard To Find\bin\Debug\Hard To Find.exe
+E:\Programming\Hard To Find\Hard To Find\bin\Debug\Hard To Find.pdb
+E:\Programming\Hard To Find\Hard To Find\bin\Debug\System.Data.SQLite.dll
+E:\Programming\Hard To Find\Hard To Find\bin\Debug\System.Data.SQLite.xml
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomersForm.resources
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.Form1.resources
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.OrdersForm.resources
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.Properties.Resources.resources
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.ReportsForm.resources
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.StockForm.resources
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csproj.GenerateResource.Cache
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.exe
+E:\Programming\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.pdb
