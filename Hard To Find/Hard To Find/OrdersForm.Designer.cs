@@ -35,7 +35,7 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(112, 411);
+            this.btnMainMenu.Location = new System.Drawing.Point(104, 531);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(93, 23);
             this.btnMainMenu.TabIndex = 1;
@@ -48,12 +48,12 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(12, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(1512, 368);
+            this.listBox1.Size = new System.Drawing.Size(1512, 498);
             this.listBox1.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(292, 410);
+            this.button1.Location = new System.Drawing.Point(284, 530);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
@@ -65,7 +65,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1536, 464);
+            this.ClientSize = new System.Drawing.Size(1536, 627);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnMainMenu);

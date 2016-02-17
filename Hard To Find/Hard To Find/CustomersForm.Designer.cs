@@ -61,11 +61,13 @@
             this.label13 = new System.Windows.Forms.Label();
             this.boxSales = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(549, 293);
+            this.btnMainMenu.Location = new System.Drawing.Point(296, 293);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(109, 33);
             this.btnMainMenu.TabIndex = 0;
@@ -349,11 +351,31 @@
             this.label14.TabIndex = 31;
             this.label14.Text = "Sales:";
             // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(686, 56);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(109, 34);
+            this.btnImport.TabIndex = 35;
+            this.btnImport.Text = "Import Customers";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 332);
+            this.progressBar1.Maximum = 24796;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(821, 23);
+            this.progressBar1.TabIndex = 36;
+            // 
             // CustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(664, 367);
+            this.ClientSize = new System.Drawing.Size(845, 362);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.btnImport);
             this.Controls.Add(this.boxPayment);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.boxSales);
@@ -429,5 +451,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox boxSales;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

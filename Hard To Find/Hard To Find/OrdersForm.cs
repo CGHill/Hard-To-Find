@@ -29,7 +29,7 @@ namespace Hard_To_Find
         private void button1_Click(object sender, EventArgs e)
         {
             DatabaseManager dbManager = new DatabaseManager();
-            dbManager.testDB(listBox1);
+            dbManager.testCustomerDisplay(listBox1);
         }
     }
 }

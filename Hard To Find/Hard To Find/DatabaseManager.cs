@@ -17,6 +17,48 @@ namespace Hard_To_Find
             dbConnection = new SQLiteConnection("Data Source=HardToFindDB.sqlite;Version=3;");
         }
 
+        public void createTables()
+        {
+            dbConnection.Open();
+
+            string deleteCustomersTable = "DROP TABLE IF EXISTS Customer";
+            SQLiteCommand deleteCustomersCommand = new SQLiteCommand(deleteCustomersTable, dbConnection);
+            deleteCustomersCommand.ExecuteNonQuery();
+
+            string deleteStockTable = "DROP TABLE IF EXISTS Stock";
+            SQLiteCommand deleteCommand = new SQLiteCommand(deleteStockTable, dbConnection);
+            deleteCommand.ExecuteNonQuery();
+
+            string deleteOrdersable = "DROP TABLE IF EXISTS Orders";
+            SQLiteCommand deleteOrdersCommand = new SQLiteCommand(deleteOrdersable, dbConnection);
+            deleteOrdersCommand.ExecuteNonQuery();
+
+
+            string createCustomerTable = "CREATE TABLE IF NOT EXISTS Customer(customerID INTEGER PRIMARY KEY AUTOINCREMENT, firstName VARCHAR(100), lastName VARCHAR(100), institution VARCHAR(100)," +
+                "address1 VARCHAR(200), address2 VARCHAR(100), address3 VARCHAR(100), country VARCHAR(100), postcode VARCHAR(100), phone INTEGER, fax INTEGER, email VARCHAR(100), comments VARCHAR(100), sales VARCHAR(100), payment VARCHAR(100))";
+
+            SQLiteCommand createCustomerTableCommand = new SQLiteCommand(createCustomerTable, dbConnection);
+            createCustomerTableCommand.ExecuteNonQuery();
+
+
+            string createStockTable = "CREATE TABLE IF NOT EXISTS Stock(stockID INTEGER PRIMARY KEY AUTOINCREMENT, quantity INTEGER NOT NULL, note VARCHAR(200), author VARCHAR(150), title VARCHAR(200), subtitle VARCHAR(300)," +
+                "publisher VARCHAR(200), description VARCHAR(400), comments VARCHAR(500), location VARCHAR(2), price VARCHAR(10), subject VARCHAR(500), catalogue VARCHAR(200), weight VARCHAR(6), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
+
+            SQLiteCommand createStockTableCommand = new SQLiteCommand(createStockTable, dbConnection);
+            createStockTableCommand.ExecuteNonQuery();
+
+
+            string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, firstName VARCHAR(100), lastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(10)," +
+                " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(10), progress VARCHAR(100), discPrice VARCHAR(10)," +
+                " invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), stockID INTEGER, CustomerID INTEGER)";
+
+            SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
+            createOrdersTableCommand.ExecuteNonQuery();
+
+
+            dbConnection.Close();
+        }
+
         public void testDB(ListBox listview)
         {
             dbConnection.Open();
@@ -50,7 +92,7 @@ namespace Hard_To_Find
             SQLiteCommand createStockTableCommand = new SQLiteCommand(createStockTable, dbConnection);
             createStockTableCommand.ExecuteNonQuery();
 
-           // SQLiteCommand createCustomerOrdersTableCommand = new SQLiteCommand(createCustomerOrdersTable, dbConnection);
+            //SQLiteCommand createCustomerOrdersTableCommand = new SQLiteCommand(createCustomerOrdersTable, dbConnection);
             //createCustomerOrdersTableCommand.ExecuteNonQuery();
 
             SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
@@ -82,9 +124,9 @@ namespace Hard_To_Find
             insertStock(5, "", "MILNE, A.A.", "When We Were Very Young", "", "methuen london 1924", "first edition 100pp VG (hinge sl shaky, corners scuffed and bruised, spine sl sunned with some scuffing to head and foot, boards rubbed with some marking and staining, lower corners stained, endpapers sl discolored, owners name in pencil on fep, sl marking to half-title page, lower edge of rear pages sl discolored) lacks d/w",
                 "illust. by  e.h. shepard. Very scarce.", "sv", "$1,093.50", "modern first editions childrens", "", "", "Hallgate", "wj021", "April01");*/
 
-            insertOrder(1, "David", "Grayling", "R A Gekoski Rare Books", "WC1A 2LP", "", "wj10399001", "HUGHES, TED", "Crow", 1, "$900.00", "Matamata", "$13.20", 1297, "12805", "", "null", "null");
+            /*insertOrder(1, "David", "Grayling", "R A Gekoski Rare Books", "WC1A 2LP", "", "wj10399001", "HUGHES, TED", "Crow", 1, "$900.00", "Matamata", "$13.20", 1297, "12805", "", "null", "null");
             insertOrder(28379, "Philip", "Murray", "", "", "abe", "", ", ", "", 0, "$0.00", "COMPLETE", "$19.56", 28379, "29/03/2012", "", "null", "7920");
-            insertOrder("", "", "Clearwater Books", "DT6 4LU", "L uk", "1c73/14", "SAMUELS, SAMMY AND DAVIS, LEONARD:", "Among The Soho Sinners", 1, "$20.00", "COMPLETE", "$20.00", 2467, "27-3-2000", "", "null", "null");
+            insertOrder("", "", "Clearwater Books", "DT6 4LU", "L uk", "1c73/14", "SAMUELS, SAMMY AND DAVIS, LEONARD:", "Among The Soho Sinners", 1, "$20.00", "COMPLETE", "$20.00", 2467, "27-3-2000", "", "null", "null");*/
 
             dbConnection.Open();
 
@@ -123,7 +165,20 @@ namespace Hard_To_Find
         {
             dbConnection.Open();
 
-            string customerInsert = "INSERT INTO Customer VALUES(null'" + firstName + "', '" + lastName + "', '" + institution + "', '" + address1 +
+            string customerInsert = "INSERT INTO Customer VALUES(null, '" + firstName + "', '" + lastName + "', '" + institution + "', '" + address1 +
+                "', '" + address2 + "', '" + address3 + "', '" + country + "', '" + postcode + "', '" + phone + "', '" + fax + "', '" + email + "', '" + comments + "', '" + sales + "', '" + payment + "')";
+            SQLiteCommand insertCommand = new SQLiteCommand(customerInsert, dbConnection);
+            insertCommand.ExecuteNonQuery();
+
+            dbConnection.Close();
+        }
+
+        public void insertCustomer(int customerID, string firstName, string lastName, string institution, string address1, string address2, string address3, string country, string postcode, string phone,
+            string fax, string email, string comments, string sales, string payment)
+        {
+            dbConnection.Open();
+
+            string customerInsert = "INSERT INTO Customer VALUES(" + customerID + " , '" + firstName + "', '" + lastName + "', '" + institution + "', '" + address1 +
                 "', '" + address2 + "', '" + address3 + "', '" + country + "', '" + postcode + "', '" + phone + "', '" + fax + "', '" + email + "', '" + comments + "', '" + sales + "', '" + payment + "')";
             SQLiteCommand insertCommand = new SQLiteCommand(customerInsert, dbConnection);
             insertCommand.ExecuteNonQuery();
@@ -181,6 +236,25 @@ namespace Hard_To_Find
                 "', '" + stockID + "', '" + customerID + "')";
             SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
             insertCommand.ExecuteNonQuery();
+
+            dbConnection.Close();
+        }
+
+        public void testCustomerDisplay(ListBox listbox)
+        {
+            dbConnection.Open();
+
+            string sql = "SELECT * FROM Customer";
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                String customer = "ID: " + reader[0] + " Name: " + reader[1] + " " + reader[2] + " institution: " + reader[3] + " address1: " + reader[4] + " address2: " + reader[5] + " address3 : " + reader[6] +
+                                    " country: " + reader[7] + " postcode: " + reader[8] + " phone: " + reader[9] + " fax: " + reader[10] + " email: " + reader[11] + " comments: " + reader[12]
+                                    + " sales: " + reader[13] + " payment: " + reader[14];
+                listbox.Items.Add(customer);
+            }
 
             dbConnection.Close();
         }
