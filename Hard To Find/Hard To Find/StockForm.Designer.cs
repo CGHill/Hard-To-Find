@@ -29,11 +29,14 @@
         private void InitializeComponent()
         {
             this.btnMainMenu = new System.Windows.Forms.Button();
+            this.btnImportStock = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(96, 119);
+            this.btnMainMenu.Location = new System.Drawing.Point(31, 500);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(93, 23);
             this.btnMainMenu.TabIndex = 1;
@@ -41,11 +44,40 @@
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
             // 
+            // btnImportStock
+            // 
+            this.btnImportStock.Location = new System.Drawing.Point(541, 52);
+            this.btnImportStock.Name = "btnImportStock";
+            this.btnImportStock.Size = new System.Drawing.Size(93, 23);
+            this.btnImportStock.TabIndex = 2;
+            this.btnImportStock.Text = "Import Stock";
+            this.btnImportStock.UseVisualStyleBackColor = true;
+            this.btnImportStock.Click += new System.EventHandler(this.btnImportStock_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(31, 105);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(1302, 368);
+            this.listBox1.TabIndex = 3;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(31, 592);
+            this.progressBar1.Maximum = 161768;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1302, 23);
+            this.progressBar1.TabIndex = 4;
+            // 
             // StockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(1372, 627);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.btnImportStock);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "StockForm";
             this.Text = "StockForm";
@@ -56,5 +88,8 @@
         #endregion
 
         private System.Windows.Forms.Button btnMainMenu;
+        private System.Windows.Forms.Button btnImportStock;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
