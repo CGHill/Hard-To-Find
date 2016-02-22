@@ -11,12 +11,16 @@ namespace Hard_To_Find
 {
     public partial class Form1 : Form
     {
+        //Contructor
         public Form1()
         {
+            //Open center screen
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
         }
 
+        /*Precondition: 
+         Postcondition: Moves to customers form*/
         private void btnCustomers_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -24,6 +28,9 @@ namespace Hard_To_Find
             cf.Show();
         }
 
+
+        /*Precondition: 
+         Postcondition: Moves to stock form*/
         private void btnStock_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -31,6 +38,8 @@ namespace Hard_To_Find
             sf.Show();
         }
 
+        /*Precondition: 
+         Postcondition: Moves to orders form*/
         private void btnOrders_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -38,6 +47,8 @@ namespace Hard_To_Find
             of.Show();
         }
 
+        /*Precondition: 
+         Postcondition: Moves to reports Form*/
         private void btnReports_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -45,10 +56,11 @@ namespace Hard_To_Find
             rf.Show();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        /*Precondition: 
+         Postcondition: Exits the application*/
+        private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
     }
 }

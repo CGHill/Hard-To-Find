@@ -32,6 +32,7 @@
             this.btnImportStock = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMainMenu
@@ -46,7 +47,7 @@
             // 
             // btnImportStock
             // 
-            this.btnImportStock.Location = new System.Drawing.Point(541, 52);
+            this.btnImportStock.Location = new System.Drawing.Point(245, 51);
             this.btnImportStock.Name = "btnImportStock";
             this.btnImportStock.Size = new System.Drawing.Size(93, 23);
             this.btnImportStock.TabIndex = 2;
@@ -57,9 +58,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(31, 105);
+            this.listBox1.Location = new System.Drawing.Point(12, 102);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(1302, 368);
+            this.listBox1.Size = new System.Drawing.Size(1589, 368);
             this.listBox1.TabIndex = 3;
             // 
             // progressBar1
@@ -70,11 +71,22 @@
             this.progressBar1.Size = new System.Drawing.Size(1302, 23);
             this.progressBar1.TabIndex = 4;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(449, 51);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "View";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // StockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1372, 627);
+            this.ClientSize = new System.Drawing.Size(1613, 627);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnImportStock);
@@ -91,5 +103,6 @@
         private System.Windows.Forms.Button btnImportStock;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button button1;
     }
 }

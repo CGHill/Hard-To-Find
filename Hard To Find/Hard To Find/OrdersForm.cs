@@ -20,6 +20,8 @@ namespace Hard_To_Find
             InitializeComponent();
         }
 
+        /*Precondition: 
+         Postcondition: Move back to the main menu*/
         private void btnMainMenu_Click(object sender, EventArgs e)
         {
             this.Close();

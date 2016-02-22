@@ -32,8 +32,8 @@
             this.btnStock = new System.Windows.Forms.Button();
             this.btnOrders = new System.Windows.Forms.Button();
             this.btnCatalogueMenu = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.btnReports = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCustomers
@@ -75,16 +75,6 @@
             this.btnCatalogueMenu.Text = "Catalogue Menu";
             this.btnCatalogueMenu.UseVisualStyleBackColor = true;
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(68, 288);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(285, 37);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Exit";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
             // btnReports
             // 
             this.btnReports.Location = new System.Drawing.Point(230, 191);
@@ -95,13 +85,23 @@
             this.btnReports.UseVisualStyleBackColor = true;
             this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(68, 293);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(285, 37);
+            this.btnExit.TabIndex = 6;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 390);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnReports);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.btnCatalogueMenu);
             this.Controls.Add(this.btnOrders);
             this.Controls.Add(this.btnStock);
@@ -118,8 +118,8 @@
         private System.Windows.Forms.Button btnStock;
         private System.Windows.Forms.Button btnOrders;
         private System.Windows.Forms.Button btnCatalogueMenu;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button btnReports;
+        private System.Windows.Forms.Button btnExit;
     }
 }
 
