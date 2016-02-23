@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnMainMenu = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -63,35 +60,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.btnImport = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnMainMenu
-            // 
-            this.btnMainMenu.Location = new System.Drawing.Point(296, 293);
-            this.btnMainMenu.Name = "btnMainMenu";
-            this.btnMainMenu.Size = new System.Drawing.Size(109, 33);
-            this.btnMainMenu.TabIndex = 0;
-            this.btnMainMenu.Text = "Main Menu";
-            this.btnMainMenu.UseVisualStyleBackColor = true;
-            this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(549, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 34);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "New Customer";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(99, 293);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(98, 33);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Search";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -113,7 +83,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(549, 126);
+            this.btnUpdate.Location = new System.Drawing.Point(539, 56);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
             this.btnUpdate.TabIndex = 7;
@@ -124,7 +94,7 @@
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(549, 166);
+            this.btnSave.Location = new System.Drawing.Point(539, 96);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 8;
@@ -369,11 +339,22 @@
             this.progressBar1.Size = new System.Drawing.Size(821, 23);
             this.progressBar1.TabIndex = 36;
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(539, 223);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(109, 34);
+            this.btnClose.TabIndex = 37;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // CustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(845, 362);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.boxPayment);
@@ -406,9 +387,6 @@
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnMainMenu);
             this.Name = "CustomersForm";
             this.Text = "CustomersForm";
             this.ResumeLayout(false);
@@ -418,9 +396,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnMainMenu;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnUpdate;
@@ -453,5 +428,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnClose;
     }
 }

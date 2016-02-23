@@ -37,6 +37,35 @@ namespace Hard_To_Find
             form1.Show();
         }
 
+
+        /*Precondition: 
+         Postcondition: Opens file browser for user to select a txt file to import stock*/
+        private void btnImportStock_Click(object sender, EventArgs e)
+        {
+            //Set up file browser, to search for txt files and default directory of C: drive
+            OpenFileDialog dialogBox = new OpenFileDialog();
+            dialogBox.Title = "Open Stock txt file";
+            dialogBox.Filter = "TXT files|*.txt";
+            dialogBox.InitialDirectory = @"C:\";
+
+            //Open the file browser and wait for user to select file
+            if (dialogBox.ShowDialog() == DialogResult.OK)
+            {
+                //TODO find place for this
+                dbManager.dropStockTable();
+                dbManager.createStockTable();
+
+                //Get the path for the file the user clicked on
+                string filename = dialogBox.FileName;
+
+                //Continue the procress in another method
+                readFile(filename);
+
+                //Thread thread = new Thread(() => readFile(filename));
+                //thread.Start();
+            }
+        }
+
         /*Precondition: txt file must be formatted as a CSV separated by a | instead of , in order of:
           stockID, quantity, note, author, title, subtitle, publisher, description, comments, location, price, subject, catalogues, weight, sales, bookID, dateEntered
          Postcondition: Opens file browser for user to select a txt file to import stock*/
@@ -91,7 +120,7 @@ namespace Hard_To_Find
                     if (newLineCharacter)
                     {
                         //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
-                        if ((splitStock.Length + previousLine.Length) == 18)
+                        if ((splitStock.Length + previousLine.Length - 1) == 17)
                         {
                             //Go through and combined the lines into 1
                             string[] combinedLines = new string[17];
@@ -207,36 +236,9 @@ namespace Hard_To_Find
             MessageBox.Show("Finished import");
         }
 
-        /*Precondition: 
-         Postcondition: Opens file browser for user to select a txt file to import stock*/
-        private void btnImportStock_Click(object sender, EventArgs e)
-        {
-            //Set up file browser, to search for txt files and default directory of C: drive
-            OpenFileDialog dialogBox = new OpenFileDialog();
-            dialogBox.Title = "Open Stock txt file";
-            dialogBox.Filter = "TXT files|*.txt";
-            dialogBox.InitialDirectory = @"C:\";
-
-            //Open the file browser and wait for user to select file
-            if (dialogBox.ShowDialog() == DialogResult.OK)
-            {
-                //TODO find place for this
-                dbManager.createTables();
-
-                //Get the path for the file the user clicked on
-                string filename = dialogBox.FileName;
-
-                //Continue the procress in another method
-                readFile(filename);
-
-                //Thread thread = new Thread(() => readFile(filename));
-                //thread.Start();
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            dbManager.testStockDisplay(listBox1);
+            //dbManager.testStockDisplay(listBox1);
         }
     }
 }

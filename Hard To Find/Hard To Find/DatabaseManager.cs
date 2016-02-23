@@ -20,9 +20,13 @@ namespace Hard_To_Find
             dbConnection = new SQLiteConnection("Data Source=HardToFindDB.sqlite;Version=3;");
         }
 
-        /*Precondition: 
-         Postcondition: Drops and then creates Customer, Stock and Orders tables*/
-        public void createTables()
+        //Creates the initial local DB file to work with
+        public void createDatabaseFile()
+        {
+            SQLiteConnection.CreateFile("HardToFindDB.sqlite");
+        }
+
+        public void dropCustomerTable()
         {
             dbConnection.Open();
 
@@ -30,14 +34,34 @@ namespace Hard_To_Find
             SQLiteCommand deleteCustomersCommand = new SQLiteCommand(deleteCustomersTable, dbConnection);
             deleteCustomersCommand.ExecuteNonQuery();
 
+            dbConnection.Close();
+        }
+
+        public void dropStockTable()
+        {
+            dbConnection.Open();
+
             string deleteStockTable = "DROP TABLE IF EXISTS Stock";
             SQLiteCommand deleteCommand = new SQLiteCommand(deleteStockTable, dbConnection);
             deleteCommand.ExecuteNonQuery();
 
-            string deleteOrdersable = "DROP TABLE IF EXISTS Orders";
-            SQLiteCommand deleteOrdersCommand = new SQLiteCommand(deleteOrdersable, dbConnection);
+            dbConnection.Close();
+        }
+
+        public void dropOrdersTable()
+        {
+            dbConnection.Open();
+
+            string deleteOrdersTable = "DROP TABLE IF EXISTS Orders";
+            SQLiteCommand deleteOrdersCommand = new SQLiteCommand(deleteOrdersTable, dbConnection);
             deleteOrdersCommand.ExecuteNonQuery();
 
+            dbConnection.Close();
+        }
+
+        public void createCustomerTable()
+        {
+            dbConnection.Open();
 
             string createCustomerTable = "CREATE TABLE IF NOT EXISTS Customer(customerID INTEGER PRIMARY KEY AUTOINCREMENT, firstName VARCHAR(100), lastName VARCHAR(100), institution VARCHAR(100)," +
                 "address1 VARCHAR(200), address2 VARCHAR(100), address3 VARCHAR(100), country VARCHAR(100), postcode VARCHAR(100), phone INTEGER, fax INTEGER, email VARCHAR(100), comments VARCHAR(100), sales VARCHAR(100), payment VARCHAR(100))";
@@ -45,6 +69,12 @@ namespace Hard_To_Find
             SQLiteCommand createCustomerTableCommand = new SQLiteCommand(createCustomerTable, dbConnection);
             createCustomerTableCommand.ExecuteNonQuery();
 
+            dbConnection.Close();
+        }
+
+        public void createStockTable()
+        {
+            dbConnection.Open();
 
             string createStockTable = "CREATE TABLE IF NOT EXISTS Stock(stockID INTEGER PRIMARY KEY AUTOINCREMENT, quantity INTEGER NOT NULL, note VARCHAR(200), author VARCHAR(150), title VARCHAR(200), subtitle VARCHAR(300)," +
                 "publisher VARCHAR(200), description VARCHAR(400), comments VARCHAR(500), location VARCHAR(2), price VARCHAR(10), subject VARCHAR(500), catalogue VARCHAR(200), weight VARCHAR(6), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
@@ -52,14 +82,19 @@ namespace Hard_To_Find
             SQLiteCommand createStockTableCommand = new SQLiteCommand(createStockTable, dbConnection);
             createStockTableCommand.ExecuteNonQuery();
 
+            dbConnection.Close();
+        }
 
-            string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, firstName VARCHAR(100), lastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(10)," +
+        public void createOrdersTable()
+        {
+            dbConnection.Open();
+
+            string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, customerFirstName VARCHAR(100), customerLastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(10)," +
                 " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(10), progress VARCHAR(100), discPrice VARCHAR(10)," +
                 " invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), stockID INTEGER, CustomerID INTEGER)";
 
             SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
             createOrdersTableCommand.ExecuteNonQuery();
-
 
             dbConnection.Close();
         }
@@ -219,13 +254,13 @@ namespace Hard_To_Find
                 //Build insert command. If stock has an ID insert it with that ID if not (new stock) and insert with a new ID using autoincrement from SQLite
                 if (s.stockID == -1)
                 {
-                    stockInsert = stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher 
+                    stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher 
                         + "', '" + s.description + "', '" + s.comments + "', '" + s.location + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.weight + "', '" + s.sales + "', '" + s.bookID +
                         "', '" + s.dateEntered + "')";
                 }
                 else
                 {
-                    stockInsert = stockInsert = "INSERT INTO Stock VALUES(" + s.stockID + ", '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
+                    stockInsert = "INSERT INTO Stock VALUES(" + s.stockID + ", '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
                         + "', '" + s.description + "', '" + s.comments + "', '" + s.location + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.weight + "', '" + s.sales + "', '" + s.bookID +
                         "', '" + s.dateEntered + "')";
                 }
@@ -242,85 +277,95 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
-        /*********************    Insert orders need replacing with transactions       *************************************************/
-        public void insertOrder(int orderID, string firstName, string lastName, string institution, string postcode, string orderReference, string catItem, string author, string title, int quantity, string price,
-            string progress, string discPrice, int invoiceNo, string invoiceDate, string comments, string stockID, string customerID)
+        /*Precondition: 
+         Postcondition: Loops through list of stock passed in, and inserts them into SQLite DB*/
+        public void insertOrders(List<Order> allOrders, ProgressBar progBar)
         {
+            //Open DB and start transcation - transaction hugely increases speed of insert
             dbConnection.Open();
+            SQLiteTransaction transaction = dbConnection.BeginTransaction();
 
-            string orderInsert = "INSERT INTO Orders VALUES(" + orderID.ToString() + ", '" + firstName + "', '" + lastName + "', '" + institution + "', '" + postcode + "', '" + orderReference +
-                "', '" + catItem + "', '" + author + "', '" + title + "', '" + quantity.ToString() + "', '" + price + "', '" + progress + "', '" + discPrice + "', '" + invoiceNo.ToString() + "', '" + invoiceDate + "', '" + comments +
-                "', '" + stockID + "', '" + customerID + "')";
-            SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
-            insertCommand.ExecuteNonQuery();
+            //Loop through all stock
+            foreach (Order o in allOrders)
+            {
+                string orderInsert = "";
 
+                //Build insert command. If stock has an ID insert it with that ID if not (new order) and insert with a new ID using autoincrement from SQLite
+                if (o.stockID == -1)
+                {
+                    orderInsert = "INSERT INTO Orders VALUES(null, '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" + o.catItem + 
+                        "', '" + o.author + "', '" + o.title + "', '" + o.quantity.ToString() + "', '" + o.price + "', '" + o.progress + "', '" + o.discPrice + "', '" + o.invoiceNo + "', '" + o.invoiceDate + "', '" + 
+                        o.comments + "', '" + o.stockID + "', '" + o.customerID + "')";
+                }
+                else
+                {
+                    orderInsert = "INSERT INTO Orders VALUES(" + o.orderID + ", '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference +  "', '" + 
+                        o.catItem + "', '" + o.author + "', '" + o.title + "', '" + o.quantity.ToString() + "', '" + o.price + "', '" + o.progress + "', '" + o.discPrice + "', '" + o.invoiceNo.ToString() + "', '" + 
+                        o.invoiceDate + "', '" + o.comments + "', '" + o.stockID + "', '" + o.customerID + "')";
+                }
+
+                SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
+                insertCommand.ExecuteNonQuery();
+
+                //Update UI for user to see progress
+                progBar.Increment(1);
+            }
+
+            //Commit transaction and close connection
+            transaction.Commit();
             dbConnection.Close();
         }
 
-        public void insertOrder(string firstName, string lastName, string institution, string postcode, string orderReference, string catItem, string author, string title, int quantity, string price,
-            string progress, string discPrice, int invoiceNo, string invoiceDate, string comments, string stockID, string customerID)
+        public Customer searchCustomers(int custID)
         {
+            Customer foundCustomer = null;
+
             dbConnection.Open();
 
-            string orderInsert = "INSERT INTO Orders VALUES(null, '" + firstName + "', '" + lastName + "', '" + institution + "', '" + postcode + "', '" + orderReference +
-                "', '" + catItem + "', '" + author + "', '" + title + "', '" + quantity.ToString() + "', '" + price + "', '" + progress + "', '" + discPrice + "', '" + invoiceNo.ToString() + "', '" + invoiceDate + "', '" + comments +
-                "', '" + stockID + "', '" + customerID + "')";
-            SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
-            insertCommand.ExecuteNonQuery();
-
-            dbConnection.Close();
-        }
-        
-        /*********************************************************************************************************************************/
-       
-       
-        //Display all users out in listbox that's passed in
-        public void testCustomerDisplay(ListBox listbox)
-        {
-            dbConnection.Open();
-
-            string sql = "SELECT * FROM Customer";
+            string sql = "SELECT * FROM Customer WHERE customerID = " + custID;
             SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
-                String customer = "ID: " + reader[0] + " Name: " + reader[1] + " " + reader[2] + " institution: " + reader[3] + " address1: " + reader[4] + " address2: " + reader[5] + " address3 : " + reader[6] +
-                                    " country: " + reader[7] + " postcode: " + reader[8] + " phone: " + reader[9] + " fax: " + reader[10] + " email: " + reader[11] + " comments: " + reader[12]
-                                    + " sales: " + reader[13] + " payment: " + reader[14];
-                listbox.Items.Add(customer);
+                foundCustomer = new Customer(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString());
             }
 
             dbConnection.Close();
+
+            return foundCustomer;
         }
 
-        //Display how many entries in the stock table there are, inserting each one into list box takes too long
-        public void testStockDisplay(ListBox listbox)
+        public List<Customer> searchCustomers(string firstName)
         {
+            List<Customer> foundCustomers = new List<Customer>();
+
             dbConnection.Open();
 
-            string sql = "SELECT * FROM Stock";
+            string sql = "SELECT * FROM Customer WHERE firstName LIKE '%" + firstName + "%'";
             SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
 
-            int count = 0;
             while (reader.Read())
             {
-                /*String customer = "ID: " + reader[0] + " Quantity: " + reader[1] + " Note: " + reader[2] + " Author: " + reader[3] + " Title: " + reader[4] + " Subtitle: " + reader[5] + " Publisher : " + reader[6] +
-                                    " Description: " + reader[7] + " Comment: " + reader[8] + " Location: " + reader[9] + " Price: " + reader[10] + " Subject: " + reader[11] + " Catalogues: " + reader[12]
-                                    + " Weight: " + reader[13] + " Sales: " + reader[14] + " BookID: " + reader[15] + " Date Entered: " + reader[16];*/
+                Customer foundCustomer = new Customer(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString());
 
-                count++;
-                
+                foundCustomers.Add(foundCustomer);
             }
-            listbox.Items.Add(count.ToString());
+
             dbConnection.Close();
+
+            return foundCustomers;
         }
 
-        //Creates the initial local DB file to work with
-        public void createDatabaseFile()
+        public List<Customer> searchCustomers(string firstName, string lastName)
         {
-            SQLiteConnection.CreateFile("HardToFindDB.sqlite");
+
+
+            return new List<Customer>();
         }
+
     }
 }

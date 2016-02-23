@@ -12,28 +12,18 @@ namespace Hard_To_Find
     public partial class CustomersForm : Form
     {
         //Variables
-        private Form1 form1;
         private DatabaseManager dbManager;
         private List<Customer> customers;
 
         //Constructor
-        public CustomersForm(Form1 form1)
+        public CustomersForm()
         {
-            this.form1 = form1;
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
             //Create instance of database manager and list for storing customers
             dbManager = new DatabaseManager();
             customers = new List<Customer>();
-        }
-
-        /*Precondition:
-         Postcondition: Button to go back to main menu*/
-        private void btnMainMenu_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            form1.Show();
         }
 
         /*Precondition:
@@ -87,7 +77,8 @@ namespace Hard_To_Find
             if (dialogBox.ShowDialog() == DialogResult.OK)
             {
                 //TODO find a place for this
-                dbManager.createTables();
+                dbManager.dropCustomerTable();
+                dbManager.createCustomerTable();
 
                 //Get the path for the file the user clicked on
                 string filename = dialogBox.FileName;
@@ -159,6 +150,11 @@ namespace Hard_To_Find
                 dbManager.insertCustomers(customers, progressBar1);
                 MessageBox.Show("Finished import");
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

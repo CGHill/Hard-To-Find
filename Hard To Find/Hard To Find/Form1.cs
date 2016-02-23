@@ -24,7 +24,7 @@ namespace Hard_To_Find
         private void btnCustomers_Click(object sender, EventArgs e)
         {
             this.Hide();
-            CustomersForm cf = new CustomersForm(this);
+            CustomerSearchForm cf = new CustomerSearchForm(this);
             cf.Show();
         }
 
