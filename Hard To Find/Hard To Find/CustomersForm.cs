@@ -13,17 +13,40 @@ namespace Hard_To_Find
     {
         //Variables
         private DatabaseManager dbManager;
-        private List<Customer> customers;
+        private Customer currCustomer;
 
         //Constructor
-        public CustomersForm()
+        public CustomersForm(Customer currCustomer)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
             //Create instance of database manager and list for storing customers
             dbManager = new DatabaseManager();
-            customers = new List<Customer>();
+
+            this.currCustomer = currCustomer;
+
+            loadUpCustomer();
+        }
+
+        /*Precondition:
+         Postcondition: Fills text boxes up with the customers data*/
+        public void loadUpCustomer()
+        {
+            boxFirstName.Text = currCustomer.firstName;
+            boxLastName.Text = currCustomer.lastName;
+            boxInstitution.Text = currCustomer.institution;
+            boxAddress1.Text = currCustomer.address1;
+            boxAddress2.Text = currCustomer.address2;
+            boxAddress3.Text = currCustomer.address3;
+            boxPostcode.Text = currCustomer.postCode;
+            boxCountry.Text = currCustomer.country;
+            boxPhone.Text = currCustomer.phone;
+            boxFax.Text = currCustomer.fax;
+            boxEmail.Text = currCustomer.email;
+            boxComments.Text = currCustomer.comments;
+            boxSales.Text = currCustomer.sales;
+            boxPayment.Text = currCustomer.payment;
         }
 
         /*Precondition:
@@ -42,6 +65,25 @@ namespace Hard_To_Find
             btnUpdate.Enabled = true;
             btnSave.Enabled = false;
             toggleBoxesReadOnly();
+
+            //Update all fields
+            currCustomer.firstName = boxFirstName.Text;
+            currCustomer.lastName = boxLastName.Text;
+            currCustomer.institution = boxInstitution.Text;
+            currCustomer.address1 = boxAddress1.Text;
+            currCustomer.address2 = boxAddress2.Text;
+            currCustomer.address3 = boxAddress3.Text;
+            currCustomer.postCode = boxPostcode.Text;
+            currCustomer.country = boxCountry.Text;
+            currCustomer.phone = boxPhone.Text;
+            currCustomer.fax = boxFax.Text;
+            currCustomer.email = boxEmail.Text;
+            currCustomer.comments = boxComments.Text;
+            currCustomer.sales = boxSales.Text;
+            currCustomer.payment = boxPayment.Text;
+
+            //Send to dbManager to update entry
+            dbManager.updateCustomer(currCustomer);
         }
 
 
@@ -49,10 +91,12 @@ namespace Hard_To_Find
          Postcondition: Toggles textboxes ReadOnly between true and false so that customer data can be updated */
         private void toggleBoxesReadOnly()
         {
+            boxFirstName.ReadOnly = !boxFirstName.ReadOnly;
+            boxLastName.ReadOnly = !boxLastName.ReadOnly;
             boxInstitution.ReadOnly = !boxInstitution.ReadOnly;
-            boxAddress.ReadOnly = !boxAddress.ReadOnly;
-            boxSuburb.ReadOnly = !boxSuburb.ReadOnly;
-            boxCity.ReadOnly = !boxCity.ReadOnly;
+            boxAddress1.ReadOnly = !boxAddress1.ReadOnly;
+            boxAddress2.ReadOnly = !boxAddress2.ReadOnly;
+            boxAddress3.ReadOnly = !boxAddress3.ReadOnly;
             boxPostcode.ReadOnly = !boxPostcode.ReadOnly;
             boxCountry.ReadOnly = !boxCountry.ReadOnly;
             boxPhone.ReadOnly = !boxPhone.ReadOnly;
@@ -63,96 +107,9 @@ namespace Hard_To_Find
             boxPayment.ReadOnly = !boxPayment.ReadOnly;
         }
 
-        /*Precondition: txt file must be formatted as a CSV in order of CustomerID, firstName, lastName, institution, address1, address2, address3, country, postcode, phone, fax, emails, comments, sales, payment
-         Postcondition: Opens file browser for user to select a txt file to import customers*/
-        private void btnImport_Click(object sender, EventArgs e)
-        {
-            //Set up file browser, to search for txt files and default directory of C: drive
-            OpenFileDialog dialogBox = new OpenFileDialog();
-            dialogBox.Title = "Open Customer txt file";
-            dialogBox.Filter = "TXT files|*.txt";
-            dialogBox.InitialDirectory = @"C:\";
-
-            //Open the file browser and wait for user to select file
-            if (dialogBox.ShowDialog() == DialogResult.OK)
-            {
-                //TODO find a place for this
-                dbManager.dropCustomerTable();
-                dbManager.createCustomerTable();
-
-                //Get the path for the file the user clicked on
-                string filename = dialogBox.FileName;
-
-                //Open the file
-                System.IO.StreamReader file = new System.IO.StreamReader(filename);
-
-                string line;
-                string[] previousLine = new string[1];
-
-                //Read through the txt file one line at a time
-                while ((line = file.ReadLine()) != null)
-                {
-                    //Remove double quotations for SQL insert
-                    string unquoted = line.Replace("\"", string.Empty);
-
-                    //Remove dashes for SQL insert
-                    string removedDashes = unquoted.Replace("-", " ");
-                    
-                    //Check if there are any single quotations
-                    if(removedDashes.Contains('\''))
-                    {
-                        //Get number of single quotations
-                        int numQuotes = removedDashes.Split('\'').Length - 1;
-                        //int num = removedDashes.Count(c => c == '\'');
-
-                        int previousIndex = 0;
-
-                        //Add another quotation behind existing quotations since it's the escape character for the SQL insert
-                        for (int i = 0; i < numQuotes; i++)
-                        {
-                            int indexOfQuote = removedDashes.IndexOf("'", previousIndex);
-                            removedDashes = removedDashes.Insert(indexOfQuote, "'");
-
-                            //Move index ahead of just completed quotation so it doesn't repeat on it
-                            previousIndex = indexOfQuote + 2;
-                        }
-                       
-                    }
-
-                    //Split on comma to get all values of customer
-                    string[] splitCustomer = removedDashes.Split(',');
-
-                    int custID = Convert.ToInt32(splitCustomer[0]);
-                    string custFirstName = splitCustomer[1];
-                    string custLastName = splitCustomer[2];
-                    string custInstitution = splitCustomer[3];
-                    string custAddress1 = splitCustomer[4];
-                    string custAddress2 = splitCustomer[5];
-                    string custAddress3 = splitCustomer[6];
-                    string custCountry = splitCustomer[7];
-                    string custPostCode = splitCustomer[8];
-                    string custPhone = splitCustomer[9];
-                    string custFax = splitCustomer[10];
-                    string custEmail = splitCustomer[11];
-                    string custComments = splitCustomer[12];
-                    string custSales = splitCustomer[13];
-                    string custPayment = splitCustomer[14];
-
-                    //Create new customer and insert into list
-                    Customer newCust = new Customer(custID, custFirstName, custLastName, custInstitution, custAddress1, custAddress2, custAddress3, custCountry, custPostCode, custPhone, custFax, custEmail, custComments, custSales, custPayment);
-                    customers.Add(newCust);
-                }
-
-                //Close txt file
-                file.Close();
-
-                //Insert customers from list into DB
-                dbManager.insertCustomers(customers, progressBar1);
-                MessageBox.Show("Finished import");
-            }
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
+        /*Precondition:
+         Postcondition: Closes form*/
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }

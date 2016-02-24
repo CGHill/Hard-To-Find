@@ -34,12 +34,12 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.boxFirstName = new System.Windows.Forms.TextBox();
             this.boxLastName = new System.Windows.Forms.TextBox();
-            this.boxAddress = new System.Windows.Forms.TextBox();
+            this.boxAddress1 = new System.Windows.Forms.TextBox();
             this.boxInstitution = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.boxCity = new System.Windows.Forms.TextBox();
-            this.boxSuburb = new System.Windows.Forms.TextBox();
+            this.boxAddress3 = new System.Windows.Forms.TextBox();
+            this.boxAddress2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.boxPostcode = new System.Windows.Forms.TextBox();
@@ -58,9 +58,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.boxSales = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.btnImport = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -106,6 +104,7 @@
             // 
             this.boxFirstName.Location = new System.Drawing.Point(99, 56);
             this.boxFirstName.Name = "boxFirstName";
+            this.boxFirstName.ReadOnly = true;
             this.boxFirstName.Size = new System.Drawing.Size(145, 20);
             this.boxFirstName.TabIndex = 9;
             // 
@@ -113,16 +112,17 @@
             // 
             this.boxLastName.Location = new System.Drawing.Point(99, 82);
             this.boxLastName.Name = "boxLastName";
+            this.boxLastName.ReadOnly = true;
             this.boxLastName.Size = new System.Drawing.Size(145, 20);
             this.boxLastName.TabIndex = 10;
             // 
-            // boxAddress
+            // boxAddress1
             // 
-            this.boxAddress.Location = new System.Drawing.Point(99, 134);
-            this.boxAddress.Name = "boxAddress";
-            this.boxAddress.ReadOnly = true;
-            this.boxAddress.Size = new System.Drawing.Size(145, 20);
-            this.boxAddress.TabIndex = 14;
+            this.boxAddress1.Location = new System.Drawing.Point(99, 134);
+            this.boxAddress1.Name = "boxAddress1";
+            this.boxAddress1.ReadOnly = true;
+            this.boxAddress1.Size = new System.Drawing.Size(145, 20);
+            this.boxAddress1.TabIndex = 14;
             // 
             // boxInstitution
             // 
@@ -137,9 +137,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(33, 137);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 13);
+            this.label3.Size = new System.Drawing.Size(54, 13);
             this.label3.TabIndex = 12;
-            this.label3.Text = "Address:";
+            this.label3.Text = "Address1:";
             // 
             // label4
             // 
@@ -150,39 +150,39 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Institution:";
             // 
-            // boxCity
+            // boxAddress3
             // 
-            this.boxCity.Location = new System.Drawing.Point(99, 189);
-            this.boxCity.Name = "boxCity";
-            this.boxCity.ReadOnly = true;
-            this.boxCity.Size = new System.Drawing.Size(145, 20);
-            this.boxCity.TabIndex = 18;
+            this.boxAddress3.Location = new System.Drawing.Point(99, 189);
+            this.boxAddress3.Name = "boxAddress3";
+            this.boxAddress3.ReadOnly = true;
+            this.boxAddress3.Size = new System.Drawing.Size(145, 20);
+            this.boxAddress3.TabIndex = 18;
             // 
-            // boxSuburb
+            // boxAddress2
             // 
-            this.boxSuburb.Location = new System.Drawing.Point(99, 163);
-            this.boxSuburb.Name = "boxSuburb";
-            this.boxSuburb.ReadOnly = true;
-            this.boxSuburb.Size = new System.Drawing.Size(145, 20);
-            this.boxSuburb.TabIndex = 17;
+            this.boxAddress2.Location = new System.Drawing.Point(99, 163);
+            this.boxAddress2.Name = "boxAddress2";
+            this.boxAddress2.ReadOnly = true;
+            this.boxAddress2.Size = new System.Drawing.Size(145, 20);
+            this.boxAddress2.TabIndex = 17;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(33, 192);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(27, 13);
+            this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 16;
-            this.label5.Text = "City:";
+            this.label5.Text = "Address3:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(33, 166);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "Suburb:";
+            this.label6.Text = "Address2:";
             // 
             // boxPostcode
             // 
@@ -321,42 +321,22 @@
             this.label14.TabIndex = 31;
             this.label14.Text = "Sales:";
             // 
-            // btnImport
+            // btnCancel
             // 
-            this.btnImport.Location = new System.Drawing.Point(686, 56);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(109, 34);
-            this.btnImport.TabIndex = 35;
-            this.btnImport.Text = "Import Customers";
-            this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 332);
-            this.progressBar1.Maximum = 24796;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(821, 23);
-            this.progressBar1.TabIndex = 36;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Location = new System.Drawing.Point(539, 223);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(109, 34);
-            this.btnClose.TabIndex = 37;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnCancel.Location = new System.Drawing.Point(539, 223);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(109, 34);
+            this.btnCancel.TabIndex = 37;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // CustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(845, 362);
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.btnImport);
+            this.ClientSize = new System.Drawing.Size(736, 315);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.boxPayment);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.boxSales);
@@ -373,11 +353,11 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.boxPostcode);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.boxCity);
-            this.Controls.Add(this.boxSuburb);
+            this.Controls.Add(this.boxAddress3);
+            this.Controls.Add(this.boxAddress2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.boxAddress);
+            this.Controls.Add(this.boxAddress1);
             this.Controls.Add(this.boxInstitution);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
@@ -402,12 +382,12 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox boxFirstName;
         private System.Windows.Forms.TextBox boxLastName;
-        private System.Windows.Forms.TextBox boxAddress;
+        private System.Windows.Forms.TextBox boxAddress1;
         private System.Windows.Forms.TextBox boxInstitution;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox boxCity;
-        private System.Windows.Forms.TextBox boxSuburb;
+        private System.Windows.Forms.TextBox boxAddress3;
+        private System.Windows.Forms.TextBox boxAddress2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox boxPostcode;
@@ -426,8 +406,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox boxSales;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

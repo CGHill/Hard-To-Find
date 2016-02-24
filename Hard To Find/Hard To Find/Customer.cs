@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hard_To_Find
 {
-    class Customer
+    public class Customer
     {
         public int custID { get; set; }
         public string firstName { get; set; }

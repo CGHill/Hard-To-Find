@@ -15,8 +15,10 @@ E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\Hard To F
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\Hard To Find.pdb
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\System.Data.SQLite.dll
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\System.Data.SQLite.xml
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerSearchForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomersForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.Form1.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.NewCustomerForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.OrdersForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.Properties.Resources.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.ReportsForm.resources
@@ -24,5 +26,4 @@ E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csproj.GenerateResource.Cache
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.exe
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.pdb
-E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csprojResolveAssemblyReference.cache
-E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerSearchForm.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.StockDetailsForm.resources

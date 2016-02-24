@@ -20,12 +20,15 @@ namespace Hard_To_Find
             dbConnection = new SQLiteConnection("Data Source=HardToFindDB.sqlite;Version=3;");
         }
 
-        //Creates the initial local DB file to work with
+        /*Precondition:
+         Postcondition: Creates the initial local DB file to work with in debug folder*/
         public void createDatabaseFile()
         {
             SQLiteConnection.CreateFile("HardToFindDB.sqlite");
         }
 
+        /*Precondition:
+         Postcondition: Drops the Customer table*/
         public void dropCustomerTable()
         {
             dbConnection.Open();
@@ -37,6 +40,8 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+        /*Precondition:
+         Postcondition: Drops the Stock table*/
         public void dropStockTable()
         {
             dbConnection.Open();
@@ -48,6 +53,8 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+        /*Precondition:
+         Postcondition: Drops the Orders table*/
         public void dropOrdersTable()
         {
             dbConnection.Open();
@@ -59,6 +66,8 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+        /*Precondition:
+         Postcondition: Creates the Customers table*/
         public void createCustomerTable()
         {
             dbConnection.Open();
@@ -72,6 +81,8 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+        /*Precondition:
+         Postcondition: Creates the Stock table*/
         public void createStockTable()
         {
             dbConnection.Open();
@@ -85,6 +96,8 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+        /*Precondition:
+         Postcondition: Creates the Orders table*/
         public void createOrdersTable()
         {
             dbConnection.Open();
@@ -99,105 +112,47 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
-        //Test method with some useful code in it to copy and paste
-        public void testDB(ListBox listview)
+
+        //COLLATE NOCASE = search isn't case sensitive
+        //string sql = "SELECT * FROM Customer WHERE firstName = 'david' COLLATE NOCASE";
+        //string sql = "SELECT * FROM Customer WHERE customerFirstName LIKE 'da%'";
+
+        /***************** Updating ***************************/
+
+        /*Precondition:
+         Postcondition: Updates the passed in customers details, new details already added onto the customer, use the ID to update*/
+        public void updateCustomer(Customer customer)
         {
+            string updateQuery = "UPDATE Customer SET firstName = '" + customer.firstName + "', lastName = '" + customer.lastName + "', institution = '" + customer.institution + "', address1 = '" + customer.address1 +
+                "', address2 = '" + customer.address2 + "', address3 = '" + customer.address3 + "', country = '" + customer.country + "'" + ", postcode = '" + customer.postCode + 
+                "', phone = " + customer.phone + ", fax = " + customer.fax + ", email = '" + customer.email + "', comments = '" + customer.comments + "', sales = '" + customer.sales + 
+                "', payment = '" + customer.payment + "' WHERE customerID = " + customer.custID;
+
             dbConnection.Open();
-            
-            string deleteStockTable = "DROP TABLE IF EXISTS Stock";
-
-            SQLiteCommand deleteCommand = new SQLiteCommand(deleteStockTable, dbConnection);
-            deleteCommand.ExecuteNonQuery();
-
-            string deleteOrdersable = "DROP TABLE IF EXISTS Orders";
-
-            SQLiteCommand deleteOrdersCommand = new SQLiteCommand(deleteOrdersable, dbConnection);
-            deleteOrdersCommand.ExecuteNonQuery();
-
-
-            string createCustomerTable = "CREATE TABLE IF NOT EXISTS Customer(customerID INTEGER PRIMARY KEY AUTOINCREMENT, firstName VARCHAR(100), lastName VARCHAR(100), institution VARCHAR(100)," +
-                "address1 VARCHAR(200), address2 VARCHAR(100), address3 VARCHAR(100), country VARCHAR(100), postcode VARCHAR(100), phone INTEGER, fax INTEGER, email VARCHAR(100), comments VARCHAR(100), sales VARCHAR(100), payment VARCHAR(100))";
-
-            string createStockTable = "CREATE TABLE IF NOT EXISTS Stock(stockID INTEGER PRIMARY KEY AUTOINCREMENT, quantity INTEGER NOT NULL, note VARCHAR(200), author VARCHAR(150), title VARCHAR(200), subtitle VARCHAR(300)," + 
-                "publisher VARCHAR(200), description VARCHAR(400), comments VARCHAR(500), location VARCHAR(2), price VARCHAR(10), subject VARCHAR(500), catalogue VARCHAR(200), weight VARCHAR(6), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
-
-            //string createCustomerOrdersTable = "CREATE TABLE IF NOT EXISTS CustomerOrder(customerID INTEGER NOT NULL, orderID INTEGER NOT NULL)";
-
-            string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, firstName VARCHAR(100), lastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(10)," + 
-                " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(10), progress VARCHAR(100), discPrice VARCHAR(10)," + 
-                " invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), stockID INTEGER, CustomerID INTEGER)";
-
-            SQLiteCommand createCustomerTableCommand = new SQLiteCommand(createCustomerTable, dbConnection);
-            createCustomerTableCommand.ExecuteNonQuery();
-
-            SQLiteCommand createStockTableCommand = new SQLiteCommand(createStockTable, dbConnection);
-            createStockTableCommand.ExecuteNonQuery();
-
-            //SQLiteCommand createCustomerOrdersTableCommand = new SQLiteCommand(createCustomerOrdersTable, dbConnection);
-            //createCustomerOrdersTableCommand.ExecuteNonQuery();
-
-            SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
-            createOrdersTableCommand.ExecuteNonQuery();
-
+            SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
+            updateCommand.ExecuteNonQuery();
             dbConnection.Close();
+        }
 
-            /*insertCustomer("David", "Yalenezian", "", "426 Indian Head Street","Hanson","MA","USA","02341","","","yalenezian@comcast.net","","30806","V");
-            insertCustomer("Michael", "Fleming", "", "6 Yetman Road", "Coolatai", "", "Australia", "NSW 2402", "", "", "", "", "31806", "V");
-            insertCustomer("Jared", "Bark", "Bark Frameworks LLC", "21-24 44th Avenue", "Long Island City", "NY", "USA", "11101", "", "", "jbark@barkframeworks.com", "", "30806", "Amex");
-            insertCustomer("Amy", "Findlater", "Anthropology Department", "Richardson Building", "Castle Street", "Dunedin", "NZ", "", "", "", "finam126@student.otago.ac.nz", "", "31806", "V");
-            insertCustomer("Werner", "Driller", "", "Robertstr. 11", "Bochum", "", "Germany", "44791", "", "", "maxlouis@gmx.de", "", "5906", "MC");*/
 
-            /*insertStock(10, 1, "", "Bunin, Ivan", "Memories and portraits", "", "John Lehmann London 1951", "First English edition 205pp ex libris (pockets and stamps) sl rubbed d/w, excellent", 
-                "", "sv", "$8,02", "Bunin Lit Bio Russian", "literature", "", "Jensen", "1a25/4", "April01");
+        /***************** Inserting ***************************/
 
-            insertStock(55, 1, "", "KNIGHT, CHARLES R.", "PREHISTORIC MAN- THE GREAT ADVENTURER", "", "Appleton Century Crofts Inc. New York 1949", "First edition 331pp ex libris (pockets and stamps) d/w worn at extremities, excellent, illust.",
-                "", "sv", "$14.58", "Anthropology Prehistory Evolution Exploration", "", "700g", "Korey", "1b4/15", "April01");
-
-            insertStock(95, 0, "", "Tozer- Fant, David J.", "A.W. Tozer", "A twentieth century prophet", "Christian Publications Pennsylvania 1964", "First edition 180pp ex libris d/w w. plastic, excellent",
-                "", "sv", "$8.019", "Theology Christianity Tozer Bio", "Religion", "", "Bound for Glory Used Christian Books", "1a8/32", "April01");
-
-            insertStock(243, 12, "", "BERIOSOVA- FRANKS, A.H.:", "Svetlana Beriosova", "a biography", "Burke London 1958", "First edition 144pp ex libris (usual cancellation stamps, pockets etc.) excellent, d/w ttay (sl rubbing, tears across rear cover, minor tears at extremities), illust.",
-                "", "sv", "$14.58", "Beriosova Bio Ballet Dance", "arts", "600g", "Bakker", "1f1/29", "April01");
-
-            insertStock(288, 22, "", "BUKOWSKI, CHARLES", "Factotum", "", "wh allen london 1981", "first UK edition 205pp VG+ (v sl cocked, spine foot v sl bumped, v faint foxing to half-title and title pages) in VG+ d/w (sl rubbing, spine sl faded with sl creasing to head, faint foxing to flaps, sl crimped top edge of rear flap, v sl wear and creasing to edges)",
-                "", "sv", "$65.61", "modern first edition", "modern first edition", "", "Ricci", "wj052", "April01");
-
-            insertStock(5, "", "MILNE, A.A.", "When We Were Very Young", "", "methuen london 1924", "first edition 100pp VG (hinge sl shaky, corners scuffed and bruised, spine sl sunned with some scuffing to head and foot, boards rubbed with some marking and staining, lower corners stained, endpapers sl discolored, owners name in pencil on fep, sl marking to half-title page, lower edge of rear pages sl discolored) lacks d/w",
-                "illust. by  e.h. shepard. Very scarce.", "sv", "$1,093.50", "modern first editions childrens", "", "", "Hallgate", "wj021", "April01");*/
-
-            /*insertOrder(1, "David", "Grayling", "R A Gekoski Rare Books", "WC1A 2LP", "", "wj10399001", "HUGHES, TED", "Crow", 1, "$900.00", "Matamata", "$13.20", 1297, "12805", "", "null", "null");
-            insertOrder(28379, "Philip", "Murray", "", "", "abe", "", ", ", "", 0, "$0.00", "COMPLETE", "$19.56", 28379, "29/03/2012", "", "null", "7920");
-            insertOrder("", "", "Clearwater Books", "DT6 4LU", "L uk", "1c73/14", "SAMUELS, SAMMY AND DAVIS, LEONARD:", "Among The Soho Sinners", 1, "$20.00", "COMPLETE", "$20.00", 2467, "27-3-2000", "", "null", "null");*/
-
+        /*Precondition:
+         Postcondition: Insert new customer into the database*/
+        public void insertCusomter(Customer newCustomer)
+        {
+            //Open DB
             dbConnection.Open();
 
-            //COLLATE NOCASE = search isn't case sensitive
-            //string sql = "SELECT * FROM Customer WHERE firstName = 'david' COLLATE NOCASE";
-            //string sql = "SELECT * FROM Customer WHERE customerFirstName LIKE 'da%'";
+            //Build insert command
+            string customerInsert = "INSERT INTO Customer VALUES(null, '" + newCustomer.firstName + "', '" + newCustomer.lastName + "', '" + newCustomer.institution + "', '" + newCustomer.address1 + "', '" + newCustomer.address2 + "', '" +
+                newCustomer.address3 + "', '" + newCustomer.country + "', '" + newCustomer.postCode + "', '" + newCustomer.phone + "', '" + newCustomer.fax + "', '" + newCustomer.email + "', '" + newCustomer.comments + "', '" + newCustomer.sales + "', '" + newCustomer.payment + "')";
+           
+            //Insert new customer
+            SQLiteCommand insertCommand = new SQLiteCommand(customerInsert, dbConnection);
+            insertCommand.ExecuteNonQuery();
 
-            //string sql = "SELECT * FROM Stock";
-            string sql = "SELECT * FROM Orders";
-            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                /*String customer = "ID: " + reader[0] + " Name: " + reader[1] + " " + reader[2] + " institution: " + reader[3] + " address1: " + reader[4] + " address2: " + reader[5] + " address3 : " + reader[6] +
-                                    " country: " + reader[7] + " postcode: " + reader[8] + " phone: " + reader[9] + " fax: " + reader[10] + " email: " + reader[11] + " comments: " + reader[12]
-                                    + " sales: " + reader[13] + " payment: " + reader[14];
-                listview.Items.Add(customer);*/
-
-                /*String stock = "StockID: " + reader[0] + " quantity: " + reader[1] + " note: " + reader[2] + " author: " + reader[3] + " title: " + reader[4] + " subtitle: " + reader[5] + " publisher: " + reader[6]
-                    + " description: " + reader[7] + " comments: " + reader[8] + " location: " + reader[9] + " price: " + reader[10] + " subject: " + reader[11] + " catalogue: " + reader[12] + " weight: " + reader[13] + " sales: " + reader[14]
-                    + " bookID: " + reader[15] + " dateEntered: " + reader[16];
-                listview.Items.Add(stock);*/
-
-                String order = "OrderID: " + reader[0] + " Customer Name: " + reader[1] + " " + reader[2] + " Instutution: " + reader[3] + " Postcode: " + reader[4] + " Order Ref: " + reader[5] + " CatItem: " + reader[6]
-                    + " Author: " + reader[7] + " Title: " + reader[8] + " Quantity: " + reader[9] + " Price: " + reader[10] + " Progress: " + reader[11] + " DiscPrice: " + reader[12] + " InvoiceNo: " + reader[13] + " Invoice Date: " + reader[14]
-                    + " Comments: " + reader[15] + " StockID: " + reader[16] + " CustomerID: " + reader[17];
-                listview.Items.Add(order);
-            }
-
+            //Close DB
             dbConnection.Close();
         }
 
@@ -316,16 +271,23 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+
+        /***************** Searching ***************************/
+
+        /*Precondition:
+         Postcondition: Returns the customer of the passed in ID*/
         public Customer searchCustomers(int custID)
         {
             Customer foundCustomer = null;
 
             dbConnection.Open();
 
+            //SQL query and command
             string sql = "SELECT * FROM Customer WHERE customerID = " + custID;
             SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
 
+            //Loop over and store results
             while (reader.Read())
             {
                 foundCustomer = new Customer(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
@@ -334,19 +296,38 @@ namespace Hard_To_Find
 
             dbConnection.Close();
 
+            //Return results
             return foundCustomer;
         }
 
-        public List<Customer> searchCustomers(string firstName)
+        /*Precondition:
+         Postcondition: Returns a list of customers from the database whose names are similar to or matching the names passed in */
+        public List<Customer> searchCustomers(string firstName, string lastName)
         {
             List<Customer> foundCustomers = new List<Customer>();
 
             dbConnection.Open();
 
-            string sql = "SELECT * FROM Customer WHERE firstName LIKE '%" + firstName + "%'";
-            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            //Build up query string depending on what names were passed in
+            string searchQuery = "SELECT * FROM Customer WHERE";
+
+            //If a firstname was passed in, include it in the query
+            if (firstName != null)
+            {
+                searchQuery += " firstName LIKE '%" + firstName + "%'";
+
+                //First name & last name passed in, so included in the query
+                if(lastName != null)
+                    searchQuery += " AND lastName LIKE '%" + lastName + "%'";
+            }
+            else if(lastName != null) //Last name only passed in, so only search on last name
+                searchQuery += " lastName LIKE '%" + lastName + "%'";
+
+            //Execute query
+            SQLiteCommand command = new SQLiteCommand(searchQuery, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
 
+            //Loop over and store results
             while (reader.Read())
             {
                 Customer foundCustomer = new Customer(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
@@ -357,14 +338,93 @@ namespace Hard_To_Find
 
             dbConnection.Close();
 
+            //Return results
             return foundCustomers;
         }
 
-        public List<Customer> searchCustomers(string firstName, string lastName)
+        /*Precondition:
+         Postcondition: Returns stock entry that matches the ID passed in*/
+        public Stock searchStock(int stockID)
         {
+            Stock foundStock = null;
 
+            dbConnection.Open();
 
-            return new List<Customer>();
+            //Execute SQL query
+            string sql = "SELECT * FROM Stock WHERE stockID = " + stockID;
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                foundStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString(), reader[16].ToString());
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundStock;
+        }
+
+        /*Precondition:
+         Postcondition: Returns a list of the stock from the database that match the parameters passed in */
+        public List<Stock> searchStock(string author, string title, string subject)
+        {
+            //Create storage for stock that's found
+            List<Stock> foundStock = new List<Stock>();
+
+            dbConnection.Open();
+
+            //build up a query string based on the parameters passed in
+            string searchQuery = "SELECT * FROM Stock WHERE";
+            bool addAnds = false;
+
+            //Author included so add that to query
+            if (author != null)
+            {
+                searchQuery += " author LIKE '%" + author + "%'";
+                addAnds = true;
+            }
+
+            //Title included so add that to query
+            if (title != null)
+            {
+                if (addAnds)
+                    searchQuery += " AND title LIKE '%" + title + "%'";
+                else
+                {
+                    searchQuery += " title LIKE '%" + title + "%'";
+                    addAnds = true;
+                }
+            }
+            //Subject included so add that to query
+            if (subject != null)
+            {
+                if (addAnds)
+                    searchQuery += " AND subject LIKE '%" + subject + "%'";
+                else
+                    searchQuery += " subject LIKE '%" + subject + "%'";
+            }
+
+            //Execute query
+            SQLiteCommand command = new SQLiteCommand(searchQuery, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                Stock currStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString(), reader[16].ToString());
+
+                foundStock.Add(currStock);
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundStock;
         }
 
     }

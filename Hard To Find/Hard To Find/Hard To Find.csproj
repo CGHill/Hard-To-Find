@@ -69,6 +69,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewCustomerForm.Designer.cs">
+      <DependentUpon>NewCustomerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="OrdersForm.cs">
       <SubType>Form</SubType>
@@ -85,6 +91,12 @@
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Stock.cs" />
+    <Compile Include="StockDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockDetailsForm.Designer.cs">
+      <DependentUpon>StockDetailsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StockForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +112,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewCustomerForm.resx">
+      <DependentUpon>NewCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OrdersForm.resx">
       <DependentUpon>OrdersForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,6 +129,9 @@
     </Compile>
     <EmbeddedResource Include="ReportsForm.resx">
       <DependentUpon>ReportsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockDetailsForm.resx">
+      <DependentUpon>StockDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StockForm.resx">
       <DependentUpon>StockForm.cs</DependentUpon>

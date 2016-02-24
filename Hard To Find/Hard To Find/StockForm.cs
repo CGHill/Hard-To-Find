@@ -16,6 +16,7 @@ namespace Hard_To_Find
         private Form1 form1;
         private DatabaseManager dbManager;
         private List<Stock> allStock;
+        private List<Stock> foundStock;
 
         //Constructor
         public StockForm(Form1 form1)
@@ -27,6 +28,19 @@ namespace Hard_To_Find
             //Create DB and list to store stock in
             dbManager = new DatabaseManager();
             allStock = new List<Stock>();
+
+            DataGridViewColumn column1 = dataGridView1.Columns[0];
+            column1.Width = 50;
+            DataGridViewColumn column2 = dataGridView1.Columns[1];
+            column2.Width = 200;
+            DataGridViewColumn column3 = dataGridView1.Columns[2];
+            column3.Width = 300;
+            DataGridViewColumn column4 = dataGridView1.Columns[3];
+            column4.Width = 200;
+            DataGridViewColumn column5 = dataGridView1.Columns[4];
+            column5.Width = 60;
+            DataGridViewColumn column6 = dataGridView1.Columns[5];
+            column6.Width = 75;
         }
 
         /*Precondition: 
@@ -85,7 +99,7 @@ namespace Hard_To_Find
                 string unquoted = line.Replace("\"", string.Empty);
 
                 //Remove dashes from line for SQL insert
-                string removedDashes = unquoted.Replace("-", " ");
+                string removedDashes = unquoted.Replace("-", string.Empty);
 
                 //Check if it contains a single quotation
                 if (removedDashes.Contains('\''))
@@ -236,9 +250,87 @@ namespace Hard_To_Find
             MessageBox.Show("Finished import");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        /*Precondition:
+         Postcondition: Starts search for Stock depending on which text boxes have been filled*/
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-            //dbManager.testStockDisplay(listBox1);
+            //Reset datagrid and stock for new search
+            foundStock = new List<Stock>();
+            dataGridView1.Rows.Clear();
+
+            //If ID was entered then search only on that
+            if (boxStockID.Text != "")
+            {
+                int stockID = Convert.ToInt32(boxStockID.Text);
+
+                //Put found stock into list
+                foundStock.Add(dbManager.searchStock(stockID));
+
+                //Display found stock
+                foreach (Stock s in foundStock)
+                {
+                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                }
+            }
+            else if(boxAuthor.Text != "" || boxTitle.Text != "" || boxSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
+            {
+                string author = null;
+                string title = null;
+                string subject = null;
+
+                //Find out which fields have been entered to be included in the search
+                if (boxAuthor.Text != "")
+                    author = boxAuthor.Text;
+                if (boxTitle.Text != "")
+                    title = boxTitle.Text;
+                if (boxSubject.Text != "")
+                    subject = boxSubject.Text;
+
+                //Search for stock based on the parameters entered
+                foundStock = dbManager.searchStock(author, title, subject);
+
+                //Display found stock
+                foreach (Stock s in foundStock)
+                {
+                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                }
+            }
+        }
+
+        /*Precondition:
+         Postcondition: Enables button to view more details about stock */
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            btnStockDetails.Enabled = true;
+        }
+
+        /*Precondition:
+         Postcondition: Allows only numbers in ID text box */
+        private void boxStockID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        /*Precondition: Requires something be selected in the datagrid first
+         Postcondition: Opens form to display futher details about stock*/
+        private void btnStockDetails_Click(object sender, EventArgs e)
+        {
+            int currRow = dataGridView1.CurrentCell.RowIndex;
+
+            Stock stockToDisplay = foundStock[currRow];
+
+            StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
+            sdf.Show();
         }
     }
 }
