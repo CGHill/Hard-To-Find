@@ -43,6 +43,27 @@ namespace Hard_To_Find
             toggleBoxesReadOnly();
             btnSave.Enabled = false;
             btnUpdate.Enabled = true;
+
+            //Update all stock information
+            currStock.quantity = Convert.ToInt32(boxQuantity.Text);
+            currStock.note = boxNote.Text;
+            currStock.author = boxAuthor.Text;
+            currStock.title = boxTitle.Text;
+            currStock.subtitle = boxSubtitle.Text;
+            currStock.publisher = boxPublisher.Text;
+            currStock.description = boxDescription.Text;
+            currStock.comments = boxComment.Text;
+            currStock.location = boxLocation.Text;
+            currStock.price = boxPrice.Text;
+            currStock.subject = boxSubject.Text;
+            currStock.catalogue = boxCatalogues.Text;
+            currStock.weight = boxWeight.Text;
+            currStock.sales = boxSales.Text;
+            currStock.bookID = boxBookID.Text;
+            currStock.dateEntered = boxDateEntered.Text;
+
+            //Send updated stock information to database
+            dbManager.updateStock(currStock);
         }
 
         /*Precondition:
@@ -57,7 +78,7 @@ namespace Hard_To_Find
         private void toggleBoxesReadOnly()
         {
             boxQuantity.ReadOnly = !boxQuantity.ReadOnly;
-            BoxNote.ReadOnly = !BoxNote.ReadOnly;
+            boxNote.ReadOnly = !boxNote.ReadOnly;
             boxAuthor.ReadOnly = !boxAuthor.ReadOnly;
             boxTitle.ReadOnly = !boxTitle.ReadOnly;
             boxSubtitle.ReadOnly = !boxSubtitle.ReadOnly;
@@ -80,7 +101,7 @@ namespace Hard_To_Find
         {
             boxStockID.Text = currStock.stockID.ToString();
             boxQuantity.Text = currStock.quantity.ToString();
-            BoxNote.Text = currStock.note;
+            boxNote.Text = currStock.note;
             boxAuthor.Text = currStock.author;
             boxTitle.Text = currStock.title;
             boxSubtitle.Text = currStock.subtitle;

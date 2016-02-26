@@ -261,10 +261,5 @@ namespace Hard_To_Find
             allOrders.Add(newOrder);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //dbManager.testOrdersDisplay(listBox1);
-        }
-
     }
 }

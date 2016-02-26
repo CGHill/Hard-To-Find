@@ -134,6 +134,21 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+        /*Precondition:
+        Postcondition: Updates the passed in stocks details, new details already added onto the stock, use the ID to update*/
+        public void updateStock(Stock stock)
+        {
+            string updateQuery = "UPDATE Stock SET quantity =" + stock.quantity + ", note = '" + stock.note + "', author = '" + stock.author + "', title = '" + stock.title +
+                "', subtitle = '" + stock.subtitle + "', publisher = '" + stock.publisher + "', description = '" + stock.description + "'," + "comments = '" + stock.comments +
+                "', location = '" + stock.location + "', price = '" + stock.price + "', subject = '" + stock.subject + "', catalogue = '" + stock.catalogue + "', weight = '" + stock.weight +
+                "', sales = '" + stock.sales + "', bookID = '" + stock.bookID + "', dateEntered = '" + stock.dateEntered + "' WHERE stockID = " + stock.stockID;
+
+            dbConnection.Open();
+            SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
+            updateCommand.ExecuteNonQuery();
+            dbConnection.Close();
+        }
+
 
         /***************** Inserting ***************************/
 
@@ -190,6 +205,28 @@ namespace Hard_To_Find
 
             //Commit transaction and close connection
             transaction.Commit();
+            dbConnection.Close();
+        }
+
+        /*Precondition: 
+         Postcondition: Inserts a single new stock into the SQLite database*/
+        public void insertStock(Stock newStock)
+        {
+            //Open DB and start transcation - transaction hugely increases speed of insert
+            dbConnection.Open();
+
+            string stockInsert = "";
+
+            //Build insert command
+            stockInsert = "INSERT INTO Stock VALUES(null, '" + newStock.quantity + "', '" + newStock.note + "', '" + newStock.author + "', '" + newStock.title + "', '" + newStock.subtitle + "', '" + newStock.publisher
+                + "', '" + newStock.description + "', '" + newStock.comments + "', '" + newStock.location + "', '" + newStock.price + "', '" + newStock.subject + "', '" + newStock.catalogue + "', '" + newStock.weight + "', '" + newStock.sales + "', '" + newStock.bookID +
+                "', '" + newStock.dateEntered + "')";
+                
+
+            SQLiteCommand insertCommand = new SQLiteCommand(stockInsert, dbConnection);
+            insertCommand.ExecuteNonQuery();
+
+            //Close connection
             dbConnection.Close();
         }
 

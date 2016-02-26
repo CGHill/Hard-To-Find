@@ -49,7 +49,9 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNewStock = new System.Windows.Forms.Button();
             this.btnStockDetails = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnMainMenu
@@ -74,15 +76,15 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(31, 592);
+            this.progressBar1.Location = new System.Drawing.Point(12, 600);
             this.progressBar1.Maximum = 161768;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1113, 23);
+            this.progressBar1.Size = new System.Drawing.Size(1203, 15);
             this.progressBar1.TabIndex = 4;
             // 
             // boxStockID
             // 
-            this.boxStockID.Location = new System.Drawing.Point(94, 78);
+            this.boxStockID.Location = new System.Drawing.Point(80, 30);
             this.boxStockID.Name = "boxStockID";
             this.boxStockID.Size = new System.Drawing.Size(92, 20);
             this.boxStockID.TabIndex = 16;
@@ -91,7 +93,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 81);
+            this.label3.Location = new System.Drawing.Point(6, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 21;
@@ -99,14 +101,14 @@
             // 
             // boxTitle
             // 
-            this.boxTitle.Location = new System.Drawing.Point(94, 130);
+            this.boxTitle.Location = new System.Drawing.Point(80, 82);
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
             this.boxTitle.TabIndex = 18;
             // 
             // boxAuthor
             // 
-            this.boxAuthor.Location = new System.Drawing.Point(94, 104);
+            this.boxAuthor.Location = new System.Drawing.Point(80, 56);
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
             this.boxAuthor.TabIndex = 17;
@@ -114,7 +116,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(54, 133);
+            this.label2.Location = new System.Drawing.Point(40, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 20;
@@ -123,7 +125,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 107);
+            this.label1.Location = new System.Drawing.Point(29, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 19;
@@ -131,7 +133,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(94, 198);
+            this.btnSearch.Location = new System.Drawing.Point(80, 150);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
             this.btnSearch.TabIndex = 22;
@@ -141,7 +143,7 @@
             // 
             // boxSubject
             // 
-            this.boxSubject.Location = new System.Drawing.Point(94, 156);
+            this.boxSubject.Location = new System.Drawing.Point(80, 108);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
             this.boxSubject.TabIndex = 23;
@@ -149,7 +151,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(42, 159);
+            this.label4.Location = new System.Drawing.Point(28, 111);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 24;
@@ -215,12 +217,13 @@
             // 
             // btnNewStock
             // 
-            this.btnNewStock.Location = new System.Drawing.Point(94, 271);
+            this.btnNewStock.Location = new System.Drawing.Point(94, 282);
             this.btnNewStock.Name = "btnNewStock";
             this.btnNewStock.Size = new System.Drawing.Size(145, 23);
             this.btnNewStock.TabIndex = 26;
             this.btnNewStock.Text = "New Stock";
             this.btnNewStock.UseVisualStyleBackColor = true;
+            this.btnNewStock.Click += new System.EventHandler(this.btnNewStock_Click);
             // 
             // btnStockDetails
             // 
@@ -233,31 +236,42 @@
             this.btnStockDetails.UseVisualStyleBackColor = true;
             this.btnStockDetails.Click += new System.EventHandler(this.btnStockDetails_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.boxSubject);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Controls.Add(this.boxStockID);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.boxTitle);
+            this.groupBox1.Controls.Add(this.boxAuthor);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(14, 59);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(233, 192);
+            this.groupBox1.TabIndex = 28;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search";
+            // 
             // StockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1227, 627);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnStockDetails);
             this.Controls.Add(this.btnNewStock);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.boxSubject);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.boxStockID);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.boxTitle);
-            this.Controls.Add(this.boxAuthor);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnImportStock);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "StockForm";
             this.Text = "StockForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -284,5 +298,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Button btnStockDetails;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

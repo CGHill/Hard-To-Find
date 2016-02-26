@@ -53,7 +53,7 @@
             this.boxAuthor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.BoxNote = new System.Windows.Forms.TextBox();
+            this.boxNote = new System.Windows.Forms.TextBox();
             this.boxQuantity = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -283,14 +283,14 @@
             this.label4.TabIndex = 44;
             this.label4.Text = "Author:";
             // 
-            // BoxNote
+            // boxNote
             // 
-            this.BoxNote.Location = new System.Drawing.Point(87, 97);
-            this.BoxNote.Multiline = true;
-            this.BoxNote.Name = "BoxNote";
-            this.BoxNote.ReadOnly = true;
-            this.BoxNote.Size = new System.Drawing.Size(145, 68);
-            this.BoxNote.TabIndex = 43;
+            this.boxNote.Location = new System.Drawing.Point(87, 97);
+            this.boxNote.Multiline = true;
+            this.boxNote.Name = "boxNote";
+            this.boxNote.ReadOnly = true;
+            this.boxNote.Size = new System.Drawing.Size(145, 68);
+            this.boxNote.TabIndex = 43;
             // 
             // boxQuantity
             // 
@@ -426,7 +426,7 @@
             this.Controls.Add(this.boxAuthor);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.BoxNote);
+            this.Controls.Add(this.boxNote);
             this.Controls.Add(this.boxQuantity);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnUpdate);
@@ -466,7 +466,7 @@
         private System.Windows.Forms.TextBox boxAuthor;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox BoxNote;
+        private System.Windows.Forms.TextBox boxNote;
         private System.Windows.Forms.TextBox boxQuantity;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnUpdate;

@@ -44,19 +44,21 @@
             this.btnImportCustomers = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnNewCustomer = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // boxLastName
             // 
-            this.boxLastName.Location = new System.Drawing.Point(87, 105);
+            this.boxLastName.Location = new System.Drawing.Point(77, 82);
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.Size = new System.Drawing.Size(145, 20);
             this.boxLastName.TabIndex = 3;
             // 
             // boxFirstName
             // 
-            this.boxFirstName.Location = new System.Drawing.Point(87, 79);
+            this.boxFirstName.Location = new System.Drawing.Point(77, 56);
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.Size = new System.Drawing.Size(145, 20);
             this.boxFirstName.TabIndex = 2;
@@ -64,7 +66,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 108);
+            this.label2.Location = new System.Drawing.Point(11, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 12;
@@ -73,7 +75,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 82);
+            this.label1.Location = new System.Drawing.Point(11, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 11;
@@ -81,7 +83,7 @@
             // 
             // boxCustID
             // 
-            this.boxCustID.Location = new System.Drawing.Point(87, 53);
+            this.boxCustID.Location = new System.Drawing.Point(77, 30);
             this.boxCustID.Name = "boxCustID";
             this.boxCustID.Size = new System.Drawing.Size(82, 20);
             this.boxCustID.TabIndex = 1;
@@ -90,7 +92,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 56);
+            this.label3.Location = new System.Drawing.Point(11, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 15;
@@ -99,7 +101,7 @@
             // btnCustDetails
             // 
             this.btnCustDetails.Enabled = false;
-            this.btnCustDetails.Location = new System.Drawing.Point(516, 349);
+            this.btnCustDetails.Location = new System.Drawing.Point(510, 379);
             this.btnCustDetails.Name = "btnCustDetails";
             this.btnCustDetails.Size = new System.Drawing.Size(208, 23);
             this.btnCustDetails.TabIndex = 19;
@@ -109,7 +111,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(24, 141);
+            this.btnSearch.Location = new System.Drawing.Point(14, 118);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(208, 23);
             this.btnSearch.TabIndex = 20;
@@ -119,7 +121,7 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(24, 334);
+            this.btnMainMenu.Location = new System.Drawing.Point(38, 364);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(208, 38);
             this.btnMainMenu.TabIndex = 21;
@@ -166,7 +168,7 @@
             // 
             // btnImportCustomers
             // 
-            this.btnImportCustomers.Location = new System.Drawing.Point(24, 241);
+            this.btnImportCustomers.Location = new System.Drawing.Point(38, 272);
             this.btnImportCustomers.Name = "btnImportCustomers";
             this.btnImportCustomers.Size = new System.Drawing.Size(208, 23);
             this.btnImportCustomers.TabIndex = 23;
@@ -176,15 +178,15 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(24, 414);
+            this.progressBar1.Location = new System.Drawing.Point(12, 422);
             this.progressBar1.Maximum = 24796;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(909, 23);
+            this.progressBar1.Size = new System.Drawing.Size(959, 15);
             this.progressBar1.TabIndex = 37;
             // 
             // btnNewCustomer
             // 
-            this.btnNewCustomer.Location = new System.Drawing.Point(24, 183);
+            this.btnNewCustomer.Location = new System.Drawing.Point(38, 210);
             this.btnNewCustomer.Name = "btnNewCustomer";
             this.btnNewCustomer.Size = new System.Drawing.Size(208, 23);
             this.btnNewCustomer.TabIndex = 38;
@@ -192,29 +194,40 @@
             this.btnNewCustomer.UseVisualStyleBackColor = true;
             this.btnNewCustomer.Click += new System.EventHandler(this.btnNewCustomer_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Controls.Add(this.boxCustID);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.boxLastName);
+            this.groupBox1.Controls.Add(this.boxFirstName);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(24, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(249, 173);
+            this.groupBox1.TabIndex = 39;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search";
+            // 
             // CustomerSearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(995, 449);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnNewCustomer);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnImportCustomers);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnMainMenu);
-            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnCustDetails);
-            this.Controls.Add(this.boxCustID);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.boxLastName);
-            this.Controls.Add(this.boxFirstName);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "CustomerSearchForm";
             this.Text = "CustomerSearchForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -236,5 +249,6 @@
         private System.Windows.Forms.Button btnImportCustomers;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btnNewCustomer;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

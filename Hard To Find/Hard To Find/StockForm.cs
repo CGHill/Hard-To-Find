@@ -332,5 +332,11 @@ namespace Hard_To_Find
             StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
             sdf.Show();
         }
+
+        private void btnNewStock_Click(object sender, EventArgs e)
+        {
+            NewStockForm nsf = new NewStockForm();
+            nsf.Show();
+        }
     }
 }
