@@ -333,10 +333,24 @@ namespace Hard_To_Find
             sdf.Show();
         }
 
+        /*Precondition: 
+         Postcondition: Open form to create a new stock entry */
         private void btnNewStock_Click(object sender, EventArgs e)
         {
             NewStockForm nsf = new NewStockForm();
             nsf.Show();
+        }
+
+        /*Precondition: 
+         Postcondition: Allow stock to be selected on double click */
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int currRow = dataGridView1.CurrentCell.RowIndex;
+
+            Stock stockToDisplay = foundStock[currRow];
+
+            StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
+            sdf.Show();
         }
     }
 }

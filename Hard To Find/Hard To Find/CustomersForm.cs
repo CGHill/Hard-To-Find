@@ -11,7 +11,7 @@ namespace Hard_To_Find
 {
     public partial class CustomersForm : Form
     {
-        //Variables
+        //Globals
         private DatabaseManager dbManager;
         private Customer currCustomer;
 

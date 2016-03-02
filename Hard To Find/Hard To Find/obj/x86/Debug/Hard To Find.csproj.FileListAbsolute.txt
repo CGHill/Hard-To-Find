@@ -29,3 +29,6 @@ E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard 
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.StockDetailsForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csprojResolveAssemblyReference.cache
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.NewStockForm.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.NewOrderForm.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerSearch.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.StockSearch.resources

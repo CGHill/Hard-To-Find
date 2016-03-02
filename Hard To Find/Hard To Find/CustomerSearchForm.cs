@@ -30,12 +30,12 @@ namespace Hard_To_Find
             customers = new List<Customer>();
 
             //Set up column widths
-            DataGridViewColumn column1 = dataGridView1.Columns[0];
-            column1.Width = 160;
-            DataGridViewColumn column2 = dataGridView1.Columns[1];
-            column2.Width = 160;
-            DataGridViewColumn column3 = dataGridView1.Columns[2];
-            column3.Width = 270;
+            DataGridViewColumn colFirstName = dataGridView1.Columns[0];
+            colFirstName.Width = 160;
+            DataGridViewColumn colLastName = dataGridView1.Columns[1];
+            colLastName.Width = 160;
+            DataGridViewColumn colEmail = dataGridView1.Columns[2];
+            colEmail.Width = 270;
         }
 
         /*Precondition:
@@ -220,6 +220,18 @@ namespace Hard_To_Find
         {
             NewCustomerForm ncf = new NewCustomerForm();
             ncf.Show();
+        }
+
+        /*Precondition:
+         Postcondition: Open up form for customer details that was double clicked on*/
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int currRow = dataGridView1.CurrentCell.RowIndex;
+
+            Customer customerToDisplay = foundCustomers[currRow];
+
+            CustomersForm cf = new CustomersForm(customerToDisplay);
+            cf.Show();
         }
     }
 }

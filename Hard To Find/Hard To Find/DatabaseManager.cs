@@ -66,6 +66,17 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+        public void dropOrderedStockTable()
+        {
+            dbConnection.Open();
+
+            string deleteOrdersTable = "DROP TABLE IF EXISTS OrderedStock";
+            SQLiteCommand deleteOrdersCommand = new SQLiteCommand(deleteOrdersTable, dbConnection);
+            deleteOrdersCommand.ExecuteNonQuery();
+
+            dbConnection.Close();
+        }
+
         /*Precondition:
          Postcondition: Creates the Customers table*/
         public void createCustomerTable()
@@ -87,8 +98,8 @@ namespace Hard_To_Find
         {
             dbConnection.Open();
 
-            string createStockTable = "CREATE TABLE IF NOT EXISTS Stock(stockID INTEGER PRIMARY KEY AUTOINCREMENT, quantity INTEGER NOT NULL, note VARCHAR(200), author VARCHAR(150), title VARCHAR(200), subtitle VARCHAR(300)," +
-                "publisher VARCHAR(200), description VARCHAR(400), comments VARCHAR(500), location VARCHAR(2), price VARCHAR(10), subject VARCHAR(500), catalogue VARCHAR(200), weight VARCHAR(6), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
+            string createStockTable = "CREATE TABLE IF NOT EXISTS Stock(stockID INTEGER PRIMARY KEY AUTOINCREMENT, quantity INTEGER NOT NULL, note VARCHAR(200), author VARCHAR(200), title VARCHAR(200), subtitle VARCHAR(300)," +
+                "publisher VARCHAR(200), description VARCHAR(400), comments VARCHAR(500), location VARCHAR(2), price VARCHAR(12), subject VARCHAR(500), catalogue VARCHAR(200), weight VARCHAR(6), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
 
             SQLiteCommand createStockTableCommand = new SQLiteCommand(createStockTable, dbConnection);
             createStockTableCommand.ExecuteNonQuery();
@@ -108,6 +119,21 @@ namespace Hard_To_Find
 
             SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
             createOrdersTableCommand.ExecuteNonQuery();
+
+            dbConnection.Close();
+        }
+
+        /*Precondition:
+         Postcondition: Creates the which keeps track of stock for the orders*/
+        public void createOrderedStock()
+        {
+            dbConnection.Open();
+
+            string createOrderedStockTable = "CREATE TABLE IF NOT EXISTS OrderedStock(orderedStockID INTEGER PRIMARY KEY AUTOINCREMENT, orderID INTEGER, stockID INTEGER, quantity INTEGER, author VARCHAR(200)," +
+                " title VARCHAR(200), price VARCHAR(12), bookID VARCHAR(100), discount VARCHAR(12))";
+
+            SQLiteCommand createOrderedStockTableCommand = new SQLiteCommand(createOrderedStockTable, dbConnection);
+            createOrderedStockTableCommand.ExecuteNonQuery();
 
             dbConnection.Close();
         }
@@ -282,7 +308,7 @@ namespace Hard_To_Find
             {
                 string orderInsert = "";
 
-                //Build insert command. If stock has an ID insert it with that ID if not (new order) and insert with a new ID using autoincrement from SQLite
+                //Build insert command. If order has an ID insert it with that ID if not (new order) and insert with a new ID using autoincrement from SQLite
                 if (o.stockID == -1)
                 {
                     orderInsert = "INSERT INTO Orders VALUES(null, '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" + o.catItem + 
@@ -308,6 +334,91 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
+        /*Precondition: 
+         Postcondition: Loops through list of stock passed in, and inserts them into SQLite DB*/
+        public void insertOrder(Order newOrder)
+        {
+            //Open DB
+            dbConnection.Open();
+
+            
+            string orderInsert = "";
+
+            //Build insert command
+            orderInsert = "INSERT INTO Orders VALUES(null, '" + newOrder.customerFirstName + "', '" + newOrder.customerLastName + "', '" + newOrder.institution + "', '" + newOrder.postcode + "', '" + 
+                newOrder.orderReference + "', '" + newOrder.catItem + "', '" + newOrder.author + "', '" + newOrder.title + "', '" + newOrder.quantity.ToString() + "', '" + newOrder.price + 
+                "', '" + newOrder.progress + "', '" + newOrder.discPrice + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate + "', '" + newOrder.comments + "', '" + newOrder.stockID + "', '" + 
+                newOrder.customerID + "')";
+                
+            SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
+            insertCommand.ExecuteNonQuery();
+            
+            dbConnection.Close();
+        }
+
+        /*Precondition:
+         Postcondition: Loops through all of the OrderedStock and inserts them into SQLite DB, updates user with progress*/
+        public void insertOrderedStock(List<OrderedStock> allOrderedStock, ProgressBar progBar)
+        {
+            //Open DB and start transcation - transaction hugely increases speed of insert
+            dbConnection.Open();
+            SQLiteTransaction transaction = dbConnection.BeginTransaction();
+
+            //Loop through all orderedStock
+            foreach (OrderedStock o in allOrderedStock)
+            {
+                string orderedStockInsert = "";
+
+                //Build insert command. If OrderedStock has an ID insert it with that ID if not (new orderedSock) and insert with a new ID using autoincrement from SQLite
+                if (o.orderedStockID == -1)
+                {
+                    orderedStockInsert = "INSERT INTO orderedStock VALUES(null, " + o.orderID + ", " + o.stockID + ", " + o.quantity + ", '" + o.author + "', '" + o.title + "', '" +
+                        o.price + "', '" + o.bookID + "', '" + o.discount + "')";
+                }
+                else
+                {
+                    orderedStockInsert = "INSERT INTO orderedStock VALUES(" + o.orderedStockID + ", " + o.orderID + ", " + o.stockID + ", " + o.quantity + ", '" + o.author + "', '" + o.title + "', '" +
+                        o.price + "', '" + o.bookID + "', '" + o.discount + "')";
+                }
+
+                SQLiteCommand insertCommand = new SQLiteCommand(orderedStockInsert, dbConnection);
+                insertCommand.ExecuteNonQuery();
+
+                //Update UI for user to see progress
+                progBar.Increment(1);
+            }
+
+            //Commit transaction and close connection
+            transaction.Commit();
+            dbConnection.Close();
+        }
+
+
+        /*Precondition:
+         Postcondition: Loops through OrderedStock and inserts them into SQLite DB, doesn't update progress*/
+        public void insertOrderedStock(List<OrderedStock> newOrderedStock)
+        {
+            //Open DB and start transcation - transaction hugely increases speed of insert
+            dbConnection.Open();
+            SQLiteTransaction transaction = dbConnection.BeginTransaction();
+
+            //Loop through all stock
+            foreach (OrderedStock o in newOrderedStock)
+            {
+                string orderedStockInsert = "";
+
+                //Build insert command
+                orderedStockInsert = "INSERT INTO orderedStock VALUES(null, " + o.orderID + ", " + o.stockID + ", " + o.quantity + ", '" + o.author + "', '" + o.title + "', '" +
+                    o.price + "', '" + o.bookID + "', '" + o.discount + "')";
+                
+                SQLiteCommand insertCommand = new SQLiteCommand(orderedStockInsert, dbConnection);
+                insertCommand.ExecuteNonQuery();
+            }
+
+            //Commit transaction and close connection
+            transaction.Commit();
+            dbConnection.Close();
+        }
 
         /***************** Searching ***************************/
 
@@ -421,7 +532,26 @@ namespace Hard_To_Find
             //Author included so add that to query
             if (author != null)
             {
-                searchQuery += " author LIKE '%" + author + "%'";
+                if (author.Contains(','))
+                {
+                    string[] splitAuthor = author.Split(',');
+
+                    if (splitAuthor[1][0] == ' ')
+                        splitAuthor[1] = splitAuthor[1].Remove(0, 1);
+
+                    searchQuery += " author LIKE '%" + splitAuthor[0] + "%' AND author LIKE '%" + splitAuthor[1] + "%'";
+                }
+                else if (author.Contains(' '))
+                {
+                    string[] splitAuthor = author.Split(' ');
+
+                    searchQuery += " author LIKE '%" + splitAuthor[0] + "%' AND author LIKE '%" + splitAuthor[1] + "%'";
+                }
+                else
+                {
+                    searchQuery += " author LIKE '%" + author + "%'";
+                }
+
                 addAnds = true;
             }
 
@@ -464,5 +594,84 @@ namespace Hard_To_Find
             return foundStock;
         }
 
+        /*Precondition:
+         Postcondition: Returns an Order that matches the orderID passed in*/
+        public Order searchOrders(int orderID)
+        {
+            Order foundOrder = null;
+
+            dbConnection.Open();
+
+            //Execute SQL query
+            string sql = "SELECT * FROM Orders WHERE orderID = " + orderID;
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                foundOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), Convert.ToInt32(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), Convert.ToInt32(reader[13]), 
+                    reader[14].ToString(), reader[15].ToString(), Convert.ToInt32(reader[16]), Convert.ToInt32(reader[17]));
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundOrder;
+        }
+
+        /*Precondition:
+         Postcondition: Returns a list of OrderedStock that contains the OrderID passed in*/
+        public List<OrderedStock> searchOrderedStock(int orderID)
+        {
+            List<OrderedStock> foundOrderedStock = new List<OrderedStock>();
+
+            dbConnection.Open();
+
+            //Execute SQL query
+            string sql = "SELECT * FROM OrderedStock WHERE orderID = " + orderID;
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                OrderedStock newOrderedStock = new OrderedStock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), Convert.ToInt32(reader[2]), Convert.ToInt32(reader[3]), reader[4].ToString(), 
+                    reader[5].ToString(), reader[6].ToString(), reader[7].ToString(), reader[8].ToString());
+                foundOrderedStock.Add(newOrderedStock);
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundOrderedStock;
+        }
+
+
+        /*Precondition:
+         Postcondition: Returns the ID of the next Order to be stored*/
+        public int getNextOrderID()
+        {
+            dbConnection.Open();
+            int nextIDValue = 0;
+
+            //Execute SQL query
+            string sql = "SELECT MAX(orderID) FROM Orders";
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                nextIDValue = Convert.ToInt32(reader[0]);
+            }
+
+            nextIDValue++;
+            dbConnection.Close();
+
+            //Return results
+            return nextIDValue;
+        }
     }
 }

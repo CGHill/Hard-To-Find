@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Customer.cs" />
+    <Compile Include="CustomerSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerSearch.Designer.cs">
+      <DependentUpon>CustomerSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomerSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,12 @@
     <Compile Include="NewCustomerForm.Designer.cs">
       <DependentUpon>NewCustomerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewOrderForm.Designer.cs">
+      <DependentUpon>NewOrderForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewStockForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +94,7 @@
       <DependentUpon>NewStockForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Order.cs" />
+    <Compile Include="OrderedStock.cs" />
     <Compile Include="OrdersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +122,15 @@
     <Compile Include="StockForm.Designer.cs">
       <DependentUpon>StockForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StockSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockSearch.Designer.cs">
+      <DependentUpon>StockSearch.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CustomerSearch.resx">
+      <DependentUpon>CustomerSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomerSearchForm.resx">
       <DependentUpon>CustomerSearchForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewCustomerForm.resx">
       <DependentUpon>NewCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewOrderForm.resx">
+      <DependentUpon>NewOrderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewStockForm.resx">
       <DependentUpon>NewStockForm.cs</DependentUpon>
@@ -144,6 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StockForm.resx">
       <DependentUpon>StockForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockSearch.resx">
+      <DependentUpon>StockSearch.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

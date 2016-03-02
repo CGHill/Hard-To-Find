@@ -11,6 +11,7 @@ namespace Hard_To_Find
 {
     public partial class NewCustomerForm : Form
     {
+        //Globals
         private DatabaseManager dbManager;
 
         public NewCustomerForm()
