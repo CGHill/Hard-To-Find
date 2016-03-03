@@ -209,7 +209,9 @@ namespace Hard_To_Find
                 file.Close();
 
                 //Insert customers from list into DB
+                progressBar1.Visible = true;
                 dbManager.insertCustomers(customers, progressBar1);
+                progressBar1.Visible = false;
                 MessageBox.Show("Finished import");
             }
         }

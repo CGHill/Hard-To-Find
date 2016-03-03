@@ -101,9 +101,9 @@
             // btnCustDetails
             // 
             this.btnCustDetails.Enabled = false;
-            this.btnCustDetails.Location = new System.Drawing.Point(510, 379);
+            this.btnCustDetails.Location = new System.Drawing.Point(265, 343);
             this.btnCustDetails.Name = "btnCustDetails";
-            this.btnCustDetails.Size = new System.Drawing.Size(208, 23);
+            this.btnCustDetails.Size = new System.Drawing.Size(208, 38);
             this.btnCustDetails.TabIndex = 19;
             this.btnCustDetails.Text = "Customer Details";
             this.btnCustDetails.UseVisualStyleBackColor = true;
@@ -111,9 +111,9 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(14, 118);
+            this.btnSearch.Location = new System.Drawing.Point(77, 118);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(208, 23);
+            this.btnSearch.Size = new System.Drawing.Size(145, 23);
             this.btnSearch.TabIndex = 20;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -121,9 +121,9 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(38, 364);
+            this.btnMainMenu.Location = new System.Drawing.Point(728, 343);
             this.btnMainMenu.Name = "btnMainMenu";
-            this.btnMainMenu.Size = new System.Drawing.Size(208, 38);
+            this.btnMainMenu.Size = new System.Drawing.Size(149, 38);
             this.btnMainMenu.TabIndex = 21;
             this.btnMainMenu.Text = "Main Menu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
@@ -138,7 +138,7 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.dataGridView1.Location = new System.Drawing.Point(321, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(265, 12);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -169,9 +169,9 @@
             // 
             // btnImportCustomers
             // 
-            this.btnImportCustomers.Location = new System.Drawing.Point(38, 272);
+            this.btnImportCustomers.Location = new System.Drawing.Point(101, 290);
             this.btnImportCustomers.Name = "btnImportCustomers";
-            this.btnImportCustomers.Size = new System.Drawing.Size(208, 23);
+            this.btnImportCustomers.Size = new System.Drawing.Size(145, 38);
             this.btnImportCustomers.TabIndex = 23;
             this.btnImportCustomers.Text = "Import Customers";
             this.btnImportCustomers.UseVisualStyleBackColor = true;
@@ -179,17 +179,18 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 422);
+            this.progressBar1.Location = new System.Drawing.Point(-2, 386);
             this.progressBar1.Maximum = 24796;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(959, 15);
+            this.progressBar1.Size = new System.Drawing.Size(894, 11);
             this.progressBar1.TabIndex = 37;
+            this.progressBar1.Visible = false;
             // 
             // btnNewCustomer
             // 
-            this.btnNewCustomer.Location = new System.Drawing.Point(38, 210);
+            this.btnNewCustomer.Location = new System.Drawing.Point(101, 210);
             this.btnNewCustomer.Name = "btnNewCustomer";
-            this.btnNewCustomer.Size = new System.Drawing.Size(208, 23);
+            this.btnNewCustomer.Size = new System.Drawing.Size(145, 23);
             this.btnNewCustomer.TabIndex = 38;
             this.btnNewCustomer.Text = "New Customer";
             this.btnNewCustomer.UseVisualStyleBackColor = true;
@@ -206,7 +207,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(24, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(249, 173);
+            this.groupBox1.Size = new System.Drawing.Size(233, 173);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
@@ -215,7 +216,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(995, 449);
+            this.ClientSize = new System.Drawing.Size(889, 396);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnNewCustomer);
             this.Controls.Add(this.progressBar1);

@@ -226,8 +226,10 @@ namespace Hard_To_Find
             //Close text file
             file.Close();
 
+            progressBar1.Visible = true;
             //Insert all of the new orders into the database
             dbManager.insertOrders(allOrders, progressBar1);
+            progressBar1.Visible = false;
 
             //Inform user that the process has been finished
             MessageBox.Show("Finished import");
@@ -459,7 +461,9 @@ namespace Hard_To_Find
             //Insert all of the new orders into the database
             progressBar1.Value = 0;
             progressBar1.Maximum = 42386;
+            progressBar1.Visible = true;
             dbManager.insertOrderedStock(allOrderedStock, progressBar1);
+            progressBar1.Visible = false;
 
             //Inform user that the process has been finished
             MessageBox.Show("Finished import");
@@ -498,51 +502,55 @@ namespace Hard_To_Find
             //Clear all the text boxes out for a new search
             clearForNewSearch();
 
-            int orderID = Convert.ToInt32(boxOrderID.Text);
-
-            //Run search
-            Order foundOrder = dbManager.searchOrders(orderID);
-
-            //Check order wasn't null
-            if (foundOrder != null)
+            if (boxOrderID.Text != "")
             {
-                //Get the stock that was ordered for this order
-                List<OrderedStock> orderedStock = dbManager.searchOrderedStock(orderID);
+                int orderID = Convert.ToInt32(boxOrderID.Text);
 
-                //Autofill into text boxes the found order
-                labOrderID.Text = foundOrder.orderID.ToString();
-                boxOrderRef.Text = foundOrder.orderReference;
-                boxProgress.Text = foundOrder.progress;
-                boxInvoiceDate.Text = foundOrder.invoiceDate;
-                //Discprice is freight?
-                boxFreight.Text = foundOrder.discPrice;
-                boxComments.Text = foundOrder.comments;
+                //Run search
+                Order foundOrder = dbManager.searchOrders(orderID);
 
-                //Search for customer attatched to the order
-                Customer foundCustomer = dbManager.searchCustomers(foundOrder.customerID);
-
-                //Use customers data if the customer was found
-                if (foundCustomer != null)
+                //Check order wasn't null
+                if (foundOrder != null)
                 {
-                    boxCustName.Text = foundCustomer.firstName + " " + foundCustomer.lastName;
-                    boxInstitution.Text = foundCustomer.institution;
-                    boxPostcode.Text = foundCustomer.postCode;
-                    boxAdd1.Text = foundCustomer.address1;
-                    boxAdd2.Text = foundCustomer.address2;
-                    boxAdd3.Text = foundCustomer.address3;
-                    boxCountry.Text = foundCustomer.country;
-                }
-                else
-                {
-                    //Use the default data that was stored in the order
-                    boxCustName.Text = foundOrder.customerFirstName + " " + foundOrder.customerLastName;
-                }
+                    //Get the stock that was ordered for this order
+                    List<OrderedStock> orderedStock = dbManager.searchOrderedStock(orderID);
+
+                    //Autofill into text boxes the found order
+                    labOrderID.Text = foundOrder.orderID.ToString();
+                    boxOrderRef.Text = foundOrder.orderReference;
+                    boxProgress.Text = foundOrder.progress;
+                    boxInvoiceDate.Text = foundOrder.invoiceDate;
+                    //Discprice is freight?
+                    boxFreight.Text = foundOrder.discPrice;
+                    boxComments.Text = foundOrder.comments;
+
+                    //Search for customer attatched to the order
+                    Customer foundCustomer = dbManager.searchCustomers(foundOrder.customerID);
+
+                    //Use customers data if the customer was found
+                    if (foundCustomer != null)
+                    {
+                        labCustID.Text = foundCustomer.custID.ToString();
+                        boxCustName.Text = foundCustomer.firstName + " " + foundCustomer.lastName;
+                        boxInstitution.Text = foundCustomer.institution;
+                        boxPostcode.Text = foundCustomer.postCode;
+                        boxAdd1.Text = foundCustomer.address1;
+                        boxAdd2.Text = foundCustomer.address2;
+                        boxAdd3.Text = foundCustomer.address3;
+                        boxCountry.Text = foundCustomer.country;
+                    }
+                    else
+                    {
+                        //Use the default data that was stored in the order
+                        boxCustName.Text = foundOrder.customerFirstName + " " + foundOrder.customerLastName;
+                    }
 
 
-                //Loop over and display all of the ordered stock for the order
-                foreach (OrderedStock o in orderedStock)
-                {
-                    dataGridView1.Rows.Add(o.quantity, o.author, o.title, o.price, o.bookID, o.discount);
+                    //Loop over and display all of the ordered stock for the order
+                    foreach (OrderedStock o in orderedStock)
+                    {
+                        dataGridView1.Rows.Add(o.quantity, o.author, o.title, o.price, o.bookID, o.discount);
+                    }
                 }
             }
         }
@@ -575,6 +583,22 @@ namespace Hard_To_Find
         {
             NewOrderForm nof = new NewOrderForm();
             nof.Show();
+        }
+
+        /*Precondition:
+         Postcondition: Only allows numbers to be entered into ID textbox*/
+        private void boxOrderID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

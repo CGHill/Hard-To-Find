@@ -135,7 +135,7 @@
             // 
             // btnAddBook
             // 
-            this.btnAddBook.Location = new System.Drawing.Point(15, 318);
+            this.btnAddBook.Location = new System.Drawing.Point(12, 318);
             this.btnAddBook.Name = "btnAddBook";
             this.btnAddBook.Size = new System.Drawing.Size(108, 34);
             this.btnAddBook.TabIndex = 2;
@@ -447,7 +447,7 @@
             // 
             // boxInvoiceNo
             // 
-            this.boxInvoiceNo.Location = new System.Drawing.Point(63, 37);
+            this.boxInvoiceNo.Location = new System.Drawing.Point(65, 41);
             this.boxInvoiceNo.Name = "boxInvoiceNo";
             this.boxInvoiceNo.ReadOnly = true;
             this.boxInvoiceNo.Size = new System.Drawing.Size(97, 20);
@@ -456,7 +456,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 40);
+            this.label14.Location = new System.Drawing.Point(14, 44);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(45, 13);
             this.label14.TabIndex = 53;
@@ -466,7 +466,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(841, 590);
+            this.ClientSize = new System.Drawing.Size(813, 576);
             this.Controls.Add(this.boxInvoiceNo);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.btnSaveOrder);

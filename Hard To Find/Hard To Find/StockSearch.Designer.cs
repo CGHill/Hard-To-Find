@@ -145,7 +145,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(92, 357);
+            this.btnCancel.Location = new System.Drawing.Point(1013, 395);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(145, 23);
             this.btnCancel.TabIndex = 25;
@@ -171,7 +171,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(936, 362);
+            this.dataGridView1.Size = new System.Drawing.Size(907, 362);
             this.dataGridView1.TabIndex = 30;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
@@ -213,7 +213,7 @@
             // 
             // btnSelectStock
             // 
-            this.btnSelectStock.Location = new System.Drawing.Point(588, 409);
+            this.btnSelectStock.Location = new System.Drawing.Point(251, 396);
             this.btnSelectStock.Name = "btnSelectStock";
             this.btnSelectStock.Size = new System.Drawing.Size(156, 23);
             this.btnSelectStock.TabIndex = 25;
@@ -225,7 +225,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1207, 455);
+            this.ClientSize = new System.Drawing.Size(1175, 430);
             this.Controls.Add(this.btnSelectStock);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnCancel);

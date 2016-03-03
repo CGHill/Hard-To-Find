@@ -62,7 +62,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(360, 298);
+            this.btnCancel.Location = new System.Drawing.Point(396, 280);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
             this.btnCancel.TabIndex = 68;
@@ -279,7 +279,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(100, 298);
+            this.btnSave.Location = new System.Drawing.Point(100, 280);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 41;
@@ -309,7 +309,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 382);
+            this.ClientSize = new System.Drawing.Size(600, 335);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.boxPayment);
             this.Controls.Add(this.label13);

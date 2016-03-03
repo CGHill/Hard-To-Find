@@ -115,7 +115,7 @@ namespace Hard_To_Find
 
             string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, customerFirstName VARCHAR(100), customerLastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(10)," +
                 " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(10), progress VARCHAR(100), discPrice VARCHAR(10)," +
-                " invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), stockID INTEGER, CustomerID INTEGER)";
+                " invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), stockID INTEGER, customerID INTEGER)";
 
             SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
             createOrdersTableCommand.ExecuteNonQuery();
@@ -648,6 +648,32 @@ namespace Hard_To_Find
             return foundOrderedStock;
         }
 
+        public List<Order> searchCustomersOrders(int custID)
+        {
+            List<Order> foundOrders = new List<Order>();
+
+            dbConnection.Open();
+
+            //Execute SQL query
+            string sql = "SELECT * FROM Orders WHERE customerID = " + custID;
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                Order foundOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), Convert.ToInt32(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), Convert.ToInt32(reader[13]),
+                    reader[14].ToString(), reader[15].ToString(), Convert.ToInt32(reader[16]), Convert.ToInt32(reader[17]));
+
+                foundOrders.Add(foundOrder);
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundOrders;
+        }
 
         /*Precondition:
          Postcondition: Returns the ID of the next Order to be stored*/

@@ -34,7 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.boxOrderID = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
             this.btnImportOrderedStock = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -84,9 +83,9 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(90, 522);
+            this.btnMainMenu.Location = new System.Drawing.Point(849, 581);
             this.btnMainMenu.Name = "btnMainMenu";
-            this.btnMainMenu.Size = new System.Drawing.Size(118, 39);
+            this.btnMainMenu.Size = new System.Drawing.Size(127, 39);
             this.btnMainMenu.TabIndex = 1;
             this.btnMainMenu.Text = "Main Menu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
@@ -94,7 +93,7 @@
             // 
             // btnImportOrders
             // 
-            this.btnImportOrders.Location = new System.Drawing.Point(90, 346);
+            this.btnImportOrders.Location = new System.Drawing.Point(65, 509);
             this.btnImportOrders.Name = "btnImportOrders";
             this.btnImportOrders.Size = new System.Drawing.Size(118, 33);
             this.btnImportOrders.TabIndex = 3;
@@ -104,16 +103,17 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 600);
+            this.progressBar1.Location = new System.Drawing.Point(-1, 626);
             this.progressBar1.Maximum = 39193;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1038, 17);
+            this.progressBar1.Size = new System.Drawing.Size(985, 10);
             this.progressBar1.TabIndex = 4;
+            this.progressBar1.Visible = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 75);
+            this.label1.Location = new System.Drawing.Point(9, 75);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 6;
@@ -121,14 +121,15 @@
             // 
             // boxOrderID
             // 
-            this.boxOrderID.Location = new System.Drawing.Point(90, 72);
+            this.boxOrderID.Location = new System.Drawing.Point(65, 72);
             this.boxOrderID.Name = "boxOrderID";
             this.boxOrderID.Size = new System.Drawing.Size(118, 20);
             this.boxOrderID.TabIndex = 7;
+            this.boxOrderID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxOrderID_KeyPress);
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(90, 111);
+            this.btnSearch.Location = new System.Drawing.Point(65, 111);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(118, 33);
             this.btnSearch.TabIndex = 17;
@@ -136,18 +137,9 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(90, 454);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(118, 33);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Order Details";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // btnNewOrder
             // 
-            this.btnNewOrder.Location = new System.Drawing.Point(90, 230);
+            this.btnNewOrder.Location = new System.Drawing.Point(65, 213);
             this.btnNewOrder.Name = "btnNewOrder";
             this.btnNewOrder.Size = new System.Drawing.Size(118, 33);
             this.btnNewOrder.TabIndex = 19;
@@ -157,7 +149,7 @@
             // 
             // btnImportOrderedStock
             // 
-            this.btnImportOrderedStock.Location = new System.Drawing.Point(90, 385);
+            this.btnImportOrderedStock.Location = new System.Drawing.Point(65, 548);
             this.btnImportOrderedStock.Name = "btnImportOrderedStock";
             this.btnImportOrderedStock.Size = new System.Drawing.Size(118, 33);
             this.btnImportOrderedStock.TabIndex = 20;
@@ -171,7 +163,7 @@
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(263, 12);
+            this.groupBox1.Location = new System.Drawing.Point(189, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(787, 569);
             this.groupBox1.TabIndex = 21;
@@ -522,7 +514,7 @@
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "Discount:";
+            this.Column6.HeaderText = "Discount";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             // 
@@ -530,11 +522,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1063, 629);
+            this.ClientSize = new System.Drawing.Size(982, 636);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnImportOrderedStock);
             this.Controls.Add(this.btnNewOrder);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.boxOrderID);
             this.Controls.Add(this.label1);
@@ -563,7 +554,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox boxOrderID;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnNewOrder;
         private System.Windows.Forms.Button btnImportOrderedStock;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -597,13 +587,13 @@
         private System.Windows.Forms.TextBox boxProgress;
         private System.Windows.Forms.TextBox boxOrderRef;
         private System.Windows.Forms.TextBox boxCountry;
+        private System.Windows.Forms.TextBox boxInvoiceDate;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.TextBox boxInvoiceDate;
-        private System.Windows.Forms.Label label4;
     }
 }

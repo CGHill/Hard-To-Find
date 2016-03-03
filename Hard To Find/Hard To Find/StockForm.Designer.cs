@@ -56,7 +56,7 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(99, 496);
+            this.btnMainMenu.Location = new System.Drawing.Point(1025, 527);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(140, 40);
             this.btnMainMenu.TabIndex = 1;
@@ -66,9 +66,9 @@
             // 
             // btnImportStock
             // 
-            this.btnImportStock.Location = new System.Drawing.Point(94, 403);
+            this.btnImportStock.Location = new System.Drawing.Point(94, 481);
             this.btnImportStock.Name = "btnImportStock";
-            this.btnImportStock.Size = new System.Drawing.Size(145, 23);
+            this.btnImportStock.Size = new System.Drawing.Size(145, 40);
             this.btnImportStock.TabIndex = 2;
             this.btnImportStock.Text = "Import Stock";
             this.btnImportStock.UseVisualStyleBackColor = true;
@@ -76,11 +76,12 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 600);
+            this.progressBar1.Location = new System.Drawing.Point(-2, 573);
             this.progressBar1.Maximum = 161768;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1203, 15);
+            this.progressBar1.Size = new System.Drawing.Size(1183, 10);
             this.progressBar1.TabIndex = 4;
+            this.progressBar1.Visible = false;
             // 
             // boxStockID
             // 
@@ -175,7 +176,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(957, 509);
+            this.dataGridView1.Size = new System.Drawing.Size(907, 509);
             this.dataGridView1.TabIndex = 25;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -229,9 +230,9 @@
             // btnStockDetails
             // 
             this.btnStockDetails.Enabled = false;
-            this.btnStockDetails.Location = new System.Drawing.Point(526, 538);
+            this.btnStockDetails.Location = new System.Drawing.Point(258, 527);
             this.btnStockDetails.Name = "btnStockDetails";
-            this.btnStockDetails.Size = new System.Drawing.Size(309, 23);
+            this.btnStockDetails.Size = new System.Drawing.Size(186, 40);
             this.btnStockDetails.TabIndex = 27;
             this.btnStockDetails.Text = "Stock Details";
             this.btnStockDetails.UseVisualStyleBackColor = true;
@@ -259,7 +260,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1227, 627);
+            this.ClientSize = new System.Drawing.Size(1177, 583);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnStockDetails);
             this.Controls.Add(this.btnNewStock);

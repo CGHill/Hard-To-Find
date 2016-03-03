@@ -64,9 +64,9 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(14, 118);
+            this.btnSearch.Location = new System.Drawing.Point(77, 118);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(208, 23);
+            this.btnSearch.Size = new System.Drawing.Size(145, 23);
             this.btnSearch.TabIndex = 20;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -159,9 +159,9 @@
             // 
             // btnSelectCustomer
             // 
-            this.btnSelectCustomer.Location = new System.Drawing.Point(473, 365);
+            this.btnSelectCustomer.Location = new System.Drawing.Point(280, 356);
             this.btnSelectCustomer.Name = "btnSelectCustomer";
-            this.btnSelectCustomer.Size = new System.Drawing.Size(214, 23);
+            this.btnSelectCustomer.Size = new System.Drawing.Size(166, 23);
             this.btnSelectCustomer.TabIndex = 21;
             this.btnSelectCustomer.Text = "Select Customer";
             this.btnSelectCustomer.UseVisualStyleBackColor = true;
@@ -169,9 +169,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(25, 327);
+            this.btnCancel.Location = new System.Drawing.Point(734, 356);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(208, 23);
+            this.btnCancel.Size = new System.Drawing.Size(158, 23);
             this.btnCancel.TabIndex = 21;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -181,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(925, 411);
+            this.ClientSize = new System.Drawing.Size(911, 393);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSelectCustomer);
             this.Controls.Add(this.dataGridView1);

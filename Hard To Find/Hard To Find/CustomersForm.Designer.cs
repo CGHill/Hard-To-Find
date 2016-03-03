@@ -59,6 +59,7 @@
             this.boxSales = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnCustomersOrders = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -81,7 +82,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(539, 56);
+            this.btnUpdate.Location = new System.Drawing.Point(518, 56);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
             this.btnUpdate.TabIndex = 7;
@@ -92,7 +93,7 @@
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(539, 96);
+            this.btnSave.Location = new System.Drawing.Point(518, 96);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 8;
@@ -224,7 +225,7 @@
             this.boxComments.Multiline = true;
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
-            this.boxComments.Size = new System.Drawing.Size(145, 71);
+            this.boxComments.Size = new System.Drawing.Size(145, 75);
             this.boxComments.TabIndex = 30;
             // 
             // label9
@@ -247,7 +248,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(293, 111);
+            this.label10.Location = new System.Drawing.Point(317, 111);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(35, 13);
             this.label10.TabIndex = 27;
@@ -272,7 +273,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(293, 85);
+            this.label11.Location = new System.Drawing.Point(325, 85);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(27, 13);
             this.label11.TabIndex = 24;
@@ -281,7 +282,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(293, 59);
+            this.label12.Location = new System.Drawing.Point(311, 59);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(41, 13);
             this.label12.TabIndex = 23;
@@ -289,7 +290,7 @@
             // 
             // boxPayment
             // 
-            this.boxPayment.Location = new System.Drawing.Point(359, 237);
+            this.boxPayment.Location = new System.Drawing.Point(359, 241);
             this.boxPayment.Name = "boxPayment";
             this.boxPayment.ReadOnly = true;
             this.boxPayment.Size = new System.Drawing.Size(145, 20);
@@ -298,7 +299,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(293, 240);
+            this.label13.Location = new System.Drawing.Point(302, 244);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(51, 13);
             this.label13.TabIndex = 33;
@@ -306,7 +307,7 @@
             // 
             // boxSales
             // 
-            this.boxSales.Location = new System.Drawing.Point(359, 211);
+            this.boxSales.Location = new System.Drawing.Point(359, 215);
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
             this.boxSales.Size = new System.Drawing.Size(145, 20);
@@ -315,7 +316,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(293, 214);
+            this.label14.Location = new System.Drawing.Point(316, 218);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(36, 13);
             this.label14.TabIndex = 31;
@@ -323,19 +324,30 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(539, 223);
+            this.btnCancel.Location = new System.Drawing.Point(395, 285);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
             this.btnCancel.TabIndex = 37;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Close";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnCustomersOrders
+            // 
+            this.btnCustomersOrders.Location = new System.Drawing.Point(99, 285);
+            this.btnCustomersOrders.Name = "btnCustomersOrders";
+            this.btnCustomersOrders.Size = new System.Drawing.Size(145, 34);
+            this.btnCustomersOrders.TabIndex = 38;
+            this.btnCustomersOrders.Text = "View Customers Orders";
+            this.btnCustomersOrders.UseVisualStyleBackColor = true;
+            this.btnCustomersOrders.Click += new System.EventHandler(this.btnCustomersOrders_Click);
             // 
             // CustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 315);
+            this.ClientSize = new System.Drawing.Size(639, 346);
+            this.Controls.Add(this.btnCustomersOrders);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.boxPayment);
             this.Controls.Add(this.label13);
@@ -407,5 +419,6 @@
         private System.Windows.Forms.TextBox boxSales;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnCustomersOrders;
     }
 }

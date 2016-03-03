@@ -113,5 +113,11 @@ namespace Hard_To_Find
         {
             this.Close();
         }
+
+        private void btnCustomersOrders_Click(object sender, EventArgs e)
+        {
+            CustomerOrdersForm cof = new CustomerOrdersForm(currCustomer);
+            cof.Show();
+        }
     }
 }

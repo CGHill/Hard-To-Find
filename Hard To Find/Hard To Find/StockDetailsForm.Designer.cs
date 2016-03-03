@@ -69,7 +69,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(527, 206);
+            this.btnClose.Location = new System.Drawing.Point(382, 377);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(109, 34);
             this.btnClose.TabIndex = 68;
@@ -113,7 +113,7 @@
             // 
             // boxCatalogues
             // 
-            this.boxCatalogues.Location = new System.Drawing.Point(346, 223);
+            this.boxCatalogues.Location = new System.Drawing.Point(346, 226);
             this.boxCatalogues.Name = "boxCatalogues";
             this.boxCatalogues.ReadOnly = true;
             this.boxCatalogues.Size = new System.Drawing.Size(145, 20);
@@ -122,7 +122,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(277, 226);
+            this.label9.Location = new System.Drawing.Point(277, 229);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 62;
@@ -203,7 +203,7 @@
             this.boxDescription.Multiline = true;
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.ReadOnly = true;
-            this.boxDescription.Size = new System.Drawing.Size(145, 87);
+            this.boxDescription.Size = new System.Drawing.Size(145, 72);
             this.boxDescription.TabIndex = 53;
             // 
             // label7
@@ -303,7 +303,7 @@
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(527, 79);
+            this.btnSave.Location = new System.Drawing.Point(202, 377);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 41;
@@ -313,7 +313,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(527, 39);
+            this.btnUpdate.Location = new System.Drawing.Point(87, 377);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
             this.btnUpdate.TabIndex = 40;
@@ -394,7 +394,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(693, 396);
+            this.ClientSize = new System.Drawing.Size(547, 432);
             this.Controls.Add(this.boxStockID);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.boxDateEntered);

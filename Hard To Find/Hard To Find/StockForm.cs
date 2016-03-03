@@ -243,8 +243,10 @@ namespace Hard_To_Find
             //Close text file
             file.Close();
 
+            progressBar1.Visible = true;
             //Insert all of the new stock into the database
             dbManager.insertStock(allStock, progressBar1);
+            progressBar1.Visible = false;
 
             //Inform user that the process has been finished
             MessageBox.Show("Finished import");
