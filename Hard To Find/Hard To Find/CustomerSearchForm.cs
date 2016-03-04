@@ -50,44 +50,7 @@ namespace Hard_To_Find
          Postcondition: Starts a search for customers depending on what search boxes have been filled in*/
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //Reset datagrid and foundcustomers so searches don't stack
-            foundCustomers = new List<Customer>();
-            dataGridView1.Rows.Clear();
-
-            //Check if an ID has been entered and search on that if it has
-            if (boxCustID.Text != "")
-            {
-                int custID = Convert.ToInt32(boxCustID.Text);
-
-                //Put found customer into list
-                foundCustomers.Add(dbManager.searchCustomers(custID));
-
-                //Display found customer
-                foreach (Customer c in foundCustomers)
-                {
-                    dataGridView1.Rows.Add(c.firstName, c.lastName, c.email);
-                }
-            }
-            else if(boxFirstName.Text != "" || boxLastName.Text != "")//Else if ID hasn't been entered check for first and last name
-            {
-                string firstName = null;
-                string lastName = null;
-
-                //Get names if they have been entered
-                if (boxFirstName.Text != "")
-                    firstName = boxFirstName.Text;
-                if (boxLastName.Text != "")
-                    lastName = boxLastName.Text;
-
-                //Search for customers with names entered
-                foundCustomers = dbManager.searchCustomers(firstName, lastName);
-
-                //Display found customers
-                foreach (Customer c in foundCustomers)
-                {
-                    dataGridView1.Rows.Add(c.firstName, c.lastName, c.email);
-                }
-            }
+            startSearch();
         }
 
         /*Precondition:
@@ -102,6 +65,13 @@ namespace Hard_To_Find
             // only allow one decimal point
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
                 e.Handled = true;
             }
         }
@@ -182,7 +152,7 @@ namespace Hard_To_Find
                     }
 
                     //Split on comma to get all values of customer
-                    string[] splitCustomer = removedDashes.Split(',');
+                    string[] splitCustomer = removedDashes.Split('|');
 
                     int custID = Convert.ToInt32(splitCustomer[0]);
                     string custFirstName = splitCustomer[1];
@@ -228,12 +198,88 @@ namespace Hard_To_Find
          Postcondition: Open up form for customer details that was double clicked on*/
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int currRow = dataGridView1.CurrentCell.RowIndex;
+            try
+            {
+                int currRow = dataGridView1.CurrentCell.RowIndex;
 
-            Customer customerToDisplay = foundCustomers[currRow];
+                Customer customerToDisplay = foundCustomers[currRow];
 
-            CustomersForm cf = new CustomersForm(customerToDisplay);
-            cf.Show();
+                CustomersForm cf = new CustomersForm(customerToDisplay);
+                cf.Show();
+            }
+            catch (NullReferenceException)
+            {
+                //Do nothing, user double clicked on header of datagrid
+            }
         }
+
+        /*Precondition:
+         Postcondition: Starts a search for customers depending on what search boxes have been filled in*/
+        private void startSearch()
+        {
+            //Reset datagrid and foundcustomers so searches don't stack
+            foundCustomers = new List<Customer>();
+            dataGridView1.Rows.Clear();
+            btnCustDetails.Enabled = false;
+
+            //Check if an ID has been entered and search on that if it has
+            if (boxCustID.Text != "")
+            {
+                int custID = Convert.ToInt32(boxCustID.Text);
+
+                //Put found customer into list
+                foundCustomers.Add(dbManager.searchCustomers(custID));
+
+                //Display found customer
+                foreach (Customer c in foundCustomers)
+                {
+                    if (c != null)
+                        dataGridView1.Rows.Add(c.firstName, c.lastName, c.email);
+                }
+            }
+            else if (boxFirstName.Text != "" || boxLastName.Text != "")//Else if ID hasn't been entered check for first and last name
+            {
+                string firstName = null;
+                string lastName = null;
+
+                //Get names if they have been entered
+                if (boxFirstName.Text != "")
+                    firstName = boxFirstName.Text;
+                if (boxLastName.Text != "")
+                    lastName = boxLastName.Text;
+
+                //Search for customers with names entered
+                foundCustomers = dbManager.searchCustomers(firstName, lastName);
+
+                //Display found customers
+                foreach (Customer c in foundCustomers)
+                {
+                    dataGridView1.Rows.Add(c.firstName, c.lastName, c.email);
+                }
+            }
+        }
+
+
+        /************ Keypress handlers to check for enter to start search ***********/
+        private void boxFirstName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+
+        private void boxLastName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+        /*****************************************************************************/
     }
 }

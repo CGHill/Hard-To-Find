@@ -80,7 +80,7 @@
             this.btnReports.Location = new System.Drawing.Point(230, 191);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(123, 37);
-            this.btnReports.TabIndex = 5;
+            this.btnReports.TabIndex = 4;
             this.btnReports.Text = "Reports";
             this.btnReports.UseVisualStyleBackColor = true;
             this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
@@ -90,7 +90,7 @@
             this.btnExit.Location = new System.Drawing.Point(68, 293);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(285, 37);
-            this.btnExit.TabIndex = 6;
+            this.btnExit.TabIndex = 5;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);

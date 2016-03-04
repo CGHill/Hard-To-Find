@@ -72,7 +72,7 @@
             this.btnClose.Location = new System.Drawing.Point(382, 377);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(109, 34);
-            this.btnClose.TabIndex = 68;
+            this.btnClose.TabIndex = 20;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -83,7 +83,7 @@
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
             this.boxSales.Size = new System.Drawing.Size(145, 20);
-            this.boxSales.TabIndex = 67;
+            this.boxSales.TabIndex = 15;
             // 
             // label13
             // 
@@ -100,7 +100,7 @@
             this.boxWeight.Name = "boxWeight";
             this.boxWeight.ReadOnly = true;
             this.boxWeight.Size = new System.Drawing.Size(145, 20);
-            this.boxWeight.TabIndex = 65;
+            this.boxWeight.TabIndex = 14;
             // 
             // label14
             // 
@@ -117,7 +117,7 @@
             this.boxCatalogues.Name = "boxCatalogues";
             this.boxCatalogues.ReadOnly = true;
             this.boxCatalogues.Size = new System.Drawing.Size(145, 20);
-            this.boxCatalogues.TabIndex = 63;
+            this.boxCatalogues.TabIndex = 13;
             // 
             // label9
             // 
@@ -134,7 +134,7 @@
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.ReadOnly = true;
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
-            this.boxSubject.TabIndex = 61;
+            this.boxSubject.TabIndex = 12;
             // 
             // label10
             // 
@@ -151,7 +151,7 @@
             this.boxPrice.Name = "boxPrice";
             this.boxPrice.ReadOnly = true;
             this.boxPrice.Size = new System.Drawing.Size(145, 20);
-            this.boxPrice.TabIndex = 59;
+            this.boxPrice.TabIndex = 11;
             // 
             // boxLocation
             // 
@@ -159,7 +159,7 @@
             this.boxLocation.Name = "boxLocation";
             this.boxLocation.ReadOnly = true;
             this.boxLocation.Size = new System.Drawing.Size(145, 20);
-            this.boxLocation.TabIndex = 58;
+            this.boxLocation.TabIndex = 10;
             // 
             // label11
             // 
@@ -186,7 +186,7 @@
             this.boxComment.Name = "boxComment";
             this.boxComment.ReadOnly = true;
             this.boxComment.Size = new System.Drawing.Size(145, 91);
-            this.boxComment.TabIndex = 55;
+            this.boxComment.TabIndex = 9;
             // 
             // label8
             // 
@@ -204,7 +204,7 @@
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.ReadOnly = true;
             this.boxDescription.Size = new System.Drawing.Size(145, 72);
-            this.boxDescription.TabIndex = 53;
+            this.boxDescription.TabIndex = 8;
             // 
             // label7
             // 
@@ -221,7 +221,7 @@
             this.boxPublisher.Name = "boxPublisher";
             this.boxPublisher.ReadOnly = true;
             this.boxPublisher.Size = new System.Drawing.Size(145, 20);
-            this.boxPublisher.TabIndex = 51;
+            this.boxPublisher.TabIndex = 7;
             // 
             // boxSubtitle
             // 
@@ -229,7 +229,7 @@
             this.boxSubtitle.Name = "boxSubtitle";
             this.boxSubtitle.ReadOnly = true;
             this.boxSubtitle.Size = new System.Drawing.Size(145, 20);
-            this.boxSubtitle.TabIndex = 50;
+            this.boxSubtitle.TabIndex = 6;
             // 
             // label5
             // 
@@ -255,7 +255,7 @@
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.ReadOnly = true;
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
-            this.boxTitle.TabIndex = 47;
+            this.boxTitle.TabIndex = 5;
             // 
             // boxAuthor
             // 
@@ -263,7 +263,7 @@
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.ReadOnly = true;
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
-            this.boxAuthor.TabIndex = 46;
+            this.boxAuthor.TabIndex = 4;
             // 
             // label3
             // 
@@ -290,7 +290,7 @@
             this.boxNote.Name = "boxNote";
             this.boxNote.ReadOnly = true;
             this.boxNote.Size = new System.Drawing.Size(145, 68);
-            this.boxNote.TabIndex = 43;
+            this.boxNote.TabIndex = 3;
             // 
             // boxQuantity
             // 
@@ -298,7 +298,7 @@
             this.boxQuantity.Name = "boxQuantity";
             this.boxQuantity.ReadOnly = true;
             this.boxQuantity.Size = new System.Drawing.Size(145, 20);
-            this.boxQuantity.TabIndex = 42;
+            this.boxQuantity.TabIndex = 2;
             // 
             // btnSave
             // 
@@ -306,7 +306,7 @@
             this.btnSave.Location = new System.Drawing.Point(202, 377);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
-            this.btnSave.TabIndex = 41;
+            this.btnSave.TabIndex = 19;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -316,7 +316,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(87, 377);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
-            this.btnUpdate.TabIndex = 40;
+            this.btnUpdate.TabIndex = 18;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -345,7 +345,7 @@
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.ReadOnly = true;
             this.boxBookID.Size = new System.Drawing.Size(145, 20);
-            this.boxBookID.TabIndex = 70;
+            this.boxBookID.TabIndex = 16;
             // 
             // label15
             // 
@@ -362,7 +362,7 @@
             this.boxDateEntered.Name = "boxDateEntered";
             this.boxDateEntered.ReadOnly = true;
             this.boxDateEntered.Size = new System.Drawing.Size(145, 20);
-            this.boxDateEntered.TabIndex = 72;
+            this.boxDateEntered.TabIndex = 17;
             // 
             // label16
             // 
@@ -379,7 +379,7 @@
             this.boxStockID.Name = "boxStockID";
             this.boxStockID.ReadOnly = true;
             this.boxStockID.Size = new System.Drawing.Size(145, 20);
-            this.boxStockID.TabIndex = 74;
+            this.boxStockID.TabIndex = 1;
             // 
             // label17
             // 

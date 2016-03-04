@@ -69,7 +69,7 @@
             this.boxDateEntered.Location = new System.Drawing.Point(343, 323);
             this.boxDateEntered.Name = "boxDateEntered";
             this.boxDateEntered.Size = new System.Drawing.Size(167, 20);
-            this.boxDateEntered.TabIndex = 109;
+            this.boxDateEntered.TabIndex = 16;
             // 
             // label16
             // 
@@ -85,7 +85,7 @@
             this.boxBookID.Location = new System.Drawing.Point(343, 297);
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(167, 20);
-            this.boxBookID.TabIndex = 107;
+            this.boxBookID.TabIndex = 15;
             // 
             // label15
             // 
@@ -101,7 +101,7 @@
             this.btnCancel.Location = new System.Drawing.Point(401, 367);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
-            this.btnCancel.TabIndex = 105;
+            this.btnCancel.TabIndex = 18;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -111,7 +111,7 @@
             this.boxSales.Location = new System.Drawing.Point(343, 271);
             this.boxSales.Name = "boxSales";
             this.boxSales.Size = new System.Drawing.Size(167, 20);
-            this.boxSales.TabIndex = 104;
+            this.boxSales.TabIndex = 14;
             // 
             // label13
             // 
@@ -127,7 +127,7 @@
             this.boxWeight.Location = new System.Drawing.Point(343, 245);
             this.boxWeight.Name = "boxWeight";
             this.boxWeight.Size = new System.Drawing.Size(167, 20);
-            this.boxWeight.TabIndex = 102;
+            this.boxWeight.TabIndex = 13;
             // 
             // label14
             // 
@@ -143,7 +143,7 @@
             this.boxCatalogues.Location = new System.Drawing.Point(343, 216);
             this.boxCatalogues.Name = "boxCatalogues";
             this.boxCatalogues.Size = new System.Drawing.Size(167, 20);
-            this.boxCatalogues.TabIndex = 100;
+            this.boxCatalogues.TabIndex = 12;
             // 
             // label9
             // 
@@ -159,7 +159,7 @@
             this.boxSubject.Location = new System.Drawing.Point(343, 190);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(167, 20);
-            this.boxSubject.TabIndex = 98;
+            this.boxSubject.TabIndex = 11;
             // 
             // label10
             // 
@@ -175,14 +175,14 @@
             this.boxPrice.Location = new System.Drawing.Point(343, 164);
             this.boxPrice.Name = "boxPrice";
             this.boxPrice.Size = new System.Drawing.Size(167, 20);
-            this.boxPrice.TabIndex = 96;
+            this.boxPrice.TabIndex = 10;
             // 
             // boxLocation
             // 
             this.boxLocation.Location = new System.Drawing.Point(343, 135);
             this.boxLocation.Name = "boxLocation";
             this.boxLocation.Size = new System.Drawing.Size(167, 20);
-            this.boxLocation.TabIndex = 95;
+            this.boxLocation.TabIndex = 9;
             // 
             // label11
             // 
@@ -208,7 +208,7 @@
             this.boxComment.Multiline = true;
             this.boxComment.Name = "boxComment";
             this.boxComment.Size = new System.Drawing.Size(167, 91);
-            this.boxComment.TabIndex = 92;
+            this.boxComment.TabIndex = 8;
             // 
             // label8
             // 
@@ -225,7 +225,7 @@
             this.boxDescription.Multiline = true;
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.Size = new System.Drawing.Size(158, 98);
-            this.boxDescription.TabIndex = 90;
+            this.boxDescription.TabIndex = 7;
             // 
             // label7
             // 
@@ -241,14 +241,14 @@
             this.boxPublisher.Location = new System.Drawing.Point(84, 219);
             this.boxPublisher.Name = "boxPublisher";
             this.boxPublisher.Size = new System.Drawing.Size(158, 20);
-            this.boxPublisher.TabIndex = 88;
+            this.boxPublisher.TabIndex = 6;
             // 
             // boxSubtitle
             // 
             this.boxSubtitle.Location = new System.Drawing.Point(84, 193);
             this.boxSubtitle.Name = "boxSubtitle";
             this.boxSubtitle.Size = new System.Drawing.Size(158, 20);
-            this.boxSubtitle.TabIndex = 87;
+            this.boxSubtitle.TabIndex = 5;
             // 
             // label5
             // 
@@ -273,14 +273,14 @@
             this.boxTitle.Location = new System.Drawing.Point(84, 164);
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(158, 20);
-            this.boxTitle.TabIndex = 84;
+            this.boxTitle.TabIndex = 4;
             // 
             // boxAuthor
             // 
             this.boxAuthor.Location = new System.Drawing.Point(84, 138);
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(158, 20);
-            this.boxAuthor.TabIndex = 83;
+            this.boxAuthor.TabIndex = 3;
             // 
             // label3
             // 
@@ -306,21 +306,21 @@
             this.boxNote.Multiline = true;
             this.boxNote.Name = "boxNote";
             this.boxNote.Size = new System.Drawing.Size(158, 68);
-            this.boxNote.TabIndex = 80;
+            this.boxNote.TabIndex = 2;
             // 
             // boxQuantity
             // 
             this.boxQuantity.Location = new System.Drawing.Point(84, 38);
             this.boxQuantity.Name = "boxQuantity";
             this.boxQuantity.Size = new System.Drawing.Size(158, 20);
-            this.boxQuantity.TabIndex = 79;
+            this.boxQuantity.TabIndex = 1;
             // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(84, 367);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
-            this.btnSave.TabIndex = 78;
+            this.btnSave.TabIndex = 17;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);

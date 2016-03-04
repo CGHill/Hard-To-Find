@@ -32,7 +32,7 @@
             this.boxSubject = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.boxStockID = new System.Windows.Forms.TextBox();
+            this.boxBookID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.boxTitle = new System.Windows.Forms.TextBox();
             this.boxAuthor = new System.Windows.Forms.TextBox();
@@ -56,7 +56,7 @@
             this.groupBox1.Controls.Add(this.boxSubject);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Controls.Add(this.boxStockID);
+            this.groupBox1.Controls.Add(this.boxBookID);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.boxTitle);
             this.groupBox1.Controls.Add(this.boxAuthor);
@@ -74,7 +74,8 @@
             this.boxSubject.Location = new System.Drawing.Point(80, 108);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
-            this.boxSubject.TabIndex = 23;
+            this.boxSubject.TabIndex = 4;
+            this.boxSubject.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxSubject_KeyPress);
             // 
             // label4
             // 
@@ -95,35 +96,38 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // boxStockID
+            // boxBookID
             // 
-            this.boxStockID.Location = new System.Drawing.Point(80, 30);
-            this.boxStockID.Name = "boxStockID";
-            this.boxStockID.Size = new System.Drawing.Size(92, 20);
-            this.boxStockID.TabIndex = 16;
+            this.boxBookID.Location = new System.Drawing.Point(80, 30);
+            this.boxBookID.Name = "boxBookID";
+            this.boxBookID.Size = new System.Drawing.Size(92, 20);
+            this.boxBookID.TabIndex = 1;
+            this.boxBookID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxBookID_KeyPress);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 33);
+            this.label3.Location = new System.Drawing.Point(21, 33);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 21;
-            this.label3.Text = "Stock ID:";
+            this.label3.Text = "Book ID:";
             // 
             // boxTitle
             // 
             this.boxTitle.Location = new System.Drawing.Point(80, 82);
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
-            this.boxTitle.TabIndex = 18;
+            this.boxTitle.TabIndex = 3;
+            this.boxTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxTitle_KeyPress);
             // 
             // boxAuthor
             // 
             this.boxAuthor.Location = new System.Drawing.Point(80, 56);
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
-            this.boxAuthor.TabIndex = 17;
+            this.boxAuthor.TabIndex = 2;
+            this.boxAuthor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxAuthor_KeyPress);
             // 
             // label2
             // 
@@ -174,6 +178,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(907, 362);
             this.dataGridView1.TabIndex = 30;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // Column1
             // 
@@ -213,6 +218,7 @@
             // 
             // btnSelectStock
             // 
+            this.btnSelectStock.Enabled = false;
             this.btnSelectStock.Location = new System.Drawing.Point(251, 396);
             this.btnSelectStock.Name = "btnSelectStock";
             this.btnSelectStock.Size = new System.Drawing.Size(156, 23);
@@ -245,7 +251,7 @@
         private System.Windows.Forms.TextBox boxSubject;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox boxStockID;
+        private System.Windows.Forms.TextBox boxBookID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox boxTitle;
         private System.Windows.Forms.TextBox boxAuthor;

@@ -39,6 +39,9 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSelectCustomer = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -78,6 +81,7 @@
             this.boxCustID.Name = "boxCustID";
             this.boxCustID.Size = new System.Drawing.Size(82, 20);
             this.boxCustID.TabIndex = 1;
+            this.boxCustID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxCustID_KeyPress);
             // 
             // label3
             // 
@@ -94,6 +98,7 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.Size = new System.Drawing.Size(145, 20);
             this.boxLastName.TabIndex = 3;
+            this.boxLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxLastName_KeyPress);
             // 
             // boxFirstName
             // 
@@ -101,6 +106,7 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.Size = new System.Drawing.Size(145, 20);
             this.boxFirstName.TabIndex = 2;
+            this.boxFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxFirstName_KeyPress);
             // 
             // label2
             // 
@@ -128,6 +134,9 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
+            this.Column4,
+            this.Column5,
+            this.Column7,
             this.Column3});
             this.dataGridView1.Location = new System.Drawing.Point(280, 34);
             this.dataGridView1.MultiSelect = false;
@@ -135,9 +144,10 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(612, 316);
+            this.dataGridView1.Size = new System.Drawing.Size(724, 316);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // Column1
             // 
@@ -151,6 +161,24 @@
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Address1";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Address2";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Country";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            // 
             // Column3
             // 
             this.Column3.HeaderText = "Email";
@@ -159,6 +187,7 @@
             // 
             // btnSelectCustomer
             // 
+            this.btnSelectCustomer.Enabled = false;
             this.btnSelectCustomer.Location = new System.Drawing.Point(280, 356);
             this.btnSelectCustomer.Name = "btnSelectCustomer";
             this.btnSelectCustomer.Size = new System.Drawing.Size(166, 23);
@@ -181,7 +210,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 393);
+            this.ClientSize = new System.Drawing.Size(1047, 420);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSelectCustomer);
             this.Controls.Add(this.dataGridView1);
@@ -206,10 +235,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Button btnSelectCustomer;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }

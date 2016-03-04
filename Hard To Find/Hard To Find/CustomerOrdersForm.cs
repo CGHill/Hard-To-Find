@@ -11,17 +11,26 @@ namespace Hard_To_Find
 {
     public partial class CustomerOrdersForm : Form
     {
+        //Globals
         private Customer currCustomer;
         private DatabaseManager dbManager;
         private List<Order> customersOrders;
         private Order currOrder;
 
+        //Constructor
         public CustomerOrdersForm(Customer currCustomer)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
-
             this.currCustomer = currCustomer;
+
+            setup();
+        }
+
+        /*Precondition:
+         Postcondition: Sets up everything that needs to be done when form is initialized*/
+        private void setup()
+        {
             dbManager = new DatabaseManager();
             customersOrders = new List<Order>();
 
@@ -62,12 +71,15 @@ namespace Hard_To_Find
             selectedOrderUpdated();
         }
 
+        /*Precondition:
+         Postcondition: Runs when a new order has been selected and updates all value for the user to see*/
         private void selectedOrderUpdated()
         {
+            //Reset so orders don't stack
             dataGridView2.Rows.Clear();
-
             List<OrderedStock> customersOrderedStock = new List<OrderedStock>();
 
+            //Update textboxes
             labOrderID.Text = currOrder.orderID.ToString();
             boxOrderRef.Text = currOrder.orderReference;
             boxProgress.Text = currOrder.progress;
@@ -75,19 +87,25 @@ namespace Hard_To_Find
             boxFreight.Text = currOrder.discPrice;
             boxComments.Text = currOrder.comments;
 
+            //Search DB for stock for the order
             customersOrderedStock = dbManager.searchOrderedStock(currOrder.orderID);
 
+            //Loop over and display all stock for the order
             foreach (OrderedStock o in customersOrderedStock)
             {
                 dataGridView2.Rows.Add(o.quantity, o.author, o.title, o.price, o.bookID, o.discount);
             }
         }
 
+        /*Precondition:
+         Postcondition: Closes form*/
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /*Precondition:
+         Postcondition: When user selects new order, information is updated to display the selected order*/
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             int currRow = dataGridView1.CurrentCell.RowIndex;

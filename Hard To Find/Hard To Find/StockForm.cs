@@ -257,47 +257,7 @@ namespace Hard_To_Find
          Postcondition: Starts search for Stock depending on which text boxes have been filled*/
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //Reset datagrid and stock for new search
-            foundStock = new List<Stock>();
-            dataGridView1.Rows.Clear();
-
-            //If ID was entered then search only on that
-            if (boxStockID.Text != "")
-            {
-                int stockID = Convert.ToInt32(boxStockID.Text);
-
-                //Put found stock into list
-                foundStock.Add(dbManager.searchStock(stockID));
-
-                //Display found stock
-                foreach (Stock s in foundStock)
-                {
-                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
-                }
-            }
-            else if(boxAuthor.Text != "" || boxTitle.Text != "" || boxSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
-            {
-                string author = null;
-                string title = null;
-                string subject = null;
-
-                //Find out which fields have been entered to be included in the search
-                if (boxAuthor.Text != "")
-                    author = boxAuthor.Text;
-                if (boxTitle.Text != "")
-                    title = boxTitle.Text;
-                if (boxSubject.Text != "")
-                    subject = boxSubject.Text;
-
-                //Search for stock based on the parameters entered
-                foundStock = dbManager.searchStock(author, title, subject);
-
-                //Display found stock
-                foreach (Stock s in foundStock)
-                {
-                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
-                }
-            }
+            startSearch();
         }
 
         /*Precondition:
@@ -305,22 +265,6 @@ namespace Hard_To_Find
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             btnStockDetails.Enabled = true;
-        }
-
-        /*Precondition:
-         Postcondition: Allows only numbers in ID text box */
-        private void boxStockID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
         }
 
         /*Precondition: Requires something be selected in the datagrid first
@@ -347,12 +291,111 @@ namespace Hard_To_Find
          Postcondition: Allow stock to be selected on double click */
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int currRow = dataGridView1.CurrentCell.RowIndex;
+            try
+            {
+                int currRow = dataGridView1.CurrentCell.RowIndex;
 
-            Stock stockToDisplay = foundStock[currRow];
+                Stock stockToDisplay = foundStock[currRow];
 
-            StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
-            sdf.Show();
+                StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
+                sdf.Show();
+            }
+            catch (NullReferenceException)
+            {
+                //Do nothing, user double clicked on header
+            }
+        }
+
+        /**************** Keypress handlers to check if enter has been pushed to start search ***********************/
+        private void boxStockID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+
+        private void boxAuthor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+
+        private void boxTitle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+
+        private void boxSubject_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+        /***********************************************************************************************************/
+
+        /*Precondition:
+         Postcondition: Starts a search for stock depending on what search boxes have been filled in*/
+        private void startSearch()
+        {
+            //Reset datagrid and stock for new search
+            foundStock = new List<Stock>();
+            dataGridView1.Rows.Clear();
+            btnStockDetails.Enabled = false;
+
+            //If ID was entered then search only on that
+            if (boxStockID.Text != "")
+            {
+                string bookID = boxStockID.Text;
+
+                //Put found stock into list
+                Stock found = dbManager.searchStock(bookID);
+                if (found != null)
+                    foundStock.Add(found);
+
+                //Display found stock
+                foreach (Stock s in foundStock)
+                {
+                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                }
+            }
+            else if (boxAuthor.Text != "" || boxTitle.Text != "" || boxSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
+            {
+                string author = null;
+                string title = null;
+                string subject = null;
+
+                //Find out which fields have been entered to be included in the search
+                if (boxAuthor.Text != "")
+                    author = boxAuthor.Text;
+                if (boxTitle.Text != "")
+                    title = boxTitle.Text;
+                if (boxSubject.Text != "")
+                    subject = boxSubject.Text;
+
+                //Search for stock based on the parameters entered
+                foundStock = dbManager.searchStock(author, title, subject);
+
+                //Display found stock
+                foreach (Stock s in foundStock)
+                {
+                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                }
+            }
         }
     }
 }

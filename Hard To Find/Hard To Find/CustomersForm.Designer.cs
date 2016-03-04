@@ -60,6 +60,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnCustomersOrders = new System.Windows.Forms.Button();
+            this.btnCreateOrder = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.labCustID = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -85,7 +88,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(518, 56);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
-            this.btnUpdate.TabIndex = 7;
+            this.btnUpdate.TabIndex = 15;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -96,7 +99,7 @@
             this.btnSave.Location = new System.Drawing.Point(518, 96);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
-            this.btnSave.TabIndex = 8;
+            this.btnSave.TabIndex = 16;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -107,7 +110,7 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.ReadOnly = true;
             this.boxFirstName.Size = new System.Drawing.Size(145, 20);
-            this.boxFirstName.TabIndex = 9;
+            this.boxFirstName.TabIndex = 1;
             // 
             // boxLastName
             // 
@@ -115,7 +118,7 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.ReadOnly = true;
             this.boxLastName.Size = new System.Drawing.Size(145, 20);
-            this.boxLastName.TabIndex = 10;
+            this.boxLastName.TabIndex = 2;
             // 
             // boxAddress1
             // 
@@ -123,7 +126,7 @@
             this.boxAddress1.Name = "boxAddress1";
             this.boxAddress1.ReadOnly = true;
             this.boxAddress1.Size = new System.Drawing.Size(145, 20);
-            this.boxAddress1.TabIndex = 14;
+            this.boxAddress1.TabIndex = 4;
             // 
             // boxInstitution
             // 
@@ -131,7 +134,7 @@
             this.boxInstitution.Name = "boxInstitution";
             this.boxInstitution.ReadOnly = true;
             this.boxInstitution.Size = new System.Drawing.Size(145, 20);
-            this.boxInstitution.TabIndex = 13;
+            this.boxInstitution.TabIndex = 3;
             // 
             // label3
             // 
@@ -157,7 +160,7 @@
             this.boxAddress3.Name = "boxAddress3";
             this.boxAddress3.ReadOnly = true;
             this.boxAddress3.Size = new System.Drawing.Size(145, 20);
-            this.boxAddress3.TabIndex = 18;
+            this.boxAddress3.TabIndex = 6;
             // 
             // boxAddress2
             // 
@@ -165,7 +168,7 @@
             this.boxAddress2.Name = "boxAddress2";
             this.boxAddress2.ReadOnly = true;
             this.boxAddress2.Size = new System.Drawing.Size(145, 20);
-            this.boxAddress2.TabIndex = 17;
+            this.boxAddress2.TabIndex = 5;
             // 
             // label5
             // 
@@ -191,7 +194,7 @@
             this.boxPostcode.Name = "boxPostcode";
             this.boxPostcode.ReadOnly = true;
             this.boxPostcode.Size = new System.Drawing.Size(145, 20);
-            this.boxPostcode.TabIndex = 20;
+            this.boxPostcode.TabIndex = 7;
             // 
             // label7
             // 
@@ -208,7 +211,7 @@
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.ReadOnly = true;
             this.boxCountry.Size = new System.Drawing.Size(145, 20);
-            this.boxCountry.TabIndex = 22;
+            this.boxCountry.TabIndex = 8;
             // 
             // label8
             // 
@@ -226,7 +229,7 @@
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
             this.boxComments.Size = new System.Drawing.Size(145, 75);
-            this.boxComments.TabIndex = 30;
+            this.boxComments.TabIndex = 12;
             // 
             // label9
             // 
@@ -243,7 +246,7 @@
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.ReadOnly = true;
             this.boxEmail.Size = new System.Drawing.Size(145, 20);
-            this.boxEmail.TabIndex = 28;
+            this.boxEmail.TabIndex = 11;
             // 
             // label10
             // 
@@ -260,7 +263,7 @@
             this.boxFax.Name = "boxFax";
             this.boxFax.ReadOnly = true;
             this.boxFax.Size = new System.Drawing.Size(145, 20);
-            this.boxFax.TabIndex = 26;
+            this.boxFax.TabIndex = 10;
             // 
             // boxPhone
             // 
@@ -268,7 +271,7 @@
             this.boxPhone.Name = "boxPhone";
             this.boxPhone.ReadOnly = true;
             this.boxPhone.Size = new System.Drawing.Size(145, 20);
-            this.boxPhone.TabIndex = 25;
+            this.boxPhone.TabIndex = 9;
             // 
             // label11
             // 
@@ -294,7 +297,7 @@
             this.boxPayment.Name = "boxPayment";
             this.boxPayment.ReadOnly = true;
             this.boxPayment.Size = new System.Drawing.Size(145, 20);
-            this.boxPayment.TabIndex = 34;
+            this.boxPayment.TabIndex = 14;
             // 
             // label13
             // 
@@ -311,7 +314,7 @@
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
             this.boxSales.Size = new System.Drawing.Size(145, 20);
-            this.boxSales.TabIndex = 32;
+            this.boxSales.TabIndex = 13;
             // 
             // label14
             // 
@@ -324,10 +327,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(395, 285);
+            this.btnCancel.Location = new System.Drawing.Point(395, 325);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
-            this.btnCancel.TabIndex = 37;
+            this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "Close";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -337,16 +340,46 @@
             this.btnCustomersOrders.Location = new System.Drawing.Point(99, 285);
             this.btnCustomersOrders.Name = "btnCustomersOrders";
             this.btnCustomersOrders.Size = new System.Drawing.Size(145, 34);
-            this.btnCustomersOrders.TabIndex = 38;
+            this.btnCustomersOrders.TabIndex = 17;
             this.btnCustomersOrders.Text = "View Customers Orders";
             this.btnCustomersOrders.UseVisualStyleBackColor = true;
             this.btnCustomersOrders.Click += new System.EventHandler(this.btnCustomersOrders_Click);
+            // 
+            // btnCreateOrder
+            // 
+            this.btnCreateOrder.Location = new System.Drawing.Point(99, 325);
+            this.btnCreateOrder.Name = "btnCreateOrder";
+            this.btnCreateOrder.Size = new System.Drawing.Size(145, 34);
+            this.btnCreateOrder.TabIndex = 18;
+            this.btnCreateOrder.Text = "Create New Order";
+            this.btnCreateOrder.UseVisualStyleBackColor = true;
+            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(24, 31);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(68, 13);
+            this.label15.TabIndex = 40;
+            this.label15.Text = "Customer ID:";
+            // 
+            // labCustID
+            // 
+            this.labCustID.AutoSize = true;
+            this.labCustID.Location = new System.Drawing.Point(98, 31);
+            this.labCustID.Name = "labCustID";
+            this.labCustID.Size = new System.Drawing.Size(0, 13);
+            this.labCustID.TabIndex = 41;
             // 
             // CustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 346);
+            this.ClientSize = new System.Drawing.Size(639, 402);
+            this.Controls.Add(this.labCustID);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.btnCreateOrder);
             this.Controls.Add(this.btnCustomersOrders);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.boxPayment);
@@ -420,5 +453,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnCustomersOrders;
+        private System.Windows.Forms.Button btnCreateOrder;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label labCustID;
     }
 }

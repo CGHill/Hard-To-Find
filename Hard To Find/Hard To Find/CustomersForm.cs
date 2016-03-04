@@ -33,6 +33,7 @@ namespace Hard_To_Find
          Postcondition: Fills text boxes up with the customers data*/
         public void loadUpCustomer()
         {
+            labCustID.Text = currCustomer.custID.ToString();
             boxFirstName.Text = currCustomer.firstName;
             boxLastName.Text = currCustomer.lastName;
             boxInstitution.Text = currCustomer.institution;
@@ -67,23 +68,50 @@ namespace Hard_To_Find
             toggleBoxesReadOnly();
 
             //Update all fields
-            currCustomer.firstName = boxFirstName.Text;
-            currCustomer.lastName = boxLastName.Text;
-            currCustomer.institution = boxInstitution.Text;
-            currCustomer.address1 = boxAddress1.Text;
-            currCustomer.address2 = boxAddress2.Text;
-            currCustomer.address3 = boxAddress3.Text;
-            currCustomer.postCode = boxPostcode.Text;
-            currCustomer.country = boxCountry.Text;
-            currCustomer.phone = boxPhone.Text;
-            currCustomer.fax = boxFax.Text;
-            currCustomer.email = boxEmail.Text;
-            currCustomer.comments = boxComments.Text;
-            currCustomer.sales = boxSales.Text;
-            currCustomer.payment = boxPayment.Text;
+            currCustomer.firstName = checkForSingleQuote(boxFirstName.Text);
+            currCustomer.lastName = checkForSingleQuote(boxLastName.Text);
+            currCustomer.institution = checkForSingleQuote(boxInstitution.Text);
+            currCustomer.address1 = checkForSingleQuote(boxAddress1.Text);
+            currCustomer.address2 = checkForSingleQuote(boxAddress2.Text);
+            currCustomer.address3 = checkForSingleQuote(boxAddress3.Text);
+            currCustomer.postCode = checkForSingleQuote(boxPostcode.Text);
+            currCustomer.country = checkForSingleQuote(boxCountry.Text);
+            currCustomer.phone = checkForSingleQuote(boxPhone.Text);
+            currCustomer.fax = checkForSingleQuote(boxFax.Text);
+            currCustomer.email = checkForSingleQuote(boxEmail.Text);
+            currCustomer.comments = checkForSingleQuote(boxComments.Text);
+            currCustomer.sales = checkForSingleQuote(boxSales.Text);
+            currCustomer.payment = checkForSingleQuote(boxPayment.Text);
 
             //Send to dbManager to update entry
             dbManager.updateCustomer(currCustomer);
+        }
+
+        private string checkForSingleQuote(string stringToCheck)
+        {
+            //Check if it contains a single quotation
+            if (stringToCheck.Contains('\''))
+            {
+                //Get number of single quotations
+                int numQuotes = stringToCheck.Split('\'').Length - 1;
+                //int num = removedDashes.Count(c => c == '\'');
+
+                int previousIndex = 0;
+
+                //Loop over quotations
+                for (int i = 0; i < numQuotes; i++)
+                {
+                    //Insert quotation before existing one because it's an escape character in SQLite
+                    int indexOfQuote = stringToCheck.IndexOf("'", previousIndex);
+                    stringToCheck = stringToCheck.Insert(indexOfQuote, "'");
+
+                    //Move index after quotation that was just fixed to stop repeating on the same one
+                    previousIndex = indexOfQuote + 2;
+                }
+
+            }
+
+            return stringToCheck;
         }
 
 
@@ -114,10 +142,21 @@ namespace Hard_To_Find
             this.Close();
         }
 
+        /*Precondition:
+         Postcondition: Opens up form to see orders by the current customer*/
         private void btnCustomersOrders_Click(object sender, EventArgs e)
         {
             CustomerOrdersForm cof = new CustomerOrdersForm(currCustomer);
             cof.Show();
+        }
+
+        /*Precondition:
+         Postcondition: Opens form to create a new order for the current customer*/
+        private void btnCreateOrder_Click(object sender, EventArgs e)
+        {
+            NewOrderForm orderForm = new NewOrderForm();
+            orderForm.setCustomer(currCustomer);
+            orderForm.Show();
         }
     }
 }

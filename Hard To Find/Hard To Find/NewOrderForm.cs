@@ -42,6 +42,9 @@ namespace Hard_To_Find
 
             //Display the OrderID/Invoice number for the user
             boxInvoiceNo.Text = dbManager.getNextOrderID().ToString();
+
+            string date = DateTime.Now.ToString("d/mm/yyyy");
+            boxInvoiceDate.Text = date;
         }
 
         /*Precondition:

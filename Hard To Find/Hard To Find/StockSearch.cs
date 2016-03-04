@@ -11,10 +11,12 @@ namespace Hard_To_Find
 {
     public partial class StockSearch : Form
     {
+        //Globals
         private NewOrderForm orderForm;
         private List<Stock> foundStock;
         private DatabaseManager dbManager;
 
+        //Constructor
         public StockSearch(NewOrderForm orderForm)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -38,29 +40,113 @@ namespace Hard_To_Find
             column6.Width = 75;
         }
 
+        /*Precondition:
+         Postcondition: Closes form */
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /*Precondition:
+         Postcondition: Starts the search when button is clicked*/
         private void btnSearch_Click(object sender, EventArgs e)
+        {
+            startSearch();
+        }
+
+        /*Precondition:
+        Postcondition: Closes form after passing the stock back which the user selected */
+        private void btnSelectStock_Click(object sender, EventArgs e)
+        {
+            int currRow = dataGridView1.CurrentCell.RowIndex;
+
+            Stock selectedStock = foundStock[currRow];
+            orderForm.addBook(selectedStock);
+            this.Close();
+        }
+
+        /*Precondition:
+         Postcondition: If user double clicks on datagridrow, it counts as selecting an item, closes form and sends selection to previous form */
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+                int currRow = dataGridView1.CurrentCell.RowIndex;
+
+                Stock selectedStock = foundStock[currRow];
+                orderForm.addBook(selectedStock);
+                this.Close();
+            }
+            catch (NullReferenceException)
+            {
+                //Do nothing, user double clicked on the header
+            }
+        }
+
+        /******************** Keypress Handlers to start search on enter press*****************************/
+        private void boxBookID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+
+        private void boxAuthor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+
+        private void boxTitle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+
+        private void boxSubject_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+        /*************************************************************************************************/
+
+        /*Precondition:
+         Postcondition: Starts a search for stock depending on what search boxes have been filled in*/
+        private void startSearch()
         {
             //Reset datagrid and stock for new search
             foundStock = new List<Stock>();
             dataGridView1.Rows.Clear();
+            btnSelectStock.Enabled = false;
 
             //If ID was entered then search only on that
-            if (boxStockID.Text != "")
+            if (boxBookID.Text != "")
             {
-                int stockID = Convert.ToInt32(boxStockID.Text);
+                string bookID = boxBookID.Text;
 
                 //Put found stock into list
-                foundStock.Add(dbManager.searchStock(stockID));
+                foundStock.Add(dbManager.searchStock(bookID));
 
                 //Display found stock
                 foreach (Stock s in foundStock)
                 {
-                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                    if(s != null)
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
                 }
             }
             else if (boxAuthor.Text != "" || boxTitle.Text != "" || boxSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
@@ -88,22 +174,11 @@ namespace Hard_To_Find
             }
         }
 
-        private void btnSelectStock_Click(object sender, EventArgs e)
+        /*Precondition:
+         Postcondition: Enable button once there is something that has been selected */
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            int currRow = dataGridView1.CurrentCell.RowIndex;
-
-            Stock selectedStock = foundStock[currRow];
-            orderForm.addBook(selectedStock);
-            this.Close();
-        }
-
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            int currRow = dataGridView1.CurrentCell.RowIndex;
-
-            Stock selectedStock = foundStock[currRow];
-            orderForm.addBook(selectedStock);
-            this.Close();
+            btnSelectStock.Enabled = true;
         }
     }
 }

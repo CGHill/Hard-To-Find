@@ -499,6 +499,67 @@ namespace Hard_To_Find
          Postcondition: Searches for orders from the ID the user typed in and displays any information found*/
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            startSearch();
+        }
+
+        /*Precondition: 
+         Postcondition: Empty out textboxes and datagrid for a new search*/
+        public void clearForNewSearch()
+        {
+            dataGridView1.Rows.Clear();
+
+            labOrderID.Text = "";
+            boxOrderRef.Text = "";
+            boxProgress.Text = "";
+            boxInvoiceDate.Text = "";
+            boxFreight.Text = "";
+            boxComments.Text = "";
+            labCustID.Text = "";
+            boxCustName.Text = "";
+            boxInstitution.Text = "";
+            boxPostcode.Text = "";
+            boxAdd1.Text = "";
+            boxAdd2.Text = "";
+            boxAdd3.Text = "";
+            boxCountry.Text = "";
+        }
+
+        /*Precondition: 
+         Postcondition: Open form to create a new order */
+        private void btnNewOrder_Click(object sender, EventArgs e)
+        {
+            NewOrderForm nof = new NewOrderForm();
+            nof.Show();
+        }
+
+        /*Precondition:
+         Postcondition: Only allows numbers to be entered into ID textbox*/
+        private void boxOrderID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+
+            //Check if enter was pressed to start the search
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
+        }
+
+        /*Precondition:
+         Postcondition: Starts a search for orders depending on what search boxes have been filled in*/
+        private void startSearch()
+        {
             //Clear all the text boxes out for a new search
             clearForNewSearch();
 
@@ -552,52 +613,6 @@ namespace Hard_To_Find
                         dataGridView1.Rows.Add(o.quantity, o.author, o.title, o.price, o.bookID, o.discount);
                     }
                 }
-            }
-        }
-
-        /*Precondition: 
-         Postcondition: Empty out textboxes and datagrid for a new search*/
-        public void clearForNewSearch()
-        {
-            dataGridView1.Rows.Clear();
-
-            labOrderID.Text = "";
-            boxOrderRef.Text = "";
-            boxProgress.Text = "";
-            boxInvoiceDate.Text = "";
-            boxFreight.Text = "";
-            boxComments.Text = "";
-            labCustID.Text = "";
-            boxCustName.Text = "";
-            boxInstitution.Text = "";
-            boxPostcode.Text = "";
-            boxAdd1.Text = "";
-            boxAdd2.Text = "";
-            boxAdd3.Text = "";
-            boxCountry.Text = "";
-        }
-
-        /*Precondition: 
-         Postcondition: Open form to create a new order */
-        private void btnNewOrder_Click(object sender, EventArgs e)
-        {
-            NewOrderForm nof = new NewOrderForm();
-            nof.Show();
-        }
-
-        /*Precondition:
-         Postcondition: Only allows numbers to be entered into ID textbox*/
-        private void boxOrderID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
             }
         }
     }

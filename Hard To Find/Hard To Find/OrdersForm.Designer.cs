@@ -124,7 +124,7 @@
             this.boxOrderID.Location = new System.Drawing.Point(65, 72);
             this.boxOrderID.Name = "boxOrderID";
             this.boxOrderID.Size = new System.Drawing.Size(118, 20);
-            this.boxOrderID.TabIndex = 7;
+            this.boxOrderID.TabIndex = 1;
             this.boxOrderID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxOrderID_KeyPress);
             // 
             // btnSearch

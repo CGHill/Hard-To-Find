@@ -88,31 +88,33 @@
             this.boxStockID.Location = new System.Drawing.Point(80, 30);
             this.boxStockID.Name = "boxStockID";
             this.boxStockID.Size = new System.Drawing.Size(92, 20);
-            this.boxStockID.TabIndex = 16;
+            this.boxStockID.TabIndex = 1;
             this.boxStockID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxStockID_KeyPress);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 33);
+            this.label3.Location = new System.Drawing.Point(21, 33);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 21;
-            this.label3.Text = "Stock ID:";
+            this.label3.Text = "Book ID:";
             // 
             // boxTitle
             // 
             this.boxTitle.Location = new System.Drawing.Point(80, 82);
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
-            this.boxTitle.TabIndex = 18;
+            this.boxTitle.TabIndex = 3;
+            this.boxTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxTitle_KeyPress);
             // 
             // boxAuthor
             // 
             this.boxAuthor.Location = new System.Drawing.Point(80, 56);
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
-            this.boxAuthor.TabIndex = 17;
+            this.boxAuthor.TabIndex = 2;
+            this.boxAuthor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxAuthor_KeyPress);
             // 
             // label2
             // 
@@ -147,7 +149,8 @@
             this.boxSubject.Location = new System.Drawing.Point(80, 108);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
-            this.boxSubject.TabIndex = 23;
+            this.boxSubject.TabIndex = 4;
+            this.boxSubject.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxSubject_KeyPress);
             // 
             // label4
             // 

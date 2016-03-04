@@ -84,7 +84,7 @@ namespace Hard_To_Find
             dbConnection.Open();
 
             string createCustomerTable = "CREATE TABLE IF NOT EXISTS Customer(customerID INTEGER PRIMARY KEY AUTOINCREMENT, firstName VARCHAR(100), lastName VARCHAR(100), institution VARCHAR(100)," +
-                "address1 VARCHAR(200), address2 VARCHAR(100), address3 VARCHAR(100), country VARCHAR(100), postcode VARCHAR(100), phone INTEGER, fax INTEGER, email VARCHAR(100), comments VARCHAR(100), sales VARCHAR(100), payment VARCHAR(100))";
+                "address1 VARCHAR(200), address2 VARCHAR(200), address3 VARCHAR(200), country VARCHAR(100), postcode VARCHAR(50), phone INTEGER, fax INTEGER, email VARCHAR(100), comments VARCHAR(100), sales VARCHAR(100), payment VARCHAR(100))";
 
             SQLiteCommand createCustomerTableCommand = new SQLiteCommand(createCustomerTable, dbConnection);
             createCustomerTableCommand.ExecuteNonQuery();
@@ -99,7 +99,7 @@ namespace Hard_To_Find
             dbConnection.Open();
 
             string createStockTable = "CREATE TABLE IF NOT EXISTS Stock(stockID INTEGER PRIMARY KEY AUTOINCREMENT, quantity INTEGER NOT NULL, note VARCHAR(200), author VARCHAR(200), title VARCHAR(200), subtitle VARCHAR(300)," +
-                "publisher VARCHAR(200), description VARCHAR(400), comments VARCHAR(500), location VARCHAR(2), price VARCHAR(12), subject VARCHAR(500), catalogue VARCHAR(200), weight VARCHAR(6), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
+                "publisher VARCHAR(200), description VARCHAR(400), comments VARCHAR(400), location VARCHAR(2), price VARCHAR(12), subject VARCHAR(500), catalogue VARCHAR(200), weight VARCHAR(6), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
 
             SQLiteCommand createStockTableCommand = new SQLiteCommand(createStockTable, dbConnection);
             createStockTableCommand.ExecuteNonQuery();
@@ -113,8 +113,8 @@ namespace Hard_To_Find
         {
             dbConnection.Open();
 
-            string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, customerFirstName VARCHAR(100), customerLastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(10)," +
-                " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(10), progress VARCHAR(100), discPrice VARCHAR(10)," +
+            string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, customerFirstName VARCHAR(100), customerLastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(50)," +
+                " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(12), progress VARCHAR(100), discPrice VARCHAR(10)," +
                 " invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), stockID INTEGER, customerID INTEGER)";
 
             SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
@@ -164,8 +164,9 @@ namespace Hard_To_Find
         Postcondition: Updates the passed in stocks details, new details already added onto the stock, use the ID to update*/
         public void updateStock(Stock stock)
         {
+            //Apostrophies cause program to crash
             string updateQuery = "UPDATE Stock SET quantity =" + stock.quantity + ", note = '" + stock.note + "', author = '" + stock.author + "', title = '" + stock.title +
-                "', subtitle = '" + stock.subtitle + "', publisher = '" + stock.publisher + "', description = '" + stock.description + "'," + "comments = '" + stock.comments +
+                "', subtitle = '" + stock.subtitle + "', publisher = '" + stock.publisher + "', description = '" + stock.description + "', comments = '" + stock.comments +
                 "', location = '" + stock.location + "', price = '" + stock.price + "', subject = '" + stock.subject + "', catalogue = '" + stock.catalogue + "', weight = '" + stock.weight +
                 "', sales = '" + stock.sales + "', bookID = '" + stock.bookID + "', dateEntered = '" + stock.dateEntered + "' WHERE stockID = " + stock.stockID;
 
@@ -492,14 +493,14 @@ namespace Hard_To_Find
 
         /*Precondition:
          Postcondition: Returns stock entry that matches the ID passed in*/
-        public Stock searchStock(int stockID)
+        public Stock searchStock(string bookID)
         {
             Stock foundStock = null;
 
             dbConnection.Open();
 
             //Execute SQL query
-            string sql = "SELECT * FROM Stock WHERE stockID = " + stockID;
+            string sql = "SELECT * FROM Stock WHERE bookID = '" + bookID + "'";
             SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
 

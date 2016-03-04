@@ -350,7 +350,7 @@
             this.boxInvoiceDate.Location = new System.Drawing.Point(103, 81);
             this.boxInvoiceDate.Name = "boxInvoiceDate";
             this.boxInvoiceDate.Size = new System.Drawing.Size(142, 20);
-            this.boxInvoiceDate.TabIndex = 41;
+            this.boxInvoiceDate.TabIndex = 4;
             // 
             // label9
             // 
@@ -366,7 +366,7 @@
             this.boxFreight.Location = new System.Drawing.Point(344, 23);
             this.boxFreight.Name = "boxFreight";
             this.boxFreight.Size = new System.Drawing.Size(142, 20);
-            this.boxFreight.TabIndex = 39;
+            this.boxFreight.TabIndex = 5;
             this.boxFreight.Text = "$0.00";
             // 
             // boxProgress
@@ -374,14 +374,14 @@
             this.boxProgress.Location = new System.Drawing.Point(103, 55);
             this.boxProgress.Name = "boxProgress";
             this.boxProgress.Size = new System.Drawing.Size(142, 20);
-            this.boxProgress.TabIndex = 38;
+            this.boxProgress.TabIndex = 3;
             // 
             // boxOrderRef
             // 
             this.boxOrderRef.Location = new System.Drawing.Point(103, 29);
             this.boxOrderRef.Name = "boxOrderRef";
             this.boxOrderRef.Size = new System.Drawing.Size(142, 20);
-            this.boxOrderRef.TabIndex = 37;
+            this.boxOrderRef.TabIndex = 2;
             // 
             // boxComments
             // 
@@ -389,7 +389,7 @@
             this.boxComments.Multiline = true;
             this.boxComments.Name = "boxComments";
             this.boxComments.Size = new System.Drawing.Size(142, 48);
-            this.boxComments.TabIndex = 29;
+            this.boxComments.TabIndex = 6;
             // 
             // label10
             // 

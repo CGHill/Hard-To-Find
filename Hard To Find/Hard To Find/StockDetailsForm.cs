@@ -46,24 +46,51 @@ namespace Hard_To_Find
 
             //Update all stock information
             currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-            currStock.note = boxNote.Text;
-            currStock.author = boxAuthor.Text;
-            currStock.title = boxTitle.Text;
-            currStock.subtitle = boxSubtitle.Text;
-            currStock.publisher = boxPublisher.Text;
-            currStock.description = boxDescription.Text;
-            currStock.comments = boxComment.Text;
-            currStock.location = boxLocation.Text;
-            currStock.price = boxPrice.Text;
-            currStock.subject = boxSubject.Text;
-            currStock.catalogue = boxCatalogues.Text;
-            currStock.weight = boxWeight.Text;
-            currStock.sales = boxSales.Text;
-            currStock.bookID = boxBookID.Text;
-            currStock.dateEntered = boxDateEntered.Text;
+            currStock.note = checkForSingleQuote(boxNote.Text);
+            currStock.author = checkForSingleQuote(boxAuthor.Text);
+            currStock.title = checkForSingleQuote(boxTitle.Text);
+            currStock.subtitle = checkForSingleQuote(boxSubtitle.Text);
+            currStock.publisher = checkForSingleQuote(boxPublisher.Text);
+            currStock.description = checkForSingleQuote(boxDescription.Text);
+            currStock.comments = checkForSingleQuote(boxComment.Text);
+            currStock.location = checkForSingleQuote(boxLocation.Text);
+            currStock.price = checkForSingleQuote(boxPrice.Text);
+            currStock.subject = checkForSingleQuote(boxSubject.Text);
+            currStock.catalogue = checkForSingleQuote(boxCatalogues.Text);
+            currStock.weight = checkForSingleQuote(boxWeight.Text);
+            currStock.sales = checkForSingleQuote(boxSales.Text);
+            currStock.bookID = checkForSingleQuote(boxBookID.Text);
+            currStock.dateEntered = checkForSingleQuote(boxDateEntered.Text);
 
             //Send updated stock information to database
             dbManager.updateStock(currStock);
+        }
+
+        private string checkForSingleQuote(string stringToCheck)
+        {
+            //Check if it contains a single quotation
+            if (stringToCheck.Contains('\''))
+            {
+                //Get number of single quotations
+                int numQuotes = stringToCheck.Split('\'').Length - 1;
+                //int num = removedDashes.Count(c => c == '\'');
+
+                int previousIndex = 0;
+
+                //Loop over quotations
+                for (int i = 0; i < numQuotes; i++)
+                {
+                    //Insert quotation before existing one because it's an escape character in SQLite
+                    int indexOfQuote = stringToCheck.IndexOf("'", previousIndex);
+                    stringToCheck = stringToCheck.Insert(indexOfQuote, "'");
+
+                    //Move index after quotation that was just fixed to stop repeating on the same one
+                    previousIndex = indexOfQuote + 2;
+                }
+
+            }
+
+            return stringToCheck;
         }
 
         /*Precondition:
