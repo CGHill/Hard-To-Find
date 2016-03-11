@@ -85,7 +85,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(518, 56);
+            this.btnUpdate.Location = new System.Drawing.Point(585, 52);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
             this.btnUpdate.TabIndex = 15;
@@ -96,7 +96,7 @@
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(518, 96);
+            this.btnSave.Location = new System.Drawing.Point(585, 92);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 16;
@@ -109,7 +109,7 @@
             this.boxFirstName.Location = new System.Drawing.Point(99, 56);
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.ReadOnly = true;
-            this.boxFirstName.Size = new System.Drawing.Size(145, 20);
+            this.boxFirstName.Size = new System.Drawing.Size(190, 20);
             this.boxFirstName.TabIndex = 1;
             // 
             // boxLastName
@@ -117,7 +117,7 @@
             this.boxLastName.Location = new System.Drawing.Point(99, 82);
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.ReadOnly = true;
-            this.boxLastName.Size = new System.Drawing.Size(145, 20);
+            this.boxLastName.Size = new System.Drawing.Size(190, 20);
             this.boxLastName.TabIndex = 2;
             // 
             // boxAddress1
@@ -125,7 +125,7 @@
             this.boxAddress1.Location = new System.Drawing.Point(99, 134);
             this.boxAddress1.Name = "boxAddress1";
             this.boxAddress1.ReadOnly = true;
-            this.boxAddress1.Size = new System.Drawing.Size(145, 20);
+            this.boxAddress1.Size = new System.Drawing.Size(190, 20);
             this.boxAddress1.TabIndex = 4;
             // 
             // boxInstitution
@@ -133,7 +133,7 @@
             this.boxInstitution.Location = new System.Drawing.Point(99, 108);
             this.boxInstitution.Name = "boxInstitution";
             this.boxInstitution.ReadOnly = true;
-            this.boxInstitution.Size = new System.Drawing.Size(145, 20);
+            this.boxInstitution.Size = new System.Drawing.Size(190, 20);
             this.boxInstitution.TabIndex = 3;
             // 
             // label3
@@ -159,7 +159,7 @@
             this.boxAddress3.Location = new System.Drawing.Point(99, 189);
             this.boxAddress3.Name = "boxAddress3";
             this.boxAddress3.ReadOnly = true;
-            this.boxAddress3.Size = new System.Drawing.Size(145, 20);
+            this.boxAddress3.Size = new System.Drawing.Size(190, 20);
             this.boxAddress3.TabIndex = 6;
             // 
             // boxAddress2
@@ -167,7 +167,7 @@
             this.boxAddress2.Location = new System.Drawing.Point(99, 163);
             this.boxAddress2.Name = "boxAddress2";
             this.boxAddress2.ReadOnly = true;
-            this.boxAddress2.Size = new System.Drawing.Size(145, 20);
+            this.boxAddress2.Size = new System.Drawing.Size(190, 20);
             this.boxAddress2.TabIndex = 5;
             // 
             // label5
@@ -193,7 +193,7 @@
             this.boxPostcode.Location = new System.Drawing.Point(99, 215);
             this.boxPostcode.Name = "boxPostcode";
             this.boxPostcode.ReadOnly = true;
-            this.boxPostcode.Size = new System.Drawing.Size(145, 20);
+            this.boxPostcode.Size = new System.Drawing.Size(190, 20);
             this.boxPostcode.TabIndex = 7;
             // 
             // label7
@@ -210,7 +210,7 @@
             this.boxCountry.Location = new System.Drawing.Point(99, 241);
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.ReadOnly = true;
-            this.boxCountry.Size = new System.Drawing.Size(145, 20);
+            this.boxCountry.Size = new System.Drawing.Size(190, 20);
             this.boxCountry.TabIndex = 8;
             // 
             // label8
@@ -224,17 +224,17 @@
             // 
             // boxComments
             // 
-            this.boxComments.Location = new System.Drawing.Point(359, 134);
+            this.boxComments.Location = new System.Drawing.Point(367, 134);
             this.boxComments.Multiline = true;
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
-            this.boxComments.Size = new System.Drawing.Size(145, 75);
+            this.boxComments.Size = new System.Drawing.Size(189, 75);
             this.boxComments.TabIndex = 12;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(293, 137);
+            this.label9.Location = new System.Drawing.Point(301, 137);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 13);
             this.label9.TabIndex = 29;
@@ -242,16 +242,16 @@
             // 
             // boxEmail
             // 
-            this.boxEmail.Location = new System.Drawing.Point(359, 108);
+            this.boxEmail.Location = new System.Drawing.Point(367, 108);
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.ReadOnly = true;
-            this.boxEmail.Size = new System.Drawing.Size(145, 20);
+            this.boxEmail.Size = new System.Drawing.Size(189, 20);
             this.boxEmail.TabIndex = 11;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(317, 111);
+            this.label10.Location = new System.Drawing.Point(325, 111);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(35, 13);
             this.label10.TabIndex = 27;
@@ -259,24 +259,24 @@
             // 
             // boxFax
             // 
-            this.boxFax.Location = new System.Drawing.Point(359, 82);
+            this.boxFax.Location = new System.Drawing.Point(367, 82);
             this.boxFax.Name = "boxFax";
             this.boxFax.ReadOnly = true;
-            this.boxFax.Size = new System.Drawing.Size(145, 20);
+            this.boxFax.Size = new System.Drawing.Size(189, 20);
             this.boxFax.TabIndex = 10;
             // 
             // boxPhone
             // 
-            this.boxPhone.Location = new System.Drawing.Point(359, 56);
+            this.boxPhone.Location = new System.Drawing.Point(366, 52);
             this.boxPhone.Name = "boxPhone";
             this.boxPhone.ReadOnly = true;
-            this.boxPhone.Size = new System.Drawing.Size(145, 20);
+            this.boxPhone.Size = new System.Drawing.Size(190, 20);
             this.boxPhone.TabIndex = 9;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(325, 85);
+            this.label11.Location = new System.Drawing.Point(333, 85);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(27, 13);
             this.label11.TabIndex = 24;
@@ -285,7 +285,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(311, 59);
+            this.label12.Location = new System.Drawing.Point(319, 59);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(41, 13);
             this.label12.TabIndex = 23;
@@ -293,16 +293,16 @@
             // 
             // boxPayment
             // 
-            this.boxPayment.Location = new System.Drawing.Point(359, 241);
+            this.boxPayment.Location = new System.Drawing.Point(367, 241);
             this.boxPayment.Name = "boxPayment";
             this.boxPayment.ReadOnly = true;
-            this.boxPayment.Size = new System.Drawing.Size(145, 20);
+            this.boxPayment.Size = new System.Drawing.Size(189, 20);
             this.boxPayment.TabIndex = 14;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(302, 244);
+            this.label13.Location = new System.Drawing.Point(310, 244);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(51, 13);
             this.label13.TabIndex = 33;
@@ -310,16 +310,16 @@
             // 
             // boxSales
             // 
-            this.boxSales.Location = new System.Drawing.Point(359, 215);
+            this.boxSales.Location = new System.Drawing.Point(367, 215);
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
-            this.boxSales.Size = new System.Drawing.Size(145, 20);
+            this.boxSales.Size = new System.Drawing.Size(189, 20);
             this.boxSales.TabIndex = 13;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(316, 218);
+            this.label14.Location = new System.Drawing.Point(324, 218);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(36, 13);
             this.label14.TabIndex = 31;
@@ -327,7 +327,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(395, 325);
+            this.btnCancel.Location = new System.Drawing.Point(460, 325);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
             this.btnCancel.TabIndex = 19;
@@ -376,7 +376,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 402);
+            this.ClientSize = new System.Drawing.Size(709, 419);
             this.Controls.Add(this.labCustID);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.btnCreateOrder);

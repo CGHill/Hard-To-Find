@@ -50,6 +50,8 @@
             this.btnNewStock = new System.Windows.Forms.Button();
             this.btnStockDetails = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdoAllStock = new System.Windows.Forms.RadioButton();
+            this.rdoInStock = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -136,7 +138,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(80, 150);
+            this.btnSearch.Location = new System.Drawing.Point(80, 230);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
             this.btnSearch.TabIndex = 22;
@@ -222,7 +224,7 @@
             // 
             // btnNewStock
             // 
-            this.btnNewStock.Location = new System.Drawing.Point(94, 282);
+            this.btnNewStock.Location = new System.Drawing.Point(94, 404);
             this.btnNewStock.Name = "btnNewStock";
             this.btnNewStock.Size = new System.Drawing.Size(145, 23);
             this.btnNewStock.TabIndex = 26;
@@ -243,6 +245,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rdoInStock);
+            this.groupBox1.Controls.Add(this.rdoAllStock);
             this.groupBox1.Controls.Add(this.boxSubject);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnSearch);
@@ -254,10 +258,32 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(14, 59);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(233, 192);
+            this.groupBox1.Size = new System.Drawing.Size(233, 268);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
+            // 
+            // rdoAllStock
+            // 
+            this.rdoAllStock.AutoSize = true;
+            this.rdoAllStock.Checked = true;
+            this.rdoAllStock.Location = new System.Drawing.Point(80, 148);
+            this.rdoAllStock.Name = "rdoAllStock";
+            this.rdoAllStock.Size = new System.Drawing.Size(67, 17);
+            this.rdoAllStock.TabIndex = 25;
+            this.rdoAllStock.TabStop = true;
+            this.rdoAllStock.Text = "All Stock";
+            this.rdoAllStock.UseVisualStyleBackColor = true;
+            // 
+            // rdoInStock
+            // 
+            this.rdoInStock.AutoSize = true;
+            this.rdoInStock.Location = new System.Drawing.Point(80, 171);
+            this.rdoInStock.Name = "rdoInStock";
+            this.rdoInStock.Size = new System.Drawing.Size(91, 17);
+            this.rdoInStock.TabIndex = 26;
+            this.rdoInStock.Text = "Have in stock";
+            this.rdoInStock.UseVisualStyleBackColor = true;
             // 
             // StockForm
             // 
@@ -304,5 +330,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Button btnStockDetails;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rdoInStock;
+        private System.Windows.Forms.RadioButton rdoAllStock;
     }
 }

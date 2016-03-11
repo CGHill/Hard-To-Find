@@ -314,6 +314,8 @@
             this.boxQuantity.Name = "boxQuantity";
             this.boxQuantity.Size = new System.Drawing.Size(158, 20);
             this.boxQuantity.TabIndex = 1;
+            this.boxQuantity.Text = "1";
+            this.boxQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxQuantity_KeyPress);
             // 
             // btnSave
             // 

@@ -75,6 +75,10 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnCreateInvoice = new System.Windows.Forms.Button();
+            this.btnBigMailingLabel = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btnSmallMailingLabel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -518,11 +522,55 @@
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             // 
+            // btnCreateInvoice
+            // 
+            this.btnCreateInvoice.Location = new System.Drawing.Point(65, 301);
+            this.btnCreateInvoice.Name = "btnCreateInvoice";
+            this.btnCreateInvoice.Size = new System.Drawing.Size(118, 33);
+            this.btnCreateInvoice.TabIndex = 22;
+            this.btnCreateInvoice.Text = "Create Invoice";
+            this.btnCreateInvoice.UseVisualStyleBackColor = true;
+            this.btnCreateInvoice.Click += new System.EventHandler(this.btnCreateInvoice_Click);
+            // 
+            // btnBigMailingLabel
+            // 
+            this.btnBigMailingLabel.Location = new System.Drawing.Point(29, 405);
+            this.btnBigMailingLabel.Name = "btnBigMailingLabel";
+            this.btnBigMailingLabel.Size = new System.Drawing.Size(74, 33);
+            this.btnBigMailingLabel.TabIndex = 23;
+            this.btnBigMailingLabel.Text = "Big";
+            this.btnBigMailingLabel.UseVisualStyleBackColor = true;
+            this.btnBigMailingLabel.Click += new System.EventHandler(this.btnBigMailingLabel_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(62, 384);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(77, 13);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Mailing Labels:";
+            // 
+            // btnSmallMailingLabel
+            // 
+            this.btnSmallMailingLabel.Location = new System.Drawing.Point(109, 405);
+            this.btnSmallMailingLabel.Name = "btnSmallMailingLabel";
+            this.btnSmallMailingLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnSmallMailingLabel.Size = new System.Drawing.Size(74, 33);
+            this.btnSmallMailingLabel.TabIndex = 25;
+            this.btnSmallMailingLabel.Text = "Small";
+            this.btnSmallMailingLabel.UseVisualStyleBackColor = true;
+            this.btnSmallMailingLabel.Click += new System.EventHandler(this.btnSmallMailingLabel_Click);
+            // 
             // OrdersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 636);
+            this.Controls.Add(this.btnSmallMailingLabel);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.btnBigMailingLabel);
+            this.Controls.Add(this.btnCreateInvoice);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnImportOrderedStock);
             this.Controls.Add(this.btnNewOrder);
@@ -595,5 +643,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.Button btnCreateInvoice;
+        private System.Windows.Forms.Button btnBigMailingLabel;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnSmallMailingLabel;
     }
 }

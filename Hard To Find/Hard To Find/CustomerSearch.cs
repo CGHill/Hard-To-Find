@@ -90,6 +90,17 @@ namespace Hard_To_Find
         /********************* Keypress handlers to check for enter to start search ************************************/
         private void boxCustID_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+
             if (e.KeyChar == (Char)Keys.Enter)
             {
                 startSearch();

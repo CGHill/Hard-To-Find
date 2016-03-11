@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace Hard_To_Find
 {
     public partial class OrdersForm : Form
@@ -18,6 +19,9 @@ namespace Hard_To_Find
         private DatabaseManager dbManager;
         private List<Order> allOrders;
         private List<OrderedStock> allOrderedStock;
+        private Order currOrder;
+        private Customer currCustomer;
+        private List<OrderedStock> currOrderedStock;
 
         //Constructor
         public OrdersForm(Form1 form1)
@@ -30,6 +34,9 @@ namespace Hard_To_Find
             dbManager = new DatabaseManager();
             allOrders = new List<Order>();
             allOrderedStock = new List<OrderedStock>();
+            currOrderedStock = new List<OrderedStock>();
+            currCustomer = null;
+            currOrder = null;
 
             //Set up column widths
             DataGridViewColumn colQuantity = dataGridView1.Columns[0];
@@ -251,7 +258,7 @@ namespace Hard_To_Find
 
             int quantity;
 
-            if (splitOrder[1] == "")
+            if (splitOrder[9] == "")
                 quantity = 0;
             else
                 quantity = Convert.ToInt32(splitOrder[9]);
@@ -528,7 +535,7 @@ namespace Hard_To_Find
          Postcondition: Open form to create a new order */
         private void btnNewOrder_Click(object sender, EventArgs e)
         {
-            NewOrderForm nof = new NewOrderForm();
+            NewOrderForm nof = new NewOrderForm(this);
             nof.Show();
         }
 
@@ -568,51 +575,102 @@ namespace Hard_To_Find
                 int orderID = Convert.ToInt32(boxOrderID.Text);
 
                 //Run search
-                Order foundOrder = dbManager.searchOrders(orderID);
+                currOrder = dbManager.searchOrders(orderID);
 
                 //Check order wasn't null
-                if (foundOrder != null)
+                if (currOrder != null)
                 {
                     //Get the stock that was ordered for this order
-                    List<OrderedStock> orderedStock = dbManager.searchOrderedStock(orderID);
+                    
+                    currOrderedStock = dbManager.searchOrderedStock(orderID);
 
                     //Autofill into text boxes the found order
-                    labOrderID.Text = foundOrder.orderID.ToString();
-                    boxOrderRef.Text = foundOrder.orderReference;
-                    boxProgress.Text = foundOrder.progress;
-                    boxInvoiceDate.Text = foundOrder.invoiceDate;
-                    //Discprice is freight?
-                    boxFreight.Text = foundOrder.discPrice;
-                    boxComments.Text = foundOrder.comments;
+                    labOrderID.Text = currOrder.orderID.ToString();
+                    boxOrderRef.Text = currOrder.orderReference;
+                    boxProgress.Text = currOrder.progress;
+                    boxInvoiceDate.Text = currOrder.invoiceDate;
+                    boxFreight.Text = currOrder.freightCost;
+                    boxComments.Text = currOrder.comments;
 
                     //Search for customer attatched to the order
-                    Customer foundCustomer = dbManager.searchCustomers(foundOrder.customerID);
+                    currCustomer = dbManager.searchCustomers(currOrder.customerID);
 
                     //Use customers data if the customer was found
-                    if (foundCustomer != null)
+                    if (currCustomer != null)
                     {
-                        labCustID.Text = foundCustomer.custID.ToString();
-                        boxCustName.Text = foundCustomer.firstName + " " + foundCustomer.lastName;
-                        boxInstitution.Text = foundCustomer.institution;
-                        boxPostcode.Text = foundCustomer.postCode;
-                        boxAdd1.Text = foundCustomer.address1;
-                        boxAdd2.Text = foundCustomer.address2;
-                        boxAdd3.Text = foundCustomer.address3;
-                        boxCountry.Text = foundCustomer.country;
+                        labCustID.Text = currCustomer.custID.ToString();
+                        boxCustName.Text = currCustomer.firstName + " " + currCustomer.lastName;
+                        boxInstitution.Text = currCustomer.institution;
+                        boxPostcode.Text = currCustomer.postCode;
+                        boxAdd1.Text = currCustomer.address1;
+                        boxAdd2.Text = currCustomer.address2;
+                        boxAdd3.Text = currCustomer.address3;
+                        boxCountry.Text = currCustomer.country;
                     }
                     else
                     {
                         //Use the default data that was stored in the order
-                        boxCustName.Text = foundOrder.customerFirstName + " " + foundOrder.customerLastName;
+                        boxCustName.Text = currOrder.customerFirstName + " " + currOrder.customerLastName;
                     }
 
 
                     //Loop over and display all of the ordered stock for the order
-                    foreach (OrderedStock o in orderedStock)
+                    foreach (OrderedStock o in currOrderedStock)
                     {
                         dataGridView1.Rows.Add(o.quantity, o.author, o.title, o.price, o.bookID, o.discount);
                     }
                 }
+            }
+        }
+
+        /*Precondition:
+         Postcondition: Loads up an order in the form for when a new order has finished being made so user can see the completed order*/
+        public void loadOrder(int orderID)
+        {
+            boxOrderID.Text = orderID.ToString();
+            startSearch();
+        }
+
+        /*Precondition:
+         Postcondition: Starts a search for orders depending on what search boxes have been filled in*/
+        private void btnCreateInvoice_Click(object sender, EventArgs e)
+        {
+            if (currOrder != null)
+            {
+                WordDocumentManager wdm = new WordDocumentManager(currCustomer, currOrder, currOrderedStock);
+
+                string documentName = currOrder.orderID.ToString() + ".docx";
+
+                string filePath = @"E:\Programming\InvoiceStorage\" + documentName;
+                wdm.createInvoice(filePath);
+            }
+        }
+
+        private void btnSmallMailingLabel_Click(object sender, EventArgs e)
+        {
+            if (currOrder != null)
+            {
+                bool bigLabel = false;
+                MailingLabelCreator labelCreator = new MailingLabelCreator(currCustomer, bigLabel);
+
+                string documentName = currOrder.orderID.ToString() + ".docx";
+
+                string filePath = @"E:\Programming\InvoiceStorage\Mailing Labels\" + documentName;
+                labelCreator.createMailingLabel(filePath);
+            }
+        }
+
+        private void btnBigMailingLabel_Click(object sender, EventArgs e)
+        {
+            if (currOrder != null)
+            {
+                bool bigLabel = true;
+                MailingLabelCreator labelCreator = new MailingLabelCreator(currCustomer, bigLabel);
+
+                string documentName = currOrder.orderID.ToString() + ".docx";
+
+                string filePath = @"E:\Programming\InvoiceStorage\Mailing Labels\" + documentName;
+                labelCreator.createMailingLabel(filePath);
             }
         }
     }

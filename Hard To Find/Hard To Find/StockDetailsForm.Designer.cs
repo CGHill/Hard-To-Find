@@ -69,7 +69,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(382, 377);
+            this.btnClose.Location = new System.Drawing.Point(484, 374);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(109, 34);
             this.btnClose.TabIndex = 20;
@@ -79,16 +79,16 @@
             // 
             // boxSales
             // 
-            this.boxSales.Location = new System.Drawing.Point(346, 278);
+            this.boxSales.Location = new System.Drawing.Point(382, 274);
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
-            this.boxSales.Size = new System.Drawing.Size(145, 20);
+            this.boxSales.Size = new System.Drawing.Size(211, 20);
             this.boxSales.TabIndex = 15;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(304, 281);
+            this.label13.Location = new System.Drawing.Point(340, 277);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(36, 13);
             this.label13.TabIndex = 66;
@@ -96,16 +96,16 @@
             // 
             // boxWeight
             // 
-            this.boxWeight.Location = new System.Drawing.Point(346, 252);
+            this.boxWeight.Location = new System.Drawing.Point(382, 248);
             this.boxWeight.Name = "boxWeight";
             this.boxWeight.ReadOnly = true;
-            this.boxWeight.Size = new System.Drawing.Size(145, 20);
+            this.boxWeight.Size = new System.Drawing.Size(211, 20);
             this.boxWeight.TabIndex = 14;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(296, 255);
+            this.label14.Location = new System.Drawing.Point(332, 251);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(44, 13);
             this.label14.TabIndex = 64;
@@ -113,16 +113,16 @@
             // 
             // boxCatalogues
             // 
-            this.boxCatalogues.Location = new System.Drawing.Point(346, 226);
+            this.boxCatalogues.Location = new System.Drawing.Point(382, 222);
             this.boxCatalogues.Name = "boxCatalogues";
             this.boxCatalogues.ReadOnly = true;
-            this.boxCatalogues.Size = new System.Drawing.Size(145, 20);
+            this.boxCatalogues.Size = new System.Drawing.Size(211, 20);
             this.boxCatalogues.TabIndex = 13;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(277, 229);
+            this.label9.Location = new System.Drawing.Point(313, 225);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 62;
@@ -130,16 +130,16 @@
             // 
             // boxSubject
             // 
-            this.boxSubject.Location = new System.Drawing.Point(346, 197);
+            this.boxSubject.Location = new System.Drawing.Point(382, 193);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.ReadOnly = true;
-            this.boxSubject.Size = new System.Drawing.Size(145, 20);
+            this.boxSubject.Size = new System.Drawing.Size(211, 20);
             this.boxSubject.TabIndex = 12;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(294, 200);
+            this.label10.Location = new System.Drawing.Point(330, 196);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(46, 13);
             this.label10.TabIndex = 60;
@@ -147,24 +147,24 @@
             // 
             // boxPrice
             // 
-            this.boxPrice.Location = new System.Drawing.Point(346, 171);
+            this.boxPrice.Location = new System.Drawing.Point(382, 167);
             this.boxPrice.Name = "boxPrice";
             this.boxPrice.ReadOnly = true;
-            this.boxPrice.Size = new System.Drawing.Size(145, 20);
+            this.boxPrice.Size = new System.Drawing.Size(211, 20);
             this.boxPrice.TabIndex = 11;
             // 
             // boxLocation
             // 
-            this.boxLocation.Location = new System.Drawing.Point(346, 142);
+            this.boxLocation.Location = new System.Drawing.Point(382, 138);
             this.boxLocation.Name = "boxLocation";
             this.boxLocation.ReadOnly = true;
-            this.boxLocation.Size = new System.Drawing.Size(145, 20);
+            this.boxLocation.Size = new System.Drawing.Size(211, 20);
             this.boxLocation.TabIndex = 10;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(306, 174);
+            this.label11.Location = new System.Drawing.Point(342, 170);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(34, 13);
             this.label11.TabIndex = 57;
@@ -173,7 +173,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(289, 145);
+            this.label12.Location = new System.Drawing.Point(325, 141);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(51, 13);
             this.label12.TabIndex = 56;
@@ -181,17 +181,17 @@
             // 
             // boxComment
             // 
-            this.boxComment.Location = new System.Drawing.Point(346, 42);
+            this.boxComment.Location = new System.Drawing.Point(382, 38);
             this.boxComment.Multiline = true;
             this.boxComment.Name = "boxComment";
             this.boxComment.ReadOnly = true;
-            this.boxComment.Size = new System.Drawing.Size(145, 91);
+            this.boxComment.Size = new System.Drawing.Size(211, 91);
             this.boxComment.TabIndex = 9;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(286, 45);
+            this.label8.Location = new System.Drawing.Point(322, 41);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(54, 13);
             this.label8.TabIndex = 54;
@@ -203,7 +203,7 @@
             this.boxDescription.Multiline = true;
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.ReadOnly = true;
-            this.boxDescription.Size = new System.Drawing.Size(145, 72);
+            this.boxDescription.Size = new System.Drawing.Size(211, 72);
             this.boxDescription.TabIndex = 8;
             // 
             // label7
@@ -220,7 +220,7 @@
             this.boxPublisher.Location = new System.Drawing.Point(87, 252);
             this.boxPublisher.Name = "boxPublisher";
             this.boxPublisher.ReadOnly = true;
-            this.boxPublisher.Size = new System.Drawing.Size(145, 20);
+            this.boxPublisher.Size = new System.Drawing.Size(211, 20);
             this.boxPublisher.TabIndex = 7;
             // 
             // boxSubtitle
@@ -228,7 +228,7 @@
             this.boxSubtitle.Location = new System.Drawing.Point(87, 226);
             this.boxSubtitle.Name = "boxSubtitle";
             this.boxSubtitle.ReadOnly = true;
-            this.boxSubtitle.Size = new System.Drawing.Size(145, 20);
+            this.boxSubtitle.Size = new System.Drawing.Size(211, 20);
             this.boxSubtitle.TabIndex = 6;
             // 
             // label5
@@ -254,7 +254,7 @@
             this.boxTitle.Location = new System.Drawing.Point(87, 197);
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.ReadOnly = true;
-            this.boxTitle.Size = new System.Drawing.Size(145, 20);
+            this.boxTitle.Size = new System.Drawing.Size(211, 20);
             this.boxTitle.TabIndex = 5;
             // 
             // boxAuthor
@@ -262,7 +262,7 @@
             this.boxAuthor.Location = new System.Drawing.Point(87, 171);
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.ReadOnly = true;
-            this.boxAuthor.Size = new System.Drawing.Size(145, 20);
+            this.boxAuthor.Size = new System.Drawing.Size(211, 20);
             this.boxAuthor.TabIndex = 4;
             // 
             // label3
@@ -289,7 +289,7 @@
             this.boxNote.Multiline = true;
             this.boxNote.Name = "boxNote";
             this.boxNote.ReadOnly = true;
-            this.boxNote.Size = new System.Drawing.Size(145, 68);
+            this.boxNote.Size = new System.Drawing.Size(211, 68);
             this.boxNote.TabIndex = 3;
             // 
             // boxQuantity
@@ -297,13 +297,13 @@
             this.boxQuantity.Location = new System.Drawing.Point(87, 71);
             this.boxQuantity.Name = "boxQuantity";
             this.boxQuantity.ReadOnly = true;
-            this.boxQuantity.Size = new System.Drawing.Size(145, 20);
+            this.boxQuantity.Size = new System.Drawing.Size(211, 20);
             this.boxQuantity.TabIndex = 2;
             // 
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(202, 377);
+            this.btnSave.Location = new System.Drawing.Point(623, 78);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 19;
@@ -313,7 +313,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(87, 377);
+            this.btnUpdate.Location = new System.Drawing.Point(623, 38);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
             this.btnUpdate.TabIndex = 18;
@@ -341,16 +341,16 @@
             // 
             // boxBookID
             // 
-            this.boxBookID.Location = new System.Drawing.Point(346, 304);
+            this.boxBookID.Location = new System.Drawing.Point(382, 300);
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.ReadOnly = true;
-            this.boxBookID.Size = new System.Drawing.Size(145, 20);
+            this.boxBookID.Size = new System.Drawing.Size(211, 20);
             this.boxBookID.TabIndex = 16;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(291, 307);
+            this.label15.Location = new System.Drawing.Point(327, 303);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(49, 13);
             this.label15.TabIndex = 69;
@@ -358,16 +358,16 @@
             // 
             // boxDateEntered
             // 
-            this.boxDateEntered.Location = new System.Drawing.Point(346, 330);
+            this.boxDateEntered.Location = new System.Drawing.Point(382, 330);
             this.boxDateEntered.Name = "boxDateEntered";
             this.boxDateEntered.ReadOnly = true;
-            this.boxDateEntered.Size = new System.Drawing.Size(145, 20);
+            this.boxDateEntered.Size = new System.Drawing.Size(211, 20);
             this.boxDateEntered.TabIndex = 17;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(267, 333);
+            this.label16.Location = new System.Drawing.Point(303, 329);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(73, 13);
             this.label16.TabIndex = 71;
@@ -378,7 +378,7 @@
             this.boxStockID.Location = new System.Drawing.Point(87, 38);
             this.boxStockID.Name = "boxStockID";
             this.boxStockID.ReadOnly = true;
-            this.boxStockID.Size = new System.Drawing.Size(145, 20);
+            this.boxStockID.Size = new System.Drawing.Size(211, 20);
             this.boxStockID.TabIndex = 1;
             // 
             // label17
@@ -394,7 +394,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 432);
+            this.ClientSize = new System.Drawing.Size(755, 432);
             this.Controls.Add(this.boxStockID);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.boxDateEntered);

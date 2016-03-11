@@ -15,6 +15,7 @@ E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\Hard To F
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\Hard To Find.pdb
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\System.Data.SQLite.dll
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\System.Data.SQLite.xml
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csprojResolveAssemblyReference.cache
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerOrdersForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerSearch.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerSearchForm.resources
@@ -32,4 +33,3 @@ E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csproj.GenerateResource.Cache
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.exe
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.pdb
-E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csprojResolveAssemblyReference.cache

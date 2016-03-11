@@ -114,7 +114,7 @@ namespace Hard_To_Find
             dbConnection.Open();
 
             string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, customerFirstName VARCHAR(100), customerLastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(50)," +
-                " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(12), progress VARCHAR(100), discPrice VARCHAR(10)," +
+                " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(12), progress VARCHAR(100), freightCost VARCHAR(10)," +
                 " invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), stockID INTEGER, customerID INTEGER)";
 
             SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
@@ -313,13 +313,13 @@ namespace Hard_To_Find
                 if (o.stockID == -1)
                 {
                     orderInsert = "INSERT INTO Orders VALUES(null, '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" + o.catItem + 
-                        "', '" + o.author + "', '" + o.title + "', '" + o.quantity.ToString() + "', '" + o.price + "', '" + o.progress + "', '" + o.discPrice + "', '" + o.invoiceNo + "', '" + o.invoiceDate + "', '" + 
+                        "', '" + o.author + "', '" + o.title + "', '" + o.quantity.ToString() + "', '" + o.price + "', '" + o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo + "', '" + o.invoiceDate + "', '" + 
                         o.comments + "', '" + o.stockID + "', '" + o.customerID + "')";
                 }
                 else
                 {
                     orderInsert = "INSERT INTO Orders VALUES(" + o.orderID + ", '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference +  "', '" + 
-                        o.catItem + "', '" + o.author + "', '" + o.title + "', '" + o.quantity.ToString() + "', '" + o.price + "', '" + o.progress + "', '" + o.discPrice + "', '" + o.invoiceNo.ToString() + "', '" + 
+                        o.catItem + "', '" + o.author + "', '" + o.title + "', '" + o.quantity.ToString() + "', '" + o.price + "', '" + o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo.ToString() + "', '" + 
                         o.invoiceDate + "', '" + o.comments + "', '" + o.stockID + "', '" + o.customerID + "')";
                 }
 
@@ -348,7 +348,7 @@ namespace Hard_To_Find
             //Build insert command
             orderInsert = "INSERT INTO Orders VALUES(null, '" + newOrder.customerFirstName + "', '" + newOrder.customerLastName + "', '" + newOrder.institution + "', '" + newOrder.postcode + "', '" + 
                 newOrder.orderReference + "', '" + newOrder.catItem + "', '" + newOrder.author + "', '" + newOrder.title + "', '" + newOrder.quantity.ToString() + "', '" + newOrder.price + 
-                "', '" + newOrder.progress + "', '" + newOrder.discPrice + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate + "', '" + newOrder.comments + "', '" + newOrder.stockID + "', '" + 
+                "', '" + newOrder.progress + "', '" + newOrder.freightCost + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate + "', '" + newOrder.comments + "', '" + newOrder.stockID + "', '" + 
                 newOrder.customerID + "')";
                 
             SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
@@ -493,7 +493,7 @@ namespace Hard_To_Find
 
         /*Precondition:
          Postcondition: Returns stock entry that matches the ID passed in*/
-        public Stock searchStock(string bookID)
+        public Stock searchStock(string bookID, bool searchAllStock)
         {
             Stock foundStock = null;
 
@@ -501,6 +501,10 @@ namespace Hard_To_Find
 
             //Execute SQL query
             string sql = "SELECT * FROM Stock WHERE bookID = '" + bookID + "'";
+            
+            if (!searchAllStock)
+                sql += " AND quantity > 0";
+
             SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
 
@@ -519,7 +523,7 @@ namespace Hard_To_Find
 
         /*Precondition:
          Postcondition: Returns a list of the stock from the database that match the parameters passed in */
-        public List<Stock> searchStock(string author, string title, string subject)
+        public List<Stock> searchStock(string author, string title, string subject, bool searchAllStock)
         {
             //Create storage for stock that's found
             List<Stock> foundStock = new List<Stock>();
@@ -575,6 +579,9 @@ namespace Hard_To_Find
                 else
                     searchQuery += " subject LIKE '%" + subject + "%'";
             }
+
+            if (!searchAllStock)
+                searchQuery += " AND quantity > 0";
 
             //Execute query
             SQLiteCommand command = new SQLiteCommand(searchQuery, dbConnection);

@@ -84,7 +84,7 @@ namespace Hard_To_Find
             boxOrderRef.Text = currOrder.orderReference;
             boxProgress.Text = currOrder.progress;
             boxInvoiceDate.Text = currOrder.invoiceDate;
-            boxFreight.Text = currOrder.discPrice;
+            boxFreight.Text = currOrder.freightCost;
             boxComments.Text = currOrder.comments;
 
             //Search DB for stock for the order

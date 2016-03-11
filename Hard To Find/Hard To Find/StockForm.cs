@@ -356,6 +356,10 @@ namespace Hard_To_Find
             foundStock = new List<Stock>();
             dataGridView1.Rows.Clear();
             btnStockDetails.Enabled = false;
+            bool searchAllStock = true;
+
+            if (rdoInStock.Checked)
+                searchAllStock = false;
 
             //If ID was entered then search only on that
             if (boxStockID.Text != "")
@@ -363,7 +367,7 @@ namespace Hard_To_Find
                 string bookID = boxStockID.Text;
 
                 //Put found stock into list
-                Stock found = dbManager.searchStock(bookID);
+                Stock found = dbManager.searchStock(bookID, searchAllStock);
                 if (found != null)
                     foundStock.Add(found);
 
@@ -388,7 +392,7 @@ namespace Hard_To_Find
                     subject = boxSubject.Text;
 
                 //Search for stock based on the parameters entered
-                foundStock = dbManager.searchStock(author, title, subject);
+                foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
 
                 //Display found stock
                 foreach (Stock s in foundStock)

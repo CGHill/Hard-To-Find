@@ -19,7 +19,7 @@ namespace Hard_To_Find
         public int quantity { get; set; }
         public string price { get; set; }
         public string progress { get; set; }
-        public string discPrice { get; set; }
+        public string freightCost { get; set; }
         public int invoiceNo { get; set; }
         public string invoiceDate { get; set; }
         public string comments { get; set; }
@@ -27,7 +27,7 @@ namespace Hard_To_Find
         public int customerID { get; set; }
 
         public Order(int orderID, string customerFirstName, string customerLastName, string institution, string postcode, string orderReference, string catItem, string author, string title, int quantity, string price,
-            string progress, string discPrice, int invoiceNo, string invoiceDate, string comments, int stockID, int customerID)
+            string progress, string freightCost, int invoiceNo, string invoiceDate, string comments, int stockID, int customerID)
         {
             this.orderID = orderID;
             this.customerFirstName = customerFirstName;
@@ -41,7 +41,7 @@ namespace Hard_To_Find
             this.quantity = quantity;
             this.price = price;
             this.progress = progress;
-            this.discPrice = discPrice;
+            this.freightCost = freightCost;
             this.invoiceNo = invoiceNo;
             this.invoiceDate = invoiceDate;
             this.comments = comments;
@@ -50,7 +50,7 @@ namespace Hard_To_Find
         }
 
         public Order(string firstName, string lastName, string institution, string postcode, string orderReference, string catItem, string author, string title, int quantity, string price,
-            string progress, string discPrice, int invoiceNo, string invoiceDate, string comments, int stockID, int customerID)
+            string progress, string freightcost, int invoiceNo, string invoiceDate, string comments, int stockID, int customerID)
         {
             this.orderID = -1;
             this.customerFirstName = customerFirstName;
@@ -64,7 +64,7 @@ namespace Hard_To_Find
             this.quantity = quantity;
             this.price = price;
             this.progress = progress;
-            this.discPrice = discPrice;
+            this.freightCost = freightcost;
             this.invoiceNo = invoiceNo;
             this.invoiceDate = invoiceDate;
             this.comments = comments;

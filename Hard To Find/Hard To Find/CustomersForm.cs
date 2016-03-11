@@ -154,7 +154,7 @@ namespace Hard_To_Find
          Postcondition: Opens form to create a new order for the current customer*/
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {
-            NewOrderForm orderForm = new NewOrderForm();
+            NewOrderForm orderForm = new NewOrderForm(null);
             orderForm.setCustomer(currCustomer);
             orderForm.Show();
         }

@@ -48,11 +48,19 @@ namespace Hard_To_Find
             string sales = boxSales.Text;
             string payment = boxPayment.Text;
 
-            Customer newCustomer = new Customer(firstName, lastName, institution, address1, address2, address3, country, postcode, phone, fax, email, comments, sales, payment);
+            //Check that the basic things haven't been left empty so a blank customer isn't saved
+            if (firstName != "" || lastName != "" || address1 != "" || address2 != "" || address3 != "")
+            {
+                Customer newCustomer = new Customer(firstName, lastName, institution, address1, address2, address3, country, postcode, phone, fax, email, comments, sales, payment);
 
-            dbManager.insertCusomter(newCustomer);
+                dbManager.insertCusomter(newCustomer);
 
-            this.Close();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Not enough information entered");
+            }
         }
     }
 }
