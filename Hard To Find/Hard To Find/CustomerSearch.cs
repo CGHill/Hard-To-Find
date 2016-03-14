@@ -37,17 +37,17 @@ namespace Hard_To_Find
 
             //Set up column widths
             DataGridViewColumn colFirstName = dataGridView1.Columns[0];
-            colFirstName.Width = 140;
+            colFirstName.Width = 110;
             DataGridViewColumn colLastName = dataGridView1.Columns[1];
-            colLastName.Width = 160;
+            colLastName.Width = 110;
             DataGridViewColumn colAdd1 = dataGridView1.Columns[2];
-            colLastName.Width = 100;
+            colAdd1.Width = 120;
             DataGridViewColumn colAdd2 = dataGridView1.Columns[3];
-            colLastName.Width = 100;
-            DataGridViewColumn collCountry = dataGridView1.Columns[4];
-            colLastName.Width = 100;
+            colAdd2.Width = 120;
+            DataGridViewColumn colCountry = dataGridView1.Columns[4];
+            colCountry.Width = 60;
             DataGridViewColumn colEmail = dataGridView1.Columns[5];
-            colEmail.Width = 200;
+            colEmail.Width = 182;
         }
 
         /*Precondition:

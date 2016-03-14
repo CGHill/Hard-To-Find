@@ -75,10 +75,6 @@ namespace Hard_To_Find
             //Open the file browser and wait for user to select file
             if (dialogBox.ShowDialog() == DialogResult.OK)
             {
-                //TODO find place for this
-                dbManager.dropOrdersTable();
-                dbManager.createOrdersTable();
-
                 //Get the path for the file the user clicked on
                 string filename = dialogBox.FileName;
 
@@ -91,155 +87,177 @@ namespace Hard_To_Find
          Postcondition: Reads through users selected file and sorts the information to be stored as orders */
         private void readFile(string fileName)
         {
-            //Open file from passed in path
-            System.IO.StreamReader file = new System.IO.StreamReader(fileName);
-
-            string line;
-            string[] previousLine = new string[1];
-            bool newLineCharacter = false;
-
-            //Read through the whole file 1 line at a time
-            while ((line = file.ReadLine()) != null)
+            if (fileName.Contains("\\Orders.txt"))
             {
-                //Remove double quotations from line for SQL insert
-                string unquoted = line.Replace("\"", string.Empty);
-
-                //Remove dashes from line for SQL insert
-                string removedDashes = unquoted.Replace("-", " ");
-
-                //Check if it contains a single quotation
-                if (removedDashes.Contains('\''))
+                try
                 {
-                    //Get number of single quotations
-                    int numQuotes = removedDashes.Split('\'').Length - 1;
-                    //int num = removedDashes.Count(c => c == '\'');
+                    allOrders = new List<Order>();
 
-                    int previousIndex = 0;
+                    //Open file from passed in path
+                    System.IO.StreamReader file = new System.IO.StreamReader(fileName);
 
-                    //Loop over quotations
-                    for (int i = 0; i < numQuotes; i++)
+                    string line;
+                    string[] previousLine = new string[1];
+                    bool newLineCharacter = false;
+
+                    //Read through the whole file 1 line at a time
+                    while ((line = file.ReadLine()) != null)
                     {
-                        //Insert quotation before existing one because it's an escape character in SQLite
-                        int indexOfQuote = removedDashes.IndexOf("'", previousIndex);
-                        removedDashes = removedDashes.Insert(indexOfQuote, "'");
+                        //Remove double quotations from line for SQL insert
+                        string unquoted = line.Replace("\"", string.Empty);
 
-                        //Move index after quotation that was just fixed to stop repeating on the same one
-                        previousIndex = indexOfQuote + 2;
-                    }
-
-                }
-
-                //Split on | instead of comma because Order entries could contain commas in comments
-                string[] splitOrder = removedDashes.Split('|');
-
-                //Importing from the old Access database contain a lot of new line characters
-                //Check if current line contains all of the columns
-                if (splitOrder.Length < ORDER_ARRAY_LENGTH)
-                {
-                    //If previous line had a new line character in it
-                    if (newLineCharacter)
-                    {
-                        //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
-                        if ((splitOrder.Length + previousLine.Length - 1) == ORDER_ARRAY_LENGTH)
+                        //Check if it contains a single quotation
+                        if (unquoted.Contains('\''))
                         {
-                            //Go through and combined the lines into 1
-                            string[] combinedLines = new string[ORDER_ARRAY_LENGTH];
-                            int combinedLineIndex = 0;
+                            //Get number of single quotations
+                            int numQuotes = unquoted.Split('\'').Length - 1;
+                            //int num = removedDashes.Count(c => c == '\'');
 
-                            for (int i = 0; i < previousLine.Length; i++)
+                            int previousIndex = 0;
+
+                            //Loop over quotations
+                            for (int i = 0; i < numQuotes; i++)
                             {
-                                combinedLines[combinedLineIndex] = previousLine[i];
-                                combinedLineIndex++;
+                                //Insert quotation before existing one because it's an escape character in SQLite
+                                int indexOfQuote = unquoted.IndexOf("'", previousIndex);
+                                unquoted = unquoted.Insert(indexOfQuote, "'");
+
+                                //Move index after quotation that was just fixed to stop repeating on the same one
+                                previousIndex = indexOfQuote + 2;
                             }
 
-                            for (int i = 0; i < splitOrder.Length; i++)
-                            {
-                                if (i == 0)
-                                {
-                                    combinedLineIndex--;
-                                    combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
-                                }
-                                else
-                                {
-                                    combinedLines[combinedLineIndex] = splitOrder[i];
-                                }
-                                combinedLineIndex++;
-                            }
-
-                            //Pull out all of the columns
-                            storeOrder(combinedLines);
-
-                            //Reset values
-                            newLineCharacter = false;
-                            previousLine = new string[1];
                         }
-                        else
+
+                        //Split on | instead of comma because Order entries could contain commas in comments
+                        string[] splitOrder = unquoted.Split('|');
+
+                        //Importing from the old Access database contain a lot of new line characters
+                        //Check if current line contains all of the columns
+                        if (splitOrder.Length < ORDER_ARRAY_LENGTH)
                         {
-                            if (splitOrder.Length == 1)
+                            //If previous line had a new line character in it
+                            if (newLineCharacter)
                             {
-                                int previousLineLength = previousLine.Length;
-                                previousLine[previousLineLength - 1] = previousLine[previousLineLength - 1] + " " + splitOrder[0];
-                            }
-                            else
-                            {
-                                //Go through and combined the lines into 1
-                                string[] combinedLines = new string[previousLine.Length + splitOrder.Length - 1];
-                                int combinedLineIndex = 0;
-
-                                for (int i = 0; i < previousLine.Length; i++)
+                                //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
+                                if ((splitOrder.Length + previousLine.Length - 1) == ORDER_ARRAY_LENGTH)
                                 {
-                                    combinedLines[combinedLineIndex] = previousLine[i];
-                                    combinedLineIndex++;
-                                }
+                                    //Go through and combined the lines into 1
+                                    string[] combinedLines = new string[ORDER_ARRAY_LENGTH];
+                                    int combinedLineIndex = 0;
 
-                                for (int i = 0; i < splitOrder.Length; i++)
-                                {
-                                    if (i == 0)
+                                    for (int i = 0; i < previousLine.Length; i++)
                                     {
-                                        combinedLineIndex--;
-                                        combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
+                                        combinedLines[combinedLineIndex] = previousLine[i];
+                                        combinedLineIndex++;
                                     }
-                                    else
-                                    {
-                                        combinedLines[combinedLineIndex] = splitOrder[i];
-                                    }
-                                    combinedLineIndex++;
-                                }
 
-                                if (combinedLines.Length == ORDER_ARRAY_LENGTH)
-                                {
+                                    for (int i = 0; i < splitOrder.Length; i++)
+                                    {
+                                        if (i == 0)
+                                        {
+                                            combinedLineIndex--;
+                                            combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
+                                        }
+                                        else
+                                        {
+                                            combinedLines[combinedLineIndex] = splitOrder[i];
+                                        }
+                                        combinedLineIndex++;
+                                    }
+
+                                    //Pull out all of the columns
                                     storeOrder(combinedLines);
 
                                     //Reset values
                                     newLineCharacter = false;
                                     previousLine = new string[1];
                                 }
+                                else
+                                {
+                                    if (splitOrder.Length == 1)
+                                    {
+                                        int previousLineLength = previousLine.Length;
+                                        previousLine[previousLineLength - 1] = previousLine[previousLineLength - 1] + " " + splitOrder[0];
+                                    }
+                                    else
+                                    {
+                                        //Go through and combined the lines into 1
+                                        string[] combinedLines = new string[previousLine.Length + splitOrder.Length - 1];
+                                        int combinedLineIndex = 0;
 
+                                        for (int i = 0; i < previousLine.Length; i++)
+                                        {
+                                            combinedLines[combinedLineIndex] = previousLine[i];
+                                            combinedLineIndex++;
+                                        }
+
+                                        for (int i = 0; i < splitOrder.Length; i++)
+                                        {
+                                            if (i == 0)
+                                            {
+                                                combinedLineIndex--;
+                                                combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
+                                            }
+                                            else
+                                            {
+                                                combinedLines[combinedLineIndex] = splitOrder[i];
+                                            }
+                                            combinedLineIndex++;
+                                        }
+
+                                        if (combinedLines.Length == ORDER_ARRAY_LENGTH)
+                                        {
+                                            storeOrder(combinedLines);
+
+                                            //Reset values
+                                            newLineCharacter = false;
+                                            previousLine = new string[1];
+                                        }
+
+                                    }
+                                }
+                            }
+                            else     //Was the first new line character and need to search for the rest of the line
+                            {
+                                //Update values to start searching for the rest of the line
+                                newLineCharacter = true;
+                                previousLine = splitOrder;
                             }
                         }
+                        else     //Else a normal line
+                        {
+                            storeOrder(splitOrder);
+                        }
                     }
-                    else     //Was the first new line character and need to search for the rest of the line
-                    {
-                        //Update values to start searching for the rest of the line
-                        newLineCharacter = true;
-                        previousLine = splitOrder;
-                    }
+                    //Close text file
+                    file.Close();
+
+                    progressBar1.Visible = true;
+
+                    //TODO find a better place for this?
+                    dbManager.dropOrdersTable();
+                    dbManager.createOrdersTable();
+
+                    //Insert all of the new orders into the database
+                    dbManager.insertOrders(allOrders, progressBar1);
+                    progressBar1.Visible = false;
+
+                    //Inform user that the process has been finished
+                    MessageBox.Show("Finished import");
                 }
-                else     //Else a normal line
+                catch (FormatException)
                 {
-                    storeOrder(splitOrder);
+                    MessageBox.Show("Error: File was formatted incorrectly");
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Error: File was formatted incorrectly");
                 }
             }
-            //Close text file
-            file.Close();
-
-            progressBar1.Visible = true;
-            //Insert all of the new orders into the database
-            dbManager.insertOrders(allOrders, progressBar1);
-            progressBar1.Visible = false;
-
-            //Inform user that the process has been finished
-            MessageBox.Show("Finished import");
+            else
+            {
+                MessageBox.Show("Error: Wrong file selected");
+            }
         }
 
         /*Precondition: 
@@ -252,20 +270,8 @@ namespace Hard_To_Find
             string institution = splitOrder[3];
             string postcode = splitOrder[4];
             string orderReference = splitOrder[5];
-            string catItem = splitOrder[6];
-            string author = splitOrder[7];
-            string title = splitOrder[8];
-
-            int quantity;
-
-            if (splitOrder[9] == "")
-                quantity = 0;
-            else
-                quantity = Convert.ToInt32(splitOrder[9]);
-
-            string price = splitOrder[10];
             string progress = splitOrder[11];
-            string discPrice = splitOrder[12];
+            string freightCost = splitOrder[12];
 
             int invoiceNo;
             if (splitOrder[13] == "")
@@ -276,12 +282,6 @@ namespace Hard_To_Find
             string invoiceDate = splitOrder[14];
             string comments = splitOrder[15];
 
-            int stockID;
-            if (splitOrder[16] == "")
-                stockID = -1;
-            else
-                stockID = Convert.ToInt32(splitOrder[16]);
-
             int customerID;
             if (splitOrder[17] == "")
                 customerID = -1;
@@ -289,8 +289,7 @@ namespace Hard_To_Find
                 customerID = Convert.ToInt32(splitOrder[17]);
 
             //Create a new order entry from it and insert into list
-            Order newOrder = new Order(orderID, customerFirstName, customerLastName, institution, postcode, orderReference, catItem, author, title, quantity, price,
-                progress, discPrice, invoiceNo, invoiceDate, comments, stockID, customerID);
+            Order newOrder = new Order(orderID, customerFirstName, customerLastName, institution, postcode, orderReference, progress, freightCost, invoiceNo, invoiceDate, comments, customerID);
             allOrders.Add(newOrder);
         }
 
@@ -307,10 +306,6 @@ namespace Hard_To_Find
             //Open the file browser and wait for user to select file
             if (dialogBox.ShowDialog() == DialogResult.OK)
             {
-                //TODO find place for this
-                dbManager.dropOrderedStockTable();
-                dbManager.createOrderedStock();
-
                 //Get the path for the file the user clicked on
                 string filename = dialogBox.FileName;
 
@@ -323,157 +318,178 @@ namespace Hard_To_Find
          Postcondition: Reads through users selected file to import all of the OrderedStock information */
         private void readOrderedStockFile(string fileName)
         {
-            //Open file from passed in path
-            System.IO.StreamReader file = new System.IO.StreamReader(fileName);
-
-            string line;
-            string[] previousLine = new string[1];
-            bool newLineCharacter = false;
-
-            //Read through the whole file 1 line at a time
-            while ((line = file.ReadLine()) != null)
+            if (fileName.Contains("\\OrderedStock.txt"))
             {
-                //Remove double quotations from line for SQL insert
-                string unquoted = line.Replace("\"", string.Empty);
-
-                //Remove dashes from line for SQL insert
-                string removedDashes = unquoted.Replace("-", " ");
-
-                //Check if it contains a single quotation
-                if (removedDashes.Contains('\''))
+                try
                 {
-                    //Get number of single quotations
-                    int numQuotes = removedDashes.Split('\'').Length - 1;
-                    //int num = removedDashes.Count(c => c == '\'');
+                    allOrderedStock = new List<OrderedStock>();
 
-                    int previousIndex = 0;
+                    //Open file from passed in path
+                    System.IO.StreamReader file = new System.IO.StreamReader(fileName);
 
-                    //Loop over quotations
-                    for (int i = 0; i < numQuotes; i++)
+                    string line;
+                    string[] previousLine = new string[1];
+                    bool newLineCharacter = false;
+
+                    //Read through the whole file 1 line at a time
+                    while ((line = file.ReadLine()) != null)
                     {
-                        //Insert quotation before existing one because it's an escape character in SQLite
-                        int indexOfQuote = removedDashes.IndexOf("'", previousIndex);
-                        removedDashes = removedDashes.Insert(indexOfQuote, "'");
+                        //Remove double quotations from line for SQL insert
+                        string unquoted = line.Replace("\"", string.Empty);
 
-                        //Move index after quotation that was just fixed to stop repeating on the same one
-                        previousIndex = indexOfQuote + 2;
-                    }
-
-                }
-
-                //Split on | instead of comma because Order entries could contain commas in comments
-                string[] splitOrder = removedDashes.Split('|');
-
-                //Importing from the old Access database contain a lot of new line characters
-                //Check if current line contains all of the columns
-                if (splitOrder.Length < ORDEREDSTOCK_ARRAY_LENGTH)
-                {
-                    //If previous line had a new line character in it
-                    if (newLineCharacter)
-                    {
-                        //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
-                        if ((splitOrder.Length + previousLine.Length - 1) == ORDEREDSTOCK_ARRAY_LENGTH)
+                        //Check if it contains a single quotation
+                        if (unquoted.Contains('\''))
                         {
-                            //Go through and combined the lines into 1
-                            string[] combinedLines = new string[ORDEREDSTOCK_ARRAY_LENGTH];
-                            int combinedLineIndex = 0;
+                            //Get number of single quotations
+                            int numQuotes = unquoted.Split('\'').Length - 1;
+                            //int num = removedDashes.Count(c => c == '\'');
 
-                            for (int i = 0; i < previousLine.Length; i++)
+                            int previousIndex = 0;
+
+                            //Loop over quotations
+                            for (int i = 0; i < numQuotes; i++)
                             {
-                                combinedLines[combinedLineIndex] = previousLine[i];
-                                combinedLineIndex++;
+                                //Insert quotation before existing one because it's an escape character in SQLite
+                                int indexOfQuote = unquoted.IndexOf("'", previousIndex);
+                                unquoted = unquoted.Insert(indexOfQuote, "'");
+
+                                //Move index after quotation that was just fixed to stop repeating on the same one
+                                previousIndex = indexOfQuote + 2;
                             }
 
-                            for (int i = 0; i < splitOrder.Length; i++)
-                            {
-                                if (i == 0)
-                                {
-                                    combinedLineIndex--;
-                                    combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
-                                }
-                                else
-                                {
-                                    combinedLines[combinedLineIndex] = splitOrder[i];
-                                }
-                                combinedLineIndex++;
-                            }
-
-                            //Pull out all of the columns
-                            storeOrderedStock(combinedLines);
-
-                            //Reset values
-                            newLineCharacter = false;
-                            previousLine = new string[1];
                         }
-                        else
+
+                        //Split on | instead of comma because Order entries could contain commas in comments
+                        string[] splitOrder = unquoted.Split('|');
+
+                        //Importing from the old Access database contain a lot of new line characters
+                        //Check if current line contains all of the columns
+                        if (splitOrder.Length < ORDEREDSTOCK_ARRAY_LENGTH)
                         {
-                            if (splitOrder.Length == 1)
+                            //If previous line had a new line character in it
+                            if (newLineCharacter)
                             {
-                                int previousLineLength = previousLine.Length;
-                                previousLine[previousLineLength - 1] = previousLine[previousLineLength - 1] + " " + splitOrder[0];
-                            }
-                            else
-                            {
-                                //Go through and combined the lines into 1
-                                string[] combinedLines = new string[previousLine.Length + splitOrder.Length - 1];
-                                int combinedLineIndex = 0;
-
-                                for (int i = 0; i < previousLine.Length; i++)
+                                //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
+                                if ((splitOrder.Length + previousLine.Length - 1) == ORDEREDSTOCK_ARRAY_LENGTH)
                                 {
-                                    combinedLines[combinedLineIndex] = previousLine[i];
-                                    combinedLineIndex++;
-                                }
+                                    //Go through and combined the lines into 1
+                                    string[] combinedLines = new string[ORDEREDSTOCK_ARRAY_LENGTH];
+                                    int combinedLineIndex = 0;
 
-                                for (int i = 0; i < splitOrder.Length; i++)
-                                {
-                                    if (i == 0)
+                                    for (int i = 0; i < previousLine.Length; i++)
                                     {
-                                        combinedLineIndex--;
-                                        combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
+                                        combinedLines[combinedLineIndex] = previousLine[i];
+                                        combinedLineIndex++;
                                     }
-                                    else
-                                    {
-                                        combinedLines[combinedLineIndex] = splitOrder[i];
-                                    }
-                                    combinedLineIndex++;
-                                }
 
-                                if (combinedLines.Length == ORDEREDSTOCK_ARRAY_LENGTH)
-                                {
+                                    for (int i = 0; i < splitOrder.Length; i++)
+                                    {
+                                        if (i == 0)
+                                        {
+                                            combinedLineIndex--;
+                                            combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
+                                        }
+                                        else
+                                        {
+                                            combinedLines[combinedLineIndex] = splitOrder[i];
+                                        }
+                                        combinedLineIndex++;
+                                    }
+
+                                    //Pull out all of the columns
                                     storeOrderedStock(combinedLines);
 
                                     //Reset values
                                     newLineCharacter = false;
                                     previousLine = new string[1];
                                 }
+                                else
+                                {
+                                    if (splitOrder.Length == 1)
+                                    {
+                                        int previousLineLength = previousLine.Length;
+                                        previousLine[previousLineLength - 1] = previousLine[previousLineLength - 1] + " " + splitOrder[0];
+                                    }
+                                    else
+                                    {
+                                        //Go through and combined the lines into 1
+                                        string[] combinedLines = new string[previousLine.Length + splitOrder.Length - 1];
+                                        int combinedLineIndex = 0;
 
+                                        for (int i = 0; i < previousLine.Length; i++)
+                                        {
+                                            combinedLines[combinedLineIndex] = previousLine[i];
+                                            combinedLineIndex++;
+                                        }
+
+                                        for (int i = 0; i < splitOrder.Length; i++)
+                                        {
+                                            if (i == 0)
+                                            {
+                                                combinedLineIndex--;
+                                                combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
+                                            }
+                                            else
+                                            {
+                                                combinedLines[combinedLineIndex] = splitOrder[i];
+                                            }
+                                            combinedLineIndex++;
+                                        }
+
+                                        if (combinedLines.Length == ORDEREDSTOCK_ARRAY_LENGTH)
+                                        {
+                                            storeOrderedStock(combinedLines);
+
+                                            //Reset values
+                                            newLineCharacter = false;
+                                            previousLine = new string[1];
+                                        }
+
+                                    }
+                                }
+                            }
+                            else     //Was the first new line character and need to search for the rest of the line
+                            {
+                                //Update values to start searching for the rest of the line
+                                newLineCharacter = true;
+                                previousLine = splitOrder;
                             }
                         }
+                        else     //Else a normal line
+                        {
+                            storeOrderedStock(splitOrder);
+                        }
                     }
-                    else     //Was the first new line character and need to search for the rest of the line
-                    {
-                        //Update values to start searching for the rest of the line
-                        newLineCharacter = true;
-                        previousLine = splitOrder;
-                    }
+                    //Close text file
+                    file.Close();
+
+                    //TODO find a better place for this
+                    dbManager.dropOrderedStockTable();
+                    dbManager.createOrderedStock();
+
+                    //Insert all of the new orders into the database
+                    progressBar1.Value = 0;
+                    progressBar1.Maximum = 42386;
+                    progressBar1.Visible = true;
+                    dbManager.insertOrderedStock(allOrderedStock, progressBar1);
+                    progressBar1.Visible = false;
+
+                    //Inform user that the process has been finished
+                    MessageBox.Show("Finished import");
                 }
-                else     //Else a normal line
+                catch (FormatException)
                 {
-                    storeOrderedStock(splitOrder);
+                    MessageBox.Show("Error: File was formatted incorrectly");
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Error: File was formatted incorrectly");
                 }
             }
-            //Close text file
-            file.Close();
-
-            //Insert all of the new orders into the database
-            progressBar1.Value = 0;
-            progressBar1.Maximum = 42386;
-            progressBar1.Visible = true;
-            dbManager.insertOrderedStock(allOrderedStock, progressBar1);
-            progressBar1.Visible = false;
-
-            //Inform user that the process has been finished
-            MessageBox.Show("Finished import");
+            else
+            {
+                MessageBox.Show("Error: Wrong file selected");
+            }
         }
 
         /*Precondition: 
@@ -637,12 +653,14 @@ namespace Hard_To_Find
         {
             if (currOrder != null)
             {
-                WordDocumentManager wdm = new WordDocumentManager(currCustomer, currOrder, currOrderedStock);
+                WordDocumentManager wdm = new WordDocumentManager(this, currCustomer, currOrder, currOrderedStock);
 
                 string documentName = currOrder.orderID.ToString() + ".docx";
 
                 string filePath = @"E:\Programming\InvoiceStorage\" + documentName;
                 wdm.createInvoice(filePath);
+
+                System.Diagnostics.Process.Start(filePath);
             }
         }
 
@@ -651,12 +669,14 @@ namespace Hard_To_Find
             if (currOrder != null)
             {
                 bool bigLabel = false;
-                MailingLabelCreator labelCreator = new MailingLabelCreator(currCustomer, bigLabel);
+                MailingLabelCreator labelCreator = new MailingLabelCreator(this, currCustomer, bigLabel);
 
                 string documentName = currOrder.orderID.ToString() + ".docx";
 
                 string filePath = @"E:\Programming\InvoiceStorage\Mailing Labels\" + documentName;
                 labelCreator.createMailingLabel(filePath);
+
+                System.Diagnostics.Process.Start(filePath);
             }
         }
 
@@ -665,13 +685,20 @@ namespace Hard_To_Find
             if (currOrder != null)
             {
                 bool bigLabel = true;
-                MailingLabelCreator labelCreator = new MailingLabelCreator(currCustomer, bigLabel);
+                MailingLabelCreator labelCreator = new MailingLabelCreator(this, currCustomer, bigLabel);
 
                 string documentName = currOrder.orderID.ToString() + ".docx";
 
                 string filePath = @"E:\Programming\InvoiceStorage\Mailing Labels\" + documentName;
                 labelCreator.createMailingLabel(filePath);
+
+                System.Diagnostics.Process.Start(filePath);
             }
+        }
+
+        public void errorOpeningFile()
+        {
+            MessageBox.Show("Cannot create or open file. \nMake sure the existing file with the same name is closed.");
         }
     }
 }

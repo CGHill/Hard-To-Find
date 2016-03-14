@@ -17,12 +17,14 @@ namespace Hard_To_Find
 {
     class WordDocumentManager
     {
+        private OrdersForm ordersForm;
         private Customer customer;
         private Order order;
         private List<OrderedStock> orderedStock;
 
-        public WordDocumentManager(Customer customer, Order order, List<OrderedStock> orderedStock)
+        public WordDocumentManager(OrdersForm ordersForm, Customer customer, Order order, List<OrderedStock> orderedStock)
         {
+            this.ordersForm = ordersForm;
             this.customer = customer;
             this.order = order;
             this.orderedStock = orderedStock;
@@ -41,6 +43,7 @@ namespace Hard_To_Find
             catch (System.IO.IOException)
             {
                 //File is already opened by another program
+                ordersForm.errorOpeningFile();
             }
         }
 

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdoInStock = new System.Windows.Forms.RadioButton();
+            this.rdoAllStock = new System.Windows.Forms.RadioButton();
             this.boxSubject = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -47,8 +49,6 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSelectStock = new System.Windows.Forms.Button();
-            this.rdoInStock = new System.Windows.Forms.RadioButton();
-            this.rdoAllStock = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +72,28 @@
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
+            // 
+            // rdoInStock
+            // 
+            this.rdoInStock.AutoSize = true;
+            this.rdoInStock.Checked = true;
+            this.rdoInStock.Location = new System.Drawing.Point(80, 149);
+            this.rdoInStock.Name = "rdoInStock";
+            this.rdoInStock.Size = new System.Drawing.Size(91, 17);
+            this.rdoInStock.TabIndex = 28;
+            this.rdoInStock.TabStop = true;
+            this.rdoInStock.Text = "Have in stock";
+            this.rdoInStock.UseVisualStyleBackColor = true;
+            // 
+            // rdoAllStock
+            // 
+            this.rdoAllStock.AutoSize = true;
+            this.rdoAllStock.Location = new System.Drawing.Point(80, 172);
+            this.rdoAllStock.Name = "rdoAllStock";
+            this.rdoAllStock.Size = new System.Drawing.Size(67, 17);
+            this.rdoAllStock.TabIndex = 27;
+            this.rdoAllStock.Text = "All Stock";
+            this.rdoAllStock.UseVisualStyleBackColor = true;
             // 
             // boxSubject
             // 
@@ -230,28 +252,6 @@
             this.btnSelectStock.Text = "Select Stock";
             this.btnSelectStock.UseVisualStyleBackColor = true;
             this.btnSelectStock.Click += new System.EventHandler(this.btnSelectStock_Click);
-            // 
-            // rdoInStock
-            // 
-            this.rdoInStock.AutoSize = true;
-            this.rdoInStock.Location = new System.Drawing.Point(81, 176);
-            this.rdoInStock.Name = "rdoInStock";
-            this.rdoInStock.Size = new System.Drawing.Size(91, 17);
-            this.rdoInStock.TabIndex = 28;
-            this.rdoInStock.Text = "Have in stock";
-            this.rdoInStock.UseVisualStyleBackColor = true;
-            // 
-            // rdoAllStock
-            // 
-            this.rdoAllStock.AutoSize = true;
-            this.rdoAllStock.Checked = true;
-            this.rdoAllStock.Location = new System.Drawing.Point(81, 153);
-            this.rdoAllStock.Name = "rdoAllStock";
-            this.rdoAllStock.Size = new System.Drawing.Size(67, 17);
-            this.rdoAllStock.TabIndex = 27;
-            this.rdoAllStock.TabStop = true;
-            this.rdoAllStock.Text = "All Stock";
-            this.rdoAllStock.UseVisualStyleBackColor = true;
             // 
             // StockSearch
             // 

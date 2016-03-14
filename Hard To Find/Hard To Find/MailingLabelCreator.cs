@@ -16,6 +16,7 @@ namespace Hard_To_Find
 {
     class MailingLabelCreator
     {
+        private OrdersForm ordersForm;
         private Customer customer;
         private string customerDetailsFontSize;
         private string bookshopLabelTitleSize;
@@ -23,8 +24,9 @@ namespace Hard_To_Find
         private string tableCellWidth;
 
 
-        public MailingLabelCreator(Customer customer, bool bigLabel)
+        public MailingLabelCreator(OrdersForm ordersForm, Customer customer, bool bigLabel)
         {
+            this.ordersForm = ordersForm;
             this.customer = customer;
 
             if (bigLabel)
@@ -56,6 +58,7 @@ namespace Hard_To_Find
             catch (System.IO.IOException)
             {
                 //File is already opened by another program
+                ordersForm.errorOpeningFile();
             }
         }
 

@@ -41,8 +41,6 @@ namespace Hard_To_Find
             string address3 = boxAddress3.Text;
             string postcode = boxPostcode.Text;
             string country = boxCountry.Text;
-            string phone = boxPhone.Text;
-            string fax = boxFax.Text;
             string email = boxEmail.Text;
             string comments = boxComments.Text;
             string sales = boxSales.Text;
@@ -51,7 +49,7 @@ namespace Hard_To_Find
             //Check that the basic things haven't been left empty so a blank customer isn't saved
             if (firstName != "" || lastName != "" || address1 != "" || address2 != "" || address3 != "")
             {
-                Customer newCustomer = new Customer(firstName, lastName, institution, address1, address2, address3, country, postcode, phone, fax, email, comments, sales, payment);
+                Customer newCustomer = new Customer(firstName, lastName, institution, address1, address2, address3, country, postcode, email, comments, sales, payment);
 
                 dbManager.insertCusomter(newCustomer);
 

@@ -120,11 +120,10 @@ namespace Hard_To_Find
             //Get invoice/orderID for current order
             int nextOrderIDAndInvoiceNo = dbManager.getNextOrderID();
 
-            //Many things in order are being stored in orderedStock and can be removed
             //Unsure of CatItem, doesn't seem to be used anymore and could be BookID for older orders
             if (currentCustomer != null)
             {
-                Order newOrder = new Order(firstName, lastName, institution, postcode, orderRef, "", "", "", 0, "$0.00", progress, freight, nextOrderIDAndInvoiceNo, invoiceDate, comments, 0, currentCustomer.custID);
+                Order newOrder = new Order(firstName, lastName, institution, postcode, orderRef, progress, freight, nextOrderIDAndInvoiceNo, invoiceDate, comments, currentCustomer.custID);
 
                 List<OrderedStock> newOrderedStock = new List<OrderedStock>();
 
@@ -192,5 +191,30 @@ namespace Hard_To_Find
 
             return stringToCheck;
         }
+
+        private void dataGridView1_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int selectedRow = e.RowIndex;
+                //dataGridView1.Rows[e.RowIndex].Selected = true;
+
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                contextMenuStrip1.Show(Cursor.Position);
+            }
+        }
+
+        private void contextMenuStrip1_Click(object sender, EventArgs e)
+        {
+            int selectedRow = dataGridView1.CurrentCell.RowIndex;
+
+            if (!dataGridView1.Rows[selectedRow].IsNewRow)
+            {
+                dataGridView1.Rows.RemoveAt(selectedRow);
+
+                orderedBooks.RemoveAt(selectedRow);
+            }
+        }
+
     }
 }

@@ -42,8 +42,6 @@ namespace Hard_To_Find
             boxAddress3.Text = currCustomer.address3;
             boxPostcode.Text = currCustomer.postCode;
             boxCountry.Text = currCustomer.country;
-            boxPhone.Text = currCustomer.phone;
-            boxFax.Text = currCustomer.fax;
             boxEmail.Text = currCustomer.email;
             boxComments.Text = currCustomer.comments;
             boxSales.Text = currCustomer.sales;
@@ -76,8 +74,6 @@ namespace Hard_To_Find
             currCustomer.address3 = checkForSingleQuote(boxAddress3.Text);
             currCustomer.postCode = checkForSingleQuote(boxPostcode.Text);
             currCustomer.country = checkForSingleQuote(boxCountry.Text);
-            currCustomer.phone = checkForSingleQuote(boxPhone.Text);
-            currCustomer.fax = checkForSingleQuote(boxFax.Text);
             currCustomer.email = checkForSingleQuote(boxEmail.Text);
             currCustomer.comments = checkForSingleQuote(boxComments.Text);
             currCustomer.sales = checkForSingleQuote(boxSales.Text);
@@ -127,8 +123,6 @@ namespace Hard_To_Find
             boxAddress3.ReadOnly = !boxAddress3.ReadOnly;
             boxPostcode.ReadOnly = !boxPostcode.ReadOnly;
             boxCountry.ReadOnly = !boxCountry.ReadOnly;
-            boxPhone.ReadOnly = !boxPhone.ReadOnly;
-            boxFax.ReadOnly = !boxFax.ReadOnly;
             boxEmail.ReadOnly = !boxEmail.ReadOnly;
             boxComments.ReadOnly = !boxComments.ReadOnly;
             boxSales.ReadOnly = !boxSales.ReadOnly;

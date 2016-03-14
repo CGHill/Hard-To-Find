@@ -84,7 +84,7 @@ namespace Hard_To_Find
             dbConnection.Open();
 
             string createCustomerTable = "CREATE TABLE IF NOT EXISTS Customer(customerID INTEGER PRIMARY KEY AUTOINCREMENT, firstName VARCHAR(100), lastName VARCHAR(100), institution VARCHAR(100)," +
-                "address1 VARCHAR(200), address2 VARCHAR(200), address3 VARCHAR(200), country VARCHAR(100), postcode VARCHAR(50), phone INTEGER, fax INTEGER, email VARCHAR(100), comments VARCHAR(100), sales VARCHAR(100), payment VARCHAR(100))";
+                "address1 VARCHAR(200), address2 VARCHAR(200), address3 VARCHAR(200), country VARCHAR(100), postcode VARCHAR(50), email VARCHAR(100), comments VARCHAR(100), sales VARCHAR(100), payment VARCHAR(100))";
 
             SQLiteCommand createCustomerTableCommand = new SQLiteCommand(createCustomerTable, dbConnection);
             createCustomerTableCommand.ExecuteNonQuery();
@@ -114,8 +114,7 @@ namespace Hard_To_Find
             dbConnection.Open();
 
             string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, customerFirstName VARCHAR(100), customerLastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(50)," +
-                " orderReference VARCHAR(40), catItem VARCHAR(50), author VARCHAR(150), title VARCHAR(200), quantitity INTEGER NOT NULL, price VARCHAR(12), progress VARCHAR(100), freightCost VARCHAR(10)," +
-                " invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), stockID INTEGER, customerID INTEGER)";
+                " orderReference VARCHAR(40), progress VARCHAR(100), freightCost VARCHAR(10), invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), customerID INTEGER)";
 
             SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
             createOrdersTableCommand.ExecuteNonQuery();
@@ -151,8 +150,7 @@ namespace Hard_To_Find
         {
             string updateQuery = "UPDATE Customer SET firstName = '" + customer.firstName + "', lastName = '" + customer.lastName + "', institution = '" + customer.institution + "', address1 = '" + customer.address1 +
                 "', address2 = '" + customer.address2 + "', address3 = '" + customer.address3 + "', country = '" + customer.country + "'" + ", postcode = '" + customer.postCode + 
-                "', phone = " + customer.phone + ", fax = " + customer.fax + ", email = '" + customer.email + "', comments = '" + customer.comments + "', sales = '" + customer.sales + 
-                "', payment = '" + customer.payment + "' WHERE customerID = " + customer.custID;
+                "', email = '" + customer.email + "', comments = '" + customer.comments + "', sales = '" + customer.sales + "', payment = '" + customer.payment + "' WHERE customerID = " + customer.custID;
 
             dbConnection.Open();
             SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -188,7 +186,7 @@ namespace Hard_To_Find
 
             //Build insert command
             string customerInsert = "INSERT INTO Customer VALUES(null, '" + newCustomer.firstName + "', '" + newCustomer.lastName + "', '" + newCustomer.institution + "', '" + newCustomer.address1 + "', '" + newCustomer.address2 + "', '" +
-                newCustomer.address3 + "', '" + newCustomer.country + "', '" + newCustomer.postCode + "', '" + newCustomer.phone + "', '" + newCustomer.fax + "', '" + newCustomer.email + "', '" + newCustomer.comments + "', '" + newCustomer.sales + "', '" + newCustomer.payment + "')";
+                newCustomer.address3 + "', '" + newCustomer.country + "', '" + newCustomer.postCode + "', '" +  newCustomer.email + "', '" + newCustomer.comments + "', '" + newCustomer.sales + "', '" + newCustomer.payment + "')";
            
             //Insert new customer
             SQLiteCommand insertCommand = new SQLiteCommand(customerInsert, dbConnection);
@@ -215,12 +213,12 @@ namespace Hard_To_Find
                 if (c.custID == -1)
                 {
                    customerInsert = "INSERT INTO Customer VALUES(null, '" + c.firstName + "', '" + c.lastName + "', '" + c.institution + "', '" + c.address1 +  "', '" + c.address2 + "', '" + 
-                       c.address3 + "', '" + c.country + "', '" + c.postCode + "', '" + c.phone + "', '" + c.fax + "', '" + c.email + "', '" + c.comments + "', '" + c.sales + "', '" + c.payment + "')";
+                       c.address3 + "', '" + c.country + "', '" + c.postCode + "', '" + c.email + "', '" + c.comments + "', '" + c.sales + "', '" + c.payment + "')";
                 }
                 else
                 {
                     customerInsert = "INSERT INTO Customer VALUES(" + c.custID + ", '" + c.firstName + "', '" + c.lastName + "', '" + c.institution + "', '" + c.address1 + "', '" + c.address2 + "', '" + c.address3 + 
-                        "', '" + c.country + "', '" + c.postCode + "', '" + c.phone + "', '" + c.fax + "', '" + c.email + "', '" + c.comments + "', '" + c.sales + "', '" + c.payment + "')";
+                        "', '" + c.country + "', '" + c.postCode + "', '" + c.email + "', '" + c.comments + "', '" + c.sales + "', '" + c.payment + "')";
                 }
 
                 SQLiteCommand insertCommand = new SQLiteCommand(customerInsert, dbConnection);
@@ -310,17 +308,15 @@ namespace Hard_To_Find
                 string orderInsert = "";
 
                 //Build insert command. If order has an ID insert it with that ID if not (new order) and insert with a new ID using autoincrement from SQLite
-                if (o.stockID == -1)
+                if (o.orderID == -1)
                 {
-                    orderInsert = "INSERT INTO Orders VALUES(null, '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" + o.catItem + 
-                        "', '" + o.author + "', '" + o.title + "', '" + o.quantity.ToString() + "', '" + o.price + "', '" + o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo + "', '" + o.invoiceDate + "', '" + 
-                        o.comments + "', '" + o.stockID + "', '" + o.customerID + "')";
+                    orderInsert = "INSERT INTO Orders VALUES(null, '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" + 
+                        o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo + "', '" + o.invoiceDate + "', '" +  o.comments + "', '" + o.customerID + "')";
                 }
                 else
                 {
                     orderInsert = "INSERT INTO Orders VALUES(" + o.orderID + ", '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference +  "', '" + 
-                        o.catItem + "', '" + o.author + "', '" + o.title + "', '" + o.quantity.ToString() + "', '" + o.price + "', '" + o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo.ToString() + "', '" + 
-                        o.invoiceDate + "', '" + o.comments + "', '" + o.stockID + "', '" + o.customerID + "')";
+                        o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo.ToString() + "', '" + o.invoiceDate + "', '" + o.comments + "', '" + o.customerID + "')";
                 }
 
                 SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
@@ -347,8 +343,7 @@ namespace Hard_To_Find
 
             //Build insert command
             orderInsert = "INSERT INTO Orders VALUES(null, '" + newOrder.customerFirstName + "', '" + newOrder.customerLastName + "', '" + newOrder.institution + "', '" + newOrder.postcode + "', '" + 
-                newOrder.orderReference + "', '" + newOrder.catItem + "', '" + newOrder.author + "', '" + newOrder.title + "', '" + newOrder.quantity.ToString() + "', '" + newOrder.price + 
-                "', '" + newOrder.progress + "', '" + newOrder.freightCost + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate + "', '" + newOrder.comments + "', '" + newOrder.stockID + "', '" + 
+                newOrder.orderReference + "', '" + newOrder.progress + "', '" + newOrder.freightCost + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate + "', '" + newOrder.comments + "', '" + 
                 newOrder.customerID + "')";
                 
             SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
@@ -440,7 +435,7 @@ namespace Hard_To_Find
             while (reader.Read())
             {
                 foundCustomer = new Customer(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString());
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString());
             }
 
             dbConnection.Close();
@@ -480,7 +475,7 @@ namespace Hard_To_Find
             while (reader.Read())
             {
                 Customer foundCustomer = new Customer(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString());
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString());
 
                 foundCustomers.Add(foundCustomer);
             }
@@ -619,8 +614,7 @@ namespace Hard_To_Find
             while (reader.Read())
             {
                 foundOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), reader[8].ToString(), Convert.ToInt32(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), Convert.ToInt32(reader[13]), 
-                    reader[14].ToString(), reader[15].ToString(), Convert.ToInt32(reader[16]), Convert.ToInt32(reader[17]));
+                    reader[7].ToString(), Convert.ToInt32(reader[8]), reader[9].ToString(), reader[10].ToString(), Convert.ToInt32(reader[11]));
             }
 
             dbConnection.Close();
@@ -671,8 +665,7 @@ namespace Hard_To_Find
             while (reader.Read())
             {
                 Order foundOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), reader[8].ToString(), Convert.ToInt32(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), Convert.ToInt32(reader[13]),
-                    reader[14].ToString(), reader[15].ToString(), Convert.ToInt32(reader[16]), Convert.ToInt32(reader[17]));
+                    reader[7].ToString(), Convert.ToInt32(reader[8]), reader[9].ToString(), reader[10].ToString(), Convert.ToInt32(reader[11]));
 
                 foundOrders.Add(foundOrder);
             }

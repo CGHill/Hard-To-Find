@@ -15,7 +15,7 @@ namespace Hard_To_Find
         private Form1 form1;
         private DatabaseManager dbManager;
         private List<Customer> foundCustomers;
-        private List<Customer> customers;
+        private List<Customer> allCustomers;
 
         //Constructor
         public CustomerSearchForm(Form1 form1)
@@ -27,15 +27,21 @@ namespace Hard_To_Find
             //Intialization of globals
             dbManager = new DatabaseManager();
             foundCustomers = new List<Customer>();
-            customers = new List<Customer>();
+            allCustomers = new List<Customer>();
 
             //Set up column widths
             DataGridViewColumn colFirstName = dataGridView1.Columns[0];
-            colFirstName.Width = 160;
+            colFirstName.Width = 110;
             DataGridViewColumn colLastName = dataGridView1.Columns[1];
-            colLastName.Width = 160;
-            DataGridViewColumn colEmail = dataGridView1.Columns[2];
-            colEmail.Width = 270;
+            colLastName.Width = 110;
+            DataGridViewColumn colAdd1 = dataGridView1.Columns[2];
+            colAdd1.Width = 120;
+            DataGridViewColumn colAdd2 = dataGridView1.Columns[3];
+            colAdd2.Width = 120;
+            DataGridViewColumn colCountry = dataGridView1.Columns[4];
+            colCountry.Width = 60;
+            DataGridViewColumn colEmail = dataGridView1.Columns[5];
+            colEmail.Width = 182;
         }
 
         /*Precondition:
@@ -88,17 +94,11 @@ namespace Hard_To_Find
             cf.Show();
         }
 
-        /*Precondition:
-         Postcondition: Enables details button when entry is selected in datagrid*/
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-            btnCustDetails.Enabled = true;
-        }
-
         /*Precondition: Customer CSV order = ID, first name, last name, institution, address1, address2, address3, country, postcode, phone, fax, email, comments, sales, payment
          Postcondition: Starts the import process to move customers from a csv text file into the SQLite database*/
         private void btnImportCustomers_Click(object sender, EventArgs e)
         {
+
             //Set up file browser, to search for txt files and default directory of C: drive
             OpenFileDialog dialogBox = new OpenFileDialog();
             dialogBox.Title = "Open Customer txt file";
@@ -108,81 +108,95 @@ namespace Hard_To_Find
             //Open the file browser and wait for user to select file
             if (dialogBox.ShowDialog() == DialogResult.OK)
             {
-                //TODO find a place for this
-                dbManager.dropCustomerTable();
-                dbManager.createCustomerTable();
-
                 //Get the path for the file the user clicked on
                 string filename = dialogBox.FileName;
 
-                //Open the file
-                System.IO.StreamReader file = new System.IO.StreamReader(filename);
-
-                string line;
-                string[] previousLine = new string[1];
-
-                //Read through the txt file one line at a time
-                while ((line = file.ReadLine()) != null)
+                if (filename.Contains("\\Customers.txt"))
                 {
-                    //Remove double quotations for SQL insert
-                    string unquoted = line.Replace("\"", string.Empty);
-
-                    //Remove dashes for SQL insert
-                    string removedDashes = unquoted.Replace("-", " ");
-
-                    //Check if there are any single quotations
-                    if (removedDashes.Contains('\''))
+                    try
                     {
-                        //Get number of single quotations
-                        int numQuotes = removedDashes.Split('\'').Length - 1;
-                        //int num = removedDashes.Count(c => c == '\'');
+                        allCustomers = new List<Customer>();
 
-                        int previousIndex = 0;
+                        //Open the file
+                        System.IO.StreamReader file = new System.IO.StreamReader(filename);
 
-                        //Add another quotation behind existing quotations since it's the escape character for the SQL insert
-                        for (int i = 0; i < numQuotes; i++)
+                        string line;
+                        string[] previousLine = new string[1];
+
+                        //Read through the txt file one line at a time
+                        while ((line = file.ReadLine()) != null)
                         {
-                            int indexOfQuote = removedDashes.IndexOf("'", previousIndex);
-                            removedDashes = removedDashes.Insert(indexOfQuote, "'");
+                            //Remove double quotations for SQL insert
+                            string unquoted = line.Replace("\"", string.Empty);
 
-                            //Move index ahead of just completed quotation so it doesn't repeat on it
-                            previousIndex = indexOfQuote + 2;
+                            //Check if there are any single quotations
+                            if (unquoted.Contains('\''))
+                            {
+                                //Get number of single quotations
+                                int numQuotes = unquoted.Split('\'').Length - 1;
+                                //int num = removedDashes.Count(c => c == '\'');
+
+                                int previousIndex = 0;
+
+                                //Add another quotation behind existing quotations since it's the escape character for the SQL insert
+                                for (int i = 0; i < numQuotes; i++)
+                                {
+                                    int indexOfQuote = unquoted.IndexOf("'", previousIndex);
+                                    unquoted = unquoted.Insert(indexOfQuote, "'");
+
+                                    //Move index ahead of just completed quotation so it doesn't repeat on it
+                                    previousIndex = indexOfQuote + 2;
+                                }
+                            }
+
+                            //Split on comma to get all values of customer
+                            string[] splitCustomer = unquoted.Split('|');
+
+                            int custID = Convert.ToInt32(splitCustomer[0]);
+                            string custFirstName = splitCustomer[1];
+                            string custLastName = splitCustomer[2];
+                            string custInstitution = splitCustomer[3];
+                            string custAddress1 = splitCustomer[4];
+                            string custAddress2 = splitCustomer[5];
+                            string custAddress3 = splitCustomer[6];
+                            string custCountry = splitCustomer[7];
+                            string custPostCode = splitCustomer[8];
+                            string custEmail = splitCustomer[11];
+                            string custComments = splitCustomer[12];
+                            string custSales = splitCustomer[13];
+                            string custPayment = splitCustomer[14];
+
+                            //Create new customer and insert into list
+                            Customer newCust = new Customer(custID, custFirstName, custLastName, custInstitution, custAddress1, custAddress2, custAddress3, custCountry, custPostCode, custEmail, custComments, custSales, custPayment);
+                            allCustomers.Add(newCust);
                         }
 
+                        //Close txt file
+                        file.Close();
+
+                        //TODO find a better place for this?
+                        dbManager.dropCustomerTable();
+                        dbManager.createCustomerTable();
+
+                        //Insert customers from list into DB
+                        progressBar1.Visible = true;
+                        dbManager.insertCustomers(allCustomers, progressBar1);
+                        progressBar1.Visible = false;
+                        MessageBox.Show("Finished import");
                     }
-
-                    //Split on comma to get all values of customer
-                    string[] splitCustomer = removedDashes.Split('|');
-
-                    int custID = Convert.ToInt32(splitCustomer[0]);
-                    string custFirstName = splitCustomer[1];
-                    string custLastName = splitCustomer[2];
-                    string custInstitution = splitCustomer[3];
-                    string custAddress1 = splitCustomer[4];
-                    string custAddress2 = splitCustomer[5];
-                    string custAddress3 = splitCustomer[6];
-                    string custCountry = splitCustomer[7];
-                    string custPostCode = splitCustomer[8];
-                    string custPhone = splitCustomer[9];
-                    string custFax = splitCustomer[10];
-                    string custEmail = splitCustomer[11];
-                    string custComments = splitCustomer[12];
-                    string custSales = splitCustomer[13];
-                    string custPayment = splitCustomer[14];
-
-                    //Create new customer and insert into list
-                    Customer newCust = new Customer(custID, custFirstName, custLastName, custInstitution, custAddress1, custAddress2, custAddress3, custCountry, custPostCode, custPhone, custFax, custEmail, custComments, custSales, custPayment);
-                    customers.Add(newCust);
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Error: File was formatted incorrectly");
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        MessageBox.Show("Error: File was formatted incorrectly");
+                    }
                 }
-
-                //Close txt file
-                file.Close();
-
-                //Insert customers from list into DB
-                progressBar1.Visible = true;
-                dbManager.insertCustomers(customers, progressBar1);
-                progressBar1.Visible = false;
-                MessageBox.Show("Finished import");
+                else
+                {
+                    MessageBox.Show("Error: Wrong file selected");
+                }
             }
         }
 
@@ -192,25 +206,6 @@ namespace Hard_To_Find
         {
             NewCustomerForm ncf = new NewCustomerForm();
             ncf.Show();
-        }
-
-        /*Precondition:
-         Postcondition: Open up form for customer details that was double clicked on*/
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                int currRow = dataGridView1.CurrentCell.RowIndex;
-
-                Customer customerToDisplay = foundCustomers[currRow];
-
-                CustomersForm cf = new CustomersForm(customerToDisplay);
-                cf.Show();
-            }
-            catch (NullReferenceException)
-            {
-                //Do nothing, user double clicked on header of datagrid
-            }
         }
 
         /*Precondition:
@@ -234,7 +229,7 @@ namespace Hard_To_Find
                 foreach (Customer c in foundCustomers)
                 {
                     if (c != null)
-                        dataGridView1.Rows.Add(c.firstName, c.lastName, c.email);
+                        dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
                 }
             }
             else if (boxFirstName.Text != "" || boxLastName.Text != "")//Else if ID hasn't been entered check for first and last name
@@ -254,8 +249,34 @@ namespace Hard_To_Find
                 //Display found customers
                 foreach (Customer c in foundCustomers)
                 {
-                    dataGridView1.Rows.Add(c.firstName, c.lastName, c.email);
+                    dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
                 }
+            }
+        }
+
+        /*Precondition:
+        Postcondition: Enables details button when entry is selected in datagrid*/
+        private void dataGridView1_SelectionChanged_1(object sender, EventArgs e)
+        {
+            btnCustDetails.Enabled = true;
+        }
+
+        /*Precondition:
+         Postcondition: Open up form for customer details that was double clicked on*/
+        private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int currRow = dataGridView1.CurrentCell.RowIndex;
+
+                Customer customerToDisplay = foundCustomers[currRow];
+
+                CustomersForm cf = new CustomersForm(customerToDisplay);
+                cf.Show();
+            }
+            catch (NullReferenceException)
+            {
+                //Do nothing, user double clicked on header of datagrid
             }
         }
 

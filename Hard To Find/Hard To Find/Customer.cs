@@ -16,16 +16,14 @@ namespace Hard_To_Find
         public string address3 { get; set; }
         public string country { get; set; }
         public string postCode { get; set; }
-        public string phone { get; set; }
-        public string fax { get; set; }
         public string email { get; set; }
         public string comments { get; set; }
         public string sales { get; set; }
         public string payment { get; set; }
 
         //Constructor for customers with no IDs
-        public Customer(string firstName, string lastName, string institution, string address1, string address2, string address3, string country, string postCode, string phone, 
-            string fax, string email, string comments, string sales, string payment)
+        public Customer(string firstName, string lastName, string institution, string address1, string address2, string address3, string country, string postCode, string email, 
+            string comments, string sales, string payment)
         {
             this.custID = -1;
             this.firstName = firstName;
@@ -36,8 +34,6 @@ namespace Hard_To_Find
             this.address3 = address3;
             this.country = country;
             this.postCode = postCode;
-            this.phone = phone;
-            this.fax = fax;
             this.email = email;
             this.comments = comments;
             this.sales = sales;
@@ -45,8 +41,8 @@ namespace Hard_To_Find
         }
 
         //Constructor for customers with ID
-        public Customer(int custID, string firstName, string lastName, string institution, string address1, string address2, string address3, string country, string postCode, string phone,
-            string fax, string email, string comments, string sales, string payment)
+        public Customer(int custID, string firstName, string lastName, string institution, string address1, string address2, string address3, string country, string postCode, string email, 
+            string comments, string sales, string payment)
         {
             this.custID = custID;
             this.firstName = firstName;
@@ -57,8 +53,6 @@ namespace Hard_To_Find
             this.address3 = address3;
             this.country = country;
             this.postCode = postCode;
-            this.phone = phone;
-            this.fax = fax;
             this.email = email;
             this.comments = comments;
             this.sales = sales;

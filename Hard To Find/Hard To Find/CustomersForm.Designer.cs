@@ -50,10 +50,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.boxEmail = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.boxFax = new System.Windows.Forms.TextBox();
-            this.boxPhone = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.boxPayment = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.boxSales = new System.Windows.Forms.TextBox();
@@ -207,7 +203,7 @@
             // 
             // boxCountry
             // 
-            this.boxCountry.Location = new System.Drawing.Point(99, 241);
+            this.boxCountry.Location = new System.Drawing.Point(367, 56);
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.ReadOnly = true;
             this.boxCountry.Size = new System.Drawing.Size(190, 20);
@@ -216,7 +212,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(33, 244);
+            this.label8.Location = new System.Drawing.Point(314, 59);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(46, 13);
             this.label8.TabIndex = 21;
@@ -224,7 +220,7 @@
             // 
             // boxComments
             // 
-            this.boxComments.Location = new System.Drawing.Point(367, 134);
+            this.boxComments.Location = new System.Drawing.Point(367, 108);
             this.boxComments.Multiline = true;
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
@@ -234,7 +230,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(301, 137);
+            this.label9.Location = new System.Drawing.Point(301, 111);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 13);
             this.label9.TabIndex = 29;
@@ -242,7 +238,7 @@
             // 
             // boxEmail
             // 
-            this.boxEmail.Location = new System.Drawing.Point(367, 108);
+            this.boxEmail.Location = new System.Drawing.Point(367, 82);
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.ReadOnly = true;
             this.boxEmail.Size = new System.Drawing.Size(189, 20);
@@ -251,49 +247,15 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(325, 111);
+            this.label10.Location = new System.Drawing.Point(325, 85);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(35, 13);
             this.label10.TabIndex = 27;
             this.label10.Text = "Email:";
             // 
-            // boxFax
-            // 
-            this.boxFax.Location = new System.Drawing.Point(367, 82);
-            this.boxFax.Name = "boxFax";
-            this.boxFax.ReadOnly = true;
-            this.boxFax.Size = new System.Drawing.Size(189, 20);
-            this.boxFax.TabIndex = 10;
-            // 
-            // boxPhone
-            // 
-            this.boxPhone.Location = new System.Drawing.Point(366, 52);
-            this.boxPhone.Name = "boxPhone";
-            this.boxPhone.ReadOnly = true;
-            this.boxPhone.Size = new System.Drawing.Size(190, 20);
-            this.boxPhone.TabIndex = 9;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(333, 85);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(27, 13);
-            this.label11.TabIndex = 24;
-            this.label11.Text = "Fax:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(319, 59);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 13);
-            this.label12.TabIndex = 23;
-            this.label12.Text = "Phone:";
-            // 
             // boxPayment
             // 
-            this.boxPayment.Location = new System.Drawing.Point(367, 241);
+            this.boxPayment.Location = new System.Drawing.Point(367, 215);
             this.boxPayment.Name = "boxPayment";
             this.boxPayment.ReadOnly = true;
             this.boxPayment.Size = new System.Drawing.Size(189, 20);
@@ -302,7 +264,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(310, 244);
+            this.label13.Location = new System.Drawing.Point(310, 218);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(51, 13);
             this.label13.TabIndex = 33;
@@ -310,7 +272,7 @@
             // 
             // boxSales
             // 
-            this.boxSales.Location = new System.Drawing.Point(367, 215);
+            this.boxSales.Location = new System.Drawing.Point(367, 189);
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
             this.boxSales.Size = new System.Drawing.Size(189, 20);
@@ -319,7 +281,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(324, 218);
+            this.label14.Location = new System.Drawing.Point(324, 192);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(36, 13);
             this.label14.TabIndex = 31;
@@ -327,7 +289,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(460, 325);
+            this.btnCancel.Location = new System.Drawing.Point(447, 299);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
             this.btnCancel.TabIndex = 19;
@@ -337,7 +299,7 @@
             // 
             // btnCustomersOrders
             // 
-            this.btnCustomersOrders.Location = new System.Drawing.Point(99, 285);
+            this.btnCustomersOrders.Location = new System.Drawing.Point(101, 259);
             this.btnCustomersOrders.Name = "btnCustomersOrders";
             this.btnCustomersOrders.Size = new System.Drawing.Size(145, 34);
             this.btnCustomersOrders.TabIndex = 17;
@@ -347,7 +309,7 @@
             // 
             // btnCreateOrder
             // 
-            this.btnCreateOrder.Location = new System.Drawing.Point(99, 325);
+            this.btnCreateOrder.Location = new System.Drawing.Point(101, 299);
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(145, 34);
             this.btnCreateOrder.TabIndex = 18;
@@ -376,7 +338,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(709, 419);
+            this.ClientSize = new System.Drawing.Size(709, 361);
             this.Controls.Add(this.labCustID);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.btnCreateOrder);
@@ -390,10 +352,6 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.boxEmail);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.boxFax);
-            this.Controls.Add(this.boxPhone);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.boxCountry);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.boxPostcode);
@@ -443,10 +401,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox boxEmail;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox boxFax;
-        private System.Windows.Forms.TextBox boxPhone;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox boxPayment;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox boxSales;
