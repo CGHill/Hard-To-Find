@@ -103,19 +103,19 @@ namespace Hard_To_Find
         {
             
             //Get all information out of text boxes
-            string firstName = checkForSingleQuote(boxFirstName.Text);
-            string lastName = checkForSingleQuote(boxLastName.Text);
-            string institution = checkForSingleQuote(boxInstitution.Text);
-            string add1 = checkForSingleQuote(boxAddress1.Text);
-            string add2 = checkForSingleQuote(boxAddress2.Text);
-            string add3 = checkForSingleQuote(boxAddress3.Text);
-            string postcode = checkForSingleQuote(boxPostcode.Text);
-            string country = checkForSingleQuote(boxCountry.Text);
-            string orderRef = checkForSingleQuote(boxOrderRef.Text);
-            string progress = checkForSingleQuote(boxProgress.Text);
-            string invoiceDate = checkForSingleQuote(boxInvoiceDate.Text);
-            string freight = checkForSingleQuote(boxFreight.Text);
-            string comments = checkForSingleQuote(boxComments.Text);
+            string firstName = SQLSyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
+            string lastName = SQLSyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+            string institution = SQLSyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
+            string add1 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
+            string add2 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
+            string add3 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
+            string postcode = SQLSyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
+            string country = SQLSyntaxHelper.escapeSingleQuotes(boxCountry.Text);
+            string orderRef = SQLSyntaxHelper.escapeSingleQuotes(boxOrderRef.Text);
+            string progress = SQLSyntaxHelper.escapeSingleQuotes(boxProgress.Text);
+            string invoiceDate = SQLSyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
+            string freight = SQLSyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+            string comments = SQLSyntaxHelper.escapeSingleQuotes(boxComments.Text);
 
             //Get invoice/orderID for current order
             int nextOrderIDAndInvoiceNo = dbManager.getNextOrderID();
@@ -136,9 +136,9 @@ namespace Hard_To_Find
                     int quantity = Convert.ToInt32(dataGridView1.Rows[currRowIndex].Cells[0].Value.ToString());
                     string price = dataGridView1.Rows[currRowIndex].Cells[3].Value.ToString();
                     string discount = dataGridView1.Rows[currRowIndex].Cells[5].Value.ToString();
-                    string author = checkForSingleQuote(s.author);
-                    string title = checkForSingleQuote(s.title);
-                    string bookID = checkForSingleQuote(s.bookID);
+                    string author = SQLSyntaxHelper.escapeSingleQuotes(s.author);
+                    string title = SQLSyntaxHelper.escapeSingleQuotes(s.title);
+                    string bookID = SQLSyntaxHelper.escapeSingleQuotes(s.bookID);
 
                     //Create the orderedStock and store
                     OrderedStock o = new OrderedStock(nextOrderIDAndInvoiceNo, s.stockID, quantity, author, title, price, bookID, discount);
@@ -165,33 +165,6 @@ namespace Hard_To_Find
             }
         }
 
-        private string checkForSingleQuote(string stringToCheck)
-        {
-            //Check if it contains a single quotation
-            if (stringToCheck.Contains('\''))
-            {
-                //Get number of single quotations
-                int numQuotes = stringToCheck.Split('\'').Length - 1;
-                //int num = removedDashes.Count(c => c == '\'');
-
-                int previousIndex = 0;
-
-                //Loop over quotations
-                for (int i = 0; i < numQuotes; i++)
-                {
-                    //Insert quotation before existing one because it's an escape character in SQLite
-                    int indexOfQuote = stringToCheck.IndexOf("'", previousIndex);
-                    stringToCheck = stringToCheck.Insert(indexOfQuote, "'");
-
-                    //Move index after quotation that was just fixed to stop repeating on the same one
-                    previousIndex = indexOfQuote + 2;
-                }
-
-            }
-
-            return stringToCheck;
-        }
-
         private void dataGridView1_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -215,6 +188,5 @@ namespace Hard_To_Find
                 orderedBooks.RemoveAt(selectedRow);
             }
         }
-
     }
 }

@@ -86,7 +86,7 @@
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(96, 34);
             this.btnClose.TabIndex = 0;
-            this.btnClose.Text = "Close";
+            this.btnClose.Text = "Cancel";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -177,6 +177,7 @@
             // 
             // btnNewCustomer
             // 
+            this.btnNewCustomer.Enabled = false;
             this.btnNewCustomer.Location = new System.Drawing.Point(335, 150);
             this.btnNewCustomer.Name = "btnNewCustomer";
             this.btnNewCustomer.Size = new System.Drawing.Size(151, 23);
@@ -479,7 +480,7 @@
             // 
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
             this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.deleteRowToolStripMenuItem.Text = "Delete Row";
+            this.deleteRowToolStripMenuItem.Text = "Remove Book";
             // 
             // NewOrderForm
             // 
@@ -495,7 +496,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnClose);
             this.Name = "NewOrderForm";
-            this.Text = "NewOrderForm";
+            this.Text = "New Order";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

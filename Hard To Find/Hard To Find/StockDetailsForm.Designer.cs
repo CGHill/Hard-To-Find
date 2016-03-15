@@ -31,16 +31,12 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.boxSales = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.boxWeight = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.boxCatalogues = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.boxSubject = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.boxPrice = new System.Windows.Forms.TextBox();
-            this.boxLocation = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.boxComment = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.boxDescription = new System.Windows.Forms.TextBox();
@@ -79,7 +75,7 @@
             // 
             // boxSales
             // 
-            this.boxSales.Location = new System.Drawing.Point(382, 274);
+            this.boxSales.Location = new System.Drawing.Point(382, 196);
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
             this.boxSales.Size = new System.Drawing.Size(211, 20);
@@ -88,32 +84,15 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(340, 277);
+            this.label13.Location = new System.Drawing.Point(340, 199);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(36, 13);
             this.label13.TabIndex = 66;
             this.label13.Text = "Sales:";
             // 
-            // boxWeight
-            // 
-            this.boxWeight.Location = new System.Drawing.Point(382, 248);
-            this.boxWeight.Name = "boxWeight";
-            this.boxWeight.ReadOnly = true;
-            this.boxWeight.Size = new System.Drawing.Size(211, 20);
-            this.boxWeight.TabIndex = 14;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(332, 251);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(44, 13);
-            this.label14.TabIndex = 64;
-            this.label14.Text = "Weight:";
-            // 
             // boxCatalogues
             // 
-            this.boxCatalogues.Location = new System.Drawing.Point(382, 222);
+            this.boxCatalogues.Location = new System.Drawing.Point(382, 170);
             this.boxCatalogues.Name = "boxCatalogues";
             this.boxCatalogues.ReadOnly = true;
             this.boxCatalogues.Size = new System.Drawing.Size(211, 20);
@@ -122,7 +101,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(313, 225);
+            this.label9.Location = new System.Drawing.Point(313, 173);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 62;
@@ -130,7 +109,7 @@
             // 
             // boxSubject
             // 
-            this.boxSubject.Location = new System.Drawing.Point(382, 193);
+            this.boxSubject.Location = new System.Drawing.Point(382, 144);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.ReadOnly = true;
             this.boxSubject.Size = new System.Drawing.Size(211, 20);
@@ -139,7 +118,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(330, 196);
+            this.label10.Location = new System.Drawing.Point(330, 147);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(46, 13);
             this.label10.TabIndex = 60;
@@ -147,37 +126,20 @@
             // 
             // boxPrice
             // 
-            this.boxPrice.Location = new System.Drawing.Point(382, 167);
+            this.boxPrice.Location = new System.Drawing.Point(382, 119);
             this.boxPrice.Name = "boxPrice";
             this.boxPrice.ReadOnly = true;
             this.boxPrice.Size = new System.Drawing.Size(211, 20);
             this.boxPrice.TabIndex = 11;
             // 
-            // boxLocation
-            // 
-            this.boxLocation.Location = new System.Drawing.Point(382, 138);
-            this.boxLocation.Name = "boxLocation";
-            this.boxLocation.ReadOnly = true;
-            this.boxLocation.Size = new System.Drawing.Size(211, 20);
-            this.boxLocation.TabIndex = 10;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(342, 170);
+            this.label11.Location = new System.Drawing.Point(342, 122);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(34, 13);
             this.label11.TabIndex = 57;
             this.label11.Text = "Price:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(325, 141);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(51, 13);
-            this.label12.TabIndex = 56;
-            this.label12.Text = "Location:";
             // 
             // boxComment
             // 
@@ -185,7 +147,7 @@
             this.boxComment.Multiline = true;
             this.boxComment.Name = "boxComment";
             this.boxComment.ReadOnly = true;
-            this.boxComment.Size = new System.Drawing.Size(211, 91);
+            this.boxComment.Size = new System.Drawing.Size(211, 75);
             this.boxComment.TabIndex = 9;
             // 
             // label8
@@ -203,7 +165,7 @@
             this.boxDescription.Multiline = true;
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.ReadOnly = true;
-            this.boxDescription.Size = new System.Drawing.Size(211, 72);
+            this.boxDescription.Size = new System.Drawing.Size(506, 90);
             this.boxDescription.TabIndex = 8;
             // 
             // label7
@@ -341,7 +303,7 @@
             // 
             // boxBookID
             // 
-            this.boxBookID.Location = new System.Drawing.Point(382, 300);
+            this.boxBookID.Location = new System.Drawing.Point(382, 222);
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.ReadOnly = true;
             this.boxBookID.Size = new System.Drawing.Size(211, 20);
@@ -350,7 +312,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(327, 303);
+            this.label15.Location = new System.Drawing.Point(327, 225);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(49, 13);
             this.label15.TabIndex = 69;
@@ -358,7 +320,7 @@
             // 
             // boxDateEntered
             // 
-            this.boxDateEntered.Location = new System.Drawing.Point(382, 330);
+            this.boxDateEntered.Location = new System.Drawing.Point(382, 252);
             this.boxDateEntered.Name = "boxDateEntered";
             this.boxDateEntered.ReadOnly = true;
             this.boxDateEntered.Size = new System.Drawing.Size(211, 20);
@@ -367,7 +329,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(303, 329);
+            this.label16.Location = new System.Drawing.Point(303, 251);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(73, 13);
             this.label16.TabIndex = 71;
@@ -404,16 +366,12 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.boxSales);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.boxWeight);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.boxCatalogues);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.boxSubject);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.boxPrice);
-            this.Controls.Add(this.boxLocation);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.boxComment);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.boxDescription);
@@ -433,7 +391,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "StockDetailsForm";
-            this.Text = "StockDetailsForm";
+            this.Text = "Stock Details";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -444,16 +402,12 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.TextBox boxSales;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox boxWeight;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox boxCatalogues;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox boxSubject;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox boxPrice;
-        private System.Windows.Forms.TextBox boxLocation;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox boxComment;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox boxDescription;

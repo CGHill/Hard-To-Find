@@ -58,7 +58,7 @@
             this.btnCustomersOrders = new System.Windows.Forms.Button();
             this.btnCreateOrder = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
-            this.labCustID = new System.Windows.Forms.Label();
+            this.boxCustID = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -326,20 +326,20 @@
             this.label15.TabIndex = 40;
             this.label15.Text = "Customer ID:";
             // 
-            // labCustID
+            // boxCustID
             // 
-            this.labCustID.AutoSize = true;
-            this.labCustID.Location = new System.Drawing.Point(98, 31);
-            this.labCustID.Name = "labCustID";
-            this.labCustID.Size = new System.Drawing.Size(0, 13);
-            this.labCustID.TabIndex = 41;
+            this.boxCustID.Location = new System.Drawing.Point(99, 28);
+            this.boxCustID.Name = "boxCustID";
+            this.boxCustID.ReadOnly = true;
+            this.boxCustID.Size = new System.Drawing.Size(92, 20);
+            this.boxCustID.TabIndex = 41;
             // 
             // CustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(709, 361);
-            this.Controls.Add(this.labCustID);
+            this.Controls.Add(this.boxCustID);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.btnCreateOrder);
             this.Controls.Add(this.btnCustomersOrders);
@@ -371,7 +371,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "CustomersForm";
-            this.Text = "CustomersForm";
+            this.Text = "Customer Details";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,6 +409,6 @@
         private System.Windows.Forms.Button btnCustomersOrders;
         private System.Windows.Forms.Button btnCreateOrder;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label labCustID;
+        private System.Windows.Forms.TextBox boxCustID;
     }
 }

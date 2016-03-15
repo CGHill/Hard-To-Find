@@ -21,6 +21,9 @@ namespace Hard_To_Find
             this.StartPosition = FormStartPosition.CenterScreen;
 
             dbManager = new DatabaseManager();
+
+            string date = DateTime.Now.ToString("d/MM/yyyy");
+            boxDateEntered.Text = date;
         }
 
         /*Precondition: 
@@ -30,23 +33,21 @@ namespace Hard_To_Find
             if (boxQuantity.Text != "" && boxAuthor.Text != "" && boxTitle.Text != "" && boxBookID.Text != "")
             {
                 int quantity = Convert.ToInt32(boxQuantity.Text);
-                string note = boxNote.Text;
-                string author = boxAuthor.Text;
-                string title = boxTitle.Text;
-                string subtitle = boxSubtitle.Text;
-                string publisher = boxPublisher.Text;
-                string description = boxDescription.Text;
-                string comment = boxComment.Text;
-                string location = boxLocation.Text;
-                string price = boxPrice.Text;
-                string subject = boxSubtitle.Text;
-                string catalogues = boxCatalogues.Text;
-                string weight = boxWeight.Text;
-                string sales = boxSales.Text;
-                string bookID = boxBookID.Text;
-                string dateEntered = boxDateEntered.Text;
+                string note = SQLSyntaxHelper.escapeSingleQuotes(boxNote.Text);
+                string author = SQLSyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+                string title = SQLSyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+                string subtitle = SQLSyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+                string publisher = SQLSyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
+                string description = SQLSyntaxHelper.escapeSingleQuotes(boxDescription.Text);
+                string comment = SQLSyntaxHelper.escapeSingleQuotes(boxComment.Text);
+                string price = SQLSyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+                string subject = SQLSyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+                string catalogues = SQLSyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
+                string sales = SQLSyntaxHelper.escapeSingleQuotes(boxSales.Text);
+                string bookID = SQLSyntaxHelper.escapeSingleQuotes(boxBookID.Text);
+                string dateEntered = SQLSyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
 
-                Stock newStock = new Stock(quantity, note, author, title, subtitle, publisher, description, comment, location, price, subject, catalogues, weight, sales, bookID, dateEntered);
+                Stock newStock = new Stock(quantity, note, author, title, subtitle, publisher, description, comment, price, subject, catalogues, sales, bookID, dateEntered);
 
                 dbManager.insertStock(newStock);
 

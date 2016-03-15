@@ -50,6 +50,7 @@ namespace Hard_To_Find
         {
             this.Close();
             form1.Show();
+            form1.TopMost = true;
         }
 
         /*Precondition:
@@ -129,25 +130,7 @@ namespace Hard_To_Find
                             //Remove double quotations for SQL insert
                             string unquoted = line.Replace("\"", string.Empty);
 
-                            //Check if there are any single quotations
-                            if (unquoted.Contains('\''))
-                            {
-                                //Get number of single quotations
-                                int numQuotes = unquoted.Split('\'').Length - 1;
-                                //int num = removedDashes.Count(c => c == '\'');
-
-                                int previousIndex = 0;
-
-                                //Add another quotation behind existing quotations since it's the escape character for the SQL insert
-                                for (int i = 0; i < numQuotes; i++)
-                                {
-                                    int indexOfQuote = unquoted.IndexOf("'", previousIndex);
-                                    unquoted = unquoted.Insert(indexOfQuote, "'");
-
-                                    //Move index ahead of just completed quotation so it doesn't repeat on it
-                                    previousIndex = indexOfQuote + 2;
-                                }
-                            }
+                            unquoted = SQLSyntaxHelper.escapeSingleQuotes(unquoted);
 
                             //Split on comma to get all values of customer
                             string[] splitCustomer = unquoted.Split('|');
@@ -239,9 +222,9 @@ namespace Hard_To_Find
 
                 //Get names if they have been entered
                 if (boxFirstName.Text != "")
-                    firstName = boxFirstName.Text;
+                    firstName = SQLSyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
                 if (boxLastName.Text != "")
-                    lastName = boxLastName.Text;
+                    lastName = SQLSyntaxHelper.escapeSingleQuotes(boxLastName.Text);
 
                 //Search for customers with names entered
                 foundCustomers = dbManager.searchCustomers(firstName, lastName);

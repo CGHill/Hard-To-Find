@@ -16,18 +16,16 @@ namespace Hard_To_Find
         public string publisher { get; set; }
         public string description { get; set; }
         public string comments { get; set; }
-        public string location { get; set; }
         public string price { get; set; }
         public string subject { get; set; }
         public string catalogue { get; set; }
-        public string weight { get; set; }
         public string sales { get; set; }
         public string bookID { get; set; }
         public string dateEntered { get; set; }
 
         //Constructor for stock with existing IDs
-        public Stock(int stockID, int quantity, string note, string author, string title, string subtitle, string publisher, string description, string comments, string location, string price,
-            string subject, string catalogue, string weight, string sales, string bookID, string dateEntered)
+        public Stock(int stockID, int quantity, string note, string author, string title, string subtitle, string publisher, string description, string comments, string price,
+            string subject, string catalogue, string sales, string bookID, string dateEntered)
         {
             this.stockID = stockID;
             this.quantity = quantity;
@@ -38,19 +36,17 @@ namespace Hard_To_Find
             this.publisher = publisher;
             this.description = description;
             this.comments = comments;
-            this.location = location;
             this.price = price;
             this.subject = subject;
             this.catalogue = catalogue;
-            this.weight = weight;
             this.sales = sales;
             this.bookID = bookID;
             this.dateEntered = dateEntered;
         }
 
         //Constructor for new stock
-        public Stock(int quantity, string note, string author, string title, string subtitle, string publisher, string description, string comments, string location, string price,
-            string subject, string catalogue, string weight, string sales, string bookID, string dateEntered)
+        public Stock(int quantity, string note, string author, string title, string subtitle, string publisher, string description, string comments, string price,
+            string subject, string catalogue, string sales, string bookID, string dateEntered)
         {
             this.stockID = -1;
             this.quantity = quantity;
@@ -61,11 +57,9 @@ namespace Hard_To_Find
             this.publisher = publisher;
             this.description = description;
             this.comments = comments;
-            this.location = location;
             this.price = price;
             this.subject = subject;
             this.catalogue = catalogue;
-            this.weight = weight;
             this.sales = sales;
             this.bookID = bookID;
             this.dateEntered = dateEntered;

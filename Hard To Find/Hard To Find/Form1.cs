@@ -11,12 +11,16 @@ namespace Hard_To_Find
 {
     public partial class Form1 : Form
     {
+        private FileManager fileManager;
+
         //Contructor
         public Form1()
         {
             //Open center screen
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
+
+            fileManager = new FileManager();
         }
 
         /*Precondition: 
@@ -61,6 +65,25 @@ namespace Hard_To_Find
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnFileExports_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FileExportForm fef = new FileExportForm(this);
+            fef.Show();
+        }
+
+        private void btnSetStorageLocation_Click(object sender, EventArgs e)
+        {
+           
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select storage location";
+
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                fileManager.createStorageLocationFile(folderBrowser.SelectedPath);
+            }
         }
     }
 }

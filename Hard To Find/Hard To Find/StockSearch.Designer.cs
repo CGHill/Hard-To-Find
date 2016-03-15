@@ -263,7 +263,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox1);
             this.Name = "StockSearch";
-            this.Text = "StockSearch";
+            this.Text = "Stock Search";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

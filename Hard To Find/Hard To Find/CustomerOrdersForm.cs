@@ -80,7 +80,7 @@ namespace Hard_To_Find
             List<OrderedStock> customersOrderedStock = new List<OrderedStock>();
 
             //Update textboxes
-            labOrderID.Text = currOrder.orderID.ToString();
+            boxOrderID.Text = currOrder.orderID.ToString();
             boxOrderRef.Text = currOrder.orderReference;
             boxProgress.Text = currOrder.progress;
             boxInvoiceDate.Text = currOrder.invoiceDate;

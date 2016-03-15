@@ -69,17 +69,6 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
-         Postcondition: Send customer back to order form for autofill and close this form*/
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int currRow = dataGridView1.CurrentCell.RowIndex;
-
-            Customer selectedCustomer = foundCustomers[currRow];
-            orderForm.setCustomer(selectedCustomer);
-            this.Close();
-        }
-
-        /*Precondition:
          Postcondition: Cancel customer search*/
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -162,9 +151,9 @@ namespace Hard_To_Find
 
                 //Get names if they have been entered
                 if (boxFirstName.Text != "")
-                    firstName = boxFirstName.Text;
+                    firstName = SQLSyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
                 if (boxLastName.Text != "")
-                    lastName = boxLastName.Text;
+                    lastName = SQLSyntaxHelper.escapeSingleQuotes(boxLastName.Text);
 
                 //Search for customers with names entered
                 foundCustomers = dbManager.searchCustomers(firstName, lastName);
@@ -179,10 +168,20 @@ namespace Hard_To_Find
 
         /*Precondition:
          Postcondition: Enables button to look for more details*/
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        private void dataGridView1_SelectionChanged_1(object sender, EventArgs e)
         {
             btnSelectCustomer.Enabled = true;
         }
 
+        /*Precondition:
+        Postcondition: Send customer back to order form for autofill and close this form*/
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int currRow = dataGridView1.CurrentCell.RowIndex;
+
+            Customer selectedCustomer = foundCustomers[currRow];
+            orderForm.setCustomer(selectedCustomer);
+            this.Close();
+        }
     }
 }

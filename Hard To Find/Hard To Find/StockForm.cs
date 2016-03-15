@@ -49,6 +49,7 @@ namespace Hard_To_Find
         {
             this.Close();
             form1.Show();
+            form1.TopMost = true;
         }
 
 
@@ -172,17 +173,15 @@ namespace Hard_To_Find
                                     string publisher = combinedLines[6];
                                     string description = combinedLines[7];
                                     string comments = combinedLines[8];
-                                    string location = combinedLines[9];
                                     string price = combinedLines[10];
                                     string subject = combinedLines[11];
                                     string catalogue = combinedLines[12];
-                                    string weight = combinedLines[13];
                                     string sales = combinedLines[14];
                                     string bookID = combinedLines[15];
                                     string enteredBy = combinedLines[16];
 
                                     //Create a new stock entry from it and insert into list
-                                    Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, location, price, subject, catalogue, weight, sales, bookID, enteredBy);
+                                    Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, sales, bookID, enteredBy);
                                     allStock.Add(newStock);
 
                                     /*this.Invoke((MethodInvoker)delegate
@@ -222,17 +221,15 @@ namespace Hard_To_Find
                             string publisher = splitStock[6];
                             string description = splitStock[7];
                             string comments = splitStock[8];
-                            string location = splitStock[9];
                             string price = splitStock[10];
                             string subject = splitStock[11];
                             string catalogue = splitStock[12];
-                            string weight = splitStock[13];
                             string sales = splitStock[14];
                             string bookID = splitStock[15];
                             string enteredBy = splitStock[16];
 
                             //Create a newStock entry and insert into list
-                            Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, location, price, subject, catalogue, weight, sales, bookID, enteredBy);
+                            Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, sales, bookID, enteredBy);
                             allStock.Add(newStock);
                         }
                     }
@@ -400,11 +397,11 @@ namespace Hard_To_Find
 
                 //Find out which fields have been entered to be included in the search
                 if (boxAuthor.Text != "")
-                    author = boxAuthor.Text;
+                    author = SQLSyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
                 if (boxTitle.Text != "")
-                    title = boxTitle.Text;
+                    title = SQLSyntaxHelper.escapeSingleQuotes(boxTitle.Text);
                 if (boxSubject.Text != "")
-                    subject = boxSubject.Text;
+                    subject = SQLSyntaxHelper.escapeSingleQuotes(boxSubject.Text);
 
                 //Search for stock based on the parameters entered
                 foundStock = dbManager.searchStock(author, title, subject, searchAllStock);

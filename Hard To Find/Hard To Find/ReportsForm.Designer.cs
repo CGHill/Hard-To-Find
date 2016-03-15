@@ -48,7 +48,7 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "ReportsForm";
-            this.Text = "ReportsForm";
+            this.Text = "Reports";
             this.ResumeLayout(false);
 
         }

@@ -33,18 +33,18 @@ namespace Hard_To_Find
          Postcondition: Creates a new customer and passes it to database for storage*/
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string firstName = boxFirstName.Text;
-            string lastName = boxLastName.Text;
-            string institution = boxInstitution.Text;
-            string address1 = boxAddress1.Text;
-            string address2 = boxAddress2.Text;
-            string address3 = boxAddress3.Text;
-            string postcode = boxPostcode.Text;
-            string country = boxCountry.Text;
-            string email = boxEmail.Text;
-            string comments = boxComments.Text;
-            string sales = boxSales.Text;
-            string payment = boxPayment.Text;
+            string firstName = SQLSyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
+            string lastName = SQLSyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+            string institution = SQLSyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
+            string address1 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
+            string address2 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
+            string address3 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
+            string postcode = SQLSyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
+            string country = SQLSyntaxHelper.escapeSingleQuotes(boxCountry.Text);
+            string email = SQLSyntaxHelper.escapeSingleQuotes(boxEmail.Text);
+            string comments = SQLSyntaxHelper.escapeSingleQuotes(boxComments.Text);
+            string sales = SQLSyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            string payment = SQLSyntaxHelper.escapeSingleQuotes(boxPayment.Text);
 
             //Check that the basic things haven't been left empty so a blank customer isn't saved
             if (firstName != "" || lastName != "" || address1 != "" || address2 != "" || address3 != "")

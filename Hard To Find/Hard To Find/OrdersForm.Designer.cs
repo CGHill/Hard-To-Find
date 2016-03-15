@@ -32,13 +32,14 @@
             this.btnImportOrders = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.boxOrderID = new System.Windows.Forms.TextBox();
+            this.boxOrderSearchID = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
             this.btnImportOrderedStock = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.boxCustID = new System.Windows.Forms.TextBox();
             this.boxCountry = new System.Windows.Forms.TextBox();
             this.boxAdd3 = new System.Windows.Forms.TextBox();
             this.boxAdd2 = new System.Windows.Forms.TextBox();
@@ -52,10 +53,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.boxInstitution = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.labCustID = new System.Windows.Forms.Label();
             this.boxCustName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.boxOrderID = new System.Windows.Forms.TextBox();
             this.boxInvoiceDate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.boxFreight = new System.Windows.Forms.TextBox();
@@ -66,7 +67,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.labOrderID = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -123,13 +123,13 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Order ID:";
             // 
-            // boxOrderID
+            // boxOrderSearchID
             // 
-            this.boxOrderID.Location = new System.Drawing.Point(65, 72);
-            this.boxOrderID.Name = "boxOrderID";
-            this.boxOrderID.Size = new System.Drawing.Size(118, 20);
-            this.boxOrderID.TabIndex = 1;
-            this.boxOrderID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxOrderID_KeyPress);
+            this.boxOrderSearchID.Location = new System.Drawing.Point(65, 72);
+            this.boxOrderSearchID.Name = "boxOrderSearchID";
+            this.boxOrderSearchID.Size = new System.Drawing.Size(118, 20);
+            this.boxOrderSearchID.TabIndex = 1;
+            this.boxOrderSearchID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxOrderID_KeyPress);
             // 
             // btnSearch
             // 
@@ -185,6 +185,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.boxCustID);
             this.groupBox3.Controls.Add(this.boxCountry);
             this.groupBox3.Controls.Add(this.boxAdd3);
             this.groupBox3.Controls.Add(this.boxAdd2);
@@ -198,7 +199,6 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.boxInstitution);
             this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.labCustID);
             this.groupBox3.Controls.Add(this.boxCustName);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Location = new System.Drawing.Point(21, 201);
@@ -207,6 +207,14 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Customer Details";
+            // 
+            // boxCustID
+            // 
+            this.boxCustID.Location = new System.Drawing.Point(106, 34);
+            this.boxCustID.Name = "boxCustID";
+            this.boxCustID.ReadOnly = true;
+            this.boxCustID.Size = new System.Drawing.Size(84, 20);
+            this.boxCustID.TabIndex = 50;
             // 
             // boxCountry
             // 
@@ -319,14 +327,6 @@
             this.label11.TabIndex = 33;
             this.label11.Text = "Name:";
             // 
-            // labCustID
-            // 
-            this.labCustID.AutoSize = true;
-            this.labCustID.Location = new System.Drawing.Point(103, 37);
-            this.labCustID.Name = "labCustID";
-            this.labCustID.Size = new System.Drawing.Size(0, 13);
-            this.labCustID.TabIndex = 32;
-            // 
             // boxCustName
             // 
             this.boxCustName.Location = new System.Drawing.Point(106, 62);
@@ -346,6 +346,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.boxOrderID);
             this.groupBox2.Controls.Add(this.boxInvoiceDate);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.boxFreight);
@@ -356,7 +357,6 @@
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.labOrderID);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(21, 19);
             this.groupBox2.Name = "groupBox2";
@@ -364,6 +364,14 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Order Details";
+            // 
+            // boxOrderID
+            // 
+            this.boxOrderID.Location = new System.Drawing.Point(106, 37);
+            this.boxOrderID.Name = "boxOrderID";
+            this.boxOrderID.ReadOnly = true;
+            this.boxOrderID.Size = new System.Drawing.Size(84, 20);
+            this.boxOrderID.TabIndex = 42;
             // 
             // boxInvoiceDate
             // 
@@ -450,14 +458,6 @@
             this.label5.Size = new System.Drawing.Size(89, 13);
             this.label5.TabIndex = 22;
             this.label5.Text = "Order Reference:";
-            // 
-            // labOrderID
-            // 
-            this.labOrderID.AutoSize = true;
-            this.labOrderID.Location = new System.Drawing.Point(103, 40);
-            this.labOrderID.Name = "labOrderID";
-            this.labOrderID.Size = new System.Drawing.Size(0, 13);
-            this.labOrderID.TabIndex = 23;
             // 
             // label3
             // 
@@ -575,13 +575,13 @@
             this.Controls.Add(this.btnImportOrderedStock);
             this.Controls.Add(this.btnNewOrder);
             this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.boxOrderID);
+            this.Controls.Add(this.boxOrderSearchID);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnImportOrders);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "OrdersForm";
-            this.Text = "OrdersForm";
+            this.Text = "Orders";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -600,7 +600,7 @@
         private System.Windows.Forms.Button btnImportOrders;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox boxOrderID;
+        private System.Windows.Forms.TextBox boxOrderSearchID;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnNewOrder;
         private System.Windows.Forms.Button btnImportOrderedStock;
@@ -609,7 +609,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label labOrderID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -625,7 +624,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox boxInstitution;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label labCustID;
         private System.Windows.Forms.TextBox boxCustName;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox boxAdd3;
@@ -647,5 +645,7 @@
         private System.Windows.Forms.Button btnBigMailingLabel;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnSmallMailingLabel;
+        private System.Windows.Forms.TextBox boxOrderID;
+        private System.Windows.Forms.TextBox boxCustID;
     }
 }

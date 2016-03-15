@@ -298,7 +298,7 @@
             this.Controls.Add(this.btnImportStock);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "StockForm";
-            this.Text = "StockForm";
+            this.Text = "Stock Search";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

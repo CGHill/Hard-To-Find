@@ -9,6 +9,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 *.sqlite
+*.txt
 
 # Windows Installer files
 *.cab

@@ -46,51 +46,22 @@ namespace Hard_To_Find
 
             //Update all stock information
             currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-            currStock.note = checkForSingleQuote(boxNote.Text);
-            currStock.author = checkForSingleQuote(boxAuthor.Text);
-            currStock.title = checkForSingleQuote(boxTitle.Text);
-            currStock.subtitle = checkForSingleQuote(boxSubtitle.Text);
-            currStock.publisher = checkForSingleQuote(boxPublisher.Text);
-            currStock.description = checkForSingleQuote(boxDescription.Text);
-            currStock.comments = checkForSingleQuote(boxComment.Text);
-            currStock.location = checkForSingleQuote(boxLocation.Text);
-            currStock.price = checkForSingleQuote(boxPrice.Text);
-            currStock.subject = checkForSingleQuote(boxSubject.Text);
-            currStock.catalogue = checkForSingleQuote(boxCatalogues.Text);
-            currStock.weight = checkForSingleQuote(boxWeight.Text);
-            currStock.sales = checkForSingleQuote(boxSales.Text);
-            currStock.bookID = checkForSingleQuote(boxBookID.Text);
-            currStock.dateEntered = checkForSingleQuote(boxDateEntered.Text);
+            currStock.note = SQLSyntaxHelper.escapeSingleQuotes(boxNote.Text);
+            currStock.author = SQLSyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+            currStock.title = SQLSyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+            currStock.subtitle = SQLSyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+            currStock.publisher = SQLSyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
+            currStock.description = SQLSyntaxHelper.escapeSingleQuotes(boxDescription.Text);
+            currStock.comments = SQLSyntaxHelper.escapeSingleQuotes(boxComment.Text);
+            currStock.price = SQLSyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+            currStock.subject = SQLSyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+            currStock.catalogue = SQLSyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
+            currStock.sales = SQLSyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            currStock.bookID = SQLSyntaxHelper.escapeSingleQuotes(boxBookID.Text);
+            currStock.dateEntered = SQLSyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
 
             //Send updated stock information to database
             dbManager.updateStock(currStock);
-        }
-
-        private string checkForSingleQuote(string stringToCheck)
-        {
-            //Check if it contains a single quotation
-            if (stringToCheck.Contains('\''))
-            {
-                //Get number of single quotations
-                int numQuotes = stringToCheck.Split('\'').Length - 1;
-                //int num = removedDashes.Count(c => c == '\'');
-
-                int previousIndex = 0;
-
-                //Loop over quotations
-                for (int i = 0; i < numQuotes; i++)
-                {
-                    //Insert quotation before existing one because it's an escape character in SQLite
-                    int indexOfQuote = stringToCheck.IndexOf("'", previousIndex);
-                    stringToCheck = stringToCheck.Insert(indexOfQuote, "'");
-
-                    //Move index after quotation that was just fixed to stop repeating on the same one
-                    previousIndex = indexOfQuote + 2;
-                }
-
-            }
-
-            return stringToCheck;
         }
 
         /*Precondition:
@@ -112,11 +83,9 @@ namespace Hard_To_Find
             boxPublisher.ReadOnly = !boxPublisher.ReadOnly;
             boxDescription.ReadOnly = !boxDescription.ReadOnly;
             boxComment.ReadOnly = !boxComment.ReadOnly;
-            boxLocation.ReadOnly = !boxLocation.ReadOnly;
             boxPrice.ReadOnly = !boxPrice.ReadOnly;
             boxSubject.ReadOnly = !boxSubject.ReadOnly;
             boxCatalogues.ReadOnly = !boxCatalogues.ReadOnly;
-            boxWeight.ReadOnly = !boxWeight.ReadOnly;
             boxSales.ReadOnly = !boxSales.ReadOnly;
             boxBookID.ReadOnly = !boxBookID.ReadOnly;
             boxDateEntered.ReadOnly = !boxDateEntered.ReadOnly;
@@ -135,11 +104,9 @@ namespace Hard_To_Find
             boxPublisher.Text = currStock.publisher;
             boxDescription.Text = currStock.description;
             boxComment.Text = currStock.comments;
-            boxLocation.Text = currStock.location;
             boxPrice.Text = currStock.price;
             boxSubject.Text = currStock.subject;
             boxCatalogues.Text = currStock.catalogue;
-            boxWeight.Text = currStock.weight;
             boxSales.Text = currStock.sales;
             boxBookID.Text = currStock.bookID;
             boxDateEntered.Text = currStock.dateEntered;

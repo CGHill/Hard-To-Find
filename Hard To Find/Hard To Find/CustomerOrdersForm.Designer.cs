@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.boxOrderID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,13 +52,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.labOrderID = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -76,8 +76,27 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "OrderID";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Order Reference";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Invoice Date";
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.boxOrderID);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dataGridView2);
             this.groupBox1.Controls.Add(this.boxInvoiceDate);
@@ -90,7 +109,6 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.labOrderID);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(12, 185);
             this.groupBox1.Name = "groupBox1";
@@ -98,6 +116,14 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Details";
+            // 
+            // boxOrderID
+            // 
+            this.boxOrderID.Location = new System.Drawing.Point(111, 26);
+            this.boxOrderID.Name = "boxOrderID";
+            this.boxOrderID.ReadOnly = true;
+            this.boxOrderID.Size = new System.Drawing.Size(142, 20);
+            this.boxOrderID.TabIndex = 55;
             // 
             // label1
             // 
@@ -175,7 +201,7 @@
             this.boxFreight.Location = new System.Drawing.Point(352, 50);
             this.boxFreight.Name = "boxFreight";
             this.boxFreight.ReadOnly = true;
-            this.boxFreight.Size = new System.Drawing.Size(142, 20);
+            this.boxFreight.Size = new System.Drawing.Size(126, 20);
             this.boxFreight.TabIndex = 51;
             // 
             // boxProgress
@@ -200,7 +226,7 @@
             this.boxComments.Multiline = true;
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
-            this.boxComments.Size = new System.Drawing.Size(142, 48);
+            this.boxComments.Size = new System.Drawing.Size(236, 48);
             this.boxComments.TabIndex = 48;
             // 
             // label8
@@ -239,14 +265,6 @@
             this.label5.TabIndex = 42;
             this.label5.Text = "Order Reference:";
             // 
-            // labOrderID
-            // 
-            this.labOrderID.AutoSize = true;
-            this.labOrderID.Location = new System.Drawing.Point(108, 29);
-            this.labOrderID.Name = "labOrderID";
-            this.labOrderID.Size = new System.Drawing.Size(0, 13);
-            this.labOrderID.TabIndex = 44;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -275,24 +293,6 @@
             this.label2.TabIndex = 55;
             this.label2.Text = "Customers Orders:";
             // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "OrderID";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Order Reference";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "Invoice Date";
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            // 
             // CustomerOrdersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,7 +303,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "CustomerOrdersForm";
-            this.Text = "CustomerOrdersForm";
+            this.Text = "Customers Orders";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -330,7 +330,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label labOrderID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
@@ -342,5 +341,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.TextBox boxOrderID;
     }
 }

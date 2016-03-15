@@ -21,6 +21,7 @@ namespace Hard_To_Find
         private Customer customer;
         private Order order;
         private List<OrderedStock> orderedStock;
+        private double grandTotal;
 
         public WordDocumentManager(OrdersForm ordersForm, Customer customer, Order order, List<OrderedStock> orderedStock)
         {
@@ -28,23 +29,29 @@ namespace Hard_To_Find
             this.customer = customer;
             this.order = order;
             this.orderedStock = orderedStock;
+            grandTotal = 0;
         }
 
         // Creates a WordprocessingDocument.
-        public void createInvoice(string filePath)
+        public bool createInvoice(string filePath)
         {
+            bool fileCreationSuccessful = true;
             try
             {
                 using (WordprocessingDocument package = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
                 {
                     CreateParts(package);
+                    
                 }
             }
             catch (System.IO.IOException)
             {
                 //File is already opened by another program
+                fileCreationSuccessful = false;
                 ordersForm.errorOpeningFile();
             }
+
+            return fileCreationSuccessful;
         }
 
         // Adds child parts and generates content of the specified part.
@@ -522,7 +529,7 @@ namespace Hard_To_Find
             if(customer != null)
                 text8.Text = customer.address1;
             else
-                text8.Text = "Unkown";
+                text8.Text = "";
 
             run8.Append(runProperties8);
             run8.Append(tabChar2);
@@ -562,7 +569,7 @@ namespace Hard_To_Find
             if(customer != null)
                 text9.Text = customer.address2;
             else
-                text9.Text = "Unkown";
+                text9.Text = "";
 
             run9.Append(runProperties9);
             run9.Append(tabChar3);
@@ -602,7 +609,7 @@ namespace Hard_To_Find
             if(customer != null)
                 text10.Text = customer.address3;
             else
-                text10.Text = "Unkown";
+                text10.Text = "";
 
             run10.Append(runProperties10);
             run10.Append(tabChar4);
@@ -642,7 +649,7 @@ namespace Hard_To_Find
             if(customer != null)
                 text11.Text = customer.postCode;
             else
-                text11.Text = "Unkown";
+                text11.Text = "";
 
             run11.Append(runProperties11);
             run11.Append(tabChar5);
@@ -682,7 +689,7 @@ namespace Hard_To_Find
             if(customer != null)
                 text12.Text = customer.country;
             else
-                text12.Text = "Unkown";
+                text12.Text = "";
 
             run12.Append(runProperties12);
             run12.Append(tabChar6);
@@ -1933,6 +1940,8 @@ namespace Hard_To_Find
 
                 double total = priceNum - discountNum;
 
+                grandTotal += total;
+
                 //TODO have price display as decimal
                 text32.Text = "$" + String.Format("{0:0.00}", total);
 
@@ -2113,19 +2122,8 @@ namespace Hard_To_Find
             runProperties35.Append(fontSize61);
             Text text34 = new Text();
 
-            //TODO total of book totals
-            double totalBookCosts = 0; ;
-
-            foreach (OrderedStock o in orderedStock)
-            {
-                string cost = o.price;
-                //Remove $ sign
-                cost = cost.Remove(0, 1);
-
-                double costNum = Convert.ToDouble(cost);
-                totalBookCosts += costNum;
-            }
-            text34.Text = "$" + String.Format("{0:0.00}", totalBookCosts);
+            //TODO total after the table
+            text34.Text = "$" + String.Format("{0:0.00}", grandTotal);
 
             run35.Append(runProperties35);
             run35.Append(text34);
@@ -2363,7 +2361,7 @@ namespace Hard_To_Find
             string freightCostString = order.freightCost;
             freightCostString = freightCostString.Remove(0, 1);
             double freightCost = Convert.ToDouble(freightCostString);
-            double finalTotal = totalBookCosts + freightCost;
+            double finalTotal = grandTotal + freightCost;
 
             text39.Text = "$" + String.Format("{0:0.00}", finalTotal);
 

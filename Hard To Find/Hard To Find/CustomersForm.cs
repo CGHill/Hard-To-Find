@@ -33,7 +33,7 @@ namespace Hard_To_Find
          Postcondition: Fills text boxes up with the customers data*/
         public void loadUpCustomer()
         {
-            labCustID.Text = currCustomer.custID.ToString();
+            boxCustID.Text = currCustomer.custID.ToString();
             boxFirstName.Text = currCustomer.firstName;
             boxLastName.Text = currCustomer.lastName;
             boxInstitution.Text = currCustomer.institution;
@@ -66,48 +66,21 @@ namespace Hard_To_Find
             toggleBoxesReadOnly();
 
             //Update all fields
-            currCustomer.firstName = checkForSingleQuote(boxFirstName.Text);
-            currCustomer.lastName = checkForSingleQuote(boxLastName.Text);
-            currCustomer.institution = checkForSingleQuote(boxInstitution.Text);
-            currCustomer.address1 = checkForSingleQuote(boxAddress1.Text);
-            currCustomer.address2 = checkForSingleQuote(boxAddress2.Text);
-            currCustomer.address3 = checkForSingleQuote(boxAddress3.Text);
-            currCustomer.postCode = checkForSingleQuote(boxPostcode.Text);
-            currCustomer.country = checkForSingleQuote(boxCountry.Text);
-            currCustomer.email = checkForSingleQuote(boxEmail.Text);
-            currCustomer.comments = checkForSingleQuote(boxComments.Text);
-            currCustomer.sales = checkForSingleQuote(boxSales.Text);
-            currCustomer.payment = checkForSingleQuote(boxPayment.Text);
+            currCustomer.firstName = SQLSyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
+            currCustomer.lastName = SQLSyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+            currCustomer.institution = SQLSyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
+            currCustomer.address1 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
+            currCustomer.address2 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
+            currCustomer.address3 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
+            currCustomer.postCode = SQLSyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
+            currCustomer.country = SQLSyntaxHelper.escapeSingleQuotes(boxCountry.Text);
+            currCustomer.email = SQLSyntaxHelper.escapeSingleQuotes(boxEmail.Text);
+            currCustomer.comments = SQLSyntaxHelper.escapeSingleQuotes(boxComments.Text);
+            currCustomer.sales = SQLSyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            currCustomer.payment = SQLSyntaxHelper.escapeSingleQuotes(boxPayment.Text);
 
             //Send to dbManager to update entry
             dbManager.updateCustomer(currCustomer);
-        }
-
-        private string checkForSingleQuote(string stringToCheck)
-        {
-            //Check if it contains a single quotation
-            if (stringToCheck.Contains('\''))
-            {
-                //Get number of single quotations
-                int numQuotes = stringToCheck.Split('\'').Length - 1;
-                //int num = removedDashes.Count(c => c == '\'');
-
-                int previousIndex = 0;
-
-                //Loop over quotations
-                for (int i = 0; i < numQuotes; i++)
-                {
-                    //Insert quotation before existing one because it's an escape character in SQLite
-                    int indexOfQuote = stringToCheck.IndexOf("'", previousIndex);
-                    stringToCheck = stringToCheck.Insert(indexOfQuote, "'");
-
-                    //Move index after quotation that was just fixed to stop repeating on the same one
-                    previousIndex = indexOfQuote + 2;
-                }
-
-            }
-
-            return stringToCheck;
         }
 
 

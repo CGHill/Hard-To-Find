@@ -80,6 +80,13 @@
       <DependentUpon>CustomersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseManager.cs" />
+    <Compile Include="FileExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileExportForm.Designer.cs">
+      <DependentUpon>FileExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileManager.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +128,7 @@
     <Compile Include="ReportsForm.Designer.cs">
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SQLSyntaxHelper.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="StockDetailsForm.cs">
       <SubType>Form</SubType>
@@ -152,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomersForm.resx">
       <DependentUpon>CustomersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileExportForm.resx">
+      <DependentUpon>FileExportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

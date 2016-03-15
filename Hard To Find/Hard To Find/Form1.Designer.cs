@@ -31,9 +31,10 @@
             this.btnCustomers = new System.Windows.Forms.Button();
             this.btnStock = new System.Windows.Forms.Button();
             this.btnOrders = new System.Windows.Forms.Button();
-            this.btnCatalogueMenu = new System.Windows.Forms.Button();
             this.btnReports = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.btnFileExports = new System.Windows.Forms.Button();
+            this.btnSetStorageLocation = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCustomers
@@ -66,18 +67,10 @@
             this.btnOrders.UseVisualStyleBackColor = true;
             this.btnOrders.Click += new System.EventHandler(this.btnOrders_Click);
             // 
-            // btnCatalogueMenu
-            // 
-            this.btnCatalogueMenu.Location = new System.Drawing.Point(230, 61);
-            this.btnCatalogueMenu.Name = "btnCatalogueMenu";
-            this.btnCatalogueMenu.Size = new System.Drawing.Size(123, 37);
-            this.btnCatalogueMenu.TabIndex = 3;
-            this.btnCatalogueMenu.Text = "Catalogue Menu";
-            this.btnCatalogueMenu.UseVisualStyleBackColor = true;
-            // 
             // btnReports
             // 
-            this.btnReports.Location = new System.Drawing.Point(230, 191);
+            this.btnReports.Enabled = false;
+            this.btnReports.Location = new System.Drawing.Point(230, 61);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(123, 37);
             this.btnReports.TabIndex = 4;
@@ -95,19 +88,40 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // btnFileExports
+            // 
+            this.btnFileExports.Location = new System.Drawing.Point(230, 124);
+            this.btnFileExports.Name = "btnFileExports";
+            this.btnFileExports.Size = new System.Drawing.Size(123, 37);
+            this.btnFileExports.TabIndex = 6;
+            this.btnFileExports.Text = "File Exports";
+            this.btnFileExports.UseVisualStyleBackColor = true;
+            this.btnFileExports.Click += new System.EventHandler(this.btnFileExports_Click);
+            // 
+            // btnSetStorageLocation
+            // 
+            this.btnSetStorageLocation.Location = new System.Drawing.Point(230, 191);
+            this.btnSetStorageLocation.Name = "btnSetStorageLocation";
+            this.btnSetStorageLocation.Size = new System.Drawing.Size(123, 37);
+            this.btnSetStorageLocation.TabIndex = 7;
+            this.btnSetStorageLocation.Text = "Set Storage Location";
+            this.btnSetStorageLocation.UseVisualStyleBackColor = true;
+            this.btnSetStorageLocation.Click += new System.EventHandler(this.btnSetStorageLocation_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 390);
+            this.Controls.Add(this.btnSetStorageLocation);
+            this.Controls.Add(this.btnFileExports);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnReports);
-            this.Controls.Add(this.btnCatalogueMenu);
             this.Controls.Add(this.btnOrders);
             this.Controls.Add(this.btnStock);
             this.Controls.Add(this.btnCustomers);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Main Menu";
             this.ResumeLayout(false);
 
         }
@@ -117,9 +131,10 @@
         private System.Windows.Forms.Button btnCustomers;
         private System.Windows.Forms.Button btnStock;
         private System.Windows.Forms.Button btnOrders;
-        private System.Windows.Forms.Button btnCatalogueMenu;
         private System.Windows.Forms.Button btnReports;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnFileExports;
+        private System.Windows.Forms.Button btnSetStorageLocation;
     }
 }
 

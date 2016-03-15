@@ -98,8 +98,8 @@ namespace Hard_To_Find
         {
             dbConnection.Open();
 
-            string createStockTable = "CREATE TABLE IF NOT EXISTS Stock(stockID INTEGER PRIMARY KEY AUTOINCREMENT, quantity INTEGER NOT NULL, note VARCHAR(200), author VARCHAR(200), title VARCHAR(200), subtitle VARCHAR(300)," +
-                "publisher VARCHAR(200), description VARCHAR(400), comments VARCHAR(400), location VARCHAR(2), price VARCHAR(12), subject VARCHAR(500), catalogue VARCHAR(200), weight VARCHAR(6), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
+            string createStockTable = "CREATE TABLE IF NOT EXISTS Stock(stockID INTEGER PRIMARY KEY AUTOINCREMENT, quantity INTEGER NOT NULL, note VARCHAR(500), author VARCHAR(200), title VARCHAR(200), subtitle VARCHAR(300)," +
+                "publisher VARCHAR(200), description VARCHAR(500), comments VARCHAR(400), price VARCHAR(12), subject VARCHAR(500), catalogue VARCHAR(200), sales VARCHAR(150), bookID VARCHAR(100), dateEntered VARCHAR(100))";
 
             SQLiteCommand createStockTableCommand = new SQLiteCommand(createStockTable, dbConnection);
             createStockTableCommand.ExecuteNonQuery();
@@ -165,8 +165,8 @@ namespace Hard_To_Find
             //Apostrophies cause program to crash
             string updateQuery = "UPDATE Stock SET quantity =" + stock.quantity + ", note = '" + stock.note + "', author = '" + stock.author + "', title = '" + stock.title +
                 "', subtitle = '" + stock.subtitle + "', publisher = '" + stock.publisher + "', description = '" + stock.description + "', comments = '" + stock.comments +
-                "', location = '" + stock.location + "', price = '" + stock.price + "', subject = '" + stock.subject + "', catalogue = '" + stock.catalogue + "', weight = '" + stock.weight +
-                "', sales = '" + stock.sales + "', bookID = '" + stock.bookID + "', dateEntered = '" + stock.dateEntered + "' WHERE stockID = " + stock.stockID;
+                "', price = '" + stock.price + "', subject = '" + stock.subject + "', catalogue = '" + stock.catalogue + "', sales = '" + stock.sales + 
+                "', bookID = '" + stock.bookID + "', dateEntered = '" + stock.dateEntered + "' WHERE stockID = " + stock.stockID;
 
             dbConnection.Open();
             SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -244,7 +244,7 @@ namespace Hard_To_Find
 
             //Build insert command
             stockInsert = "INSERT INTO Stock VALUES(null, '" + newStock.quantity + "', '" + newStock.note + "', '" + newStock.author + "', '" + newStock.title + "', '" + newStock.subtitle + "', '" + newStock.publisher
-                + "', '" + newStock.description + "', '" + newStock.comments + "', '" + newStock.location + "', '" + newStock.price + "', '" + newStock.subject + "', '" + newStock.catalogue + "', '" + newStock.weight + "', '" + newStock.sales + "', '" + newStock.bookID +
+                + "', '" + newStock.description + "', '" + newStock.comments + "', '" + newStock.price + "', '" + newStock.subject + "', '" + newStock.catalogue + "', '" + newStock.sales + "', '" + newStock.bookID +
                 "', '" + newStock.dateEntered + "')";
                 
 
@@ -272,13 +272,13 @@ namespace Hard_To_Find
                 if (s.stockID == -1)
                 {
                     stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher 
-                        + "', '" + s.description + "', '" + s.comments + "', '" + s.location + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.weight + "', '" + s.sales + "', '" + s.bookID +
+                        + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.sales + "', '" + s.bookID +
                         "', '" + s.dateEntered + "')";
                 }
                 else
                 {
                     stockInsert = "INSERT INTO Stock VALUES(" + s.stockID + ", '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
-                        + "', '" + s.description + "', '" + s.comments + "', '" + s.location + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.weight + "', '" + s.sales + "', '" + s.bookID +
+                        + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.sales + "', '" + s.bookID +
                         "', '" + s.dateEntered + "')";
                 }
 
@@ -507,7 +507,7 @@ namespace Hard_To_Find
             while (reader.Read())
             {
                 foundStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString(), reader[16].ToString());
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString());
             }
 
             dbConnection.Close();
@@ -545,7 +545,19 @@ namespace Hard_To_Find
                 {
                     string[] splitAuthor = author.Split(' ');
 
-                    searchQuery += " author LIKE '%" + splitAuthor[0] + "%' AND author LIKE '%" + splitAuthor[1] + "%'";
+                    bool first = true;
+                    foreach (string s in splitAuthor)
+                    {
+                        if (first)
+                        {
+                            searchQuery += " author LIKE '%" + s + "%'";
+                            first = false;
+                        }
+                        else
+                            searchQuery += " AND author LIKE '%" + s + "%'";
+                    }
+
+                    //searchQuery += " author LIKE '%" + splitAuthor[0] + "%' AND author LIKE '%" + splitAuthor[1] + "%'";
                 }
                 else
                 {
@@ -586,7 +598,7 @@ namespace Hard_To_Find
             while (reader.Read())
             {
                 Stock currStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString(), reader[16].ToString());
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString());
 
                 foundStock.Add(currStock);
             }
@@ -699,6 +711,30 @@ namespace Hard_To_Find
 
             //Return results
             return nextIDValue;
+        }
+
+        public List<Stock> getAllStockInStock()
+        {
+            List<Stock> allStockInStock = new List<Stock>();
+
+            dbConnection.Open();
+
+            string sql = "SELECT * FROM Stock WHERE quantity > 0";
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                Stock nextStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString());
+
+                allStockInStock.Add(nextStock);
+            }
+
+            dbConnection.Close();
+
+            return allStockInStock;
         }
     }
 }

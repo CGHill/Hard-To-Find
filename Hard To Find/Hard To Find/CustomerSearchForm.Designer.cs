@@ -251,7 +251,7 @@
             this.Controls.Add(this.btnMainMenu);
             this.Controls.Add(this.btnCustDetails);
             this.Name = "CustomerSearchForm";
-            this.Text = "CustomerSearchForm";
+            this.Text = "Customer Search";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

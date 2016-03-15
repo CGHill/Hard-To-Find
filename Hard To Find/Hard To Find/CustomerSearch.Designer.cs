@@ -167,6 +167,8 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(724, 316);
             this.dataGridView1.TabIndex = 41;
+            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged_1);
             // 
             // Column1
             // 
@@ -214,7 +216,7 @@
             this.Controls.Add(this.btnSelectCustomer);
             this.Controls.Add(this.groupBox1);
             this.Name = "CustomerSearch";
-            this.Text = "CustomerSearch";
+            this.Text = "Customer Search";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 
 namespace Hard_To_Find
@@ -22,6 +23,7 @@ namespace Hard_To_Find
         private Order currOrder;
         private Customer currCustomer;
         private List<OrderedStock> currOrderedStock;
+        private FileManager fileManager;
 
         //Constructor
         public OrdersForm(Form1 form1)
@@ -35,6 +37,7 @@ namespace Hard_To_Find
             allOrders = new List<Order>();
             allOrderedStock = new List<OrderedStock>();
             currOrderedStock = new List<OrderedStock>();
+            fileManager = new FileManager();
             currCustomer = null;
             currOrder = null;
 
@@ -60,6 +63,7 @@ namespace Hard_To_Find
         {
             this.Close();
             form1.Show();
+            form1.TopMost = true;
         }
 
         /*Precondition: 
@@ -531,13 +535,13 @@ namespace Hard_To_Find
         {
             dataGridView1.Rows.Clear();
 
-            labOrderID.Text = "";
+            boxOrderID.Text = "";
             boxOrderRef.Text = "";
             boxProgress.Text = "";
             boxInvoiceDate.Text = "";
             boxFreight.Text = "";
             boxComments.Text = "";
-            labCustID.Text = "";
+            boxCustID.Text = "";
             boxCustName.Text = "";
             boxInstitution.Text = "";
             boxPostcode.Text = "";
@@ -586,9 +590,9 @@ namespace Hard_To_Find
             //Clear all the text boxes out for a new search
             clearForNewSearch();
 
-            if (boxOrderID.Text != "")
+            if (boxOrderSearchID.Text != "")
             {
-                int orderID = Convert.ToInt32(boxOrderID.Text);
+                int orderID = Convert.ToInt32(boxOrderSearchID.Text);
 
                 //Run search
                 currOrder = dbManager.searchOrders(orderID);
@@ -601,7 +605,7 @@ namespace Hard_To_Find
                     currOrderedStock = dbManager.searchOrderedStock(orderID);
 
                     //Autofill into text boxes the found order
-                    labOrderID.Text = currOrder.orderID.ToString();
+                    boxOrderID.Text = currOrder.orderID.ToString();
                     boxOrderRef.Text = currOrder.orderReference;
                     boxProgress.Text = currOrder.progress;
                     boxInvoiceDate.Text = currOrder.invoiceDate;
@@ -614,7 +618,7 @@ namespace Hard_To_Find
                     //Use customers data if the customer was found
                     if (currCustomer != null)
                     {
-                        labCustID.Text = currCustomer.custID.ToString();
+                        boxCustID.Text = currCustomer.custID.ToString();
                         boxCustName.Text = currCustomer.firstName + " " + currCustomer.lastName;
                         boxInstitution.Text = currCustomer.institution;
                         boxPostcode.Text = currCustomer.postCode;
@@ -643,7 +647,7 @@ namespace Hard_To_Find
          Postcondition: Loads up an order in the form for when a new order has finished being made so user can see the completed order*/
         public void loadOrder(int orderID)
         {
-            boxOrderID.Text = orderID.ToString();
+            boxOrderSearchID.Text = orderID.ToString();
             startSearch();
         }
 
@@ -651,49 +655,99 @@ namespace Hard_To_Find
          Postcondition: Starts a search for orders depending on what search boxes have been filled in*/
         private void btnCreateInvoice_Click(object sender, EventArgs e)
         {
-            if (currOrder != null)
+            bool haveStorageLocation = checkForStorageLocation();
+
+            if (haveStorageLocation)
             {
-                WordDocumentManager wdm = new WordDocumentManager(this, currCustomer, currOrder, currOrderedStock);
+                if (currOrder != null)
+                {
+                    WordDocumentManager wdm = new WordDocumentManager(this, currCustomer, currOrder, currOrderedStock);
 
-                string documentName = currOrder.orderID.ToString() + ".docx";
+                    string documentName = currOrder.orderID.ToString() + ".docx";
 
-                string filePath = @"E:\Programming\InvoiceStorage\" + documentName;
-                wdm.createInvoice(filePath);
+                    string filePath = fileManager.getStorageFilePath() + @"\Invoices\" + documentName;
+                    bool successfulFileCreation = wdm.createInvoice(filePath);
 
-                System.Diagnostics.Process.Start(filePath);
+                    if(successfulFileCreation)
+                        System.Diagnostics.Process.Start(filePath);
+                }
             }
         }
 
         private void btnSmallMailingLabel_Click(object sender, EventArgs e)
         {
-            if (currOrder != null)
+
+            bool haveStorageLocation = checkForStorageLocation();
+
+            if (haveStorageLocation)
             {
-                bool bigLabel = false;
-                MailingLabelCreator labelCreator = new MailingLabelCreator(this, currCustomer, bigLabel);
+                if (currOrder != null)
+                {
+                    bool bigLabel = false;
+                    MailingLabelCreator labelCreator = new MailingLabelCreator(this, currCustomer, bigLabel);
 
-                string documentName = currOrder.orderID.ToString() + ".docx";
+                    string documentName = currOrder.orderID.ToString() + ".docx";
 
-                string filePath = @"E:\Programming\InvoiceStorage\Mailing Labels\" + documentName;
-                labelCreator.createMailingLabel(filePath);
+                    string filePath = fileManager.getStorageFilePath() + @"\Mailing Labels\" + documentName;
+                    bool successfulFileCreation = labelCreator.createMailingLabel(filePath);
 
-                System.Diagnostics.Process.Start(filePath);
+                    if(successfulFileCreation)
+                        System.Diagnostics.Process.Start(filePath);
+                }
             }
         }
 
         private void btnBigMailingLabel_Click(object sender, EventArgs e)
         {
-            if (currOrder != null)
+            bool haveStorageLocation = checkForStorageLocation();
+
+            if (haveStorageLocation)
             {
-                bool bigLabel = true;
-                MailingLabelCreator labelCreator = new MailingLabelCreator(this, currCustomer, bigLabel);
+                if (currOrder != null)
+                {
+                    
 
-                string documentName = currOrder.orderID.ToString() + ".docx";
+                    bool bigLabel = true;
+                    MailingLabelCreator labelCreator = new MailingLabelCreator(this, currCustomer, bigLabel);
 
-                string filePath = @"E:\Programming\InvoiceStorage\Mailing Labels\" + documentName;
-                labelCreator.createMailingLabel(filePath);
+                    string documentName = currOrder.orderID.ToString() + ".docx";
 
-                System.Diagnostics.Process.Start(filePath);
+                    string filePath = fileManager.getStorageFilePath() + @"\Mailing Labels\" + documentName;
+                    bool successfulFileCreation = labelCreator.createMailingLabel(filePath);
+
+                    if (successfulFileCreation)
+                        System.Diagnostics.Process.Start(filePath);
+                }
             }
+        }
+
+        private bool checkForStorageLocation()
+        {
+            bool canStoreFiles = false;
+
+            if (!fileManager.checkForStorageLocation())
+            {
+                DialogResult result = MessageBox.Show("Storage location not set for invoices and mailing labels.\nDo you want to set a location?", "Confirmation", MessageBoxButtons.YesNoCancel);
+
+                if (result == DialogResult.Yes)
+                {
+                    FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+                    folderBrowser.Description = "Select storage location";
+
+                    if (folderBrowser.ShowDialog() == DialogResult.OK)
+                    {
+                        fileManager.createStorageLocationFile(folderBrowser.SelectedPath);
+
+                        canStoreFiles = true;
+                    }
+                }
+            }
+            else
+            {
+                canStoreFiles = true;
+            }
+
+            return canStoreFiles;
         }
 
         public void errorOpeningFile()

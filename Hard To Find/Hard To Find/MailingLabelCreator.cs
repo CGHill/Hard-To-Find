@@ -46,8 +46,10 @@ namespace Hard_To_Find
         }
 
         // Creates a WordprocessingDocument.
-        public void createMailingLabel(string filePath)
+        public bool createMailingLabel(string filePath)
         {
+            bool successfullyCreated = true;
+
             try
             {
                 using (WordprocessingDocument package = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
@@ -57,9 +59,12 @@ namespace Hard_To_Find
             }
             catch (System.IO.IOException)
             {
+                successfullyCreated = false;
                 //File is already opened by another program
                 ordersForm.errorOpeningFile();
             }
+
+            return successfullyCreated;
         }
 
         // Adds child parts and generates content of the specified part.
