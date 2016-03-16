@@ -12,6 +12,7 @@ namespace Hard_To_Find
     public partial class CustomerSearchForm : Form
     {
         //Variables
+        const int ORDER_ARRAY_LENGTH = 15;
         private Form1 form1;
         private DatabaseManager dbManager;
         private List<Customer> foundCustomers;
@@ -50,7 +51,7 @@ namespace Hard_To_Find
         {
             this.Close();
             form1.Show();
-            form1.TopMost = true;
+            form1.TopLevel = true;
         }
 
         /*Precondition:
@@ -112,75 +113,204 @@ namespace Hard_To_Find
                 //Get the path for the file the user clicked on
                 string filename = dialogBox.FileName;
 
-                if (filename.Contains("\\Customers.txt"))
+                readFile(filename);
+            }
+        }
+
+        private void readFile(string filename)
+        {
+            if (filename.Contains("\\Customers.txt"))
+            {
+                try
                 {
-                    try
+                    allCustomers = new List<Customer>();
+
+                    //Open file from passed in path
+                    System.IO.StreamReader file = new System.IO.StreamReader(filename);
+
+                    string line;
+                    string[] previousLine = new string[1];
+                    bool newLineCharacter = false;
+
+                    //Read through the whole file 1 line at a time
+                    while ((line = file.ReadLine()) != null)
                     {
-                        allCustomers = new List<Customer>();
+                        //Remove double quotations from line for SQL insert
+                        string unquoted = line.Replace("\"", string.Empty);
 
-                        //Open the file
-                        System.IO.StreamReader file = new System.IO.StreamReader(filename);
-
-                        string line;
-                        string[] previousLine = new string[1];
-
-                        //Read through the txt file one line at a time
-                        while ((line = file.ReadLine()) != null)
+                        //Check if it contains a single quotation
+                        if (unquoted.Contains('\''))
                         {
-                            //Remove double quotations for SQL insert
-                            string unquoted = line.Replace("\"", string.Empty);
+                            //Get number of single quotations
+                            int numQuotes = unquoted.Split('\'').Length - 1;
+                            //int num = removedDashes.Count(c => c == '\'');
 
-                            unquoted = SQLSyntaxHelper.escapeSingleQuotes(unquoted);
+                            int previousIndex = 0;
 
-                            //Split on comma to get all values of customer
-                            string[] splitCustomer = unquoted.Split('|');
+                            //Loop over quotations
+                            for (int i = 0; i < numQuotes; i++)
+                            {
+                                //Insert quotation before existing one because it's an escape character in SQLite
+                                int indexOfQuote = unquoted.IndexOf("'", previousIndex);
+                                unquoted = unquoted.Insert(indexOfQuote, "'");
 
-                            int custID = Convert.ToInt32(splitCustomer[0]);
-                            string custFirstName = splitCustomer[1];
-                            string custLastName = splitCustomer[2];
-                            string custInstitution = splitCustomer[3];
-                            string custAddress1 = splitCustomer[4];
-                            string custAddress2 = splitCustomer[5];
-                            string custAddress3 = splitCustomer[6];
-                            string custCountry = splitCustomer[7];
-                            string custPostCode = splitCustomer[8];
-                            string custEmail = splitCustomer[11];
-                            string custComments = splitCustomer[12];
-                            string custSales = splitCustomer[13];
-                            string custPayment = splitCustomer[14];
+                                //Move index after quotation that was just fixed to stop repeating on the same one
+                                previousIndex = indexOfQuote + 2;
+                            }
 
-                            //Create new customer and insert into list
-                            Customer newCust = new Customer(custID, custFirstName, custLastName, custInstitution, custAddress1, custAddress2, custAddress3, custCountry, custPostCode, custEmail, custComments, custSales, custPayment);
-                            allCustomers.Add(newCust);
                         }
 
-                        //Close txt file
-                        file.Close();
+                        //Split on | instead of comma because Order entries could contain commas in comments
+                        string[] splitOrder = unquoted.Split('|');
 
-                        //TODO find a better place for this?
-                        dbManager.dropCustomerTable();
-                        dbManager.createCustomerTable();
+                        //Importing from the old Access database contain a lot of new line characters
+                        //Check if current line contains all of the columns
+                        if (splitOrder.Length < ORDER_ARRAY_LENGTH)
+                        {
+                            //If previous line had a new line character in it
+                            if (newLineCharacter)
+                            {
+                                //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
+                                if ((splitOrder.Length + previousLine.Length - 1) == ORDER_ARRAY_LENGTH)
+                                {
+                                    //Go through and combined the lines into 1
+                                    string[] combinedLines = new string[ORDER_ARRAY_LENGTH];
+                                    int combinedLineIndex = 0;
 
-                        //Insert customers from list into DB
-                        progressBar1.Visible = true;
-                        dbManager.insertCustomers(allCustomers, progressBar1);
-                        progressBar1.Visible = false;
-                        MessageBox.Show("Finished import");
+                                    for (int i = 0; i < previousLine.Length; i++)
+                                    {
+                                        combinedLines[combinedLineIndex] = previousLine[i];
+                                        combinedLineIndex++;
+                                    }
+
+                                    for (int i = 0; i < splitOrder.Length; i++)
+                                    {
+                                        if (i == 0)
+                                        {
+                                            combinedLineIndex--;
+                                            combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
+                                        }
+                                        else
+                                        {
+                                            combinedLines[combinedLineIndex] = splitOrder[i];
+                                        }
+                                        combinedLineIndex++;
+                                    }
+
+                                    //Pull out all of the columns
+                                    storeCustomer(combinedLines);
+
+                                    //Reset values
+                                    newLineCharacter = false;
+                                    previousLine = new string[1];
+                                }
+                                else
+                                {
+                                    if (splitOrder.Length == 1)
+                                    {
+                                        int previousLineLength = previousLine.Length;
+                                        previousLine[previousLineLength - 1] = previousLine[previousLineLength - 1] + " " + splitOrder[0];
+                                    }
+                                    else
+                                    {
+                                        //Go through and combined the lines into 1
+                                        string[] combinedLines = new string[previousLine.Length + splitOrder.Length - 1];
+                                        int combinedLineIndex = 0;
+
+                                        for (int i = 0; i < previousLine.Length; i++)
+                                        {
+                                            combinedLines[combinedLineIndex] = previousLine[i];
+                                            combinedLineIndex++;
+                                        }
+
+                                        for (int i = 0; i < splitOrder.Length; i++)
+                                        {
+                                            if (i == 0)
+                                            {
+                                                combinedLineIndex--;
+                                                combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
+                                            }
+                                            else
+                                            {
+                                                combinedLines[combinedLineIndex] = splitOrder[i];
+                                            }
+                                            combinedLineIndex++;
+                                        }
+
+                                        if (combinedLines.Length == ORDER_ARRAY_LENGTH)
+                                        {
+                                            storeCustomer(combinedLines);
+
+                                            //Reset values
+                                            newLineCharacter = false;
+                                            previousLine = new string[1];
+                                        }
+
+                                    }
+                                }
+                            }
+                            else     //Was the first new line character and need to search for the rest of the line
+                            {
+                                //Update values to start searching for the rest of the line
+                                newLineCharacter = true;
+                                previousLine = splitOrder;
+                            }
+                        }
+                        else     //Else a normal line
+                        {
+                            storeCustomer(splitOrder);
+                        }
                     }
-                    catch (FormatException)
-                    {
-                        MessageBox.Show("Error: File was formatted incorrectly");
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        MessageBox.Show("Error: File was formatted incorrectly");
-                    }
+                    //Close text file
+                    file.Close();
+
+                    progressBar1.Visible = true;
+
+                    //TODO find a better place for this?
+                    dbManager.dropCustomerTable();
+                    dbManager.createCustomerTable();
+
+                    //Insert all of the new orders into the database
+                    dbManager.insertCustomers(allCustomers, progressBar1);
+                    progressBar1.Visible = false;
+
+                    //Inform user that the process has been finished
+                    MessageBox.Show("Finished import");
                 }
-                else
+                catch (FormatException)
                 {
-                    MessageBox.Show("Error: Wrong file selected");
+                    MessageBox.Show("Error: File was formatted incorrectly");
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Error: File was formatted incorrectly");
                 }
             }
+            else
+            {
+                MessageBox.Show("Error: Wrong file selected");
+            }
+        }
+
+        private void storeCustomer(string[] splitCustomer)
+        {
+            int custID = Convert.ToInt32(splitCustomer[0]);
+            string custFirstName = splitCustomer[1];
+            string custLastName = splitCustomer[2];
+            string custInstitution = splitCustomer[3];
+            string custAddress1 = splitCustomer[4];
+            string custAddress2 = splitCustomer[5];
+            string custAddress3 = splitCustomer[6];
+            string custCountry = splitCustomer[7];
+            string custPostCode = splitCustomer[8];
+            string custEmail = splitCustomer[11];
+            string custComments = splitCustomer[12];
+            string custSales = splitCustomer[13];
+            string custPayment = splitCustomer[14];
+
+            //Create new customer and insert into list
+            Customer newCust = new Customer(custID, custFirstName, custLastName, custInstitution, custAddress1, custAddress2, custAddress3, custCountry, custPostCode, custEmail, custComments, custSales, custPayment);
+            allCustomers.Add(newCust);
         }
 
         /*Precondition:

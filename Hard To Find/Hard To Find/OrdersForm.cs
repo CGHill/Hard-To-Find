@@ -63,7 +63,7 @@ namespace Hard_To_Find
         {
             this.Close();
             form1.Show();
-            form1.TopMost = true;
+            form1.TopLevel = true;
         }
 
         /*Precondition: 
@@ -502,7 +502,13 @@ namespace Hard_To_Find
         {
             int orderedStockID = Convert.ToInt32(splitOrderedStock[0]);
             int orderID = Convert.ToInt32(splitOrderedStock[1]);
-            int stockID = Convert.ToInt32(splitOrderedStock[2]);
+
+            int stockID;
+            if (splitOrderedStock[2] == "")
+                stockID = -1;
+            else
+                stockID = Convert.ToInt32(splitOrderedStock[2]);
+            
             int quantity;
             if (splitOrderedStock[3] == "")
                 quantity = 0;

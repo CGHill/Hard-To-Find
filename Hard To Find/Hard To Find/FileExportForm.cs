@@ -72,7 +72,7 @@ namespace Hard_To_Find
         {
             this.Close();
             form1.Show();
-            form1.TopMost = true;
+            form1.TopLevel = true;
         }
     }
 }
