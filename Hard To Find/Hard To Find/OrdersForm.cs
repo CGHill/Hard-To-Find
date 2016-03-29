@@ -11,11 +11,9 @@ using System.IO;
 
 namespace Hard_To_Find
 {
-    public partial class OrdersForm : Form
+    public partial class OrdersForm : Form, IStockReceiver, ICustomerReceiver
     {
         //Globals
-        const int ORDER_ARRAY_LENGTH = 18;
-        const int ORDEREDSTOCK_ARRAY_LENGTH = 19;
         private Form1 form1;
         private DatabaseManager dbManager;
         private List<Order> allOrders;
@@ -23,6 +21,7 @@ namespace Hard_To_Find
         private Order currOrder;
         private Customer currCustomer;
         private List<OrderedStock> currOrderedStock;
+        private List<OrderedStock> newOrderedStock;
         private FileManager fileManager;
 
         //Constructor
@@ -32,11 +31,19 @@ namespace Hard_To_Find
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
+            setup();
+        }
+
+        /*Precondition: 
+          Postcondition: Does setup and initializes everything needed*/
+        private void setup()
+        {
             //Initialize globals
             dbManager = new DatabaseManager();
             allOrders = new List<Order>();
             allOrderedStock = new List<OrderedStock>();
             currOrderedStock = new List<OrderedStock>();
+            newOrderedStock = new List<OrderedStock>();
             fileManager = new FileManager();
             currCustomer = null;
             currOrder = null;
@@ -55,6 +62,45 @@ namespace Hard_To_Find
             DataGridViewColumn colDiscount = dataGridView1.Columns[5];
             colDiscount.Width = 75;
 
+            //If this form was opened through customers orders then remove unneccessary controls and adjust form
+            if (form1 == null)
+            {
+                labOrderID.Visible = false;
+                boxOrderSearchID.Visible = false;
+                btnSearch.Enabled = false;
+                btnSearch.Visible = false;
+
+                btnNewestOrder.Enabled = false;
+                btnNewestOrder.Visible = false;
+
+                btnNewOrder.Enabled = false;
+                btnNewOrder.Visible = false;
+
+                btnCreateInvoice.Enabled = false;
+                btnCreateInvoice.Visible = false;
+
+                labMailingLabels.Visible = false;
+
+                btnBigMailingLabel.Enabled = false;
+                btnBigMailingLabel.Visible = false;
+
+                btnSmallMailingLabel.Enabled = false;
+                btnSmallMailingLabel.Visible = false;
+
+                btnImportOrders.Enabled = false;
+                btnImportOrders.Visible = false;
+
+                btnImportOrderedStock.Enabled = false;
+                btnImportOrderedStock.Visible = false;
+
+                btnMainMenu.Text = "Close";
+
+                groupBox1.Left = groupBox1.Left - 180;
+                btnAddBook.Left = btnAddBook.Left - 180;
+                btnMainMenu.Left = btnMainMenu.Left - 180;
+
+                Width = Width - 180;
+            }
         }
 
         /*Precondition: 
@@ -62,8 +108,11 @@ namespace Hard_To_Find
         private void btnMainMenu_Click(object sender, EventArgs e)
         {
             this.Close();
-            form1.Show();
-            form1.TopLevel = true;
+            if (form1 != null)
+            {
+                form1.Show();
+                form1.TopLevel = true;
+            }
         }
 
         /*Precondition: 
@@ -82,220 +131,42 @@ namespace Hard_To_Find
                 //Get the path for the file the user clicked on
                 string filename = dialogBox.FileName;
 
-                //Continue the procress in another method
-                readFile(filename);
-            }
-        }
-
-        /*Precondition: 
-         Postcondition: Reads through users selected file and sorts the information to be stored as orders */
-        private void readFile(string fileName)
-        {
-            if (fileName.Contains("\\Orders.txt"))
-            {
-                try
+                if (filename.Contains("\\Orders.txt"))
                 {
-                    allOrders = new List<Order>();
-
-                    //Open file from passed in path
-                    System.IO.StreamReader file = new System.IO.StreamReader(fileName);
-
-                    string line;
-                    string[] previousLine = new string[1];
-                    bool newLineCharacter = false;
-
-                    //Read through the whole file 1 line at a time
-                    while ((line = file.ReadLine()) != null)
+                    try
                     {
-                        //Remove double quotations from line for SQL insert
-                        string unquoted = line.Replace("\"", string.Empty);
+                        allOrders = fileManager.getOrdersFromFile(filename);
 
-                        //Check if it contains a single quotation
-                        if (unquoted.Contains('\''))
-                        {
-                            //Get number of single quotations
-                            int numQuotes = unquoted.Split('\'').Length - 1;
-                            //int num = removedDashes.Count(c => c == '\'');
+                        progressBar1.Visible = true;
 
-                            int previousIndex = 0;
+                        //TODO find a better place for this?
+                        dbManager.dropOrdersTable();
+                        dbManager.createOrdersTable();
 
-                            //Loop over quotations
-                            for (int i = 0; i < numQuotes; i++)
-                            {
-                                //Insert quotation before existing one because it's an escape character in SQLite
-                                int indexOfQuote = unquoted.IndexOf("'", previousIndex);
-                                unquoted = unquoted.Insert(indexOfQuote, "'");
+                        //Insert all of the new orders into the database
+                        dbManager.insertOrders(allOrders, progressBar1);
+                        progressBar1.Visible = false;
 
-                                //Move index after quotation that was just fixed to stop repeating on the same one
-                                previousIndex = indexOfQuote + 2;
-                            }
-
-                        }
-
-                        //Split on | instead of comma because Order entries could contain commas in comments
-                        string[] splitOrder = unquoted.Split('|');
-
-                        //Importing from the old Access database contain a lot of new line characters
-                        //Check if current line contains all of the columns
-                        if (splitOrder.Length < ORDER_ARRAY_LENGTH)
-                        {
-                            //If previous line had a new line character in it
-                            if (newLineCharacter)
-                            {
-                                //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
-                                if ((splitOrder.Length + previousLine.Length - 1) == ORDER_ARRAY_LENGTH)
-                                {
-                                    //Go through and combined the lines into 1
-                                    string[] combinedLines = new string[ORDER_ARRAY_LENGTH];
-                                    int combinedLineIndex = 0;
-
-                                    for (int i = 0; i < previousLine.Length; i++)
-                                    {
-                                        combinedLines[combinedLineIndex] = previousLine[i];
-                                        combinedLineIndex++;
-                                    }
-
-                                    for (int i = 0; i < splitOrder.Length; i++)
-                                    {
-                                        if (i == 0)
-                                        {
-                                            combinedLineIndex--;
-                                            combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
-                                        }
-                                        else
-                                        {
-                                            combinedLines[combinedLineIndex] = splitOrder[i];
-                                        }
-                                        combinedLineIndex++;
-                                    }
-
-                                    //Pull out all of the columns
-                                    storeOrder(combinedLines);
-
-                                    //Reset values
-                                    newLineCharacter = false;
-                                    previousLine = new string[1];
-                                }
-                                else
-                                {
-                                    if (splitOrder.Length == 1)
-                                    {
-                                        int previousLineLength = previousLine.Length;
-                                        previousLine[previousLineLength - 1] = previousLine[previousLineLength - 1] + " " + splitOrder[0];
-                                    }
-                                    else
-                                    {
-                                        //Go through and combined the lines into 1
-                                        string[] combinedLines = new string[previousLine.Length + splitOrder.Length - 1];
-                                        int combinedLineIndex = 0;
-
-                                        for (int i = 0; i < previousLine.Length; i++)
-                                        {
-                                            combinedLines[combinedLineIndex] = previousLine[i];
-                                            combinedLineIndex++;
-                                        }
-
-                                        for (int i = 0; i < splitOrder.Length; i++)
-                                        {
-                                            if (i == 0)
-                                            {
-                                                combinedLineIndex--;
-                                                combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
-                                            }
-                                            else
-                                            {
-                                                combinedLines[combinedLineIndex] = splitOrder[i];
-                                            }
-                                            combinedLineIndex++;
-                                        }
-
-                                        if (combinedLines.Length == ORDER_ARRAY_LENGTH)
-                                        {
-                                            storeOrder(combinedLines);
-
-                                            //Reset values
-                                            newLineCharacter = false;
-                                            previousLine = new string[1];
-                                        }
-
-                                    }
-                                }
-                            }
-                            else     //Was the first new line character and need to search for the rest of the line
-                            {
-                                //Update values to start searching for the rest of the line
-                                newLineCharacter = true;
-                                previousLine = splitOrder;
-                            }
-                        }
-                        else     //Else a normal line
-                        {
-                            storeOrder(splitOrder);
-                        }
+                        //Inform user that the process has been finished
+                        MessageBox.Show("Finished import");
                     }
-                    //Close text file
-                    file.Close();
-
-                    progressBar1.Visible = true;
-
-                    //TODO find a better place for this?
-                    dbManager.dropOrdersTable();
-                    dbManager.createOrdersTable();
-
-                    //Insert all of the new orders into the database
-                    dbManager.insertOrders(allOrders, progressBar1);
-                    progressBar1.Visible = false;
-
-                    //Inform user that the process has been finished
-                    MessageBox.Show("Finished import");
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Error: File was formatted incorrectly");
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        MessageBox.Show("Error: File was formatted incorrectly");
+                    }
                 }
-                catch (FormatException)
+                else
                 {
-                    MessageBox.Show("Error: File was formatted incorrectly");
+                    MessageBox.Show("Error: Wrong file selected");
                 }
-                catch (IndexOutOfRangeException)
-                {
-                    MessageBox.Show("Error: File was formatted incorrectly");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Error: Wrong file selected");
             }
         }
 
-        /*Precondition: 
-         Postcondition: Takes the array and stores it into a single Order object and puts it into the global list*/
-        private void storeOrder(string[] splitOrder)
-        {
-            int orderID = Convert.ToInt32(splitOrder[0]);
-            string customerFirstName = splitOrder[1];
-            string customerLastName = splitOrder[2];
-            string institution = splitOrder[3];
-            string postcode = splitOrder[4];
-            string orderReference = splitOrder[5];
-            string progress = splitOrder[11];
-            string freightCost = splitOrder[12];
-
-            int invoiceNo;
-            if (splitOrder[13] == "")
-                invoiceNo = -1;
-            else
-                invoiceNo = Convert.ToInt32(splitOrder[13]);
-
-            string invoiceDate = splitOrder[14];
-            string comments = splitOrder[15];
-
-            int customerID;
-            if (splitOrder[17] == "")
-                customerID = -1;
-            else
-                customerID = Convert.ToInt32(splitOrder[17]);
-
-            //Create a new order entry from it and insert into list
-            Order newOrder = new Order(orderID, customerFirstName, customerLastName, institution, postcode, orderReference, progress, freightCost, invoiceNo, invoiceDate, comments, customerID);
-            allOrders.Add(newOrder);
-        }
+        
 
         /*Precondition: 
          Postcondition: Starts import process for ordered stock by having user select a file*/
@@ -313,219 +184,40 @@ namespace Hard_To_Find
                 //Get the path for the file the user clicked on
                 string filename = dialogBox.FileName;
 
-                //Continue the procress in another method
-                readOrderedStockFile(filename);
-            }
-        }
-
-        /*Precondition: 
-         Postcondition: Reads through users selected file to import all of the OrderedStock information */
-        private void readOrderedStockFile(string fileName)
-        {
-            if (fileName.Contains("\\OrderedStock.txt"))
-            {
-                try
+                if (filename.Contains("\\OrderedStock.txt"))
                 {
-                    allOrderedStock = new List<OrderedStock>();
-
-                    //Open file from passed in path
-                    System.IO.StreamReader file = new System.IO.StreamReader(fileName);
-
-                    string line;
-                    string[] previousLine = new string[1];
-                    bool newLineCharacter = false;
-
-                    //Read through the whole file 1 line at a time
-                    while ((line = file.ReadLine()) != null)
+                    try
                     {
-                        //Remove double quotations from line for SQL insert
-                        string unquoted = line.Replace("\"", string.Empty);
+                        allOrderedStock = fileManager.getOrderedStockFromFile(filename);
 
-                        //Check if it contains a single quotation
-                        if (unquoted.Contains('\''))
-                        {
-                            //Get number of single quotations
-                            int numQuotes = unquoted.Split('\'').Length - 1;
-                            //int num = removedDashes.Count(c => c == '\'');
+                        //TODO find a better place for this
+                        dbManager.dropOrderedStockTable();
+                        dbManager.createOrderedStock();
 
-                            int previousIndex = 0;
+                        //Insert all of the new orders into the database
+                        progressBar1.Value = 0;
+                        progressBar1.Maximum = 42386;
+                        progressBar1.Visible = true;
+                        dbManager.insertOrderedStock(allOrderedStock, progressBar1);
+                        progressBar1.Visible = false;
 
-                            //Loop over quotations
-                            for (int i = 0; i < numQuotes; i++)
-                            {
-                                //Insert quotation before existing one because it's an escape character in SQLite
-                                int indexOfQuote = unquoted.IndexOf("'", previousIndex);
-                                unquoted = unquoted.Insert(indexOfQuote, "'");
-
-                                //Move index after quotation that was just fixed to stop repeating on the same one
-                                previousIndex = indexOfQuote + 2;
-                            }
-
-                        }
-
-                        //Split on | instead of comma because Order entries could contain commas in comments
-                        string[] splitOrder = unquoted.Split('|');
-
-                        //Importing from the old Access database contain a lot of new line characters
-                        //Check if current line contains all of the columns
-                        if (splitOrder.Length < ORDEREDSTOCK_ARRAY_LENGTH)
-                        {
-                            //If previous line had a new line character in it
-                            if (newLineCharacter)
-                            {
-                                //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
-                                if ((splitOrder.Length + previousLine.Length - 1) == ORDEREDSTOCK_ARRAY_LENGTH)
-                                {
-                                    //Go through and combined the lines into 1
-                                    string[] combinedLines = new string[ORDEREDSTOCK_ARRAY_LENGTH];
-                                    int combinedLineIndex = 0;
-
-                                    for (int i = 0; i < previousLine.Length; i++)
-                                    {
-                                        combinedLines[combinedLineIndex] = previousLine[i];
-                                        combinedLineIndex++;
-                                    }
-
-                                    for (int i = 0; i < splitOrder.Length; i++)
-                                    {
-                                        if (i == 0)
-                                        {
-                                            combinedLineIndex--;
-                                            combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
-                                        }
-                                        else
-                                        {
-                                            combinedLines[combinedLineIndex] = splitOrder[i];
-                                        }
-                                        combinedLineIndex++;
-                                    }
-
-                                    //Pull out all of the columns
-                                    storeOrderedStock(combinedLines);
-
-                                    //Reset values
-                                    newLineCharacter = false;
-                                    previousLine = new string[1];
-                                }
-                                else
-                                {
-                                    if (splitOrder.Length == 1)
-                                    {
-                                        int previousLineLength = previousLine.Length;
-                                        previousLine[previousLineLength - 1] = previousLine[previousLineLength - 1] + " " + splitOrder[0];
-                                    }
-                                    else
-                                    {
-                                        //Go through and combined the lines into 1
-                                        string[] combinedLines = new string[previousLine.Length + splitOrder.Length - 1];
-                                        int combinedLineIndex = 0;
-
-                                        for (int i = 0; i < previousLine.Length; i++)
-                                        {
-                                            combinedLines[combinedLineIndex] = previousLine[i];
-                                            combinedLineIndex++;
-                                        }
-
-                                        for (int i = 0; i < splitOrder.Length; i++)
-                                        {
-                                            if (i == 0)
-                                            {
-                                                combinedLineIndex--;
-                                                combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitOrder[i];
-                                            }
-                                            else
-                                            {
-                                                combinedLines[combinedLineIndex] = splitOrder[i];
-                                            }
-                                            combinedLineIndex++;
-                                        }
-
-                                        if (combinedLines.Length == ORDEREDSTOCK_ARRAY_LENGTH)
-                                        {
-                                            storeOrderedStock(combinedLines);
-
-                                            //Reset values
-                                            newLineCharacter = false;
-                                            previousLine = new string[1];
-                                        }
-
-                                    }
-                                }
-                            }
-                            else     //Was the first new line character and need to search for the rest of the line
-                            {
-                                //Update values to start searching for the rest of the line
-                                newLineCharacter = true;
-                                previousLine = splitOrder;
-                            }
-                        }
-                        else     //Else a normal line
-                        {
-                            storeOrderedStock(splitOrder);
-                        }
+                        //Inform user that the process has been finished
+                        MessageBox.Show("Finished import");
                     }
-                    //Close text file
-                    file.Close();
-
-                    //TODO find a better place for this
-                    dbManager.dropOrderedStockTable();
-                    dbManager.createOrderedStock();
-
-                    //Insert all of the new orders into the database
-                    progressBar1.Value = 0;
-                    progressBar1.Maximum = 42386;
-                    progressBar1.Visible = true;
-                    dbManager.insertOrderedStock(allOrderedStock, progressBar1);
-                    progressBar1.Visible = false;
-
-                    //Inform user that the process has been finished
-                    MessageBox.Show("Finished import");
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Error: File was formatted incorrectly");
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        MessageBox.Show("Error: File was formatted incorrectly");
+                    }
                 }
-                catch (FormatException)
+                else
                 {
-                    MessageBox.Show("Error: File was formatted incorrectly");
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    MessageBox.Show("Error: File was formatted incorrectly");
+                    MessageBox.Show("Error: Wrong file selected");
                 }
             }
-            else
-            {
-                MessageBox.Show("Error: Wrong file selected");
-            }
-        }
-
-        /*Precondition: 
-         Postcondition: Takes the array and stores it into a single OrderedStock object to be stored in global list */
-        private void storeOrderedStock(string[] splitOrderedStock)
-        {
-            int orderedStockID = Convert.ToInt32(splitOrderedStock[0]);
-            int orderID = Convert.ToInt32(splitOrderedStock[1]);
-
-            int stockID;
-            if (splitOrderedStock[2] == "")
-                stockID = -1;
-            else
-                stockID = Convert.ToInt32(splitOrderedStock[2]);
-            
-            int quantity;
-            if (splitOrderedStock[3] == "")
-                quantity = 0;
-            else
-                quantity = Convert.ToInt32(splitOrderedStock[3]);
-            string author = splitOrderedStock[4];
-            string title = splitOrderedStock[5];
-            string price = splitOrderedStock[11];
-            string bookID = splitOrderedStock[16];
-            string discount = splitOrderedStock[18];
-
-            if(discount == "")
-                discount = "$0.00";
-
-            //Create a new order entry from it and insert into list
-            OrderedStock newOrderedStock = new OrderedStock(orderedStockID, orderID, stockID, quantity, author, title, price, bookID, discount);
-            allOrderedStock.Add(newOrderedStock);
         }
 
         /*Precondition: 
@@ -548,7 +240,7 @@ namespace Hard_To_Find
             boxFreight.Text = "";
             boxComments.Text = "";
             boxCustID.Text = "";
-            boxCustName.Text = "";
+            boxFirstName.Text = "";
             boxInstitution.Text = "";
             boxPostcode.Text = "";
             boxAdd1.Text = "";
@@ -607,7 +299,7 @@ namespace Hard_To_Find
                 if (currOrder != null)
                 {
                     //Get the stock that was ordered for this order
-                    
+
                     currOrderedStock = dbManager.searchOrderedStock(orderID);
 
                     //Autofill into text boxes the found order
@@ -625,7 +317,8 @@ namespace Hard_To_Find
                     if (currCustomer != null)
                     {
                         boxCustID.Text = currCustomer.custID.ToString();
-                        boxCustName.Text = currCustomer.firstName + " " + currCustomer.lastName;
+                        boxFirstName.Text = currCustomer.firstName;
+                        boxLastName.Text = currCustomer.lastName;
                         boxInstitution.Text = currCustomer.institution;
                         boxPostcode.Text = currCustomer.postCode;
                         boxAdd1.Text = currCustomer.address1;
@@ -636,7 +329,7 @@ namespace Hard_To_Find
                     else
                     {
                         //Use the default data that was stored in the order
-                        boxCustName.Text = currOrder.customerFirstName + " " + currOrder.customerLastName;
+                        boxFirstName.Text = currOrder.customerFirstName + " " + currOrder.customerLastName;
                     }
 
 
@@ -645,6 +338,10 @@ namespace Hard_To_Find
                     {
                         dataGridView1.Rows.Add(o.quantity, o.author, o.title, o.price, o.bookID, o.discount);
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Order not found");
                 }
             }
         }
@@ -657,8 +354,8 @@ namespace Hard_To_Find
             startSearch();
         }
 
-        /*Precondition:
-         Postcondition: Starts a search for orders depending on what search boxes have been filled in*/
+        /*Precondition: Needs an order to be loaded
+         Postcondition: Creates a .docx file containing the invoice and opens it */
         private void btnCreateInvoice_Click(object sender, EventArgs e)
         {
             bool haveStorageLocation = checkForStorageLocation();
@@ -680,6 +377,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition: Needs an order to be loaded
+         Postcondition: Creates a .docx file containing the a small mailing label and opens it */
         private void btnSmallMailingLabel_Click(object sender, EventArgs e)
         {
 
@@ -703,6 +402,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition: Needs an order to be loaded
+         Postcondition: Creates a .docx file containing the big mailing label and opens it */
         private void btnBigMailingLabel_Click(object sender, EventArgs e)
         {
             bool haveStorageLocation = checkForStorageLocation();
@@ -711,8 +412,6 @@ namespace Hard_To_Find
             {
                 if (currOrder != null)
                 {
-                    
-
                     bool bigLabel = true;
                     MailingLabelCreator labelCreator = new MailingLabelCreator(this, currCustomer, bigLabel);
 
@@ -727,16 +426,22 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition: 
+         Postcondition: Returns true if location has been set, if not asks user to set storage location and returns true, otherwise returns false if not set */
         private bool checkForStorageLocation()
         {
             bool canStoreFiles = false;
 
+            //Check if the storage location has been set
             if (!fileManager.checkForStorageLocation())
             {
+                //Hasn't been set so try get user to set it now
                 DialogResult result = MessageBox.Show("Storage location not set for invoices and mailing labels.\nDo you want to set a location?", "Confirmation", MessageBoxButtons.YesNoCancel);
 
+                //Check result
                 if (result == DialogResult.Yes)
                 {
+                    //Get user to select a location to store files
                     FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
                     folderBrowser.Description = "Select storage location";
 
@@ -753,12 +458,215 @@ namespace Hard_To_Find
                 canStoreFiles = true;
             }
 
+            //Return true if can set files and false if you can't
             return canStoreFiles;
         }
 
+        /*Precondition: 
+         Postcondition: Let user know that the .docx file can't be made and give a possible solution to the problem */
         public void errorOpeningFile()
         {
             MessageBox.Show("Cannot create or open file. \nMake sure the existing file with the same name is closed.");
+        }
+
+        /*Precondition: 
+         Postcondition: Load up the newest order */
+        private void btnNewestOrder_Click(object sender, EventArgs e)
+        {
+            int nextID = dbManager.getNextOrderID();
+            int latestID = nextID - 1;
+
+            loadOrder(latestID);
+        }
+
+        /*Precondition: 
+         Postcondition: Enables editing of the order */
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if(currOrder != null)
+                toggleEditing();
+        }
+
+        /*Precondition: 
+         Postcondition: Saves changes made to the order */
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (currOrder != null)
+            {
+                //Disable editing
+                toggleEditing();
+
+                //Get the updated fields
+                currOrder.orderReference = SQLSyntaxHelper.escapeSingleQuotes(boxOrderRef.Text);
+                currOrder.progress = SQLSyntaxHelper.escapeSingleQuotes(boxProgress.Text);
+                currOrder.invoiceDate = SQLSyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
+                currOrder.freightCost = SQLSyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+                currOrder.comments = SQLSyntaxHelper.escapeSingleQuotes(boxComments.Text);
+
+                //Update order in the database
+                dbManager.updateOrder(currOrder);
+
+                //Update the orderedStock in the database
+                foreach (OrderedStock os in currOrderedStock)
+                {
+                    dbManager.updateOrderedStock(os);
+                }
+
+                //Insert any new orderedStock that was added
+                dbManager.insertOrderedStock(newOrderedStock);
+
+                //Ad new ordered stock to the overall orderedStock list
+                foreach (OrderedStock os in newOrderedStock)
+                {
+                    currOrderedStock.Add(os);
+                }
+
+                //Reset the newOrderedStock list
+                newOrderedStock = new List<OrderedStock>();
+            }
+        }
+
+        /*Precondition: 
+         Postcondition: Toggles readonly values of textboxes and hides/shows buttons */
+        private void toggleEditing()
+        {
+            boxOrderRef.ReadOnly = !boxOrderRef.ReadOnly;
+            boxProgress.ReadOnly = !boxProgress.ReadOnly;
+            boxInvoiceDate.ReadOnly = !boxInvoiceDate.ReadOnly;
+            boxFreight.ReadOnly = !boxFreight.ReadOnly;
+            boxComments.ReadOnly = !boxComments.ReadOnly;
+
+            btnAddBook.Visible = !btnAddBook.Visible;
+            btnAddBook.Enabled = !btnAddBook.Enabled;
+
+            btnUpdate.Enabled = !btnUpdate.Enabled;
+            btnSave.Enabled = !btnSave.Enabled;
+
+            btnChangeCustomer.Enabled = !btnChangeCustomer.Enabled;
+            btnChangeCustomer.Visible = !btnChangeCustomer.Visible;
+
+            dataGridView1.ReadOnly = !dataGridView1.ReadOnly;
+        }
+
+        /*Precondition: 
+         Postcondition: Updates orderedStock after the user has edited a cell */
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+
+            OrderedStock current = null;
+
+            if (rowIndex < currOrderedStock.Count)
+            {
+                current = currOrderedStock[rowIndex];
+            }
+            else
+            {
+                rowIndex = rowIndex - currOrderedStock.Count;
+                current = newOrderedStock[rowIndex];
+            }
+                
+            current.quantity = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+            current.author = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+            current.title = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString());
+            current.price = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
+            current.bookID = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
+            current.discount = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString());
+
+        }
+
+        /*Precondition: 
+         Postcondition: Opens up form to search for stock to add to the orderedStock list */
+        private void btnAddBook_Click(object sender, EventArgs e)
+        {
+            StockSearch ss = new StockSearch(this);
+            ss.Show();
+        }
+
+        /*Precondition: 
+         Postcondition: Adds the stock send in into the newOrderedStock list, also add it to the datagrid to be viewed */
+        public void addStock(Stock newStock)
+        {
+            OrderedStock os = new OrderedStock(currOrder.orderID, newStock.stockID, 1, newStock.author, newStock.title, newStock.price, newStock.bookID, "$0.00");
+            newOrderedStock.Add(os);
+
+            dataGridView1.Rows.Add(1, newStock.author, newStock.title, newStock.price, newStock.bookID, "$0.00");
+        }
+
+        /*Precondition: 
+         Postcondition: Checks for right click on the datagrid */
+        private void dataGridView1_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int selectedRow = e.RowIndex;
+                //dataGridView1.Rows[e.RowIndex].Selected = true;
+
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                contextMenuStrip1.Show(Cursor.Position);
+            }
+        }
+
+        /*Precondition: 
+         Postcondition: Handles clicks on the datagrid, allows deleting of orderedStock */
+        private void contextMenuStrip1_Click(object sender, EventArgs e)
+        {
+            //Confirm with user that they want to delete the orderedStock
+            DialogResult dr = MessageBox.Show("Are you sure you want to delete", "YesNo",MessageBoxButtons.YesNo);
+
+            if (dr == DialogResult.Yes)
+            {
+                //Get the row they clicked on
+                int selectedRow = dataGridView1.CurrentCell.RowIndex;
+
+                //Check that it isn't an empty row the user clicked on
+                if (!dataGridView1.Rows[selectedRow].IsNewRow)
+                {
+                    dataGridView1.Rows.RemoveAt(selectedRow);
+
+                    //Check if it was a newly entered one or an existing one in the order
+                    if (selectedRow < currOrderedStock.Count)
+                    {
+                        //Get the ordered stock and delete it from the database
+                        OrderedStock orderedStockToDelete = currOrderedStock[selectedRow];
+                        currOrderedStock.RemoveAt(selectedRow);
+
+                        dbManager.deleteOrderedStock(orderedStockToDelete);
+                    }
+                    else
+                    {
+                        //newOrdered stock that hasn't been saved so just remove it from the list
+                        newOrderedStock.RemoveAt(selectedRow - currOrderedStock.Count);
+                    }
+                }
+            }
+        }
+
+        /*Precondition: 
+         Postcondition: Opens form to change the current set customer */
+        private void btnChangeCustomer_Click(object sender, EventArgs e)
+        {
+            CustomerSearch cs = new CustomerSearch(this);
+            cs.Show();
+        }
+
+        /*Precondition: 
+         Postcondition: Changes the currently set customer and updates the relevant display for customer */
+        public void addCustomer(Customer newCustomer)
+        {
+            currCustomer = newCustomer;
+
+            boxCustID.Text = currCustomer.custID.ToString();
+            boxFirstName.Text = currCustomer.firstName;
+            boxLastName.Text = currCustomer.lastName;
+            boxInstitution.Text = currCustomer.institution;
+            boxPostcode.Text = currCustomer.postCode;
+            boxAdd1.Text = currCustomer.address1;
+            boxAdd2.Text = currCustomer.address2;
+            boxAdd3.Text = currCustomer.address3;
+            boxCountry.Text = currCustomer.country;
+
+            currOrder.customerID = currCustomer.custID;
         }
     }
 }

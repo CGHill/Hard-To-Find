@@ -21,9 +21,16 @@ namespace Hard_To_Find
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            dbManager = new DatabaseManager();
-
             this.currStock = currStock;
+
+            setup();            
+        }
+
+        /*Precondition: 
+         Postcondition:  Initializes everything needed and loads up the stock to be displayed */
+        private void setup()
+        {
+            dbManager = new DatabaseManager();
             loadStock();
         }
 

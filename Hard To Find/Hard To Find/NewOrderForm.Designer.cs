@@ -112,31 +112,37 @@
             // 
             this.Column1.HeaderText = "Quantity";
             this.Column1.Name = "Column1";
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Author";
             this.Column2.Name = "Column2";
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Title";
             this.Column3.Name = "Column3";
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Price";
             this.Column4.Name = "Column4";
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "BookID";
             this.Column5.Name = "Column5";
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "Discount:";
+            this.Column6.HeaderText = "Discount";
             this.Column6.Name = "Column6";
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // btnAddBook
             // 
@@ -177,13 +183,13 @@
             // 
             // btnNewCustomer
             // 
-            this.btnNewCustomer.Enabled = false;
             this.btnNewCustomer.Location = new System.Drawing.Point(335, 150);
             this.btnNewCustomer.Name = "btnNewCustomer";
             this.btnNewCustomer.Size = new System.Drawing.Size(151, 23);
             this.btnNewCustomer.TabIndex = 52;
             this.btnNewCustomer.Text = "New Customer";
             this.btnNewCustomer.UseVisualStyleBackColor = true;
+            this.btnNewCustomer.Click += new System.EventHandler(this.btnNewCustomer_Click);
             // 
             // btnFindCustomer
             // 
@@ -473,13 +479,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteRowToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 26);
             this.contextMenuStrip1.Click += new System.EventHandler(this.contextMenuStrip1_Click);
             // 
             // deleteRowToolStripMenuItem
             // 
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
-            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.deleteRowToolStripMenuItem.Text = "Remove Book";
             // 
             // NewOrderForm
@@ -512,12 +518,6 @@
 
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.Button btnAddBook;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox boxCountry;
@@ -555,5 +555,11 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem deleteRowToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
     }
 }

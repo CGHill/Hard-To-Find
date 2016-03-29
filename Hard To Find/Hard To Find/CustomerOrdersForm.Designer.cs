@@ -55,6 +55,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnGoToOrder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -81,18 +82,21 @@
             this.Column7.HeaderText = "OrderID";
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
+            this.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "Order Reference";
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
+            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column11
             // 
             this.Column11.HeaderText = "Invoice Date";
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
+            this.Column11.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // groupBox1
             // 
@@ -153,31 +157,37 @@
             // 
             this.Column1.HeaderText = "Quantity";
             this.Column1.Name = "Column1";
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Author";
             this.Column2.Name = "Column2";
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Title";
             this.Column3.Name = "Column3";
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Price";
             this.Column4.Name = "Column4";
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "BookID";
             this.Column5.Name = "Column5";
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Discount";
             this.Column6.Name = "Column6";
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // boxInvoiceDate
             // 
@@ -293,11 +303,22 @@
             this.label2.TabIndex = 55;
             this.label2.Text = "Customers Orders:";
             // 
+            // btnGoToOrder
+            // 
+            this.btnGoToOrder.Location = new System.Drawing.Point(18, 525);
+            this.btnGoToOrder.Name = "btnGoToOrder";
+            this.btnGoToOrder.Size = new System.Drawing.Size(120, 29);
+            this.btnGoToOrder.TabIndex = 56;
+            this.btnGoToOrder.Text = "Go to order";
+            this.btnGoToOrder.UseVisualStyleBackColor = true;
+            this.btnGoToOrder.Click += new System.EventHandler(this.btnGoToOrder_Click);
+            // 
             // CustomerOrdersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 566);
+            this.Controls.Add(this.btnGoToOrder);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.groupBox1);
@@ -332,15 +353,16 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox boxOrderID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.TextBox boxOrderID;
+        private System.Windows.Forms.Button btnGoToOrder;
     }
 }

@@ -58,3 +58,5 @@ D:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_
 D:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csproj.GenerateResource.Cache
 D:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.exe
 D:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.pdb
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.BackupForm.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.ImportsForm.resources

@@ -137,10 +137,12 @@ namespace Hard_To_Find
             dbConnection.Close();
         }
 
-
+        /**********  Random useful code snippits  *********/
         //COLLATE NOCASE = search isn't case sensitive
         //string sql = "SELECT * FROM Customer WHERE firstName = 'david' COLLATE NOCASE";
         //string sql = "SELECT * FROM Customer WHERE customerFirstName LIKE 'da%'";
+
+
 
         /***************** Updating ***************************/
 
@@ -167,6 +169,35 @@ namespace Hard_To_Find
                 "', subtitle = '" + stock.subtitle + "', publisher = '" + stock.publisher + "', description = '" + stock.description + "', comments = '" + stock.comments +
                 "', price = '" + stock.price + "', subject = '" + stock.subject + "', catalogue = '" + stock.catalogue + "', sales = '" + stock.sales + 
                 "', bookID = '" + stock.bookID + "', dateEntered = '" + stock.dateEntered + "' WHERE stockID = " + stock.stockID;
+
+            dbConnection.Open();
+            SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
+            updateCommand.ExecuteNonQuery();
+            dbConnection.Close();
+        }
+
+        /*Precondition:
+        Postcondition: Updates the passed in order details, new details already added onto the order, use the ID to update*/
+        public void updateOrder(Order order)
+        {
+            //Apostrophies cause program to crash
+            string updateQuery = "UPDATE Orders SET customerFirstName = '" + order.customerFirstName + "', customerLastName = '" + order.customerLastName + "', institution = '" + order.institution + 
+                "', postcode = '" + order.postcode + "', orderReference = '" + order.orderReference + "', progress = '" + order.progress + "', freightCost = '" + order.freightCost +
+                "', invoice = '" + order.invoiceNo + "', invoiceDate = '" + order.invoiceDate + "', comments = '" + order.comments + "', customerID = '" + order.customerID + "' WHERE orderID = " + order.orderID;
+
+            dbConnection.Open();
+            SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
+            updateCommand.ExecuteNonQuery();
+            dbConnection.Close();
+        }
+
+        /*Precondition:
+        Postcondition: Updates the passed in orderedStock details, new details already added onto the orderedStock, use the ID to update*/
+        public void updateOrderedStock(OrderedStock orderedStock)
+        {
+            //Apostrophies cause program to crash
+            string updateQuery = "UPDATE OrderedStock SET stockID =" + orderedStock.stockID + ", quantity = " + orderedStock.quantity + ", author = '" + orderedStock.author + "', title = '" + orderedStock.title +
+                "', price = '" + orderedStock.price + "', bookID = '" + orderedStock.bookID + "', discount = '" + orderedStock.discount + "' WHERE orderedStockID = " + orderedStock.orderedStockID;
 
             dbConnection.Open();
             SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -662,6 +693,8 @@ namespace Hard_To_Find
             return foundOrderedStock;
         }
 
+        /*Precondition:
+         Postcondition: Returns list of orders that contains customerID that was passed */
         public List<Order> searchCustomersOrders(int custID)
         {
             List<Order> foundOrders = new List<Order>();
@@ -713,6 +746,8 @@ namespace Hard_To_Find
             return nextIDValue;
         }
 
+        /*Precondition:
+         Postcondition: Returns a list of all the stock that has a quantity greater than 0*/
         public List<Stock> getAllStockInStock()
         {
             List<Stock> allStockInStock = new List<Stock>();
@@ -735,6 +770,22 @@ namespace Hard_To_Find
             dbConnection.Close();
 
             return allStockInStock;
+        }
+
+
+        /*Precondition:
+         Postcondition: Deletes the OrderedStock from the database*/
+        //TODO change to accept ID instead of OrderedStock
+        public void deleteOrderedStock(OrderedStock orderedStockToDelete)
+        {
+            dbConnection.Open();
+
+            string deleteQuery = "DELETE from OrderedStock WHERE OrderedStockID = " + orderedStockToDelete.orderedStockID;
+
+            SQLiteCommand deleteCommand = new SQLiteCommand(deleteQuery, dbConnection);
+            deleteCommand.ExecuteNonQuery();
+
+            dbConnection.Close();
         }
     }
 }

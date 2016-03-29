@@ -35,11 +35,13 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.btnFileExports = new System.Windows.Forms.Button();
             this.btnSetStorageLocation = new System.Windows.Forms.Button();
+            this.btnImports = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCustomers
             // 
-            this.btnCustomers.Location = new System.Drawing.Point(68, 61);
+            this.btnCustomers.Location = new System.Drawing.Point(74, 61);
             this.btnCustomers.Name = "btnCustomers";
             this.btnCustomers.Size = new System.Drawing.Size(123, 37);
             this.btnCustomers.TabIndex = 0;
@@ -49,7 +51,7 @@
             // 
             // btnStock
             // 
-            this.btnStock.Location = new System.Drawing.Point(68, 124);
+            this.btnStock.Location = new System.Drawing.Point(74, 124);
             this.btnStock.Name = "btnStock";
             this.btnStock.Size = new System.Drawing.Size(123, 37);
             this.btnStock.TabIndex = 1;
@@ -59,7 +61,7 @@
             // 
             // btnOrders
             // 
-            this.btnOrders.Location = new System.Drawing.Point(68, 191);
+            this.btnOrders.Location = new System.Drawing.Point(74, 191);
             this.btnOrders.Name = "btnOrders";
             this.btnOrders.Size = new System.Drawing.Size(123, 37);
             this.btnOrders.TabIndex = 2;
@@ -70,7 +72,7 @@
             // btnReports
             // 
             this.btnReports.Enabled = false;
-            this.btnReports.Location = new System.Drawing.Point(230, 61);
+            this.btnReports.Location = new System.Drawing.Point(236, 61);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(123, 37);
             this.btnReports.TabIndex = 4;
@@ -80,9 +82,9 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(68, 293);
+            this.btnExit.Location = new System.Drawing.Point(74, 293);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(285, 37);
+            this.btnExit.Size = new System.Drawing.Size(445, 37);
             this.btnExit.TabIndex = 5;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -90,7 +92,7 @@
             // 
             // btnFileExports
             // 
-            this.btnFileExports.Location = new System.Drawing.Point(230, 124);
+            this.btnFileExports.Location = new System.Drawing.Point(236, 124);
             this.btnFileExports.Name = "btnFileExports";
             this.btnFileExports.Size = new System.Drawing.Size(123, 37);
             this.btnFileExports.TabIndex = 6;
@@ -100,7 +102,7 @@
             // 
             // btnSetStorageLocation
             // 
-            this.btnSetStorageLocation.Location = new System.Drawing.Point(230, 191);
+            this.btnSetStorageLocation.Location = new System.Drawing.Point(236, 191);
             this.btnSetStorageLocation.Name = "btnSetStorageLocation";
             this.btnSetStorageLocation.Size = new System.Drawing.Size(123, 37);
             this.btnSetStorageLocation.TabIndex = 7;
@@ -108,11 +110,33 @@
             this.btnSetStorageLocation.UseVisualStyleBackColor = true;
             this.btnSetStorageLocation.Click += new System.EventHandler(this.btnSetStorageLocation_Click);
             // 
+            // btnImports
+            // 
+            this.btnImports.Location = new System.Drawing.Point(396, 61);
+            this.btnImports.Name = "btnImports";
+            this.btnImports.Size = new System.Drawing.Size(123, 37);
+            this.btnImports.TabIndex = 8;
+            this.btnImports.Text = "Imports";
+            this.btnImports.UseVisualStyleBackColor = true;
+            this.btnImports.Click += new System.EventHandler(this.btnImports_Click);
+            // 
+            // button2
+            // 
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(396, 124);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(123, 37);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "Backup";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 390);
+            this.ClientSize = new System.Drawing.Size(593, 366);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnImports);
             this.Controls.Add(this.btnSetStorageLocation);
             this.Controls.Add(this.btnFileExports);
             this.Controls.Add(this.btnExit);
@@ -135,6 +159,8 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnFileExports;
         private System.Windows.Forms.Button btnSetStorageLocation;
+        private System.Windows.Forms.Button btnImports;
+        private System.Windows.Forms.Button button2;
     }
 }
 

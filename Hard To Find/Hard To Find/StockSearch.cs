@@ -12,17 +12,17 @@ namespace Hard_To_Find
     public partial class StockSearch : Form
     {
         //Globals
-        private NewOrderForm orderForm;
+        private IStockReceiver stockReceiver;
         private List<Stock> foundStock;
         private DatabaseManager dbManager;
 
         //Constructor
-        public StockSearch(NewOrderForm orderForm)
+        public StockSearch(IStockReceiver stockReceiver)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
-            this.orderForm = orderForm;
+            this.stockReceiver = stockReceiver;
             foundStock = new List<Stock>();
             dbManager = new DatabaseManager();
 
@@ -61,7 +61,7 @@ namespace Hard_To_Find
             int currRow = dataGridView1.CurrentCell.RowIndex;
 
             Stock selectedStock = foundStock[currRow];
-            orderForm.addBook(selectedStock);
+            stockReceiver.addStock(selectedStock);
             this.Close();
         }
 
@@ -74,7 +74,7 @@ namespace Hard_To_Find
                 int currRow = dataGridView1.CurrentCell.RowIndex;
 
                 Stock selectedStock = foundStock[currRow];
-                orderForm.addBook(selectedStock);
+                stockReceiver.addStock(selectedStock);
                 this.Close();
             }
             catch (NullReferenceException)
@@ -170,10 +170,17 @@ namespace Hard_To_Find
                 //Search for stock based on the parameters entered
                 foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
 
-                //Display found stock
-                foreach (Stock s in foundStock)
+                if (foundStock.Count == 0)
                 {
-                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                    dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
+                }
+                else
+                {
+                    //Display found stock
+                    foreach (Stock s in foundStock)
+                    {
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                    }
                 }
             }
         }

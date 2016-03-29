@@ -14,16 +14,16 @@ namespace Hard_To_Find
         //Globals
         private List<Customer> foundCustomers;
         private DatabaseManager dbManager;
-        private NewOrderForm orderForm;
+        private ICustomerReceiver customerReceiver;
 
         //Constructor
-        public CustomerSearch(NewOrderForm orderForm)
+        public CustomerSearch(ICustomerReceiver customerReceiver)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
             //Initialize globals
-            this.orderForm = orderForm;
+            this.customerReceiver = customerReceiver;
 
             setup();
         }
@@ -64,7 +64,7 @@ namespace Hard_To_Find
             int currRow = dataGridView1.CurrentCell.RowIndex;
 
             Customer selectedCustomer = foundCustomers[currRow];
-            orderForm.setCustomer(selectedCustomer);
+            customerReceiver.addCustomer(selectedCustomer);
             this.Close();
         }
 
@@ -142,6 +142,8 @@ namespace Hard_To_Find
                 {
                     if (c != null)
                         dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
+                    else
+                        dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
                 }
             }
             else if (boxFirstName.Text != "" || boxLastName.Text != "")//Else if ID hasn't been entered check for first and last name
@@ -158,10 +160,17 @@ namespace Hard_To_Find
                 //Search for customers with names entered
                 foundCustomers = dbManager.searchCustomers(firstName, lastName);
 
-                //Display found customers
-                foreach (Customer c in foundCustomers)
+                if (foundCustomers.Count == 0)
                 {
-                    dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
+                    dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
+                }
+                else
+                {
+                    //Display found customers
+                    foreach (Customer c in foundCustomers)
+                    {
+                        dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
+                    }
                 }
             }
         }
@@ -180,7 +189,7 @@ namespace Hard_To_Find
             int currRow = dataGridView1.CurrentCell.RowIndex;
 
             Customer selectedCustomer = foundCustomers[currRow];
-            orderForm.setCustomer(selectedCustomer);
+            customerReceiver.addCustomer(selectedCustomer);
             this.Close();
         }
     }

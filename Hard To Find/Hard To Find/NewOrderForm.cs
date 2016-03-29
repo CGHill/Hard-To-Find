@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Hard_To_Find
 {
-    public partial class NewOrderForm : Form
+    public partial class NewOrderForm : Form, IStockReceiver, ICustomerReceiver
     {
         //Globals
         private Customer currentCustomer;
@@ -65,31 +65,6 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
-         Postcondition: Customer has been found, autofill with customer information */
-        public void setCustomer(Customer selectedCustomer)
-        {
-            currentCustomer = selectedCustomer;
-
-            boxFirstName.Text = selectedCustomer.firstName;
-            boxLastName.Text = selectedCustomer.lastName;
-            boxInstitution.Text = selectedCustomer.institution;
-            boxAddress1.Text = selectedCustomer.address1;
-            boxAddress2.Text = selectedCustomer.address2;
-            boxAddress3.Text = selectedCustomer.address3;
-            boxPostcode.Text = selectedCustomer.postCode;
-            boxCountry.Text = selectedCustomer.country;
-        }
-
-        /*Precondition:
-         Postcondition: A book has been found, autofill information and store book*/
-        public void addBook(Stock selectedStock)
-        {
-            orderedBooks.Add(selectedStock);
-
-            dataGridView1.Rows.Add(1, selectedStock.author, selectedStock.title, selectedStock.price, selectedStock.bookID, "$0.00");
-        }
-
-        /*Precondition:
          Postcondition: Open up form to search for a book to order */
         private void btnAddBook_Click(object sender, EventArgs e)
         {
@@ -132,6 +107,7 @@ namespace Hard_To_Find
                 //Loop over all the books selected and create orderedStock from them
                 foreach (Stock s in orderedBooks)
                 {
+                    //TODO fix this so it all comes from datagrid
                     //Get quantity, price and discount from the datagrid
                     int quantity = Convert.ToInt32(dataGridView1.Rows[currRowIndex].Cells[0].Value.ToString());
                     string price = dataGridView1.Rows[currRowIndex].Cells[3].Value.ToString();
@@ -165,6 +141,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition: 
+          Postcondition: Check datagrid for right mouse click */
         private void dataGridView1_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -177,6 +155,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition: 
+          Postcondition: Handles a click on the context menu, deletes a selected row from datagrid */
         private void contextMenuStrip1_Click(object sender, EventArgs e)
         {
             int selectedRow = dataGridView1.CurrentCell.RowIndex;
@@ -187,6 +167,39 @@ namespace Hard_To_Find
 
                 orderedBooks.RemoveAt(selectedRow);
             }
+        }
+        /*Precondition: 
+          Postcondition: Open form for creating new customer */
+        private void btnNewCustomer_Click(object sender, EventArgs e)
+        {
+            NewCustomerForm ncf = new NewCustomerForm();
+            ncf.setNewOrderForm(this);
+            ncf.Show();
+        }
+
+        /*Precondition:
+         Postcondition: A book has been found, autofill information and store book*/
+        public void addStock(Stock newStock)
+        {
+            orderedBooks.Add(newStock);
+
+            dataGridView1.Rows.Add(1, newStock.author, newStock.title, newStock.price, newStock.bookID, "$0.00");
+        }
+
+        /*Precondition:
+         Postcondition: Customer has been found or created, autofill with customer information */
+        public void addCustomer(Customer newCustomer)
+        {
+            currentCustomer = newCustomer;
+
+            boxFirstName.Text = newCustomer.firstName;
+            boxLastName.Text = newCustomer.lastName;
+            boxInstitution.Text = newCustomer.institution;
+            boxAddress1.Text = newCustomer.address1;
+            boxAddress2.Text = newCustomer.address2;
+            boxAddress3.Text = newCustomer.address3;
+            boxPostcode.Text = newCustomer.postCode;
+            boxCountry.Text = newCustomer.country;
         }
     }
 }

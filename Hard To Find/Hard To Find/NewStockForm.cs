@@ -20,8 +20,16 @@ namespace Hard_To_Find
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
+            setup();
+        }
+
+        /*Precondition: 
+          Postcondition: Initializes everything needed and autofills date */
+        private void setup()
+        {
             dbManager = new DatabaseManager();
 
+            //TODO format needs to be changed?
             string date = DateTime.Now.ToString("d/MM/yyyy");
             boxDateEntered.Text = date;
         }

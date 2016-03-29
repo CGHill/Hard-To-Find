@@ -82,8 +82,17 @@ namespace Hard_To_Find
 
             if (folderBrowser.ShowDialog() == DialogResult.OK)
             {
+                string path = folderBrowser.SelectedPath;
+
                 fileManager.createStorageLocationFile(folderBrowser.SelectedPath);
             }
+        }
+
+        private void btnImports_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ImportsForm importForm = new ImportsForm(this);
+            importForm.Show();
         }
     }
 }

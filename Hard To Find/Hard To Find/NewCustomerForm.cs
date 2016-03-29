@@ -13,6 +13,7 @@ namespace Hard_To_Find
     {
         //Globals
         private DatabaseManager dbManager;
+        private NewOrderForm nof;
 
         public NewCustomerForm()
         {
@@ -20,6 +21,7 @@ namespace Hard_To_Find
             this.StartPosition = FormStartPosition.CenterScreen;
 
             dbManager = new DatabaseManager();
+            nof = null;
         }
 
         /*Precondition:
@@ -53,12 +55,25 @@ namespace Hard_To_Find
 
                 dbManager.insertCusomter(newCustomer);
 
+                //If not null then it was created from the new order form, so send customer back to that
+                if (nof != null)
+                {
+                    nof.addCustomer(newCustomer);
+                }
+
                 this.Close();
             }
             else
             {
                 MessageBox.Show("Not enough information entered");
             }
+        }
+
+        /*Precondition: 
+          Postcondition: Set the form to send the new customer back to */
+        public void setNewOrderForm(NewOrderForm nof)
+        {
+            this.nof = nof;
         }
     }
 }

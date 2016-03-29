@@ -21,10 +21,17 @@ namespace Hard_To_Find
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
+            this.currCustomer = currCustomer;
+
+            setup();
+        }
+
+        /*Precondition:
+         Postcondition: Setup and initialize everything needed */
+        private void setup()
+        {
             //Create instance of database manager and list for storing customers
             dbManager = new DatabaseManager();
-
-            this.currCustomer = currCustomer;
 
             loadUpCustomer();
         }
@@ -122,7 +129,7 @@ namespace Hard_To_Find
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {
             NewOrderForm orderForm = new NewOrderForm(null);
-            orderForm.setCustomer(currCustomer);
+            orderForm.addCustomer(currCustomer);
             orderForm.Show();
         }
     }

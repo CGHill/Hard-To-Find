@@ -28,17 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnMainMenu = new System.Windows.Forms.Button();
             this.btnImportOrders = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labOrderID = new System.Windows.Forms.Label();
             this.boxOrderSearchID = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
             this.btnImportOrderedStock = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.boxLastName = new System.Windows.Forms.TextBox();
             this.boxCustID = new System.Windows.Forms.TextBox();
             this.boxCountry = new System.Windows.Forms.TextBox();
             this.boxAdd3 = new System.Windows.Forms.TextBox();
@@ -53,7 +58,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.boxInstitution = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.boxCustName = new System.Windows.Forms.TextBox();
+            this.boxFirstName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.boxOrderID = new System.Windows.Forms.TextBox();
@@ -77,12 +82,18 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCreateInvoice = new System.Windows.Forms.Button();
             this.btnBigMailingLabel = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
+            this.labMailingLabels = new System.Windows.Forms.Label();
             this.btnSmallMailingLabel = new System.Windows.Forms.Button();
+            this.btnNewestOrder = new System.Windows.Forms.Button();
+            this.btnAddBook = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnChangeCustomer = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnMainMenu
@@ -114,14 +125,14 @@
             this.progressBar1.TabIndex = 4;
             this.progressBar1.Visible = false;
             // 
-            // label1
+            // labOrderID
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Order ID:";
+            this.labOrderID.AutoSize = true;
+            this.labOrderID.Location = new System.Drawing.Point(9, 75);
+            this.labOrderID.Name = "labOrderID";
+            this.labOrderID.Size = new System.Drawing.Size(50, 13);
+            this.labOrderID.TabIndex = 6;
+            this.labOrderID.Text = "Order ID:";
             // 
             // boxOrderSearchID
             // 
@@ -143,7 +154,7 @@
             // 
             // btnNewOrder
             // 
-            this.btnNewOrder.Location = new System.Drawing.Point(65, 213);
+            this.btnNewOrder.Location = new System.Drawing.Point(65, 250);
             this.btnNewOrder.Name = "btnNewOrder";
             this.btnNewOrder.Size = new System.Drawing.Size(118, 33);
             this.btnNewOrder.TabIndex = 19;
@@ -163,7 +174,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnSave);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.dataGridView1);
@@ -174,6 +187,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Invoice";
             // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(621, 89);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(118, 33);
+            this.btnSave.TabIndex = 28;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -183,8 +207,21 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "Books Ordered:";
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(621, 49);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(118, 33);
+            this.btnUpdate.TabIndex = 27;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnChangeCustomer);
+            this.groupBox3.Controls.Add(this.label18);
+            this.groupBox3.Controls.Add(this.boxLastName);
             this.groupBox3.Controls.Add(this.boxCustID);
             this.groupBox3.Controls.Add(this.boxCountry);
             this.groupBox3.Controls.Add(this.boxAdd3);
@@ -199,7 +236,7 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.boxInstitution);
             this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.boxCustName);
+            this.groupBox3.Controls.Add(this.boxFirstName);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Location = new System.Drawing.Point(21, 201);
             this.groupBox3.Name = "groupBox3";
@@ -207,6 +244,23 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Customer Details";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(36, 91);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(61, 13);
+            this.label18.TabIndex = 52;
+            this.label18.Text = "Last Name:";
+            // 
+            // boxLastName
+            // 
+            this.boxLastName.Location = new System.Drawing.Point(106, 88);
+            this.boxLastName.Name = "boxLastName";
+            this.boxLastName.ReadOnly = true;
+            this.boxLastName.Size = new System.Drawing.Size(142, 20);
+            this.boxLastName.TabIndex = 51;
             // 
             // boxCustID
             // 
@@ -218,7 +272,7 @@
             // 
             // boxCountry
             // 
-            this.boxCountry.Location = new System.Drawing.Point(576, 62);
+            this.boxCountry.Location = new System.Drawing.Point(576, 88);
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.ReadOnly = true;
             this.boxCountry.Size = new System.Drawing.Size(142, 20);
@@ -226,7 +280,7 @@
             // 
             // boxAdd3
             // 
-            this.boxAdd3.Location = new System.Drawing.Point(347, 114);
+            this.boxAdd3.Location = new System.Drawing.Point(576, 62);
             this.boxAdd3.Name = "boxAdd3";
             this.boxAdd3.ReadOnly = true;
             this.boxAdd3.Size = new System.Drawing.Size(142, 20);
@@ -234,7 +288,7 @@
             // 
             // boxAdd2
             // 
-            this.boxAdd2.Location = new System.Drawing.Point(347, 88);
+            this.boxAdd2.Location = new System.Drawing.Point(347, 114);
             this.boxAdd2.Name = "boxAdd2";
             this.boxAdd2.ReadOnly = true;
             this.boxAdd2.Size = new System.Drawing.Size(142, 20);
@@ -242,7 +296,7 @@
             // 
             // boxAdd1
             // 
-            this.boxAdd1.Location = new System.Drawing.Point(347, 62);
+            this.boxAdd1.Location = new System.Drawing.Point(347, 88);
             this.boxAdd1.Name = "boxAdd1";
             this.boxAdd1.ReadOnly = true;
             this.boxAdd1.Size = new System.Drawing.Size(142, 20);
@@ -251,7 +305,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(524, 65);
+            this.label17.Location = new System.Drawing.Point(524, 91);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(46, 13);
             this.label17.TabIndex = 45;
@@ -260,7 +314,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(284, 117);
+            this.label16.Location = new System.Drawing.Point(513, 65);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(57, 13);
             this.label16.TabIndex = 43;
@@ -269,7 +323,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(284, 91);
+            this.label15.Location = new System.Drawing.Point(284, 117);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(57, 13);
             this.label15.TabIndex = 41;
@@ -278,7 +332,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(284, 65);
+            this.label14.Location = new System.Drawing.Point(284, 91);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(57, 13);
             this.label14.TabIndex = 39;
@@ -287,7 +341,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(45, 117);
+            this.label13.Location = new System.Drawing.Point(286, 65);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 13);
             this.label13.TabIndex = 37;
@@ -295,7 +349,7 @@
             // 
             // boxPostcode
             // 
-            this.boxPostcode.Location = new System.Drawing.Point(106, 114);
+            this.boxPostcode.Location = new System.Drawing.Point(347, 62);
             this.boxPostcode.Name = "boxPostcode";
             this.boxPostcode.ReadOnly = true;
             this.boxPostcode.Size = new System.Drawing.Size(142, 20);
@@ -304,7 +358,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(45, 91);
+            this.label12.Location = new System.Drawing.Point(45, 117);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(55, 13);
             this.label12.TabIndex = 35;
@@ -312,7 +366,7 @@
             // 
             // boxInstitution
             // 
-            this.boxInstitution.Location = new System.Drawing.Point(106, 88);
+            this.boxInstitution.Location = new System.Drawing.Point(106, 114);
             this.boxInstitution.Name = "boxInstitution";
             this.boxInstitution.ReadOnly = true;
             this.boxInstitution.Size = new System.Drawing.Size(142, 20);
@@ -321,19 +375,19 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(59, 65);
+            this.label11.Location = new System.Drawing.Point(37, 65);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(38, 13);
+            this.label11.Size = new System.Drawing.Size(60, 13);
             this.label11.TabIndex = 33;
-            this.label11.Text = "Name:";
+            this.label11.Text = "First Name:";
             // 
-            // boxCustName
+            // boxFirstName
             // 
-            this.boxCustName.Location = new System.Drawing.Point(106, 62);
-            this.boxCustName.Name = "boxCustName";
-            this.boxCustName.ReadOnly = true;
-            this.boxCustName.Size = new System.Drawing.Size(142, 20);
-            this.boxCustName.TabIndex = 31;
+            this.boxFirstName.Location = new System.Drawing.Point(106, 62);
+            this.boxFirstName.Name = "boxFirstName";
+            this.boxFirstName.ReadOnly = true;
+            this.boxFirstName.Size = new System.Drawing.Size(142, 20);
+            this.boxFirstName.TabIndex = 31;
             // 
             // label9
             // 
@@ -360,7 +414,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(21, 19);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(760, 176);
+            this.groupBox2.Size = new System.Drawing.Size(512, 176);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Order Details";
@@ -470,7 +524,6 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -485,46 +538,54 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(775, 150);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
             // 
             // Column1
             // 
             this.Column1.HeaderText = "Quantity";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Author";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Title";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Price";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "BookID";
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Discount";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // btnCreateInvoice
             // 
-            this.btnCreateInvoice.Location = new System.Drawing.Point(65, 301);
+            this.btnCreateInvoice.Location = new System.Drawing.Point(65, 327);
             this.btnCreateInvoice.Name = "btnCreateInvoice";
             this.btnCreateInvoice.Size = new System.Drawing.Size(118, 33);
             this.btnCreateInvoice.TabIndex = 22;
@@ -542,14 +603,14 @@
             this.btnBigMailingLabel.UseVisualStyleBackColor = true;
             this.btnBigMailingLabel.Click += new System.EventHandler(this.btnBigMailingLabel_Click);
             // 
-            // label10
+            // labMailingLabels
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(62, 384);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 13);
-            this.label10.TabIndex = 24;
-            this.label10.Text = "Mailing Labels:";
+            this.labMailingLabels.AutoSize = true;
+            this.labMailingLabels.Location = new System.Drawing.Point(62, 384);
+            this.labMailingLabels.Name = "labMailingLabels";
+            this.labMailingLabels.Size = new System.Drawing.Size(77, 13);
+            this.labMailingLabels.TabIndex = 24;
+            this.labMailingLabels.Text = "Mailing Labels:";
             // 
             // btnSmallMailingLabel
             // 
@@ -562,13 +623,63 @@
             this.btnSmallMailingLabel.UseVisualStyleBackColor = true;
             this.btnSmallMailingLabel.Click += new System.EventHandler(this.btnSmallMailingLabel_Click);
             // 
+            // btnNewestOrder
+            // 
+            this.btnNewestOrder.Location = new System.Drawing.Point(65, 153);
+            this.btnNewestOrder.Name = "btnNewestOrder";
+            this.btnNewestOrder.Size = new System.Drawing.Size(118, 33);
+            this.btnNewestOrder.TabIndex = 26;
+            this.btnNewestOrder.Text = "Get Newest Order";
+            this.btnNewestOrder.UseVisualStyleBackColor = true;
+            this.btnNewestOrder.Click += new System.EventHandler(this.btnNewestOrder_Click);
+            // 
+            // btnAddBook
+            // 
+            this.btnAddBook.Enabled = false;
+            this.btnAddBook.Location = new System.Drawing.Point(195, 581);
+            this.btnAddBook.Name = "btnAddBook";
+            this.btnAddBook.Size = new System.Drawing.Size(133, 39);
+            this.btnAddBook.TabIndex = 27;
+            this.btnAddBook.Text = "Add Book";
+            this.btnAddBook.UseVisualStyleBackColor = true;
+            this.btnAddBook.Visible = false;
+            this.btnAddBook.Click += new System.EventHandler(this.btnAddBook_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeBookToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 26);
+            this.contextMenuStrip1.Click += new System.EventHandler(this.contextMenuStrip1_Click);
+            // 
+            // removeBookToolStripMenuItem
+            // 
+            this.removeBookToolStripMenuItem.Name = "removeBookToolStripMenuItem";
+            this.removeBookToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.removeBookToolStripMenuItem.Text = "Remove Book";
+            // 
+            // btnChangeCustomer
+            // 
+            this.btnChangeCustomer.Enabled = false;
+            this.btnChangeCustomer.Location = new System.Drawing.Point(600, 137);
+            this.btnChangeCustomer.Name = "btnChangeCustomer";
+            this.btnChangeCustomer.Size = new System.Drawing.Size(118, 33);
+            this.btnChangeCustomer.TabIndex = 29;
+            this.btnChangeCustomer.Text = "Change Customer";
+            this.btnChangeCustomer.UseVisualStyleBackColor = true;
+            this.btnChangeCustomer.Visible = false;
+            this.btnChangeCustomer.Click += new System.EventHandler(this.btnChangeCustomer_Click);
+            // 
             // OrdersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 636);
+            this.Controls.Add(this.btnAddBook);
+            this.Controls.Add(this.btnNewestOrder);
             this.Controls.Add(this.btnSmallMailingLabel);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.labMailingLabels);
             this.Controls.Add(this.btnBigMailingLabel);
             this.Controls.Add(this.btnCreateInvoice);
             this.Controls.Add(this.groupBox1);
@@ -576,7 +687,7 @@
             this.Controls.Add(this.btnNewOrder);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.boxOrderSearchID);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labOrderID);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnImportOrders);
             this.Controls.Add(this.btnMainMenu);
@@ -589,6 +700,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -599,7 +711,7 @@
         private System.Windows.Forms.Button btnMainMenu;
         private System.Windows.Forms.Button btnImportOrders;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labOrderID;
         private System.Windows.Forms.TextBox boxOrderSearchID;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnNewOrder;
@@ -624,7 +736,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox boxInstitution;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox boxCustName;
+        private System.Windows.Forms.TextBox boxFirstName;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox boxAdd3;
         private System.Windows.Forms.TextBox boxAdd2;
@@ -635,17 +747,26 @@
         private System.Windows.Forms.TextBox boxCountry;
         private System.Windows.Forms.TextBox boxInvoiceDate;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnCreateInvoice;
+        private System.Windows.Forms.Button btnBigMailingLabel;
+        private System.Windows.Forms.Label labMailingLabels;
+        private System.Windows.Forms.Button btnSmallMailingLabel;
+        private System.Windows.Forms.TextBox boxOrderID;
+        private System.Windows.Forms.TextBox boxCustID;
+        private System.Windows.Forms.Button btnNewestOrder;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnAddBook;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox boxLastName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.Button btnCreateInvoice;
-        private System.Windows.Forms.Button btnBigMailingLabel;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button btnSmallMailingLabel;
-        private System.Windows.Forms.TextBox boxOrderID;
-        private System.Windows.Forms.TextBox boxCustID;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem removeBookToolStripMenuItem;
+        private System.Windows.Forms.Button btnChangeCustomer;
     }
 }

@@ -117,5 +117,14 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition:
+         Postcondition: Open up orders form with current order loaded up */
+        private void btnGoToOrder_Click(object sender, EventArgs e)
+        {
+            OrdersForm of = new OrdersForm(null);
+            of.loadOrder(currOrder.orderID);
+            of.Show();
+        }
+
     }
 }
