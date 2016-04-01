@@ -51,6 +51,8 @@ namespace Hard_To_Find
             column5.Width = 60;
             DataGridViewColumn column6 = dataGridView1.Columns[5];
             column6.Width = 75;
+
+            boxBookID.Select();
         }
 
         /*Precondition: 
@@ -239,9 +241,9 @@ namespace Hard_To_Find
                 searchAllStock = false;
 
             //If ID was entered then search only on that
-            if (boxStockID.Text != "")
+            if (boxBookID.Text != "")
             {
-                string bookID = boxStockID.Text;
+                string bookID = boxBookID.Text;
 
                 //Put found stock into list
                 Stock found = dbManager.searchStock(bookID, searchAllStock);

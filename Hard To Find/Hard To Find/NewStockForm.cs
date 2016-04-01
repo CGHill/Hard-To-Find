@@ -30,6 +30,8 @@ namespace Hard_To_Find
         {
             dbManager = new DatabaseManager();
             tabPress = false;
+
+            boxAuthor.Select();
         }
 
         /*Precondition: 

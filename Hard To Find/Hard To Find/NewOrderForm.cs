@@ -56,6 +56,8 @@ namespace Hard_To_Find
 
             string date = DateTime.Now.ToString("d/MM/yyyy");
             boxInvoiceDate.Text = date;
+
+            btnFindCustomer.Select();
         }
 
         /*Precondition:

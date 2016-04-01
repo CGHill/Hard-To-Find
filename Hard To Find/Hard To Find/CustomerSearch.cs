@@ -48,6 +48,8 @@ namespace Hard_To_Find
             colCountry.Width = 60;
             DataGridViewColumn colEmail = dataGridView1.Columns[5];
             colEmail.Width = 182;
+
+            boxFirstName.Select();
         }
 
         /*Precondition:
@@ -91,6 +93,9 @@ namespace Hard_To_Find
 
 
         /********************* Keypress handlers to check for enter to start search ************************************/
+
+        /*Precondition:
+         Postcondition: Only allows numbers to be entered in textbox */
         private void boxCustID_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -101,6 +106,38 @@ namespace Hard_To_Find
             // only allow one decimal point
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
+                e.Handled = true;
+            }
+        }
+
+        /*Precondition:
+        Postcondition: Handles keypresses for the datagrid by selecting the customer when enter is pressed */
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Listen for enter key
+            if (e.KeyCode == Keys.Enter)
+            {
+                //Supress key to stop datagrid moving to the next row
+                e.SuppressKeyPress = true;
+
+                int currRow = dataGridView1.CurrentCell.RowIndex;
+
+                //Get the customer and pass it back to the form that needs it
+                Customer selectedCustomer = foundCustomers[currRow];
+                customerReceiver.addCustomer(selectedCustomer);
+                this.Close();
+            }
+        }
+
+        /*Precondition:
+         Postcondition: Keypress handler for all textboxes. Starts the search for customers */
+        private void TextBox_KeyPress_Enter(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                //Stops the windows noise
                 e.Handled = true;
             }
         }
@@ -196,33 +233,6 @@ namespace Hard_To_Find
             this.Close();
         }
 
-        /*Precondition:
-         Postcondition: Handles keypresses for the datagrid by selecting the customer when enter is pressed */
-        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
-        {
-            //Listen for enter key
-            if (e.KeyCode == Keys.Enter)
-            {
-                //Supress key to stop datagrid moving to the next row
-                e.SuppressKeyPress = true;
-
-                int currRow = dataGridView1.CurrentCell.RowIndex;
-
-                //Get the customer and pass it back to the form that needs it
-                Customer selectedCustomer = foundCustomers[currRow];
-                customerReceiver.addCustomer(selectedCustomer);
-                this.Close();
-            }
-        }
-
-        private void TextBox_KeyPress_Enter(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
+       
     }
 }

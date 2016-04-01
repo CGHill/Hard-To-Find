@@ -34,6 +34,8 @@ namespace Hard_To_Find
             dbManager = new DatabaseManager();
 
             loadUpCustomer();
+
+            btnCustomersOrders.Select();
         }
 
         /*Precondition:

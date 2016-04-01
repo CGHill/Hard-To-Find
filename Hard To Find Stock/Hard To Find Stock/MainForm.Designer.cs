@@ -1,6 +1,6 @@
 ﻿namespace Hard_To_Find_Stock
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,7 +34,7 @@
             this.boxSubject = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.boxStockID = new System.Windows.Forms.TextBox();
+            this.boxBookID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.boxTitle = new System.Windows.Forms.TextBox();
             this.boxAuthor = new System.Windows.Forms.TextBox();
@@ -65,7 +65,7 @@
             this.groupBox1.Controls.Add(this.boxSubject);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Controls.Add(this.boxStockID);
+            this.groupBox1.Controls.Add(this.boxBookID);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.boxTitle);
             this.groupBox1.Controls.Add(this.boxAuthor);
@@ -127,13 +127,13 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // boxStockID
+            // boxBookID
             // 
-            this.boxStockID.Location = new System.Drawing.Point(80, 30);
-            this.boxStockID.Name = "boxStockID";
-            this.boxStockID.Size = new System.Drawing.Size(92, 20);
-            this.boxStockID.TabIndex = 1;
-            this.boxStockID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxStockID_KeyPress);
+            this.boxBookID.Location = new System.Drawing.Point(80, 30);
+            this.boxBookID.Name = "boxBookID";
+            this.boxBookID.Size = new System.Drawing.Size(92, 20);
+            this.boxBookID.TabIndex = 1;
+            this.boxBookID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxStockID_KeyPress);
             // 
             // label3
             // 
@@ -311,7 +311,7 @@
             this.label5.TabIndex = 36;
             this.label5.Text = "Number of results:";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -325,8 +325,8 @@
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnCreateExport);
             this.Controls.Add(this.btnExit);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainForm";
+            this.Text = "Stock Form";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -343,7 +343,7 @@
         private System.Windows.Forms.TextBox boxSubject;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox boxStockID;
+        private System.Windows.Forms.TextBox boxBookID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox boxTitle;
         private System.Windows.Forms.TextBox boxAuthor;

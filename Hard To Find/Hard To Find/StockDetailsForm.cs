@@ -32,6 +32,8 @@ namespace Hard_To_Find
         {
             dbManager = new DatabaseManager();
             loadStock();
+
+            btnUpdate.Select();
         }
 
         /*Precondition:

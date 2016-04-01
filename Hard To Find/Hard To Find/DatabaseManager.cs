@@ -790,25 +790,31 @@ namespace Hard_To_Find
          Postcondition: Returns the ID of the next Order to be stored*/
         public int getNextOrderID()
         {
-            dbConnection.Open();
-            int nextIDValue = 0;
-
-            //Execute SQL query
-            string sql = "SELECT MAX(orderID) FROM Orders";
-            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            //Loop over and store results
-            while (reader.Read())
+            try
             {
-                nextIDValue = Convert.ToInt32(reader[0]);
+                dbConnection.Open();
+                int nextIDValue = 0;
+
+                //Execute SQL query
+                string sql = "SELECT MAX(orderID) FROM Orders";
+                SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                //Loop over and store results
+                while (reader.Read())
+                {
+                    nextIDValue = Convert.ToInt32(reader[0]);
+                }
+
+                nextIDValue++;
+                dbConnection.Close();
+                //Return results
+                return nextIDValue;
             }
-
-            nextIDValue++;
-            dbConnection.Close();
-
-            //Return results
-            return nextIDValue;
+            catch (SQLiteException)
+            {
+                return 0;
+            }
         }
 
         /*Precondition:

@@ -34,6 +34,8 @@ namespace Hard_To_Find_Stock
             newStockEntered = new List<Stock>();
             tabPress = false;
             indexOfNewStock = 0;
+
+            boxAuthor.Select();
         }
 
         /*Precondition: 
@@ -207,20 +209,27 @@ namespace Hard_To_Find_Stock
             }
         }
 
+        /*Precondition:
+         Postcondition: Moves to the previous stock entry */
         private void btnPrev_Click(object sender, EventArgs e)
         {
+            //Try to save the current newStock entry
             saveEntry();  
 
+            //Update the index
             indexOfNewStock--;
 
+            //Update display for user
             labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count);
 
+            //Check if it's the last entry to disable the button
             if (indexOfNewStock == 0)
             {
                 btnPrev.Enabled = false;
             }
 
 
+            //Load up the now current entry
             Stock currStock = newStockEntered[indexOfNewStock];
 
             boxQuantity.Text = currStock.quantity.ToString();
@@ -242,63 +251,75 @@ namespace Hard_To_Find_Stock
             boxAuthor.Focus();
         }
 
+        /*Precondition:
+         Postcondition: Moves to the next entry in the list or create a new entry */
         private void btnNext_Click(object sender, EventArgs e)
         {
-            saveEntry();
-
-            indexOfNewStock++;
-
-            if(indexOfNewStock < newStockEntered.Count)
-                labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count);
-            else
-                labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count + 1);
-
-            if (btnPrev.Enabled == false)
-                btnPrev.Enabled = true;
-
-            //New Entry
-            if (indexOfNewStock == newStockEntered.Count)
+            //Check to see if any new info has been updated to stop creating blank entries
+            if (wasAnyInfoEntered())
             {
-                boxQuantity.Text = "1";
-                boxNote.Text = "";
-                boxAuthor.Text = "";
-                boxTitle.Text = "";
-                boxSubtitle.Text = "";
-                boxPublisher.Text = "";
-                boxComment.Text = "";
-                boxDescription.Text = "";
-                boxPrice.Text = "";
-                boxSubject.Text = "";
-                boxCatalogues.Text = "";
-                boxInitials.Text = "";
-                boxSales.Text = "";
-                boxBookID.Text = "";
-                boxDateEntered.Text = "";
-            }
-            else //Not new entry, load up an existing new stock
-            {
-                Stock currStock = newStockEntered[indexOfNewStock];
+                //Try to save entry
+                saveEntry();
 
-                boxQuantity.Text = currStock.quantity.ToString(); ;
-                boxNote.Text = currStock.note;
-                boxAuthor.Text = currStock.author;
-                boxTitle.Text = currStock.title;
-                boxSubtitle.Text = currStock.subtitle;
-                boxPublisher.Text = currStock.publisher;
-                boxComment.Text = currStock.comments;
-                boxDescription.Text = currStock.description;
-                boxPrice.Text = currStock.price;
-                boxSubject.Text = currStock.subject;
-                boxCatalogues.Text = currStock.catalogue;
-                boxInitials.Text = currStock.initials;
-                boxSales.Text = currStock.sales;
-                boxBookID.Text = currStock.bookID;
-                boxDateEntered.Text = currStock.dateEntered;
-            }
+                //Update index
+                indexOfNewStock++;
 
-            boxAuthor.Focus();
+                //Update display for user
+                if (indexOfNewStock < newStockEntered.Count)
+                    labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count);
+                else
+                    labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count + 1);
+
+                if (btnPrev.Enabled == false)
+                    btnPrev.Enabled = true;
+
+                //New Entry
+                if (indexOfNewStock == newStockEntered.Count)
+                {
+                    boxQuantity.Text = "1";
+                    boxNote.Text = "";
+                    boxAuthor.Text = "";
+                    boxTitle.Text = "";
+                    boxSubtitle.Text = "";
+                    boxPublisher.Text = "";
+                    boxComment.Text = "";
+                    boxDescription.Text = "";
+                    boxPrice.Text = "";
+                    boxSubject.Text = "";
+                    boxCatalogues.Text = "";
+                    boxInitials.Text = "";
+                    boxSales.Text = "";
+                    boxBookID.Text = "";
+                    boxDateEntered.Text = "";
+                }
+                else //Not new entry, load up an existing new stock
+                {
+                    Stock currStock = newStockEntered[indexOfNewStock];
+
+                    boxQuantity.Text = currStock.quantity.ToString(); ;
+                    boxNote.Text = currStock.note;
+                    boxAuthor.Text = currStock.author;
+                    boxTitle.Text = currStock.title;
+                    boxSubtitle.Text = currStock.subtitle;
+                    boxPublisher.Text = currStock.publisher;
+                    boxComment.Text = currStock.comments;
+                    boxDescription.Text = currStock.description;
+                    boxPrice.Text = currStock.price;
+                    boxSubject.Text = currStock.subject;
+                    boxCatalogues.Text = currStock.catalogue;
+                    boxInitials.Text = currStock.initials;
+                    boxSales.Text = currStock.sales;
+                    boxBookID.Text = currStock.bookID;
+                    boxDateEntered.Text = currStock.dateEntered;
+                }
+
+                //Reset focus back to the author box
+                boxAuthor.Select();
+            }
         }
 
+        /*Precondition:
+         Postcondition: Checks to see if it's current information entered is a new entry that needs saved or existing entry that needs updated */
         private void saveEntry()
         {
             //Check if it's a new entry
@@ -324,7 +345,7 @@ namespace Hard_To_Find_Stock
 
                 newStockEntered.Add(newStock);
             }
-            else //Old entry, update values
+            else //Existing entry, update values
             {
                 Stock currStock = newStockEntered[indexOfNewStock];
 
@@ -344,6 +365,20 @@ namespace Hard_To_Find_Stock
                 currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
                 currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
             }
+        }
+
+        /*Precondition:
+         Postcondition: Returns true if any of the textboxes has information in it */
+        private bool wasAnyInfoEntered()
+        {
+            bool infoEntered = false;
+
+
+            if (boxNote.Text != "" || boxAuthor.Text != "" || boxTitle.Text != "" || boxSubtitle.Text != "" || boxPublisher.Text != "" || boxDescription.Text != "" || boxComment.Text != ""
+                || boxPrice.Text != "" || boxSubject.Text != "" || boxCatalogues.Text != "" || boxInitials.Text != "" || boxSales.Text != "" || boxBookID.Text != "" || boxDateEntered.Text != "")
+                infoEntered = true;
+
+            return infoEntered;
         }
     }
 }

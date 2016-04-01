@@ -51,6 +51,8 @@ namespace Hard_To_Find_Stock
             btnSave.Enabled = false;
             btnUpdate.Enabled = true;
 
+            Stock newStock = dbManager.searchNewStock(currStock.bookID, true);
+
             //Update all stock information
             currStock.quantity = Convert.ToInt32(boxQuantity.Text);
             currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
@@ -67,6 +69,28 @@ namespace Hard_To_Find_Stock
             currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
             currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
             currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+
+
+            if (newStock != null)
+            {
+                newStock.quantity = currStock.quantity;
+                newStock.note = currStock.note;
+                newStock.author = currStock.author;
+                newStock.title = currStock.title;
+                newStock.subtitle = currStock.subtitle;
+                newStock.publisher = currStock.publisher;
+                newStock.description = currStock.description;
+                newStock.comments = currStock.comments;
+                newStock.price = currStock.price;
+                newStock.subject = currStock.subject;
+                newStock.catalogue = currStock.catalogue;
+                newStock.initials = currStock.initials;
+                newStock.sales = currStock.sales;
+                newStock.bookID = currStock.bookID;
+                newStock.dateEntered = currStock.dateEntered;
+
+                dbManager.updateNewStock(newStock);
+            }
 
             //Send updated stock information to database
             dbManager.updateStock(currStock);

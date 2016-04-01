@@ -52,6 +52,8 @@ namespace Hard_To_Find
             colCountry.Width = 60;
             DataGridViewColumn colEmail = dataGridView1.Columns[5];
             colEmail.Width = 182;
+
+            boxFirstName.Select();
         }
 
         /*Precondition:
@@ -274,7 +276,8 @@ namespace Hard_To_Find
             }
         }
 
-
+        /*Precondition:
+         Postcondition: Opens up the customer details of the selected customer when enter is pressed on datagridview */
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -290,12 +293,15 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition:
+         Postcondition: Keypress Hanlder for all the textboxes in the form. Starts search when enter is pressed */
         private void TextBox_KeyPress_Enter(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (Char)Keys.Enter)
             {
                 startSearch();
 
+                //Stops the windows noise
                 e.Handled = true;
             }
         }

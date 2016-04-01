@@ -47,6 +47,8 @@ namespace Hard_To_Find
             column5.Width = 60;
             DataGridViewColumn column6 = dataGridView1.Columns[5];
             column6.Width = 75;
+
+            boxBookID.Select();
         }
 
         /*Precondition:

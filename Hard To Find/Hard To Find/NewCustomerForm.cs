@@ -32,6 +32,8 @@ namespace Hard_To_Find
             dbManager = new DatabaseManager();
             nof = null;
             tabPress = false;
+
+            boxFirstName.Select();
         }
 
         /*Precondition:

@@ -50,6 +50,8 @@ namespace Hard_To_Find
             currOrder = null;
             canEdit = false;
 
+            boxOrderSearchID.Select();
+
             //Set up column widths
             DataGridViewColumn colQuantity = dataGridView1.Columns[0];
             colQuantity.Width = 50;
@@ -63,6 +65,7 @@ namespace Hard_To_Find
             colBookID.Width = 75;
             DataGridViewColumn colDiscount = dataGridView1.Columns[5];
             colDiscount.Width = 75;
+
 
             loadNewestOrder();
 

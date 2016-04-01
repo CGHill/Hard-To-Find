@@ -31,7 +31,7 @@
             this.btnMainMenu = new System.Windows.Forms.Button();
             this.btnImportStock = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.boxStockID = new System.Windows.Forms.TextBox();
+            this.boxBookID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.boxTitle = new System.Windows.Forms.TextBox();
             this.boxAuthor = new System.Windows.Forms.TextBox();
@@ -41,6 +41,12 @@
             this.boxSubject = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNewStock = new System.Windows.Forms.Button();
             this.btnStockDetails = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -48,12 +54,6 @@
             this.rdoAllStock = new System.Windows.Forms.RadioButton();
             this.labResults = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -87,13 +87,13 @@
             this.progressBar1.TabIndex = 4;
             this.progressBar1.Visible = false;
             // 
-            // boxStockID
+            // boxBookID
             // 
-            this.boxStockID.Location = new System.Drawing.Point(80, 30);
-            this.boxStockID.Name = "boxStockID";
-            this.boxStockID.Size = new System.Drawing.Size(92, 20);
-            this.boxStockID.TabIndex = 1;
-            this.boxStockID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxStockID_KeyPress);
+            this.boxBookID.Location = new System.Drawing.Point(80, 30);
+            this.boxBookID.Name = "boxBookID";
+            this.boxBookID.Size = new System.Drawing.Size(92, 20);
+            this.boxBookID.TabIndex = 1;
+            this.boxBookID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxStockID_KeyPress);
             // 
             // label3
             // 
@@ -189,6 +189,48 @@
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Quantity";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Author";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Title";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Subject";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Price";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Book ID";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // btnNewStock
             // 
             this.btnNewStock.Location = new System.Drawing.Point(94, 404);
@@ -217,7 +259,7 @@
             this.groupBox1.Controls.Add(this.boxSubject);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Controls.Add(this.boxStockID);
+            this.groupBox1.Controls.Add(this.boxBookID);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.boxTitle);
             this.groupBox1.Controls.Add(this.boxAuthor);
@@ -270,48 +312,6 @@
             this.label5.TabIndex = 33;
             this.label5.Text = "Number of results:";
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Quantity";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Author";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Title";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Subject";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Price";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Book ID";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // StockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -341,7 +341,7 @@
         private System.Windows.Forms.Button btnMainMenu;
         private System.Windows.Forms.Button btnImportStock;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.TextBox boxStockID;
+        private System.Windows.Forms.TextBox boxBookID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox boxTitle;
         private System.Windows.Forms.TextBox boxAuthor;

@@ -10,24 +10,33 @@ using System.IO;
 
 namespace Hard_To_Find_Stock
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        //Variables
+        //Globals
         const string STORAGE_FOLDER = @"\Export Files";
 
         private DatabaseManager dbManager;
         private List<Stock> allStock;
         private List<Stock> foundStock;
 
-        public Form1()
+        //Constructor
+        public MainForm()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
+            setup();
+        }
+
+        /*Precondition:
+         Postcondition: Sets up and initialises everything needed */
+        private void setup()
+        {
             //Create DB and list to store stock in
             dbManager = new DatabaseManager();
             allStock = new List<Stock>();
 
+            boxBookID.Select();
 
             DataGridViewColumn column1 = dataGridView1.Columns[0];
             column1.Width = 50;
@@ -71,9 +80,9 @@ namespace Hard_To_Find_Stock
                 searchAllStock = false;
 
             //If ID was entered then search only on that
-            if (boxStockID.Text != "")
+            if (boxBookID.Text != "")
             {
-                string bookID = boxStockID.Text;
+                string bookID = boxBookID.Text;
 
                 //Put found stock into list
                 Stock found = dbManager.searchStock(bookID, searchAllStock);
@@ -171,6 +180,8 @@ namespace Hard_To_Find_Stock
             }
         }
 
+        /*Precondition:
+         Postcondition: Closes the application when exit button is clicked */
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -220,17 +231,21 @@ namespace Hard_To_Find_Stock
         }
         /***********************************************************************************************************/
 
+        /*Precondition:
+         Postcondition: When button is clicked, creates a csv file that contains all of the new stock that has been entered and stores it in the Export Files folder */
         private void btnCreateExport_Click(object sender, EventArgs e)
         {
             string timeStamp = getTimestamp(DateTime.Now);
 
+            //Create a unique filename using timestamp
             string fileName = @"\Stock" + timeStamp + ".txt";
 
             List<Stock> allNewStock = dbManager.getAllNewStock();
 
-            //Find a way of getting a unique filename
+            //Check that the storage location for the file exists
             if (!File.Exists(Environment.CurrentDirectory + STORAGE_FOLDER + fileName))
             {
+                //Create the textfile and write the newstock information into it
                 using (FileStream stream = File.Create(Environment.CurrentDirectory + STORAGE_FOLDER + fileName))
                 {
                     StreamWriter sw = new StreamWriter(stream);
@@ -246,11 +261,14 @@ namespace Hard_To_Find_Stock
 
             }
 
+            //Reset the new stock table
             dbManager.dropNewStockTable();
             dbManager.createNewStockTable();
         }
 
-        public static String getTimestamp(DateTime value)
+        /*Precondition:
+        Postcondition: Returns a timestamp of current year,month, day and time */
+        private static String getTimestamp(DateTime value)
         {
             return value.ToString("yyyyMMddHHmmssfff");
         }
