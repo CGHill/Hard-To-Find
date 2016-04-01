@@ -13,19 +13,26 @@ namespace Hard_To_Find
     public partial class StockForm : Form
     {
         //Variables
-        private Form1 form1;
+        private MainMenu form1;
         private DatabaseManager dbManager;
         private List<Stock> allStock;
         private List<Stock> foundStock;
         private FileManager fileManager;
 
         //Constructor
-        public StockForm(Form1 form1)
+        public StockForm(MainMenu form1)
         {
             this.form1 = form1;
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
+            setup();
+        }
+
+        /*Precondition:
+        Postcondition: Sets up and initialises everything needed */
+        private void setup()
+        {
             //Create DB and list to store stock in
             dbManager = new DatabaseManager();
             fileManager = new FileManager();
@@ -53,6 +60,21 @@ namespace Hard_To_Find
             this.Close();
             form1.Show();
             form1.TopLevel = true;
+        }
+
+        /*Precondition:
+        Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                form1.Show();
+                form1.TopLevel = true;
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
 
@@ -227,15 +249,20 @@ namespace Hard_To_Find
                 {
                     foundStock.Add(found);
 
+                    labResults.Text = foundStock.Count.ToString();
+
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
                     }
+
+                    dataGridView1.Focus();
                 }
                 else
                 {
                     dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
+                    btnStockDetails.Enabled = false;
                 }
             }
             else if (boxAuthor.Text != "" || boxTitle.Text != "" || boxSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
@@ -246,27 +273,51 @@ namespace Hard_To_Find
 
                 //Find out which fields have been entered to be included in the search
                 if (boxAuthor.Text != "")
-                    author = SQLSyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+                    author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
                 if (boxTitle.Text != "")
-                    title = SQLSyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+                    title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
                 if (boxSubject.Text != "")
-                    subject = SQLSyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+                    subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
 
                 //Search for stock based on the parameters entered
                 foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
 
+                labResults.Text = foundStock.Count.ToString();
+
                 if (foundStock.Count == 0)
                 {
                     dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
+                    btnStockDetails.Enabled = false;
                 }
                 else
                 {
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
                     }
+
+                    dataGridView1.Focus();
                 }
+            }
+        }
+
+        /*Precondition:
+        Postcondition: Opens up selected stock for more detail when enter is pressed while on datagrid */
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Check key was enter
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+
+                int currRow = dataGridView1.CurrentCell.RowIndex;
+
+                Stock stockToDisplay = foundStock[currRow];
+
+                //Open up stock details form
+                StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
+                sdf.Show();
             }
         }
     }

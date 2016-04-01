@@ -15,7 +15,7 @@ using A = DocumentFormat.OpenXml.Drawing;
 
 namespace Hard_To_Find
 {
-    class WordDocumentManager
+    class InvoiceCreator
     {
         private OrdersForm ordersForm;
         private Customer customer;
@@ -23,7 +23,7 @@ namespace Hard_To_Find
         private List<OrderedStock> orderedStock;
         private double grandTotal;
 
-        public WordDocumentManager(OrdersForm ordersForm, Customer customer, Order order, List<OrderedStock> orderedStock)
+        public InvoiceCreator(OrdersForm ordersForm, Customer customer, Order order, List<OrderedStock> orderedStock)
         {
             this.ordersForm = ordersForm;
             this.customer = customer;
@@ -48,7 +48,10 @@ namespace Hard_To_Find
             {
                 //File is already opened by another program
                 fileCreationSuccessful = false;
-                ordersForm.errorOpeningFile();
+
+                //TODO do something about this
+                if(ordersForm != null)
+                    ordersForm.errorOpeningFile();
             }
 
             return fileCreationSuccessful;

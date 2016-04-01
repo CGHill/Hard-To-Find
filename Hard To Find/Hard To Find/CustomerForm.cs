@@ -9,18 +9,18 @@ using System.Windows.Forms;
 
 namespace Hard_To_Find
 {
-    public partial class CustomerSearchForm : Form
+    public partial class CustomerForm : Form
     {
-        //Variables
+        //Globals
         const int ORDER_ARRAY_LENGTH = 15;
-        private Form1 form1;
+        private MainMenu form1;
         private DatabaseManager dbManager;
         private FileManager fileManager;
         private List<Customer> foundCustomers;
         private List<Customer> allCustomers;
 
         //Constructor
-        public CustomerSearchForm(Form1 form1)
+        public CustomerForm(MainMenu form1)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -64,6 +64,22 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
+         Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //Close form and bring main menu to front when escape is pressed
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                form1.Show();
+                form1.TopLevel = true;
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        /*Precondition:
          Postcondition: Starts a search for customers depending on what search boxes have been filled in*/
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -84,13 +100,6 @@ namespace Hard_To_Find
             {
                 e.Handled = true;
             }
-
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
         }
 
         /*Precondition: Can't be called until something has been selected in datagrid
@@ -101,7 +110,7 @@ namespace Hard_To_Find
 
             Customer customerToDisplay = foundCustomers[currRow];
 
-            CustomersForm cf = new CustomersForm(customerToDisplay);
+            CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay);
             cf.Show();
         }
 
@@ -189,28 +198,42 @@ namespace Hard_To_Find
                 foreach (Customer c in foundCustomers)
                 {
                     if (c != null)
+                    {
                         dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
+                        dataGridView1.Focus();
+                    }
                     else
+                    {
                         dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
+                        btnCustDetails.Enabled = false;
+                    }
                 }
             }
-            else if (boxFirstName.Text != "" || boxLastName.Text != "")//Else if ID hasn't been entered check for first and last name
+            else if (boxFirstName.Text != "" || boxLastName.Text != "" || boxInstiution.Text != "" || boxEmail.Text != "")//Else if ID hasn't been entered check for first and last name
             {
                 string firstName = null;
                 string lastName = null;
+                string instutution = null;
+                string email = null;
+
 
                 //Get names if they have been entered
                 if (boxFirstName.Text != "")
-                    firstName = SQLSyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
+                    firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
                 if (boxLastName.Text != "")
-                    lastName = SQLSyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+                    lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+                if (boxInstiution.Text != "")
+                    instutution = SyntaxHelper.escapeSingleQuotes(boxInstiution.Text);
+                if (boxEmail.Text != "")
+                    email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
 
                 //Search for customers with names entered
-                foundCustomers = dbManager.searchCustomers(firstName, lastName);
+                foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email);
 
                 if (foundCustomers.Count == 0)
                 {
                     dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
+                    btnCustDetails.Enabled = false;
                 }
                 else
                 {
@@ -219,6 +242,8 @@ namespace Hard_To_Find
                     {
                         dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
                     }
+
+                    dataGridView1.Focus();
                 }
             }
         }
@@ -240,7 +265,7 @@ namespace Hard_To_Find
 
                 Customer customerToDisplay = foundCustomers[currRow];
 
-                CustomersForm cf = new CustomersForm(customerToDisplay);
+                CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay);
                 cf.Show();
             }
             catch (NullReferenceException)
@@ -250,8 +275,22 @@ namespace Hard_To_Find
         }
 
 
-        /************ Keypress handlers to check for enter to start search ***********/
-        private void boxFirstName_KeyPress(object sender, KeyPressEventArgs e)
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+
+                int currRow = dataGridView1.CurrentCell.RowIndex;
+
+                Customer customerToDisplay = foundCustomers[currRow];
+
+                CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay);
+                cf.Show();
+            }
+        }
+
+        private void TextBox_KeyPress_Enter(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (Char)Keys.Enter)
             {
@@ -260,16 +299,5 @@ namespace Hard_To_Find
                 e.Handled = true;
             }
         }
-
-        private void boxLastName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-        /*****************************************************************************/
     }
 }

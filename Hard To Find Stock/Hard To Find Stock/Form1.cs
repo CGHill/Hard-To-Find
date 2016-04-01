@@ -18,7 +18,6 @@ namespace Hard_To_Find_Stock
         private DatabaseManager dbManager;
         private List<Stock> allStock;
         private List<Stock> foundStock;
-        private FileManager fileManager;
 
         public Form1()
         {
@@ -27,7 +26,6 @@ namespace Hard_To_Find_Stock
 
             //Create DB and list to store stock in
             dbManager = new DatabaseManager();
-            fileManager = new FileManager();
             allStock = new List<Stock>();
 
 
@@ -80,7 +78,12 @@ namespace Hard_To_Find_Stock
                 //Put found stock into list
                 Stock found = dbManager.searchStock(bookID, searchAllStock);
                 if (found != null)
+                {
                     foundStock.Add(found);
+                    labResults.Text = foundStock.Count.ToString();
+                }
+
+                
 
                 //Display found stock
                 foreach (Stock s in foundStock)
@@ -96,14 +99,16 @@ namespace Hard_To_Find_Stock
 
                 //Find out which fields have been entered to be included in the search
                 if (boxAuthor.Text != "")
-                    author = SQLSyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+                    author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
                 if (boxTitle.Text != "")
-                    title = SQLSyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+                    title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
                 if (boxSubject.Text != "")
-                    subject = SQLSyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+                    subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
 
                 //Search for stock based on the parameters entered
                 foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
+                labResults.Text = foundStock.Count.ToString();
+
 
                 if (foundStock.Count == 0)
                 {

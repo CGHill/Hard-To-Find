@@ -258,12 +258,13 @@ namespace Hard_To_Find
                             string price = combinedLines[10];
                             string subject = combinedLines[11];
                             string catalogue = combinedLines[12];
+                            string initials = combinedLines[13];
                             string sales = combinedLines[14];
                             string bookID = combinedLines[15];
                             string enteredBy = combinedLines[16];
 
                             //Create a new stock entry from it and insert into list
-                            Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, sales, bookID, enteredBy);
+                            Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, initials,sales, bookID, enteredBy);
                             allStock.Add(newStock);
 
                             /*this.Invoke((MethodInvoker)delegate
@@ -306,12 +307,13 @@ namespace Hard_To_Find
                     string price = splitStock[10];
                     string subject = splitStock[11];
                     string catalogue = splitStock[12];
+                    string initials = splitStock[13];
                     string sales = splitStock[14];
                     string bookID = splitStock[15];
                     string enteredBy = splitStock[16];
 
                     //Create a newStock entry and insert into list
-                    Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, sales, bookID, enteredBy);
+                    Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, initials, sales, bookID, enteredBy);
                     allStock.Add(newStock);
                 }
             }

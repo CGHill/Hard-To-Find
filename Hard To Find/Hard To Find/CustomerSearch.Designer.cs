@@ -45,12 +45,20 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.boxEmail = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.boxInstiution = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.boxEmail);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.boxInstiution);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.boxCustID);
             this.groupBox1.Controls.Add(this.label3);
@@ -60,17 +68,17 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(25, 34);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(249, 173);
+            this.groupBox1.Size = new System.Drawing.Size(249, 226);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(77, 118);
+            this.btnSearch.Location = new System.Drawing.Point(77, 184);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 20;
+            this.btnSearch.TabIndex = 4;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -82,6 +90,7 @@
             this.boxCustID.Size = new System.Drawing.Size(82, 20);
             this.boxCustID.TabIndex = 1;
             this.boxCustID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxCustID_KeyPress);
+            this.boxCustID.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label3
             // 
@@ -98,7 +107,7 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.Size = new System.Drawing.Size(145, 20);
             this.boxLastName.TabIndex = 3;
-            this.boxLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxLastName_KeyPress);
+            this.boxLastName.KeyPress += TextBox_KeyPress_Enter;
             // 
             // boxFirstName
             // 
@@ -106,7 +115,7 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.Size = new System.Drawing.Size(145, 20);
             this.boxFirstName.TabIndex = 2;
-            this.boxFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxFirstName_KeyPress);
+            this.boxFirstName.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label2
             // 
@@ -132,7 +141,7 @@
             this.btnSelectCustomer.Location = new System.Drawing.Point(280, 356);
             this.btnSelectCustomer.Name = "btnSelectCustomer";
             this.btnSelectCustomer.Size = new System.Drawing.Size(166, 23);
-            this.btnSelectCustomer.TabIndex = 21;
+            this.btnSelectCustomer.TabIndex = 6;
             this.btnSelectCustomer.Text = "Select Customer";
             this.btnSelectCustomer.UseVisualStyleBackColor = true;
             this.btnSelectCustomer.Click += new System.EventHandler(this.btnSelectCustomer_Click);
@@ -142,7 +151,7 @@
             this.btnCancel.Location = new System.Drawing.Point(734, 356);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(158, 23);
-            this.btnCancel.TabIndex = 21;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -166,9 +175,10 @@
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(724, 316);
-            this.dataGridView1.TabIndex = 41;
+            this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged_1);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
             // Column1
             // 
@@ -212,6 +222,40 @@
             this.Column6.ReadOnly = true;
             this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // boxEmail
+            // 
+            this.boxEmail.Location = new System.Drawing.Point(77, 135);
+            this.boxEmail.Name = "boxEmail";
+            this.boxEmail.Size = new System.Drawing.Size(145, 20);
+            this.boxEmail.TabIndex = 22;
+            this.boxEmail.KeyPress += TextBox_KeyPress_Enter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(36, 138);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Email:";
+            // 
+            // boxInstiution
+            // 
+            this.boxInstiution.Location = new System.Drawing.Point(77, 109);
+            this.boxInstiution.Name = "boxInstiution";
+            this.boxInstiution.Size = new System.Drawing.Size(145, 20);
+            this.boxInstiution.TabIndex = 20;
+            this.boxInstiution.KeyPress += TextBox_KeyPress_Enter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(17, 112);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 13);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Institution:";
+            // 
             // CustomerSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,5 +293,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.TextBox boxEmail;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox boxInstiution;
+        private System.Windows.Forms.Label label4;
     }
 }

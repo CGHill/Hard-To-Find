@@ -127,7 +127,7 @@
             this.boxOrderID.Name = "boxOrderID";
             this.boxOrderID.ReadOnly = true;
             this.boxOrderID.Size = new System.Drawing.Size(142, 20);
-            this.boxOrderID.TabIndex = 55;
+            this.boxOrderID.TabIndex = 1;
             // 
             // label1
             // 
@@ -151,7 +151,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(6, 178);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(758, 150);
-            this.dataGridView2.TabIndex = 3;
+            this.dataGridView2.TabIndex = 7;
             // 
             // Column1
             // 
@@ -195,7 +195,7 @@
             this.boxInvoiceDate.Name = "boxInvoiceDate";
             this.boxInvoiceDate.ReadOnly = true;
             this.boxInvoiceDate.Size = new System.Drawing.Size(142, 20);
-            this.boxInvoiceDate.TabIndex = 53;
+            this.boxInvoiceDate.TabIndex = 4;
             // 
             // label4
             // 
@@ -212,7 +212,7 @@
             this.boxFreight.Name = "boxFreight";
             this.boxFreight.ReadOnly = true;
             this.boxFreight.Size = new System.Drawing.Size(126, 20);
-            this.boxFreight.TabIndex = 51;
+            this.boxFreight.TabIndex = 5;
             // 
             // boxProgress
             // 
@@ -220,7 +220,7 @@
             this.boxProgress.Name = "boxProgress";
             this.boxProgress.ReadOnly = true;
             this.boxProgress.Size = new System.Drawing.Size(142, 20);
-            this.boxProgress.TabIndex = 50;
+            this.boxProgress.TabIndex = 3;
             // 
             // boxOrderRef
             // 
@@ -228,7 +228,7 @@
             this.boxOrderRef.Name = "boxOrderRef";
             this.boxOrderRef.ReadOnly = true;
             this.boxOrderRef.Size = new System.Drawing.Size(142, 20);
-            this.boxOrderRef.TabIndex = 49;
+            this.boxOrderRef.TabIndex = 2;
             // 
             // boxComments
             // 
@@ -237,7 +237,7 @@
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
             this.boxComments.Size = new System.Drawing.Size(236, 48);
-            this.boxComments.TabIndex = 48;
+            this.boxComments.TabIndex = 6;
             // 
             // label8
             // 
@@ -289,7 +289,7 @@
             this.btnClose.Location = new System.Drawing.Point(662, 525);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 29);
-            this.btnClose.TabIndex = 2;
+            this.btnClose.TabIndex = 9;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -308,7 +308,7 @@
             this.btnGoToOrder.Location = new System.Drawing.Point(18, 525);
             this.btnGoToOrder.Name = "btnGoToOrder";
             this.btnGoToOrder.Size = new System.Drawing.Size(120, 29);
-            this.btnGoToOrder.TabIndex = 56;
+            this.btnGoToOrder.TabIndex = 8;
             this.btnGoToOrder.Text = "Go to order";
             this.btnGoToOrder.UseVisualStyleBackColor = true;
             this.btnGoToOrder.Click += new System.EventHandler(this.btnGoToOrder_Click);

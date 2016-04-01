@@ -23,6 +23,15 @@ namespace Hard_To_Find
             InitializeComponent();
 
             this.stockReceiver = stockReceiver;
+
+            setup();
+            
+        }
+
+        /*Precondition:
+        Postcondition: Sets up and initialises everything needed */
+        private void setup()
+        {
             foundStock = new List<Stock>();
             dbManager = new DatabaseManager();
 
@@ -45,6 +54,19 @@ namespace Hard_To_Find
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /*Precondition:
+        Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         /*Precondition:
@@ -146,11 +168,22 @@ namespace Hard_To_Find
                 //Put found stock into list
                 foundStock.Add(dbManager.searchStock(bookID, searchAllStock));
 
-                //Display found stock
-                foreach (Stock s in foundStock)
+                labResults.Text = foundStock.Count.ToString();
+
+                if (foundStock.Count != 0)
                 {
-                    if(s != null)
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                    //Display found stock
+                    foreach (Stock s in foundStock)
+                    {
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
+
+                    }
+                    dataGridView1.Focus();
+                }
+                else
+                {
+                    dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
+                    btnSelectStock.Enabled = false;
                 }
             }
             else if (boxAuthor.Text != "" || boxTitle.Text != "" || boxSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
@@ -161,26 +194,31 @@ namespace Hard_To_Find
 
                 //Find out which fields have been entered to be included in the search
                 if (boxAuthor.Text != "")
-                    author = SQLSyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+                    author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
                 if (boxTitle.Text != "")
-                    title = SQLSyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+                    title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
                 if (boxSubject.Text != "")
-                    subject = SQLSyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+                    subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
 
                 //Search for stock based on the parameters entered
                 foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
 
+                labResults.Text = foundStock.Count.ToString();
+
                 if (foundStock.Count == 0)
                 {
                     dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
+                    btnSelectStock.Enabled = false;
                 }
                 else
                 {
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
                     }
+
+                    dataGridView1.Focus();
                 }
             }
         }
@@ -190,6 +228,24 @@ namespace Hard_To_Find
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             btnSelectStock.Enabled = true;
+        }
+
+        /*Precondition:
+        Postcondition: Passes stock back to form that needs it when enter is pressed on datagrid */
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Check key was enter
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+
+                int currRow = dataGridView1.CurrentCell.RowIndex;
+
+                //Get the selected stock and pass it into the stockReceiver
+                Stock selectedStock = foundStock[currRow];
+                stockReceiver.addStock(selectedStock);
+                this.Close();
+            }
         }
     }
 }

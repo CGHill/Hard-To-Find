@@ -53,19 +53,20 @@ namespace Hard_To_Find
 
             //Update all stock information
             currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-            currStock.note = SQLSyntaxHelper.escapeSingleQuotes(boxNote.Text);
-            currStock.author = SQLSyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-            currStock.title = SQLSyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-            currStock.subtitle = SQLSyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-            currStock.publisher = SQLSyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-            currStock.description = SQLSyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-            currStock.comments = SQLSyntaxHelper.escapeSingleQuotes(boxComment.Text);
-            currStock.price = SQLSyntaxHelper.escapeSingleQuotes(boxPrice.Text);
-            currStock.subject = SQLSyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-            currStock.catalogue = SQLSyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-            currStock.sales = SQLSyntaxHelper.escapeSingleQuotes(boxSales.Text);
-            currStock.bookID = SQLSyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-            currStock.dateEntered = SQLSyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+            currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
+            currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+            currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+            currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+            currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
+            currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
+            currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
+            currStock.price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+            currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+            currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
+            currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
+            currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
+            currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
 
             //Send updated stock information to database
             dbManager.updateStock(currStock);
@@ -76,6 +77,19 @@ namespace Hard_To_Find
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /*Precondition:
+         Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         /*Precondition: None
@@ -93,6 +107,7 @@ namespace Hard_To_Find
             boxPrice.ReadOnly = !boxPrice.ReadOnly;
             boxSubject.ReadOnly = !boxSubject.ReadOnly;
             boxCatalogues.ReadOnly = !boxCatalogues.ReadOnly;
+            boxInitials.ReadOnly = !boxInitials.ReadOnly;
             boxSales.ReadOnly = !boxSales.ReadOnly;
             boxBookID.ReadOnly = !boxBookID.ReadOnly;
             boxDateEntered.ReadOnly = !boxDateEntered.ReadOnly;
@@ -114,9 +129,33 @@ namespace Hard_To_Find
             boxPrice.Text = currStock.price;
             boxSubject.Text = currStock.subject;
             boxCatalogues.Text = currStock.catalogue;
+            boxInitials.Text = currStock.initials;
             boxSales.Text = currStock.sales;
             boxBookID.Text = currStock.bookID;
             boxDateEntered.Text = currStock.dateEntered;
+        }
+
+        /*Precondition:
+        Postcondition: Adds a $ sign and makes number 2 decimal places if it's not already */
+        private void boxPrice_Leave(object sender, EventArgs e)
+        {
+            string priceEntered = boxPrice.Text;
+
+            if (priceEntered != "")
+            {
+                bool noLetters = priceEntered.All(x => !char.IsLetter(x));
+
+                if (noLetters)
+                {
+                    string checkedPrice = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(priceEntered);
+
+                    boxPrice.Text = checkedPrice;
+                }
+                else
+                {
+                    MessageBox.Show("Price shouldn't contain letters");
+                }
+            }
         }
     }
 }

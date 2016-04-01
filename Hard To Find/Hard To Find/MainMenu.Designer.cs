@@ -1,6 +1,6 @@
 ﻿namespace Hard_To_Find
 {
-    partial class Form1
+    partial class MainMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -45,7 +45,7 @@
             this.btnCustomers.Name = "btnCustomers";
             this.btnCustomers.Size = new System.Drawing.Size(123, 37);
             this.btnCustomers.TabIndex = 0;
-            this.btnCustomers.Text = "Customers";
+            this.btnCustomers.Text = "&Customers";
             this.btnCustomers.UseVisualStyleBackColor = true;
             this.btnCustomers.Click += new System.EventHandler(this.btnCustomers_Click);
             // 
@@ -55,7 +55,7 @@
             this.btnStock.Name = "btnStock";
             this.btnStock.Size = new System.Drawing.Size(123, 37);
             this.btnStock.TabIndex = 1;
-            this.btnStock.Text = "Stock";
+            this.btnStock.Text = "&Stock";
             this.btnStock.UseVisualStyleBackColor = true;
             this.btnStock.Click += new System.EventHandler(this.btnStock_Click);
             // 
@@ -65,7 +65,7 @@
             this.btnOrders.Name = "btnOrders";
             this.btnOrders.Size = new System.Drawing.Size(123, 37);
             this.btnOrders.TabIndex = 2;
-            this.btnOrders.Text = "Orders";
+            this.btnOrders.Text = "&Orders";
             this.btnOrders.UseVisualStyleBackColor = true;
             this.btnOrders.Click += new System.EventHandler(this.btnOrders_Click);
             // 
@@ -75,8 +75,8 @@
             this.btnReports.Location = new System.Drawing.Point(236, 61);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(123, 37);
-            this.btnReports.TabIndex = 4;
-            this.btnReports.Text = "Reports";
+            this.btnReports.TabIndex = 3;
+            this.btnReports.Text = "&Reports";
             this.btnReports.UseVisualStyleBackColor = true;
             this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
@@ -85,8 +85,8 @@
             this.btnExit.Location = new System.Drawing.Point(74, 293);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(445, 37);
-            this.btnExit.TabIndex = 5;
-            this.btnExit.Text = "Exit";
+            this.btnExit.TabIndex = 8;
+            this.btnExit.Text = "&Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -95,8 +95,8 @@
             this.btnFileExports.Location = new System.Drawing.Point(236, 124);
             this.btnFileExports.Name = "btnFileExports";
             this.btnFileExports.Size = new System.Drawing.Size(123, 37);
-            this.btnFileExports.TabIndex = 6;
-            this.btnFileExports.Text = "File Exports";
+            this.btnFileExports.TabIndex = 4;
+            this.btnFileExports.Text = "&File Exports";
             this.btnFileExports.UseVisualStyleBackColor = true;
             this.btnFileExports.Click += new System.EventHandler(this.btnFileExports_Click);
             // 
@@ -105,8 +105,8 @@
             this.btnSetStorageLocation.Location = new System.Drawing.Point(236, 191);
             this.btnSetStorageLocation.Name = "btnSetStorageLocation";
             this.btnSetStorageLocation.Size = new System.Drawing.Size(123, 37);
-            this.btnSetStorageLocation.TabIndex = 7;
-            this.btnSetStorageLocation.Text = "Set Storage Location";
+            this.btnSetStorageLocation.TabIndex = 5;
+            this.btnSetStorageLocation.Text = "Set Storage &Location";
             this.btnSetStorageLocation.UseVisualStyleBackColor = true;
             this.btnSetStorageLocation.Click += new System.EventHandler(this.btnSetStorageLocation_Click);
             // 
@@ -115,8 +115,8 @@
             this.btnImports.Location = new System.Drawing.Point(396, 61);
             this.btnImports.Name = "btnImports";
             this.btnImports.Size = new System.Drawing.Size(123, 37);
-            this.btnImports.TabIndex = 8;
-            this.btnImports.Text = "Imports";
+            this.btnImports.TabIndex = 6;
+            this.btnImports.Text = "&Imports";
             this.btnImports.UseVisualStyleBackColor = true;
             this.btnImports.Click += new System.EventHandler(this.btnImports_Click);
             // 
@@ -126,8 +126,8 @@
             this.button2.Location = new System.Drawing.Point(396, 124);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(123, 37);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Backup";
+            this.button2.TabIndex = 7;
+            this.button2.Text = "&Backup";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // Form1

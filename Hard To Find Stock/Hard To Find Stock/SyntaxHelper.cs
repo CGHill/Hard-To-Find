@@ -5,8 +5,10 @@ using System.Text;
 
 namespace Hard_To_Find_Stock
 {
-    static class SQLSyntaxHelper
+    static class SyntaxHelper
     {
+        /*Precondition:
+         Postcondition: Adds an extra \ behind a \ to escape it for the sql statements */
         static public string escapeSingleQuotes(string stringToCheck)
         {
             //Check if it contains a single quotation
@@ -32,6 +34,29 @@ namespace Hard_To_Find_Stock
             }
 
             return stringToCheck;
+        }
+
+        /*Precondition:
+         Postcondition: Adds a $ and makes the number contain 2 decimals */
+        static public string checkAddDollarSignAndDoubleDecimal(string priceToCheck)
+        {
+            string returnPrice = priceToCheck;
+
+            try
+            {
+                double price = Convert.ToDouble(priceToCheck);
+
+                returnPrice = "$" + price.ToString("0.00");
+            }
+            catch (FormatException)
+            {
+                if (!priceToCheck.Contains('.'))
+                {
+                    returnPrice += ".00";
+                }
+            }
+
+            return returnPrice;
         }
     }
 }

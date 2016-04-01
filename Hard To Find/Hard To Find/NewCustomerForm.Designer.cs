@@ -61,7 +61,7 @@
             this.btnCancel.Location = new System.Drawing.Point(429, 243);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
-            this.btnCancel.TabIndex = 16;
+            this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -71,8 +71,8 @@
             this.btnSave.Location = new System.Drawing.Point(80, 243);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
-            this.btnSave.TabIndex = 15;
-            this.btnSave.Text = "Save";
+            this.btnSave.TabIndex = 12;
+            this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -81,7 +81,7 @@
             this.boxPayment.Location = new System.Drawing.Point(348, 203);
             this.boxPayment.Name = "boxPayment";
             this.boxPayment.Size = new System.Drawing.Size(189, 20);
-            this.boxPayment.TabIndex = 49;
+            this.boxPayment.TabIndex = 11;
             // 
             // label13
             // 
@@ -97,7 +97,7 @@
             this.boxSales.Location = new System.Drawing.Point(348, 177);
             this.boxSales.Name = "boxSales";
             this.boxSales.Size = new System.Drawing.Size(189, 20);
-            this.boxSales.TabIndex = 48;
+            this.boxSales.TabIndex = 10;
             // 
             // label14
             // 
@@ -114,7 +114,7 @@
             this.boxComments.Multiline = true;
             this.boxComments.Name = "boxComments";
             this.boxComments.Size = new System.Drawing.Size(189, 75);
-            this.boxComments.TabIndex = 46;
+            this.boxComments.TabIndex = 9;
             // 
             // label9
             // 
@@ -130,7 +130,7 @@
             this.boxEmail.Location = new System.Drawing.Point(348, 70);
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.Size = new System.Drawing.Size(189, 20);
-            this.boxEmail.TabIndex = 44;
+            this.boxEmail.TabIndex = 8;
             // 
             // label10
             // 
@@ -146,7 +146,7 @@
             this.boxCountry.Location = new System.Drawing.Point(348, 44);
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.Size = new System.Drawing.Size(190, 20);
-            this.boxCountry.TabIndex = 43;
+            this.boxCountry.TabIndex = 7;
             // 
             // label8
             // 
@@ -162,7 +162,7 @@
             this.boxPostcode.Location = new System.Drawing.Point(80, 203);
             this.boxPostcode.Name = "boxPostcode";
             this.boxPostcode.Size = new System.Drawing.Size(190, 20);
-            this.boxPostcode.TabIndex = 42;
+            this.boxPostcode.TabIndex = 6;
             // 
             // label7
             // 
@@ -178,14 +178,14 @@
             this.boxAddress3.Location = new System.Drawing.Point(80, 177);
             this.boxAddress3.Name = "boxAddress3";
             this.boxAddress3.Size = new System.Drawing.Size(190, 20);
-            this.boxAddress3.TabIndex = 41;
+            this.boxAddress3.TabIndex = 5;
             // 
             // boxAddress2
             // 
             this.boxAddress2.Location = new System.Drawing.Point(80, 151);
             this.boxAddress2.Name = "boxAddress2";
             this.boxAddress2.Size = new System.Drawing.Size(190, 20);
-            this.boxAddress2.TabIndex = 40;
+            this.boxAddress2.TabIndex = 4;
             // 
             // label5
             // 
@@ -210,14 +210,14 @@
             this.boxAddress1.Location = new System.Drawing.Point(80, 122);
             this.boxAddress1.Name = "boxAddress1";
             this.boxAddress1.Size = new System.Drawing.Size(190, 20);
-            this.boxAddress1.TabIndex = 38;
+            this.boxAddress1.TabIndex = 3;
             // 
             // boxInstitution
             // 
             this.boxInstitution.Location = new System.Drawing.Point(80, 96);
             this.boxInstitution.Name = "boxInstitution";
             this.boxInstitution.Size = new System.Drawing.Size(190, 20);
-            this.boxInstitution.TabIndex = 37;
+            this.boxInstitution.TabIndex = 2;
             // 
             // label3
             // 
@@ -242,14 +242,14 @@
             this.boxLastName.Location = new System.Drawing.Point(80, 70);
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.Size = new System.Drawing.Size(190, 20);
-            this.boxLastName.TabIndex = 35;
+            this.boxLastName.TabIndex = 1;
             // 
             // boxFirstName
             // 
             this.boxFirstName.Location = new System.Drawing.Point(80, 44);
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.Size = new System.Drawing.Size(190, 20);
-            this.boxFirstName.TabIndex = 34;
+            this.boxFirstName.TabIndex = 0;
             // 
             // label2
             // 

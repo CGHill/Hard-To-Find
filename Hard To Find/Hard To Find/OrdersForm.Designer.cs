@@ -42,6 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnChangeCustomer = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.boxLastName = new System.Windows.Forms.TextBox();
             this.boxCustID = new System.Windows.Forms.TextBox();
@@ -88,7 +89,8 @@
             this.btnAddBook = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnChangeCustomer = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -98,20 +100,20 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(849, 581);
+            this.btnMainMenu.Location = new System.Drawing.Point(896, 581);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(127, 39);
-            this.btnMainMenu.TabIndex = 1;
+            this.btnMainMenu.TabIndex = 32;
             this.btnMainMenu.Text = "Main Menu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
             // 
             // btnImportOrders
             // 
-            this.btnImportOrders.Location = new System.Drawing.Point(65, 509);
+            this.btnImportOrders.Location = new System.Drawing.Point(68, 509);
             this.btnImportOrders.Name = "btnImportOrders";
             this.btnImportOrders.Size = new System.Drawing.Size(118, 33);
-            this.btnImportOrders.TabIndex = 3;
+            this.btnImportOrders.TabIndex = 33;
             this.btnImportOrders.Text = "Import Orders";
             this.btnImportOrders.UseVisualStyleBackColor = true;
             this.btnImportOrders.Click += new System.EventHandler(this.btnImportOrders_Click);
@@ -121,14 +123,14 @@
             this.progressBar1.Location = new System.Drawing.Point(-1, 626);
             this.progressBar1.Maximum = 39193;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(985, 10);
+            this.progressBar1.Size = new System.Drawing.Size(1024, 13);
             this.progressBar1.TabIndex = 4;
             this.progressBar1.Visible = false;
             // 
             // labOrderID
             // 
             this.labOrderID.AutoSize = true;
-            this.labOrderID.Location = new System.Drawing.Point(9, 75);
+            this.labOrderID.Location = new System.Drawing.Point(12, 75);
             this.labOrderID.Name = "labOrderID";
             this.labOrderID.Size = new System.Drawing.Size(50, 13);
             this.labOrderID.TabIndex = 6;
@@ -136,7 +138,7 @@
             // 
             // boxOrderSearchID
             // 
-            this.boxOrderSearchID.Location = new System.Drawing.Point(65, 72);
+            this.boxOrderSearchID.Location = new System.Drawing.Point(68, 72);
             this.boxOrderSearchID.Name = "boxOrderSearchID";
             this.boxOrderSearchID.Size = new System.Drawing.Size(118, 20);
             this.boxOrderSearchID.TabIndex = 1;
@@ -144,30 +146,30 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(65, 111);
+            this.btnSearch.Location = new System.Drawing.Point(68, 111);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(118, 33);
-            this.btnSearch.TabIndex = 17;
+            this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnNewOrder
             // 
-            this.btnNewOrder.Location = new System.Drawing.Point(65, 250);
+            this.btnNewOrder.Location = new System.Drawing.Point(68, 250);
             this.btnNewOrder.Name = "btnNewOrder";
             this.btnNewOrder.Size = new System.Drawing.Size(118, 33);
-            this.btnNewOrder.TabIndex = 19;
-            this.btnNewOrder.Text = "New Order";
+            this.btnNewOrder.TabIndex = 6;
+            this.btnNewOrder.Text = "&New Order";
             this.btnNewOrder.UseVisualStyleBackColor = true;
             this.btnNewOrder.Click += new System.EventHandler(this.btnNewOrder_Click);
             // 
             // btnImportOrderedStock
             // 
-            this.btnImportOrderedStock.Location = new System.Drawing.Point(65, 548);
+            this.btnImportOrderedStock.Location = new System.Drawing.Point(68, 548);
             this.btnImportOrderedStock.Name = "btnImportOrderedStock";
             this.btnImportOrderedStock.Size = new System.Drawing.Size(118, 33);
-            this.btnImportOrderedStock.TabIndex = 20;
+            this.btnImportOrderedStock.TabIndex = 34;
             this.btnImportOrderedStock.Text = "Import OrderedStock";
             this.btnImportOrderedStock.UseVisualStyleBackColor = true;
             this.btnImportOrderedStock.Click += new System.EventHandler(this.btnImportOrderedStock_Click);
@@ -180,7 +182,7 @@
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(189, 12);
+            this.groupBox1.Location = new System.Drawing.Point(236, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(787, 569);
             this.groupBox1.TabIndex = 21;
@@ -193,8 +195,8 @@
             this.btnSave.Location = new System.Drawing.Point(621, 89);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(118, 33);
-            this.btnSave.TabIndex = 28;
-            this.btnSave.Text = "Save";
+            this.btnSave.TabIndex = 18;
+            this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -212,8 +214,8 @@
             this.btnUpdate.Location = new System.Drawing.Point(621, 49);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(118, 33);
-            this.btnUpdate.TabIndex = 27;
-            this.btnUpdate.Text = "Update";
+            this.btnUpdate.TabIndex = 17;
+            this.btnUpdate.Text = "&Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
@@ -241,9 +243,21 @@
             this.groupBox3.Location = new System.Drawing.Point(21, 201);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(760, 176);
-            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Customer Details";
+            // 
+            // btnChangeCustomer
+            // 
+            this.btnChangeCustomer.Enabled = false;
+            this.btnChangeCustomer.Location = new System.Drawing.Point(600, 137);
+            this.btnChangeCustomer.Name = "btnChangeCustomer";
+            this.btnChangeCustomer.Size = new System.Drawing.Size(118, 33);
+            this.btnChangeCustomer.TabIndex = 29;
+            this.btnChangeCustomer.Text = "Change Customer";
+            this.btnChangeCustomer.UseVisualStyleBackColor = true;
+            this.btnChangeCustomer.Visible = false;
+            this.btnChangeCustomer.Click += new System.EventHandler(this.btnChangeCustomer_Click);
             // 
             // label18
             // 
@@ -260,7 +274,7 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.ReadOnly = true;
             this.boxLastName.Size = new System.Drawing.Size(142, 20);
-            this.boxLastName.TabIndex = 51;
+            this.boxLastName.TabIndex = 22;
             // 
             // boxCustID
             // 
@@ -268,7 +282,7 @@
             this.boxCustID.Name = "boxCustID";
             this.boxCustID.ReadOnly = true;
             this.boxCustID.Size = new System.Drawing.Size(84, 20);
-            this.boxCustID.TabIndex = 50;
+            this.boxCustID.TabIndex = 20;
             // 
             // boxCountry
             // 
@@ -276,7 +290,7 @@
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.ReadOnly = true;
             this.boxCountry.Size = new System.Drawing.Size(142, 20);
-            this.boxCountry.TabIndex = 49;
+            this.boxCountry.TabIndex = 28;
             // 
             // boxAdd3
             // 
@@ -284,7 +298,7 @@
             this.boxAdd3.Name = "boxAdd3";
             this.boxAdd3.ReadOnly = true;
             this.boxAdd3.Size = new System.Drawing.Size(142, 20);
-            this.boxAdd3.TabIndex = 48;
+            this.boxAdd3.TabIndex = 27;
             // 
             // boxAdd2
             // 
@@ -292,7 +306,7 @@
             this.boxAdd2.Name = "boxAdd2";
             this.boxAdd2.ReadOnly = true;
             this.boxAdd2.Size = new System.Drawing.Size(142, 20);
-            this.boxAdd2.TabIndex = 47;
+            this.boxAdd2.TabIndex = 26;
             // 
             // boxAdd1
             // 
@@ -300,7 +314,7 @@
             this.boxAdd1.Name = "boxAdd1";
             this.boxAdd1.ReadOnly = true;
             this.boxAdd1.Size = new System.Drawing.Size(142, 20);
-            this.boxAdd1.TabIndex = 46;
+            this.boxAdd1.TabIndex = 25;
             // 
             // label17
             // 
@@ -353,7 +367,7 @@
             this.boxPostcode.Name = "boxPostcode";
             this.boxPostcode.ReadOnly = true;
             this.boxPostcode.Size = new System.Drawing.Size(142, 20);
-            this.boxPostcode.TabIndex = 36;
+            this.boxPostcode.TabIndex = 24;
             // 
             // label12
             // 
@@ -370,7 +384,7 @@
             this.boxInstitution.Name = "boxInstitution";
             this.boxInstitution.ReadOnly = true;
             this.boxInstitution.Size = new System.Drawing.Size(142, 20);
-            this.boxInstitution.TabIndex = 34;
+            this.boxInstitution.TabIndex = 23;
             // 
             // label11
             // 
@@ -387,7 +401,7 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.ReadOnly = true;
             this.boxFirstName.Size = new System.Drawing.Size(142, 20);
-            this.boxFirstName.TabIndex = 31;
+            this.boxFirstName.TabIndex = 21;
             // 
             // label9
             // 
@@ -415,7 +429,7 @@
             this.groupBox2.Location = new System.Drawing.Point(21, 19);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(512, 176);
-            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Order Details";
             // 
@@ -425,7 +439,7 @@
             this.boxOrderID.Name = "boxOrderID";
             this.boxOrderID.ReadOnly = true;
             this.boxOrderID.Size = new System.Drawing.Size(84, 20);
-            this.boxOrderID.TabIndex = 42;
+            this.boxOrderID.TabIndex = 11;
             // 
             // boxInvoiceDate
             // 
@@ -433,7 +447,7 @@
             this.boxInvoiceDate.Name = "boxInvoiceDate";
             this.boxInvoiceDate.ReadOnly = true;
             this.boxInvoiceDate.Size = new System.Drawing.Size(142, 20);
-            this.boxInvoiceDate.TabIndex = 41;
+            this.boxInvoiceDate.TabIndex = 14;
             // 
             // label4
             // 
@@ -450,7 +464,8 @@
             this.boxFreight.Name = "boxFreight";
             this.boxFreight.ReadOnly = true;
             this.boxFreight.Size = new System.Drawing.Size(142, 20);
-            this.boxFreight.TabIndex = 39;
+            this.boxFreight.TabIndex = 15;
+            this.boxFreight.Leave += new System.EventHandler(this.boxFreight_Leave);
             // 
             // boxProgress
             // 
@@ -458,7 +473,7 @@
             this.boxProgress.Name = "boxProgress";
             this.boxProgress.ReadOnly = true;
             this.boxProgress.Size = new System.Drawing.Size(142, 20);
-            this.boxProgress.TabIndex = 38;
+            this.boxProgress.TabIndex = 13;
             // 
             // boxOrderRef
             // 
@@ -466,7 +481,7 @@
             this.boxOrderRef.Name = "boxOrderRef";
             this.boxOrderRef.ReadOnly = true;
             this.boxOrderRef.Size = new System.Drawing.Size(142, 20);
-            this.boxOrderRef.TabIndex = 37;
+            this.boxOrderRef.TabIndex = 12;
             // 
             // boxComments
             // 
@@ -475,7 +490,7 @@
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
             this.boxComments.Size = new System.Drawing.Size(142, 48);
-            this.boxComments.TabIndex = 29;
+            this.boxComments.TabIndex = 16;
             // 
             // label8
             // 
@@ -537,7 +552,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(775, 150);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.TabIndex = 30;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
             // 
@@ -585,20 +600,20 @@
             // 
             // btnCreateInvoice
             // 
-            this.btnCreateInvoice.Location = new System.Drawing.Point(65, 327);
+            this.btnCreateInvoice.Location = new System.Drawing.Point(68, 327);
             this.btnCreateInvoice.Name = "btnCreateInvoice";
             this.btnCreateInvoice.Size = new System.Drawing.Size(118, 33);
-            this.btnCreateInvoice.TabIndex = 22;
-            this.btnCreateInvoice.Text = "Create Invoice";
+            this.btnCreateInvoice.TabIndex = 7;
+            this.btnCreateInvoice.Text = "Create &Invoice";
             this.btnCreateInvoice.UseVisualStyleBackColor = true;
             this.btnCreateInvoice.Click += new System.EventHandler(this.btnCreateInvoice_Click);
             // 
             // btnBigMailingLabel
             // 
-            this.btnBigMailingLabel.Location = new System.Drawing.Point(29, 405);
+            this.btnBigMailingLabel.Location = new System.Drawing.Point(52, 407);
             this.btnBigMailingLabel.Name = "btnBigMailingLabel";
             this.btnBigMailingLabel.Size = new System.Drawing.Size(74, 33);
-            this.btnBigMailingLabel.TabIndex = 23;
+            this.btnBigMailingLabel.TabIndex = 8;
             this.btnBigMailingLabel.Text = "Big";
             this.btnBigMailingLabel.UseVisualStyleBackColor = true;
             this.btnBigMailingLabel.Click += new System.EventHandler(this.btnBigMailingLabel_Click);
@@ -606,7 +621,7 @@
             // labMailingLabels
             // 
             this.labMailingLabels.AutoSize = true;
-            this.labMailingLabels.Location = new System.Drawing.Point(62, 384);
+            this.labMailingLabels.Location = new System.Drawing.Point(85, 386);
             this.labMailingLabels.Name = "labMailingLabels";
             this.labMailingLabels.Size = new System.Drawing.Size(77, 13);
             this.labMailingLabels.TabIndex = 24;
@@ -614,21 +629,21 @@
             // 
             // btnSmallMailingLabel
             // 
-            this.btnSmallMailingLabel.Location = new System.Drawing.Point(109, 405);
+            this.btnSmallMailingLabel.Location = new System.Drawing.Point(132, 407);
             this.btnSmallMailingLabel.Name = "btnSmallMailingLabel";
             this.btnSmallMailingLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnSmallMailingLabel.Size = new System.Drawing.Size(74, 33);
-            this.btnSmallMailingLabel.TabIndex = 25;
+            this.btnSmallMailingLabel.TabIndex = 9;
             this.btnSmallMailingLabel.Text = "Small";
             this.btnSmallMailingLabel.UseVisualStyleBackColor = true;
             this.btnSmallMailingLabel.Click += new System.EventHandler(this.btnSmallMailingLabel_Click);
             // 
             // btnNewestOrder
             // 
-            this.btnNewestOrder.Location = new System.Drawing.Point(65, 153);
+            this.btnNewestOrder.Location = new System.Drawing.Point(112, 150);
             this.btnNewestOrder.Name = "btnNewestOrder";
             this.btnNewestOrder.Size = new System.Drawing.Size(118, 33);
-            this.btnNewestOrder.TabIndex = 26;
+            this.btnNewestOrder.TabIndex = 5;
             this.btnNewestOrder.Text = "Get Newest Order";
             this.btnNewestOrder.UseVisualStyleBackColor = true;
             this.btnNewestOrder.Click += new System.EventHandler(this.btnNewestOrder_Click);
@@ -636,10 +651,10 @@
             // btnAddBook
             // 
             this.btnAddBook.Enabled = false;
-            this.btnAddBook.Location = new System.Drawing.Point(195, 581);
+            this.btnAddBook.Location = new System.Drawing.Point(236, 581);
             this.btnAddBook.Name = "btnAddBook";
             this.btnAddBook.Size = new System.Drawing.Size(133, 39);
-            this.btnAddBook.TabIndex = 27;
+            this.btnAddBook.TabIndex = 31;
             this.btnAddBook.Text = "Add Book";
             this.btnAddBook.UseVisualStyleBackColor = true;
             this.btnAddBook.Visible = false;
@@ -659,23 +674,33 @@
             this.removeBookToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.removeBookToolStripMenuItem.Text = "Remove Book";
             // 
-            // btnChangeCustomer
+            // btnNext
             // 
-            this.btnChangeCustomer.Enabled = false;
-            this.btnChangeCustomer.Location = new System.Drawing.Point(600, 137);
-            this.btnChangeCustomer.Name = "btnChangeCustomer";
-            this.btnChangeCustomer.Size = new System.Drawing.Size(118, 33);
-            this.btnChangeCustomer.TabIndex = 29;
-            this.btnChangeCustomer.Text = "Change Customer";
-            this.btnChangeCustomer.UseVisualStyleBackColor = true;
-            this.btnChangeCustomer.Visible = false;
-            this.btnChangeCustomer.Click += new System.EventHandler(this.btnChangeCustomer_Click);
+            this.btnNext.Location = new System.Drawing.Point(68, 150);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(41, 33);
+            this.btnNext.TabIndex = 4;
+            this.btnNext.Text = "Next";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(15, 150);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(47, 33);
+            this.btnPrev.TabIndex = 3;
+            this.btnPrev.Text = "Prev";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
             // 
             // OrdersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 636);
+            this.ClientSize = new System.Drawing.Size(1027, 636);
+            this.Controls.Add(this.btnPrev);
+            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnAddBook);
             this.Controls.Add(this.btnNewestOrder);
             this.Controls.Add(this.btnSmallMailingLabel);
@@ -768,5 +793,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem removeBookToolStripMenuItem;
         private System.Windows.Forms.Button btnChangeCustomer;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnPrev;
     }
 }

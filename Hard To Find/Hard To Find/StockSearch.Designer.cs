@@ -43,6 +43,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnSelectStock = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labResults = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +82,7 @@
             this.rdoInStock.Location = new System.Drawing.Point(80, 149);
             this.rdoInStock.Name = "rdoInStock";
             this.rdoInStock.Size = new System.Drawing.Size(91, 17);
-            this.rdoInStock.TabIndex = 28;
+            this.rdoInStock.TabIndex = 5;
             this.rdoInStock.TabStop = true;
             this.rdoInStock.Text = "Have in stock";
             this.rdoInStock.UseVisualStyleBackColor = true;
@@ -91,7 +93,7 @@
             this.rdoAllStock.Location = new System.Drawing.Point(80, 172);
             this.rdoAllStock.Name = "rdoAllStock";
             this.rdoAllStock.Size = new System.Drawing.Size(67, 17);
-            this.rdoAllStock.TabIndex = 27;
+            this.rdoAllStock.TabIndex = 6;
             this.rdoAllStock.Text = "All Stock";
             this.rdoAllStock.UseVisualStyleBackColor = true;
             // 
@@ -117,7 +119,7 @@
             this.btnSearch.Location = new System.Drawing.Point(80, 247);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 22;
+            this.btnSearch.TabIndex = 7;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -175,10 +177,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(1013, 395);
+            this.btnCancel.Location = new System.Drawing.Point(1013, 424);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(145, 23);
-            this.btnCancel.TabIndex = 25;
+            this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -202,20 +204,39 @@
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(907, 362);
-            this.dataGridView1.TabIndex = 30;
+            this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
             // btnSelectStock
             // 
             this.btnSelectStock.Enabled = false;
-            this.btnSelectStock.Location = new System.Drawing.Point(251, 396);
+            this.btnSelectStock.Location = new System.Drawing.Point(251, 424);
             this.btnSelectStock.Name = "btnSelectStock";
             this.btnSelectStock.Size = new System.Drawing.Size(156, 23);
-            this.btnSelectStock.TabIndex = 25;
+            this.btnSelectStock.TabIndex = 9;
             this.btnSelectStock.Text = "Select Stock";
             this.btnSelectStock.UseVisualStyleBackColor = true;
             this.btnSelectStock.Click += new System.EventHandler(this.btnSelectStock_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(248, 386);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(92, 13);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "Number of results:";
+            // 
+            // labResults
+            // 
+            this.labResults.AutoSize = true;
+            this.labResults.Location = new System.Drawing.Point(340, 386);
+            this.labResults.Name = "labResults";
+            this.labResults.Size = new System.Drawing.Size(13, 13);
+            this.labResults.TabIndex = 32;
+            this.labResults.Text = "0";
             // 
             // Column1
             // 
@@ -240,7 +261,7 @@
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "Subtitle";
+            this.Column6.HeaderText = "Subject";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -263,7 +284,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1175, 430);
+            this.ClientSize = new System.Drawing.Size(1175, 474);
+            this.Controls.Add(this.labResults);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnSelectStock);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnCancel);
@@ -274,6 +297,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -294,6 +318,8 @@
         private System.Windows.Forms.Button btnSelectStock;
         private System.Windows.Forms.RadioButton rdoInStock;
         private System.Windows.Forms.RadioButton rdoAllStock;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labResults;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;

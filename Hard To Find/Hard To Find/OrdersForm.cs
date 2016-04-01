@@ -14,7 +14,7 @@ namespace Hard_To_Find
     public partial class OrdersForm : Form, IStockReceiver, ICustomerReceiver
     {
         //Globals
-        private Form1 form1;
+        private MainMenu form1;
         private DatabaseManager dbManager;
         private List<Order> allOrders;
         private List<OrderedStock> allOrderedStock;
@@ -23,9 +23,10 @@ namespace Hard_To_Find
         private List<OrderedStock> currOrderedStock;
         private List<OrderedStock> newOrderedStock;
         private FileManager fileManager;
+        private bool canEdit;
 
         //Constructor
-        public OrdersForm(Form1 form1)
+        public OrdersForm(MainMenu form1)
         {
             this.form1 = form1;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -47,6 +48,7 @@ namespace Hard_To_Find
             fileManager = new FileManager();
             currCustomer = null;
             currOrder = null;
+            canEdit = false;
 
             //Set up column widths
             DataGridViewColumn colQuantity = dataGridView1.Columns[0];
@@ -61,6 +63,8 @@ namespace Hard_To_Find
             colBookID.Width = 75;
             DataGridViewColumn colDiscount = dataGridView1.Columns[5];
             colDiscount.Width = 75;
+
+            loadNewestOrder();
 
             //If this form was opened through customers orders then remove unneccessary controls and adjust form
             if (form1 == null)
@@ -93,11 +97,18 @@ namespace Hard_To_Find
                 btnImportOrderedStock.Enabled = false;
                 btnImportOrderedStock.Visible = false;
 
+                btnPrev.Enabled = false;
+                btnPrev.Visible = false;
+
+                btnNext.Enabled = false;
+                btnNext.Visible = false;
+
                 btnMainMenu.Text = "Close";
 
-                groupBox1.Left = groupBox1.Left - 180;
-                btnAddBook.Left = btnAddBook.Left - 180;
-                btnMainMenu.Left = btnMainMenu.Left - 180;
+                groupBox1.Left = groupBox1.Left - 200;
+                btnAddBook.Left = btnAddBook.Left - 200;
+                btnMainMenu.Left = btnMainMenu.Left - 200;
+
 
                 Width = Width - 180;
             }
@@ -113,6 +124,35 @@ namespace Hard_To_Find
                 form1.Show();
                 form1.TopLevel = true;
             }
+        }
+
+        /*Precondition:
+         Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //Closes form when escape is pressed
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                if (form1 != null)
+                {
+                    form1.Show();
+                    form1.TopLevel = true;
+                }
+            }
+            //Load up previous order if left is pressed
+            if (keyData == Keys.Left)
+            {
+                previousOrder();
+            }
+            //Load up next order if right is pressed
+            if (keyData == Keys.Right)
+            {
+                nextOrder();
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         /*Precondition: 
@@ -364,7 +404,7 @@ namespace Hard_To_Find
             {
                 if (currOrder != null)
                 {
-                    WordDocumentManager wdm = new WordDocumentManager(this, currCustomer, currOrder, currOrderedStock);
+                    InvoiceCreator wdm = new InvoiceCreator(this, currCustomer, currOrder, currOrderedStock);
 
                     string documentName = currOrder.orderID.ToString() + ".docx";
 
@@ -381,7 +421,6 @@ namespace Hard_To_Find
          Postcondition: Creates a .docx file containing the a small mailing label and opens it */
         private void btnSmallMailingLabel_Click(object sender, EventArgs e)
         {
-
             bool haveStorageLocation = checkForStorageLocation();
 
             if (haveStorageLocation)
@@ -470,9 +509,17 @@ namespace Hard_To_Find
         }
 
         /*Precondition: 
-         Postcondition: Load up the newest order */
+         Postcondition: Asks to load up the latest order */
         private void btnNewestOrder_Click(object sender, EventArgs e)
         {
+            loadNewestOrder();
+        }
+
+        /*Precondition:
+         Postcondition: Loads up newest order */
+        private void loadNewestOrder()
+        {
+            btnNext.Enabled = false;
             int nextID = dbManager.getNextOrderID();
             int latestID = nextID - 1;
 
@@ -483,8 +530,11 @@ namespace Hard_To_Find
          Postcondition: Enables editing of the order */
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if(currOrder != null)
+            if (currOrder != null)
+            {
                 toggleEditing();
+                canEdit = true;
+            }
         }
 
         /*Precondition: 
@@ -495,13 +545,14 @@ namespace Hard_To_Find
             {
                 //Disable editing
                 toggleEditing();
+                canEdit = false;
 
                 //Get the updated fields
-                currOrder.orderReference = SQLSyntaxHelper.escapeSingleQuotes(boxOrderRef.Text);
-                currOrder.progress = SQLSyntaxHelper.escapeSingleQuotes(boxProgress.Text);
-                currOrder.invoiceDate = SQLSyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
-                currOrder.freightCost = SQLSyntaxHelper.escapeSingleQuotes(boxFreight.Text);
-                currOrder.comments = SQLSyntaxHelper.escapeSingleQuotes(boxComments.Text);
+                currOrder.orderReference = SyntaxHelper.escapeSingleQuotes(boxOrderRef.Text);
+                currOrder.progress = SyntaxHelper.escapeSingleQuotes(boxProgress.Text);
+                currOrder.invoiceDate = SyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
+                currOrder.freightCost = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+                currOrder.comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
 
                 //Update order in the database
                 dbManager.updateOrder(currOrder);
@@ -552,26 +603,86 @@ namespace Hard_To_Find
          Postcondition: Updates orderedStock after the user has edited a cell */
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int rowIndex = e.RowIndex;
-
-            OrderedStock current = null;
-
-            if (rowIndex < currOrderedStock.Count)
+            try
             {
-                current = currOrderedStock[rowIndex];
-            }
-            else
-            {
-                rowIndex = rowIndex - currOrderedStock.Count;
-                current = newOrderedStock[rowIndex];
-            }
+                //Try to add a $ sign and make the numbers decimals in the price and discount boxes in the datagrid
+                string priceCellValue = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                string discountCellValue = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+
+                if (priceCellValue != "")
+                {
+                    bool noLetters = priceCellValue.All(x => !char.IsLetter(x));
+
+                    if (noLetters)
+                    {
+                        string price = SyntaxHelper.escapeSingleQuotes(priceCellValue);
+                        string finalPrice = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(price);
+                        dataGridView1.Rows[e.RowIndex].Cells[3].Value = finalPrice;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Price should not have letters");
+                    }
+                }
+                if (discountCellValue != "")
+                {
+                    bool noLetters = discountCellValue.All(x => !char.IsLetter(x));
+
+                    if (noLetters)
+                    {
+
+                        string discount = SyntaxHelper.escapeSingleQuotes(discountCellValue);
+                        string finalDiscount = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(discount);
+                        dataGridView1.Rows[e.RowIndex].Cells[5].Value = finalDiscount;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Discount should not have letters");
+                    }
+                }
+            
+
+                int rowIndex = e.RowIndex;
+
+                OrderedStock current = null;
+
+                //Check if the orderedstock is an existing one or a new one from the current editting
+                if (rowIndex < currOrderedStock.Count)
+                {
+                    current = currOrderedStock[rowIndex];
+                }
+                else
+                {
+                    rowIndex = rowIndex - currOrderedStock.Count;
+                    current = newOrderedStock[rowIndex];
+                }
                 
-            current.quantity = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-            current.author = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
-            current.title = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString());
-            current.price = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
-            current.bookID = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
-            current.discount = SQLSyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString());
+                //Update the values
+                current.quantity = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                current.author = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+                current.title = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString());
+                current.price = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
+                current.bookID = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
+                current.discount = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString());
+            
+            }
+            catch (NullReferenceException)
+            {
+                //Cell was exited and price and discount are empty
+
+                bool containsValue = false;
+
+                DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];
+
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null)
+                        containsValue = true;
+                }
+
+                if (containsValue)
+                    MessageBox.Show("Please make sure price and discount have a value");
+            }
 
         }
 
@@ -597,13 +708,16 @@ namespace Hard_To_Find
          Postcondition: Checks for right click on the datagrid */
         private void dataGridView1_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (canEdit)
             {
-                int selectedRow = e.RowIndex;
-                //dataGridView1.Rows[e.RowIndex].Selected = true;
+                if (e.Button == MouseButtons.Right)
+                {
+                    int selectedRow = e.RowIndex;
+                    //dataGridView1.Rows[e.RowIndex].Selected = true;
 
-                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-                contextMenuStrip1.Show(Cursor.Position);
+                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
             }
         }
 
@@ -668,5 +782,78 @@ namespace Hard_To_Find
 
             currOrder.customerID = currCustomer.custID;
         }
+
+        /*Precondition:
+         Postcondition: Adds a $ sign and makes number 2 decimal places if it's not already */
+        private void boxFreight_Leave(object sender, EventArgs e)
+        {
+            string priceEntered = boxFreight.Text;
+
+            bool noLetters = priceEntered.All(x => !char.IsLetter(x));
+
+            if (noLetters)
+            {
+                string checkedPrice = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(priceEntered);
+
+                boxFreight.Text = checkedPrice;
+            }
+            else
+            {
+                MessageBox.Show("Freight should not have letters");
+            }
+        }
+
+        /*Precondition:
+         Postcondition: Asks to load up the previous order */
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            previousOrder();
+        }
+
+        /*Precondition:
+         Postcondition: Asks to load up the next order */
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            nextOrder();
+        }
+
+        /*Precondition:
+         Postcondition: Moves to the next order */
+        private void nextOrder()
+        {
+            int currID = currOrder.orderID;
+            int nextOrderID = currID + 1;
+
+            if (nextOrderID <= (dbManager.getNextOrderID() - 1))
+            {
+                btnPrev.Enabled = true;
+                boxOrderSearchID.Text = nextOrderID.ToString();
+                startSearch();
+            }
+            if (nextOrderID == dbManager.getNextOrderID())
+            {
+                btnNext.Enabled = false;
+            }
+        }
+
+        /*Precondition:
+         Postcondition: Moves to the previous order */
+        private void previousOrder()
+        {
+            int currID = currOrder.orderID;
+            int previoudOrderID = currID - 1;
+
+            if (previoudOrderID >= 0)
+            {
+                btnNext.Enabled = true;
+                boxOrderSearchID.Text = previoudOrderID.ToString();
+                startSearch();
+            }
+            if (previoudOrderID == 0)
+            {
+                btnPrev.Enabled = false;
+            }
+        }
+
     }
 }

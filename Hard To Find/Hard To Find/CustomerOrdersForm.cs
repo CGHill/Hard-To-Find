@@ -57,7 +57,7 @@ namespace Hard_To_Find
 
             customersOrders = dbManager.searchCustomersOrders(currCustomer.custID);
 
-            //Set up first order from customer
+            //Set up first order from customer if they have any orders
             if (customersOrders.Count > 0)
             {
                 currOrder = customersOrders[0];
@@ -66,9 +66,9 @@ namespace Hard_To_Find
                 {
                     dataGridView1.Rows.Add(o.orderID, o.orderReference, o.invoiceDate);
                 }
-            }
 
-            selectedOrderUpdated();
+                selectedOrderUpdated();
+            }
         }
 
         /*Precondition:
@@ -102,6 +102,20 @@ namespace Hard_To_Find
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /*Precondition:
+         Postcondition: Listens for a keypress no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //Close form if user presses escape
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         /*Precondition:

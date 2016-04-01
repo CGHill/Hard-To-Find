@@ -43,15 +43,17 @@
             this.btnStockDetails = new System.Windows.Forms.Button();
             this.btnNewStock = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.btnCreateExport = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnCreateExport = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.labResults = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -179,7 +181,7 @@
             // btnStockDetails
             // 
             this.btnStockDetails.Enabled = false;
-            this.btnStockDetails.Location = new System.Drawing.Point(257, 519);
+            this.btnStockDetails.Location = new System.Drawing.Point(257, 554);
             this.btnStockDetails.Name = "btnStockDetails";
             this.btnStockDetails.Size = new System.Drawing.Size(186, 40);
             this.btnStockDetails.TabIndex = 34;
@@ -219,35 +221,6 @@
             this.dataGridView1.TabIndex = 32;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(-5, 572);
-            this.progressBar1.Maximum = 161768;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1183, 14);
-            this.progressBar1.TabIndex = 31;
-            this.progressBar1.Visible = false;
-            // 
-            // btnCreateExport
-            // 
-            this.btnCreateExport.Location = new System.Drawing.Point(93, 473);
-            this.btnCreateExport.Name = "btnCreateExport";
-            this.btnCreateExport.Size = new System.Drawing.Size(145, 40);
-            this.btnCreateExport.TabIndex = 30;
-            this.btnCreateExport.Text = "Create Export File";
-            this.btnCreateExport.UseVisualStyleBackColor = true;
-            this.btnCreateExport.Click += new System.EventHandler(this.btnCreateExport_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(1024, 519);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(140, 40);
-            this.btnExit.TabIndex = 29;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // Column1
             // 
@@ -291,11 +264,60 @@
             this.Column5.ReadOnly = true;
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(-6, 600);
+            this.progressBar1.Maximum = 161768;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1183, 14);
+            this.progressBar1.TabIndex = 31;
+            this.progressBar1.Visible = false;
+            // 
+            // btnCreateExport
+            // 
+            this.btnCreateExport.Location = new System.Drawing.Point(93, 473);
+            this.btnCreateExport.Name = "btnCreateExport";
+            this.btnCreateExport.Size = new System.Drawing.Size(145, 40);
+            this.btnCreateExport.TabIndex = 30;
+            this.btnCreateExport.Text = "Create Export File";
+            this.btnCreateExport.UseVisualStyleBackColor = true;
+            this.btnCreateExport.Click += new System.EventHandler(this.btnCreateExport_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(1025, 554);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(140, 40);
+            this.btnExit.TabIndex = 29;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // labResults
+            // 
+            this.labResults.AutoSize = true;
+            this.labResults.Location = new System.Drawing.Point(346, 520);
+            this.labResults.Name = "labResults";
+            this.labResults.Size = new System.Drawing.Size(13, 13);
+            this.labResults.TabIndex = 37;
+            this.labResults.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(254, 520);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(92, 13);
+            this.label5.TabIndex = 36;
+            this.label5.Text = "Number of results:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1177, 583);
+            this.ClientSize = new System.Drawing.Size(1177, 612);
+            this.Controls.Add(this.labResults);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnStockDetails);
             this.Controls.Add(this.btnNewStock);
@@ -309,6 +331,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -338,6 +361,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.Label labResults;
+        private System.Windows.Forms.Label label5;
     }
 }
 

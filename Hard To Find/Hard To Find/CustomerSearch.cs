@@ -75,6 +75,20 @@ namespace Hard_To_Find
             this.Close();
         }
 
+        /*Precondition:
+         Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //Close form if user presses escape key
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
 
         /********************* Keypress handlers to check for enter to start search ************************************/
         private void boxCustID_KeyPress(object sender, KeyPressEventArgs e)
@@ -87,33 +101,6 @@ namespace Hard_To_Find
             // only allow one decimal point
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
-                e.Handled = true;
-            }
-
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-
-        private void boxFirstName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-
-        private void boxLastName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
                 e.Handled = true;
             }
         }
@@ -141,28 +128,42 @@ namespace Hard_To_Find
                 foreach (Customer c in foundCustomers)
                 {
                     if (c != null)
+                    {
                         dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
+                        dataGridView1.Focus();
+                    }
                     else
+                    {
                         dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
+                        btnSelectCustomer.Enabled = false;
+                    }
                 }
             }
-            else if (boxFirstName.Text != "" || boxLastName.Text != "")//Else if ID hasn't been entered check for first and last name
+            else if (boxFirstName.Text != "" || boxLastName.Text != "" || boxInstiution.Text != "" || boxEmail.Text != "")//Else if ID hasn't been entered check for first and last name
             {
                 string firstName = null;
                 string lastName = null;
+                string instutution = null;
+                string email = null;
+
 
                 //Get names if they have been entered
                 if (boxFirstName.Text != "")
-                    firstName = SQLSyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
+                    firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
                 if (boxLastName.Text != "")
-                    lastName = SQLSyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+                    lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+                if (boxInstiution.Text != "")
+                    instutution = SyntaxHelper.escapeSingleQuotes(boxInstiution.Text);
+                if (boxEmail.Text != "")
+                    email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
 
                 //Search for customers with names entered
-                foundCustomers = dbManager.searchCustomers(firstName, lastName);
+                foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email);
 
                 if (foundCustomers.Count == 0)
                 {
                     dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
+                    btnSelectCustomer.Enabled = false;
                 }
                 else
                 {
@@ -171,6 +172,8 @@ namespace Hard_To_Find
                     {
                         dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
                     }
+
+                    dataGridView1.Focus();
                 }
             }
         }
@@ -191,6 +194,35 @@ namespace Hard_To_Find
             Customer selectedCustomer = foundCustomers[currRow];
             customerReceiver.addCustomer(selectedCustomer);
             this.Close();
+        }
+
+        /*Precondition:
+         Postcondition: Handles keypresses for the datagrid by selecting the customer when enter is pressed */
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Listen for enter key
+            if (e.KeyCode == Keys.Enter)
+            {
+                //Supress key to stop datagrid moving to the next row
+                e.SuppressKeyPress = true;
+
+                int currRow = dataGridView1.CurrentCell.RowIndex;
+
+                //Get the customer and pass it back to the form that needs it
+                Customer selectedCustomer = foundCustomers[currRow];
+                customerReceiver.addCustomer(selectedCustomer);
+                this.Close();
+            }
+        }
+
+        private void TextBox_KeyPress_Enter(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                e.Handled = true;
+            }
         }
     }
 }

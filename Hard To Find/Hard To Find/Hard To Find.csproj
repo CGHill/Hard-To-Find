@@ -74,17 +74,17 @@
     <Compile Include="CustomerSearch.Designer.cs">
       <DependentUpon>CustomerSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomerSearchForm.cs">
+    <Compile Include="CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomerSearchForm.Designer.cs">
-      <DependentUpon>CustomerSearchForm.cs</DependentUpon>
+    <Compile Include="CustomerForm.Designer.cs">
+      <DependentUpon>CustomerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomersForm.cs">
+    <Compile Include="CustomerDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomersForm.Designer.cs">
-      <DependentUpon>CustomersForm.cs</DependentUpon>
+    <Compile Include="CustomerDetailsForm.Designer.cs">
+      <DependentUpon>CustomerDetailsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="FileExportForm.cs">
@@ -94,11 +94,11 @@
       <DependentUpon>FileExportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManager.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportsForm.cs">
       <SubType>Form</SubType>
@@ -141,7 +141,7 @@
     <Compile Include="ReportsForm.Designer.cs">
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SQLSyntaxHelper.cs" />
+    <Compile Include="SyntaxHelper.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="StockDetailsForm.cs">
       <SubType>Form</SubType>
@@ -162,7 +162,7 @@
     <Compile Include="StockSearch.Designer.cs">
       <DependentUpon>StockSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="WordDocumentManager.cs" />
+    <Compile Include="InvoiceCreator.cs" />
     <EmbeddedResource Include="BackupForm.resx">
       <DependentUpon>BackupForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,17 +172,17 @@
     <EmbeddedResource Include="CustomerSearch.resx">
       <DependentUpon>CustomerSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomerSearchForm.resx">
-      <DependentUpon>CustomerSearchForm.cs</DependentUpon>
+    <EmbeddedResource Include="CustomerForm.resx">
+      <DependentUpon>CustomerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomersForm.resx">
-      <DependentUpon>CustomersForm.cs</DependentUpon>
+    <EmbeddedResource Include="CustomerDetailsForm.resx">
+      <DependentUpon>CustomerDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileExportForm.resx">
       <DependentUpon>FileExportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportsForm.resx">
       <DependentUpon>ImportsForm.cs</DependentUpon>
@@ -220,6 +220,7 @@
     <EmbeddedResource Include="StockSearch.resx">
       <DependentUpon>StockSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

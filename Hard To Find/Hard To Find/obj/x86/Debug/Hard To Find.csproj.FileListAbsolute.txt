@@ -18,9 +18,6 @@ E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\bin\Debug\System.Da
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.csprojResolveAssemblyReference.cache
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerOrdersForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerSearch.resources
-E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerSearchForm.resources
-E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomersForm.resources
-E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.Form1.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.NewCustomerForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.NewOrderForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.NewStockForm.resources
@@ -60,3 +57,6 @@ D:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard 
 D:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard To Find.pdb
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.BackupForm.resources
 E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.ImportsForm.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerDetailsForm.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.CustomerForm.resources
+E:\Programming\Github\Hard-To-Find\Hard To Find\Hard To Find\obj\x86\Debug\Hard_To_Find.MainMenu.resources

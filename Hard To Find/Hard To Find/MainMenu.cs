@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace Hard_To_Find
 {
-    public partial class Form1 : Form
+    public partial class MainMenu : Form
     {
         private FileManager fileManager;
 
         //Contructor
-        public Form1()
+        public MainMenu()
         {
             //Open center screen
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -28,7 +28,7 @@ namespace Hard_To_Find
         private void btnCustomers_Click(object sender, EventArgs e)
         {
             this.Hide();
-            CustomerSearchForm cf = new CustomerSearchForm(this);
+            CustomerForm cf = new CustomerForm(this);
             cf.Show();
         }
 
@@ -67,6 +67,8 @@ namespace Hard_To_Find
             Application.Exit();
         }
 
+        /*Precondition:
+         Postcondition: Opens up file exports form */
         private void btnFileExports_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -74,6 +76,8 @@ namespace Hard_To_Find
             fef.Show();
         }
 
+        /*Precondition:
+         Postcondition: Allows the user to set and change the storage location of files */
         private void btnSetStorageLocation_Click(object sender, EventArgs e)
         {
            
@@ -88,6 +92,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition:
+         Postcondition: Opens up imports form*/
         private void btnImports_Click(object sender, EventArgs e)
         {
             this.Hide();

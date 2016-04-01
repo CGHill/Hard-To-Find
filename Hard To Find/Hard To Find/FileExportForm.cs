@@ -15,11 +15,11 @@ namespace Hard_To_Find
         //Globals
         private DatabaseManager dbManager;
         private FileManager fileManager;
-        private Form1 form1;
+        private MainMenu form1;
 
 
         //Constructor
-        public FileExportForm(Form1 form1)
+        public FileExportForm(MainMenu form1)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -90,6 +90,22 @@ namespace Hard_To_Find
             this.Close();
             form1.Show();
             form1.TopLevel = true;
+        }
+
+        /*Precondition:
+         Postcondition: Listens for keypress no matter which control has focus*/
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //Close form and bring main menu back to front when escape is pressed
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                form1.Show();
+                form1.TopLevel = true;
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

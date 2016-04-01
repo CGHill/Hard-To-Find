@@ -9,14 +9,14 @@ using System.Windows.Forms;
 
 namespace Hard_To_Find
 {
-    public partial class CustomersForm : Form
+    public partial class CustomerDetailsForm : Form
     {
         //Globals
         private DatabaseManager dbManager;
         private Customer currCustomer;
 
         //Constructor
-        public CustomersForm(Customer currCustomer)
+        public CustomerDetailsForm(Customer currCustomer)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
@@ -73,18 +73,18 @@ namespace Hard_To_Find
             toggleBoxesReadOnly();
 
             //Update all fields
-            currCustomer.firstName = SQLSyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
-            currCustomer.lastName = SQLSyntaxHelper.escapeSingleQuotes(boxLastName.Text);
-            currCustomer.institution = SQLSyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
-            currCustomer.address1 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
-            currCustomer.address2 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
-            currCustomer.address3 = SQLSyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
-            currCustomer.postCode = SQLSyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
-            currCustomer.country = SQLSyntaxHelper.escapeSingleQuotes(boxCountry.Text);
-            currCustomer.email = SQLSyntaxHelper.escapeSingleQuotes(boxEmail.Text);
-            currCustomer.comments = SQLSyntaxHelper.escapeSingleQuotes(boxComments.Text);
-            currCustomer.sales = SQLSyntaxHelper.escapeSingleQuotes(boxSales.Text);
-            currCustomer.payment = SQLSyntaxHelper.escapeSingleQuotes(boxPayment.Text);
+            currCustomer.firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
+            currCustomer.lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+            currCustomer.institution = SyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
+            currCustomer.address1 = SyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
+            currCustomer.address2 = SyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
+            currCustomer.address3 = SyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
+            currCustomer.postCode = SyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
+            currCustomer.country = SyntaxHelper.escapeSingleQuotes(boxCountry.Text);
+            currCustomer.email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
+            currCustomer.comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
+            currCustomer.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            currCustomer.payment = SyntaxHelper.escapeSingleQuotes(boxPayment.Text);
 
             //Send to dbManager to update entry
             dbManager.updateCustomer(currCustomer);
@@ -114,6 +114,20 @@ namespace Hard_To_Find
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /*Precondition:
+         Postcondition: Listens for keypress no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //Close form when escape is pressed
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         /*Precondition:

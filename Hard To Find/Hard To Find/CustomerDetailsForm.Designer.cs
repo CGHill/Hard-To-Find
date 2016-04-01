@@ -1,6 +1,6 @@
 ﻿namespace Hard_To_Find
 {
-    partial class CustomersForm
+    partial class CustomerDetailsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -84,8 +84,8 @@
             this.btnUpdate.Location = new System.Drawing.Point(585, 52);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
-            this.btnUpdate.TabIndex = 15;
-            this.btnUpdate.Text = "Update";
+            this.btnUpdate.TabIndex = 14;
+            this.btnUpdate.Text = "&Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
@@ -95,8 +95,8 @@
             this.btnSave.Location = new System.Drawing.Point(585, 92);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Save";
+            this.btnSave.TabIndex = 15;
+            this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -106,7 +106,7 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.ReadOnly = true;
             this.boxFirstName.Size = new System.Drawing.Size(190, 20);
-            this.boxFirstName.TabIndex = 1;
+            this.boxFirstName.TabIndex = 2;
             // 
             // boxLastName
             // 
@@ -114,7 +114,7 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.ReadOnly = true;
             this.boxLastName.Size = new System.Drawing.Size(190, 20);
-            this.boxLastName.TabIndex = 2;
+            this.boxLastName.TabIndex = 3;
             // 
             // boxAddress1
             // 
@@ -122,7 +122,7 @@
             this.boxAddress1.Name = "boxAddress1";
             this.boxAddress1.ReadOnly = true;
             this.boxAddress1.Size = new System.Drawing.Size(190, 20);
-            this.boxAddress1.TabIndex = 4;
+            this.boxAddress1.TabIndex = 5;
             // 
             // boxInstitution
             // 
@@ -130,7 +130,7 @@
             this.boxInstitution.Name = "boxInstitution";
             this.boxInstitution.ReadOnly = true;
             this.boxInstitution.Size = new System.Drawing.Size(190, 20);
-            this.boxInstitution.TabIndex = 3;
+            this.boxInstitution.TabIndex = 4;
             // 
             // label3
             // 
@@ -156,7 +156,7 @@
             this.boxAddress3.Name = "boxAddress3";
             this.boxAddress3.ReadOnly = true;
             this.boxAddress3.Size = new System.Drawing.Size(190, 20);
-            this.boxAddress3.TabIndex = 6;
+            this.boxAddress3.TabIndex = 7;
             // 
             // boxAddress2
             // 
@@ -164,7 +164,7 @@
             this.boxAddress2.Name = "boxAddress2";
             this.boxAddress2.ReadOnly = true;
             this.boxAddress2.Size = new System.Drawing.Size(190, 20);
-            this.boxAddress2.TabIndex = 5;
+            this.boxAddress2.TabIndex = 6;
             // 
             // label5
             // 
@@ -190,7 +190,7 @@
             this.boxPostcode.Name = "boxPostcode";
             this.boxPostcode.ReadOnly = true;
             this.boxPostcode.Size = new System.Drawing.Size(190, 20);
-            this.boxPostcode.TabIndex = 7;
+            this.boxPostcode.TabIndex = 8;
             // 
             // label7
             // 
@@ -207,7 +207,7 @@
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.ReadOnly = true;
             this.boxCountry.Size = new System.Drawing.Size(190, 20);
-            this.boxCountry.TabIndex = 8;
+            this.boxCountry.TabIndex = 9;
             // 
             // label8
             // 
@@ -225,7 +225,7 @@
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
             this.boxComments.Size = new System.Drawing.Size(189, 75);
-            this.boxComments.TabIndex = 12;
+            this.boxComments.TabIndex = 11;
             // 
             // label9
             // 
@@ -242,7 +242,7 @@
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.ReadOnly = true;
             this.boxEmail.Size = new System.Drawing.Size(189, 20);
-            this.boxEmail.TabIndex = 11;
+            this.boxEmail.TabIndex = 10;
             // 
             // label10
             // 
@@ -259,7 +259,7 @@
             this.boxPayment.Name = "boxPayment";
             this.boxPayment.ReadOnly = true;
             this.boxPayment.Size = new System.Drawing.Size(189, 20);
-            this.boxPayment.TabIndex = 14;
+            this.boxPayment.TabIndex = 13;
             // 
             // label13
             // 
@@ -276,7 +276,7 @@
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
             this.boxSales.Size = new System.Drawing.Size(189, 20);
-            this.boxSales.TabIndex = 13;
+            this.boxSales.TabIndex = 12;
             // 
             // label14
             // 
@@ -292,7 +292,7 @@
             this.btnCancel.Location = new System.Drawing.Point(447, 299);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
-            this.btnCancel.TabIndex = 19;
+            this.btnCancel.TabIndex = 18;
             this.btnCancel.Text = "Close";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -302,8 +302,8 @@
             this.btnCustomersOrders.Location = new System.Drawing.Point(101, 259);
             this.btnCustomersOrders.Name = "btnCustomersOrders";
             this.btnCustomersOrders.Size = new System.Drawing.Size(145, 34);
-            this.btnCustomersOrders.TabIndex = 17;
-            this.btnCustomersOrders.Text = "View Customers Orders";
+            this.btnCustomersOrders.TabIndex = 16;
+            this.btnCustomersOrders.Text = "View Customers &Orders";
             this.btnCustomersOrders.UseVisualStyleBackColor = true;
             this.btnCustomersOrders.Click += new System.EventHandler(this.btnCustomersOrders_Click);
             // 
@@ -312,8 +312,8 @@
             this.btnCreateOrder.Location = new System.Drawing.Point(101, 299);
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(145, 34);
-            this.btnCreateOrder.TabIndex = 18;
-            this.btnCreateOrder.Text = "Create New Order";
+            this.btnCreateOrder.TabIndex = 17;
+            this.btnCreateOrder.Text = "Create &New Order";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
             this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
@@ -332,7 +332,7 @@
             this.boxCustID.Name = "boxCustID";
             this.boxCustID.ReadOnly = true;
             this.boxCustID.Size = new System.Drawing.Size(92, 20);
-            this.boxCustID.TabIndex = 41;
+            this.boxCustID.TabIndex = 1;
             // 
             // CustomersForm
             // 

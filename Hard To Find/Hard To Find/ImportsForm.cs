@@ -16,10 +16,10 @@ namespace Hard_To_Find
         private FileManager fileManager;
         private DatabaseManager dbManager;
         private bool canImport;
-        private Form1 form1;
+        private MainMenu form1;
 
         //Constructor
-        public ImportsForm(Form1 form1)
+        public ImportsForm(MainMenu form1)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
@@ -93,6 +93,22 @@ namespace Hard_To_Find
             this.Close();
             form1.Show();
             form1.TopLevel = true;
+        }
+
+        /*Precondition:
+         Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //Close form and return to main menu when escape is pressed
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                form1.Show();
+                form1.TopLevel = true;
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

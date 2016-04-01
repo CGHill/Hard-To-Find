@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace Hard_To_Find_Stock
 {
@@ -22,9 +21,16 @@ namespace Hard_To_Find_Stock
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            dbManager = new DatabaseManager();
-
             this.currStock = currStock;
+
+            setup();            
+        }
+
+        /*Precondition: 
+         Postcondition:  Initializes everything needed and loads up the stock to be displayed */
+        private void setup()
+        {
+            dbManager = new DatabaseManager();
             loadStock();
         }
 
@@ -45,53 +51,25 @@ namespace Hard_To_Find_Stock
             btnSave.Enabled = false;
             btnUpdate.Enabled = true;
 
-            Stock newStock = dbManager.searchNewStock(currStock.bookID, true);
-
             //Update all stock information
             currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-            currStock.note = SQLSyntaxHelper.escapeSingleQuotes(boxNote.Text);
-            currStock.author = SQLSyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-            currStock.title = SQLSyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-            currStock.subtitle = SQLSyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-            currStock.publisher = SQLSyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-            currStock.description = SQLSyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-            currStock.comments = SQLSyntaxHelper.escapeSingleQuotes(boxComment.Text);
-            currStock.price = SQLSyntaxHelper.escapeSingleQuotes(boxPrice.Text);
-            currStock.subject = SQLSyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-            currStock.catalogue = SQLSyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-            currStock.sales = SQLSyntaxHelper.escapeSingleQuotes(boxSales.Text);
-            currStock.bookID = SQLSyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-            currStock.dateEntered = SQLSyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+            currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
+            currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+            currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+            currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+            currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
+            currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
+            currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
+            currStock.price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+            currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+            currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
+            currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
+            currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
+            currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
 
             //Send updated stock information to database
-            //Check if the stock being updated is a new one so it can update it in both tables
-            if (newStock != null)
-            {
-                //Get the updated data with the correct ID from the new stock table and update it
-                newStock.quantity = currStock.quantity;
-                newStock.note = currStock.note;
-                newStock.author = currStock.author;
-                newStock.title = currStock.title;
-                newStock.subtitle = currStock.subtitle;
-                newStock.publisher = currStock.publisher;
-                newStock.description = currStock.description;
-                newStock.comments = currStock.comments;
-                newStock.price = currStock.price;
-                newStock.subject = currStock.subject;
-                newStock.catalogue = currStock.catalogue;
-                newStock.sales = currStock.sales;
-                newStock.bookID = currStock.bookID;
-                newStock.dateEntered = currStock.dateEntered;
-
-                dbManager.updateNewStock(newStock);
-
-                //Update it on the main stock table as well
-                dbManager.updateStock(currStock);
-            }
-            else
-            {
-                dbManager.updateStock(currStock);
-            }
+            dbManager.updateStock(currStock);
         }
 
         /*Precondition:
@@ -99,6 +77,19 @@ namespace Hard_To_Find_Stock
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /*Precondition:
+         Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         /*Precondition: None
@@ -116,6 +107,7 @@ namespace Hard_To_Find_Stock
             boxPrice.ReadOnly = !boxPrice.ReadOnly;
             boxSubject.ReadOnly = !boxSubject.ReadOnly;
             boxCatalogues.ReadOnly = !boxCatalogues.ReadOnly;
+            boxInitials.ReadOnly = !boxInitials.ReadOnly;
             boxSales.ReadOnly = !boxSales.ReadOnly;
             boxBookID.ReadOnly = !boxBookID.ReadOnly;
             boxDateEntered.ReadOnly = !boxDateEntered.ReadOnly;
@@ -137,9 +129,33 @@ namespace Hard_To_Find_Stock
             boxPrice.Text = currStock.price;
             boxSubject.Text = currStock.subject;
             boxCatalogues.Text = currStock.catalogue;
+            boxInitials.Text = currStock.initials;
             boxSales.Text = currStock.sales;
             boxBookID.Text = currStock.bookID;
             boxDateEntered.Text = currStock.dateEntered;
+        }
+
+        /*Precondition:
+        Postcondition: Adds a $ sign and makes number 2 decimal places if it's not already */
+        private void boxPrice_Leave(object sender, EventArgs e)
+        {
+            string priceEntered = boxPrice.Text;
+
+            if (priceEntered != "")
+            {
+                bool noLetters = priceEntered.All(x => !char.IsLetter(x));
+
+                if (noLetters)
+                {
+                    string checkedPrice = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(priceEntered);
+
+                    boxPrice.Text = checkedPrice;
+                }
+                else
+                {
+                    MessageBox.Show("Price shouldn't contain letters");
+                }
+            }
         }
     }
 }

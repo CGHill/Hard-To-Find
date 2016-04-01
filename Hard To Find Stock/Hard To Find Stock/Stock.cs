@@ -19,13 +19,14 @@ namespace Hard_To_Find_Stock
         public string price { get; set; }
         public string subject { get; set; }
         public string catalogue { get; set; }
+        public string initials { get; set; }
         public string sales { get; set; }
         public string bookID { get; set; }
         public string dateEntered { get; set; }
 
         //Constructor for stock with existing IDs
         public Stock(int stockID, int quantity, string note, string author, string title, string subtitle, string publisher, string description, string comments, string price,
-            string subject, string catalogue, string sales, string bookID, string dateEntered)
+            string subject, string catalogue, string initials, string sales, string bookID, string dateEntered)
         {
             this.stockID = stockID;
             this.quantity = quantity;
@@ -39,6 +40,7 @@ namespace Hard_To_Find_Stock
             this.price = price;
             this.subject = subject;
             this.catalogue = catalogue;
+            this.initials = initials;
             this.sales = sales;
             this.bookID = bookID;
             this.dateEntered = dateEntered;
@@ -46,7 +48,7 @@ namespace Hard_To_Find_Stock
 
         //Constructor for new stock
         public Stock(int quantity, string note, string author, string title, string subtitle, string publisher, string description, string comments, string price,
-            string subject, string catalogue, string sales, string bookID, string dateEntered)
+            string subject, string catalogue, string initials, string sales, string bookID, string dateEntered)
         {
             this.stockID = -1;
             this.quantity = quantity;
@@ -60,6 +62,7 @@ namespace Hard_To_Find_Stock
             this.price = price;
             this.subject = subject;
             this.catalogue = catalogue;
+            this.initials = initials;
             this.sales = sales;
             this.bookID = bookID;
             this.dateEntered = dateEntered;

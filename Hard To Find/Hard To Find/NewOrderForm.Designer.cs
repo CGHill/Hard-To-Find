@@ -74,6 +74,10 @@
             this.label14 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInvoice = new System.Windows.Forms.Button();
+            this.btnSmallMailingLabel = new System.Windows.Forms.Button();
+            this.labMailingLabels = new System.Windows.Forms.Label();
+            this.btnBigMailingLabel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -82,10 +86,10 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(693, 530);
+            this.btnClose.Location = new System.Drawing.Point(691, 593);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(96, 34);
-            this.btnClose.TabIndex = 0;
+            this.btnClose.TabIndex = 11;
             this.btnClose.Text = "Cancel";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -105,7 +109,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridView1.Size = new System.Drawing.Size(775, 150);
-            this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.TabIndex = 9;
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
             // 
             // Column1
@@ -149,8 +154,8 @@
             this.btnAddBook.Location = new System.Drawing.Point(12, 318);
             this.btnAddBook.Name = "btnAddBook";
             this.btnAddBook.Size = new System.Drawing.Size(108, 34);
-            this.btnAddBook.TabIndex = 2;
-            this.btnAddBook.Text = "Add new book";
+            this.btnAddBook.TabIndex = 8;
+            this.btnAddBook.Text = "&Add new book";
             this.btnAddBook.UseVisualStyleBackColor = true;
             this.btnAddBook.Click += new System.EventHandler(this.btnAddBook_Click);
             // 
@@ -177,7 +182,7 @@
             this.groupBox1.Location = new System.Drawing.Point(184, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(512, 189);
-            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabIndex = 56;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Customer Information";
             // 
@@ -186,8 +191,8 @@
             this.btnNewCustomer.Location = new System.Drawing.Point(335, 150);
             this.btnNewCustomer.Name = "btnNewCustomer";
             this.btnNewCustomer.Size = new System.Drawing.Size(151, 23);
-            this.btnNewCustomer.TabIndex = 52;
-            this.btnNewCustomer.Text = "New Customer";
+            this.btnNewCustomer.TabIndex = 2;
+            this.btnNewCustomer.Text = "&New Customer";
             this.btnNewCustomer.UseVisualStyleBackColor = true;
             this.btnNewCustomer.Click += new System.EventHandler(this.btnNewCustomer_Click);
             // 
@@ -196,8 +201,8 @@
             this.btnFindCustomer.Location = new System.Drawing.Point(94, 150);
             this.btnFindCustomer.Name = "btnFindCustomer";
             this.btnFindCustomer.Size = new System.Drawing.Size(151, 23);
-            this.btnFindCustomer.TabIndex = 51;
-            this.btnFindCustomer.Text = "Find Customer";
+            this.btnFindCustomer.TabIndex = 1;
+            this.btnFindCustomer.Text = "&Find Customer";
             this.btnFindCustomer.UseVisualStyleBackColor = true;
             this.btnFindCustomer.Click += new System.EventHandler(this.btnFindCustomer_Click);
             // 
@@ -353,7 +358,7 @@
             this.groupBox2.Location = new System.Drawing.Point(184, 207);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(512, 113);
-            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabIndex = 57;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Order Details";
             // 
@@ -362,7 +367,7 @@
             this.boxInvoiceDate.Location = new System.Drawing.Point(103, 81);
             this.boxInvoiceDate.Name = "boxInvoiceDate";
             this.boxInvoiceDate.Size = new System.Drawing.Size(142, 20);
-            this.boxInvoiceDate.TabIndex = 4;
+            this.boxInvoiceDate.TabIndex = 5;
             // 
             // label9
             // 
@@ -378,22 +383,23 @@
             this.boxFreight.Location = new System.Drawing.Point(344, 23);
             this.boxFreight.Name = "boxFreight";
             this.boxFreight.Size = new System.Drawing.Size(142, 20);
-            this.boxFreight.TabIndex = 5;
+            this.boxFreight.TabIndex = 6;
             this.boxFreight.Text = "$0.00";
+            this.boxFreight.Leave += new System.EventHandler(this.boxFreight_Leave);
             // 
             // boxProgress
             // 
             this.boxProgress.Location = new System.Drawing.Point(103, 55);
             this.boxProgress.Name = "boxProgress";
             this.boxProgress.Size = new System.Drawing.Size(142, 20);
-            this.boxProgress.TabIndex = 3;
+            this.boxProgress.TabIndex = 4;
             // 
             // boxOrderRef
             // 
             this.boxOrderRef.Location = new System.Drawing.Point(103, 29);
             this.boxOrderRef.Name = "boxOrderRef";
             this.boxOrderRef.Size = new System.Drawing.Size(142, 20);
-            this.boxOrderRef.TabIndex = 2;
+            this.boxOrderRef.TabIndex = 3;
             // 
             // boxComments
             // 
@@ -401,7 +407,7 @@
             this.boxComments.Multiline = true;
             this.boxComments.Name = "boxComments";
             this.boxComments.Size = new System.Drawing.Size(142, 48);
-            this.boxComments.TabIndex = 6;
+            this.boxComments.TabIndex = 7;
             // 
             // label10
             // 
@@ -449,11 +455,11 @@
             // 
             // btnSaveOrder
             // 
-            this.btnSaveOrder.Location = new System.Drawing.Point(12, 530);
+            this.btnSaveOrder.Location = new System.Drawing.Point(12, 593);
             this.btnSaveOrder.Name = "btnSaveOrder";
             this.btnSaveOrder.Size = new System.Drawing.Size(108, 34);
-            this.btnSaveOrder.TabIndex = 5;
-            this.btnSaveOrder.Text = "Save Order";
+            this.btnSaveOrder.TabIndex = 10;
+            this.btnSaveOrder.Text = "Save && &Exit";
             this.btnSaveOrder.UseVisualStyleBackColor = true;
             this.btnSaveOrder.Click += new System.EventHandler(this.btnSaveOrder_Click);
             // 
@@ -488,11 +494,55 @@
             this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.deleteRowToolStripMenuItem.Text = "Remove Book";
             // 
+            // btnInvoice
+            // 
+            this.btnInvoice.Location = new System.Drawing.Point(216, 543);
+            this.btnInvoice.Name = "btnInvoice";
+            this.btnInvoice.Size = new System.Drawing.Size(108, 34);
+            this.btnInvoice.TabIndex = 58;
+            this.btnInvoice.Text = "Create &Invoice";
+            this.btnInvoice.UseVisualStyleBackColor = true;
+            this.btnInvoice.Click += new System.EventHandler(this.btnInvoice_Click);
+            // 
+            // btnSmallMailingLabel
+            // 
+            this.btnSmallMailingLabel.Location = new System.Drawing.Point(488, 543);
+            this.btnSmallMailingLabel.Name = "btnSmallMailingLabel";
+            this.btnSmallMailingLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnSmallMailingLabel.Size = new System.Drawing.Size(74, 33);
+            this.btnSmallMailingLabel.TabIndex = 60;
+            this.btnSmallMailingLabel.Text = "Small";
+            this.btnSmallMailingLabel.UseVisualStyleBackColor = true;
+            this.btnSmallMailingLabel.Click += new System.EventHandler(this.btnSmallMailingLabel_Click);
+            // 
+            // labMailingLabels
+            // 
+            this.labMailingLabels.AutoSize = true;
+            this.labMailingLabels.Location = new System.Drawing.Point(441, 522);
+            this.labMailingLabels.Name = "labMailingLabels";
+            this.labMailingLabels.Size = new System.Drawing.Size(77, 13);
+            this.labMailingLabels.TabIndex = 61;
+            this.labMailingLabels.Text = "Mailing Labels:";
+            // 
+            // btnBigMailingLabel
+            // 
+            this.btnBigMailingLabel.Location = new System.Drawing.Point(408, 543);
+            this.btnBigMailingLabel.Name = "btnBigMailingLabel";
+            this.btnBigMailingLabel.Size = new System.Drawing.Size(74, 33);
+            this.btnBigMailingLabel.TabIndex = 59;
+            this.btnBigMailingLabel.Text = "Big";
+            this.btnBigMailingLabel.UseVisualStyleBackColor = true;
+            this.btnBigMailingLabel.Click += new System.EventHandler(this.btnBigMailingLabel_Click);
+            // 
             // NewOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(813, 576);
+            this.ClientSize = new System.Drawing.Size(813, 639);
+            this.Controls.Add(this.btnSmallMailingLabel);
+            this.Controls.Add(this.labMailingLabels);
+            this.Controls.Add(this.btnBigMailingLabel);
+            this.Controls.Add(this.btnInvoice);
             this.Controls.Add(this.boxInvoiceNo);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.btnSaveOrder);
@@ -561,5 +611,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.Button btnInvoice;
+        private System.Windows.Forms.Button btnSmallMailingLabel;
+        private System.Windows.Forms.Label labMailingLabels;
+        private System.Windows.Forms.Button btnBigMailingLabel;
     }
 }
