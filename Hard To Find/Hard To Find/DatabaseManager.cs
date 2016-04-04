@@ -858,5 +858,118 @@ namespace Hard_To_Find
 
             dbConnection.Close();
         }
+
+        /*Precondition:
+         Postcondition: Returns a list of all of the customers */
+        public List<Customer> getAllCustomers()
+        {
+            List<Customer> foundCustomers = new List<Customer>();
+
+            dbConnection.Open();
+
+            string searchQuery = "SELECT * FROM Customer";
+            //Execute query
+            SQLiteCommand command = new SQLiteCommand(searchQuery, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                Customer foundCustomer = new Customer(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString());
+
+                foundCustomers.Add(foundCustomer);
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundCustomers;
+        }
+
+        /*Precondition:
+         Postcondition: Returns a list of all the stock */
+        public List<Stock> getAllStock()
+        {
+            List<Stock> foundStock = new List<Stock>();
+
+            string searchQuery = "SELECT * FROM Stock";
+
+            dbConnection.Open();
+
+            //Execute query
+            SQLiteCommand command = new SQLiteCommand(searchQuery, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                Stock currStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
+
+                foundStock.Add(currStock);
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundStock;
+        }
+
+        /*Precondition:
+         Postcondition: Returns a list of all the orders */
+        public List<Order> getAllOrders()
+        {
+            List<Order> foundOrders = new List<Order>();
+
+            dbConnection.Open();
+
+            //Execute SQL query
+            string sql = "SELECT * FROM Orders";
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                Order currOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), Convert.ToInt32(reader[8]), reader[9].ToString(), reader[10].ToString(), Convert.ToInt32(reader[11]));
+
+                foundOrders.Add(currOrder);
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundOrders;
+        }
+
+        /*Precondition:
+         Postcondition: Returns a list of all the ordered stock */
+        public List<OrderedStock> getAllOrderedStock()
+        {
+            List<OrderedStock> foundOrderedStock = new List<OrderedStock>();
+
+            dbConnection.Open();
+
+            //Execute SQL query
+            string sql = "SELECT * FROM OrderedStock";
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                OrderedStock newOrderedStock = new OrderedStock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), Convert.ToInt32(reader[2]), Convert.ToInt32(reader[3]), reader[4].ToString(),
+                    reader[5].ToString(), reader[6].ToString(), reader[7].ToString(), reader[8].ToString());
+
+                foundOrderedStock.Add(newOrderedStock);
+            }
+
+            dbConnection.Close();
+
+            //Return results
+            return foundOrderedStock;
+        }
     }
 }

@@ -32,6 +32,8 @@ namespace Hard_To_Find_Stock
         {
             dbManager = new DatabaseManager();
             loadStock();
+
+            btnUpdate.Select();
         }
 
         /*Precondition:
@@ -51,6 +53,7 @@ namespace Hard_To_Find_Stock
             btnSave.Enabled = false;
             btnUpdate.Enabled = true;
 
+            //Check if the stock being edited is a new entry that hasn't been entered into the main system yet
             Stock newStock = dbManager.searchNewStock(currStock.bookID, true);
 
             //Update all stock information
@@ -70,7 +73,7 @@ namespace Hard_To_Find_Stock
             currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
             currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
 
-
+            //Update the newStock table as well
             if (newStock != null)
             {
                 newStock.quantity = currStock.quantity;

@@ -50,11 +50,13 @@ namespace Hard_To_Find_Stock
 
             int failedEntryIndex = 1;
 
-            //Add to database
+            //Loop over stock checking if they can be saved
             foreach (Stock s in newStockEntered)
             {
+                //Check if any of the basic information required to save is missing
                 if (s.author == "" && s.title == "" && s.bookID == "")
                 {
+                    //Build up a list of the stock that failed to save to display to the user
                     if (!canSave)
                         failedEntries += ", " + failedEntryIndex.ToString();
                     else
@@ -64,7 +66,6 @@ namespace Hard_To_Find_Stock
                 }
                 failedEntryIndex++;
             }
-
 
             if (canSave)
             {
@@ -77,6 +78,7 @@ namespace Hard_To_Find_Stock
                     }
                 }
 
+                //Finished saving, close form
                 this.Close();
             }
             else

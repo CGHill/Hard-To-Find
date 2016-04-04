@@ -100,5 +100,12 @@ namespace Hard_To_Find
             ImportsForm importForm = new ImportsForm(this);
             importForm.Show();
         }
+
+        private void btnBackup_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            BackupForm buf = new BackupForm(this);
+            buf.Show();
+        }
     }
 }

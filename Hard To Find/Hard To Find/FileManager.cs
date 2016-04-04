@@ -868,5 +868,210 @@ namespace Hard_To_Find
         {
             File.Delete(filePath);
         }
+
+        /*Precondition: 
+         Postcondition: Copies the sqlite database file into the selected location */
+        public void copyDatabaseFile(string filePath)
+        {
+            if (File.Exists("HardToFindDB.sqlite"))
+            {
+                File.Copy("HardToFindDB.sqlite", filePath + @"\HardToFindDB.sqlite");
+            }
+        }
+
+        /*Precondition: 
+         Postcondition: Checks that the file has the correct name then copies it into the directory to be used for the rest of the program */
+        public bool restoreDatabaseFile(string filePath)
+        {
+            if (filePath.Contains("HardToFindDB.sqlite"))
+            {
+                File.Copy(filePath, Environment.CurrentDirectory + @"\HardToFindDB.sqlite", true);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public void createDatabaseTablesAsCSVFiles(string storagePath)
+        {
+            /*******************  Create and store customer CSV ***********************/
+            string customerFileName = @"\Customer.txt";
+
+            List<Customer> allCustomers = dbManager.getAllCustomers();
+
+            if (allCustomers.Count > 0)
+            {
+                //Create the textfile and write the newstock information into it
+                using (FileStream stream = File.Create(storagePath + customerFileName))
+                {
+                    StreamWriter sw = new StreamWriter(stream);
+
+                    foreach (Customer c in allCustomers)
+                    {
+                        string lineToCheck = c.custID + "|\"" + c.firstName + "\"|\"" + c.lastName + "\"|\"" + c.institution + "\"|\"" + c.address1 + "\"|\"" + c.address2 + "\"|\"" + c.address3 + "\"|\""
+                            + c.country + "\"|\"" + c.postCode + "\"|\"" + c.email + "\"|\"" + c.comments + "\"|\"" + c.sales + "\"|\"" + c.payment + "\"";
+
+                        //The code below checks to see if there are any empty fields that are just quotations and removes the quotations
+                        string[] splitToCheckForEmpty = lineToCheck.Split('|');
+                        string lineToWrite = "";
+
+                        for (int i = 0; i < splitToCheckForEmpty.Length; i++)
+                        {
+                            if (i != splitToCheckForEmpty.Length - 1)
+                            {
+                                if (splitToCheckForEmpty[i].Contains("\"\""))
+                                    lineToWrite += "|";
+                                else
+                                    lineToWrite += splitToCheckForEmpty[i] + "|";
+                            }
+                            else
+                            {
+                                if (!splitToCheckForEmpty[i].Contains("\"\""))
+                                    lineToWrite += splitToCheckForEmpty[i];
+                            }
+                        }
+
+                        sw.WriteLine(lineToWrite);
+                    }
+
+                    sw.Close();
+                }
+            }
+
+            /*******************  Create and store stock CSV ***********************/
+            string stockFileName = @"\Stock.txt";
+
+            List<Stock> allStock = dbManager.getAllStock();
+
+            if (allStock.Count > 0)
+            {
+                //Create the textfile and write the newstock information into it
+                using (FileStream stream = File.Create(storagePath + stockFileName))
+                {
+                    StreamWriter sw = new StreamWriter(stream);
+
+                    foreach (Stock s in allStock)
+                    {
+                        string lineToCheck = s.stockID + "|" + s.quantity + "|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description + "\"|\"" + s.comments
+                            + "\"|\"" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + s.initials + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"";
+
+                        //The code below checks to see if there are any empty fields that are just quotations and removes the quotations
+                        string[] splitToCheckForEmpty = lineToCheck.Split('|');
+                        string lineToWrite = "";
+
+                        for (int i = 0; i < splitToCheckForEmpty.Length; i++)
+                        {
+                            if (i != splitToCheckForEmpty.Length - 1)
+                            {
+                                if (splitToCheckForEmpty[i].Contains("\"\""))
+                                    lineToWrite += "|";
+                                else
+                                    lineToWrite += splitToCheckForEmpty[i] + "|";
+                            }
+                            else
+                            {
+                                if (!splitToCheckForEmpty[i].Contains("\"\""))
+                                    lineToWrite += splitToCheckForEmpty[i];
+                            }
+                        }
+
+                        sw.WriteLine(lineToWrite);
+                    }
+
+                    sw.Close();
+                }
+            }
+
+            /*******************  Create and store orders CSV ***********************/
+            string ordersFileName = @"\Orders.txt";
+
+            List<Order> allOrders = dbManager.getAllOrders();
+
+            if (allOrders.Count > 0)
+            {
+                //Create the textfile and write the newstock information into it
+                using (FileStream stream = File.Create(storagePath + ordersFileName))
+                {
+                    StreamWriter sw = new StreamWriter(stream);
+
+                    foreach (Order o in allOrders)
+                    {
+                        string lineToCheck = o.orderID + "|\"" + o.customerFirstName + "\"|\"" + o.customerLastName + "\"|\"" + o.institution + "\"|\"" + o.postcode + "\"|\"" + o.orderReference + "\"|\"" + o.progress +
+                            "\"|\"" + o.freightCost + "\"|" + o.invoiceNo + "|\"" + o.invoiceDate + "\"|\"" + o.comments + "\"|" + o.customerID;
+
+                        //The code below checks to see if there are any empty fields that are just quotations and removes the quotations
+                        string[] splitToCheckForEmpty = lineToCheck.Split('|');
+                        string lineToWrite = "";
+
+                        for (int i = 0; i < splitToCheckForEmpty.Length; i++)
+                        {
+                            if (i != splitToCheckForEmpty.Length - 1)
+                            {
+                                if (splitToCheckForEmpty[i].Contains("\"\""))
+                                    lineToWrite += "|";
+                                else
+                                    lineToWrite += splitToCheckForEmpty[i] + "|";
+                            }
+                            else
+                            {
+                                if (!splitToCheckForEmpty[i].Contains("\"\""))
+                                    lineToWrite += splitToCheckForEmpty[i];
+                            }
+                        }
+
+                        sw.WriteLine(lineToWrite);
+                    }
+
+                    sw.Close();
+                }
+            }
+
+            /*******************  Create and store orderedStock CSV ***********************/
+            string orderedStockFileName = @"\OrderedStock.txt";
+
+            List<OrderedStock> allOrderedStock = dbManager.getAllOrderedStock();
+
+            if (allOrderedStock.Count > 0)
+            {
+                //Create the textfile and write the newstock information into it
+                using (FileStream stream = File.Create(storagePath + orderedStockFileName))
+                {
+                    StreamWriter sw = new StreamWriter(stream);
+
+                    foreach (OrderedStock os in allOrderedStock)
+                    {
+                        string lineToCheck = os.orderedStockID + "|" + os.orderID + "|" + os.stockID + "|" + os.quantity + "|\"" + os.author + "\"|\"" + os.title + "\"|\"" + os.price + "\"|\"" 
+                            + os.bookID + "\"|\"" + os.discount + "\"";
+
+                        //The code below checks to see if there are any empty fields that are just quotations and removes the quotations
+                        string[] splitToCheckForEmpty = lineToCheck.Split('|');
+                        string lineToWrite = "";
+
+                        for (int i = 0; i < splitToCheckForEmpty.Length; i++)
+                        {
+                            if (i != splitToCheckForEmpty.Length - 1)
+                            {
+                                if (splitToCheckForEmpty[i].Contains("\"\""))
+                                    lineToWrite += "|";
+                                else
+                                    lineToWrite += splitToCheckForEmpty[i] + "|";
+                            }
+                            else
+                            {
+                                if (!splitToCheckForEmpty[i].Contains("\"\""))
+                                    lineToWrite += splitToCheckForEmpty[i];
+                            }
+                        }
+
+                        sw.WriteLine(lineToWrite);
+                    }
+
+                    sw.Close();
+                }
+            }
+        }
     }
 }

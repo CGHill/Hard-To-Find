@@ -36,7 +36,7 @@
             this.btnFileExports = new System.Windows.Forms.Button();
             this.btnSetStorageLocation = new System.Windows.Forms.Button();
             this.btnImports = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnBackup = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCustomers
@@ -120,22 +120,22 @@
             this.btnImports.UseVisualStyleBackColor = true;
             this.btnImports.Click += new System.EventHandler(this.btnImports_Click);
             // 
-            // button2
+            // btnBackup
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(396, 124);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 37);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "&Backup";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnBackup.Location = new System.Drawing.Point(396, 124);
+            this.btnBackup.Name = "btnBackup";
+            this.btnBackup.Size = new System.Drawing.Size(123, 37);
+            this.btnBackup.TabIndex = 7;
+            this.btnBackup.Text = "&Backup";
+            this.btnBackup.UseVisualStyleBackColor = true;
+            this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
             // 
-            // Form1
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(593, 366);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.btnImports);
             this.Controls.Add(this.btnSetStorageLocation);
             this.Controls.Add(this.btnFileExports);
@@ -144,7 +144,7 @@
             this.Controls.Add(this.btnOrders);
             this.Controls.Add(this.btnStock);
             this.Controls.Add(this.btnCustomers);
-            this.Name = "Form1";
+            this.Name = "MainMenu";
             this.Text = "Main Menu";
             this.ResumeLayout(false);
 
@@ -160,7 +160,7 @@
         private System.Windows.Forms.Button btnFileExports;
         private System.Windows.Forms.Button btnSetStorageLocation;
         private System.Windows.Forms.Button btnImports;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnBackup;
     }
 }
 

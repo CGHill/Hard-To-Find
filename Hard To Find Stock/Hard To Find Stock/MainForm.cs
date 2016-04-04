@@ -242,28 +242,35 @@ namespace Hard_To_Find_Stock
 
             List<Stock> allNewStock = dbManager.getAllNewStock();
 
-            //Check that the storage location for the file exists
-            if (!File.Exists(Environment.CurrentDirectory + STORAGE_FOLDER + fileName))
+            if (allNewStock.Count > 0)
             {
-                //Create the textfile and write the newstock information into it
-                using (FileStream stream = File.Create(Environment.CurrentDirectory + STORAGE_FOLDER + fileName))
+                //Check that the storage location for the file exists
+                if (!File.Exists(Environment.CurrentDirectory + STORAGE_FOLDER + fileName))
                 {
-                    StreamWriter sw = new StreamWriter(stream);
-
-                    foreach (Stock s in allNewStock)
+                    //Create the textfile and write the newstock information into it
+                    using (FileStream stream = File.Create(Environment.CurrentDirectory + STORAGE_FOLDER + fileName))
                     {
-                        sw.WriteLine("-1" + "|\"" + s.quantity + "\"|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description +
-                            "\"|\"" + s.comments + "\"|\"" + "" + "\"|\""+ s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + "" + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered);
+                        StreamWriter sw = new StreamWriter(stream);
+
+                        foreach (Stock s in allNewStock)
+                        {
+                            sw.WriteLine("-1" + "|\"" + s.quantity + "\"|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description +
+                                "\"|\"" + s.comments + "\"|\"" + "" + "\"|\"" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + "" + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered);
+                        }
+
+                        sw.Close();
                     }
 
-                    sw.Close();
                 }
 
-            }
+                //Reset the new stock table
+                dbManager.dropNewStockTable();
+                dbManager.createNewStockTable();
 
-            //Reset the new stock table
-            dbManager.dropNewStockTable();
-            dbManager.createNewStockTable();
+                MessageBox.Show("Export File created.\nStorage Location: " + Environment.CurrentDirectory + STORAGE_FOLDER + fileName);
+            }
+            else
+                MessageBox.Show("No new data");
         }
 
         /*Precondition:

@@ -37,51 +37,6 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
-         Postcondition: Toggle text boxes to be written in*/
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            toggleBoxesReadOnly();
-            btnSave.Enabled = true;
-            btnUpdate.Enabled = false;
-        }
-
-        /*Precondition:
-         Postcondition: Toggle text boxes back. Send updated stock to database so the updates can be stored*/
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            toggleBoxesReadOnly();
-            btnSave.Enabled = false;
-            btnUpdate.Enabled = true;
-
-            //Update all stock information
-            currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-            currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
-            currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-            currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-            currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-            currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-            currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-            currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
-            currStock.price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
-            currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-            currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-            currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
-            currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-            currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-            currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
-
-            //Send updated stock information to database
-            dbManager.updateStock(currStock);
-        }
-
-        /*Precondition:
-         Postcondition: Closes this form*/
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        /*Precondition:
          Postcondition: Listens for keypresses no matter which control has focus */
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -158,6 +113,51 @@ namespace Hard_To_Find
                     MessageBox.Show("Price shouldn't contain letters");
                 }
             }
+        }
+
+        /*Precondition:
+         Postcondition: Toggle text boxes to be written in*/
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            toggleBoxesReadOnly();
+            btnSave.Enabled = true;
+            btnUpdate.Enabled = false;
+        }
+
+        /*Precondition:
+         Postcondition: Toggle text boxes back. Send updated stock to database so the updates can be stored*/
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            toggleBoxesReadOnly();
+            btnSave.Enabled = false;
+            btnUpdate.Enabled = true;
+
+            //Update all stock information
+            currStock.quantity = Convert.ToInt32(boxQuantity.Text);
+            currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
+            currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+            currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+            currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+            currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
+            currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
+            currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
+            currStock.price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+            currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+            currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
+            currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
+            currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
+            currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+
+            //Send updated stock information to database
+            dbManager.updateStock(currStock);
+        }
+
+        /*Precondition:
+         Postcondition: Closes this form*/
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
