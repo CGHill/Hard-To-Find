@@ -9,10 +9,15 @@ namespace Hard_To_Find
     class FileManager
     {
         //Constants
+        public enum IMPORT_TYPE { CUSTOMER, STOCK, ORDERS, ORDEREDSTOCK }
         const string STORAGE_FILE_NAME = "FileStorageLocation.txt";
-        const int CUSTOMER_ARRAY_LENGTH = 15;
-        const int ORDER_ARRAY_LENGTH = 18;
-        const int ORDEREDSTOCK_ARRAY_LENGTH = 19;
+        const int OLD_CUSTOMER_ARRAY_LENGTH = 15;
+        const int OLD_ORDER_ARRAY_LENGTH = 18;
+        const int OLD_ORDEREDSTOCK_ARRAY_LENGTH = 19;
+        const int CUSTOMER_ARRAY_LENGTH = 13;
+        const int ORDER_ARRAY_LENGTH = 12;
+        const int ORDEREDSTOCK_ARRAY_LENGTH = 9;
+        const int STOCK_ARRAY_LENGTH = 16;
 
         //Globals
         private DatabaseManager dbManager;
@@ -20,6 +25,7 @@ namespace Hard_To_Find
         private List<Customer> allCustomers;
         private List<Order> allOrders;
         private List<OrderedStock> allOrderedStock;
+        private List<Object> importedObjects;
 
         //Constructor
         public FileManager()
@@ -158,6 +164,274 @@ namespace Hard_To_Find
 
             //Return filepath
             return allFilePaths;
+        }
+
+        public List<Object> importFromCSV(string filePath, IMPORT_TYPE type)
+        {
+            importedObjects = new List<Object>();
+       
+            int currArrayLength = 0;
+
+            //Open file from passed in path
+            StreamReader file = new StreamReader(filePath);
+
+            string line;
+            string[] previousLine = new string[1];
+            bool newLineCharacter = false;
+
+            //Read through the whole file 1 line at a time
+            while ((line = file.ReadLine()) != null)
+            {
+                //Remove double quotations from line for SQL insert
+                string unquoted = line.Replace("\"", string.Empty);
+
+                //Check if it contains a single quotation
+                if (unquoted.Contains('\''))
+                {
+                    //Get number of single quotations
+                    int numQuotes = unquoted.Split('\'').Length - 1;
+
+                    int previousIndex = 0;
+
+                    //Loop over quotations
+                    for (int i = 0; i < numQuotes; i++)
+                    {
+                        //Insert quotation before existing one because it's an escape character in SQLite
+                        int indexOfQuote = unquoted.IndexOf("'", previousIndex);
+                        unquoted = unquoted.Insert(indexOfQuote, "'");
+
+                        //Move index after quotation that was just fixed to stop repeating on the same one
+                        previousIndex = indexOfQuote + 2;
+                    }
+
+                }
+
+                //Split on | instead of comma because Order entries could contain commas in comments
+                string[] splitObject = unquoted.Split('|');
+
+                //Importing from the old Access database contain a lot of new line characters
+                //Check if current line contains all of the columns
+                if (splitObject.Length < currArrayLength)
+                {
+                    //If previous line had a new line character in it
+                    if (newLineCharacter)
+                    {
+                        //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
+                        if ((splitObject.Length + previousLine.Length - 1) == currArrayLength)
+                        {
+                            //Go through and combined the lines into 1
+                            string[] combinedLines = new string[currArrayLength];
+                            int combinedLineIndex = 0;
+
+                            for (int i = 0; i < previousLine.Length; i++)
+                            {
+                                combinedLines[combinedLineIndex] = previousLine[i];
+                                combinedLineIndex++;
+                            }
+
+                            for (int i = 0; i < splitObject.Length; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    combinedLineIndex--;
+                                    combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitObject[i];
+                                }
+                                else
+                                {
+                                    combinedLines[combinedLineIndex] = splitObject[i];
+                                }
+                                combinedLineIndex++;
+                            }
+
+                            //Pull out all of the columns
+                            storeImportObject(combinedLines, type);
+
+                            //Reset values
+                            newLineCharacter = false;
+                            previousLine = new string[1];
+                        }
+                        else
+                        {
+                            if (splitObject.Length == 1)
+                            {
+                                int previousLineLength = previousLine.Length;
+                                previousLine[previousLineLength - 1] = previousLine[previousLineLength - 1] + " " + splitObject[0];
+                            }
+                            else
+                            {
+                                //Go through and combined the lines into 1
+                                string[] combinedLines = new string[previousLine.Length + splitObject.Length - 1];
+                                int combinedLineIndex = 0;
+
+                                for (int i = 0; i < previousLine.Length; i++)
+                                {
+                                    combinedLines[combinedLineIndex] = previousLine[i];
+                                    combinedLineIndex++;
+                                }
+
+                                for (int i = 0; i < splitObject.Length; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        combinedLineIndex--;
+                                        combinedLines[combinedLineIndex] = combinedLines[combinedLineIndex] + ", " + splitObject[i];
+                                    }
+                                    else
+                                    {
+                                        combinedLines[combinedLineIndex] = splitObject[i];
+                                    }
+                                    combinedLineIndex++;
+                                }
+
+                                if (combinedLines.Length == currArrayLength)
+                                {
+                                    storeImportObject(combinedLines, type);
+
+                                    //Reset values
+                                    newLineCharacter = false;
+                                    previousLine = new string[1];
+                                }
+
+                            }
+                        }
+                    }
+                    else     //Was the first new line character and need to search for the rest of the line
+                    {
+                        //Update values to start searching for the rest of the line
+                        newLineCharacter = true;
+                        previousLine = splitObject;
+                    }
+                }
+                else     //Else a normal line
+                {
+                    storeImportObject(splitObject, type);
+                }
+            }
+            //Close text file
+            file.Close();
+
+            return importedObjects;
+        }
+
+        //TODO fix up array indexes
+        private void storeImportObject(string[] splitObject, IMPORT_TYPE type)
+        {
+            switch (type)
+            {
+                case IMPORT_TYPE.CUSTOMER:
+                    {
+                        int custID = Convert.ToInt32(splitObject[0]);
+                        string custFirstName = splitObject[1];
+                        string custLastName = splitObject[2];
+                        string custInstitution = splitObject[3];
+                        string custAddress1 = splitObject[4];
+                        string custAddress2 = splitObject[5];
+                        string custAddress3 = splitObject[6];
+                        string custCountry = splitObject[7];
+                        string custPostCode = splitObject[8];
+                        string custEmail = splitObject[9];
+                        string custComments = splitObject[10];
+                        string custSales = splitObject[11];
+                        string custPayment = splitObject[12];
+
+                        //Create new customer and insert into list
+                        Customer newCust = new Customer(custID, custFirstName, custLastName, custInstitution, custAddress1, custAddress2, custAddress3, custCountry, custPostCode, custEmail, custComments, custSales, custPayment);
+                        importedObjects.Add(newCust);
+                    }
+                    break;
+                case IMPORT_TYPE.STOCK:
+                    {
+                        //Pull out all of the columns
+                        int stockID = Convert.ToInt32(splitObject[0]);
+                        int quantity;
+
+                        if (splitObject[1] == "")
+                            quantity = 0;
+                        else
+                            quantity = Convert.ToInt32(splitObject[1]);
+
+                        string note = splitObject[2];
+                        string author = splitObject[3];
+                        string title = splitObject[4];
+                        string subtitle = splitObject[5];
+                        string publisher = splitObject[6];
+                        string description = splitObject[7];
+                        string comments = splitObject[8];
+                        string price = splitObject[9];
+                        string subject = splitObject[10];
+                        string catalogue = splitObject[11];
+                        string initials = splitObject[12];
+                        string sales = splitObject[13];
+                        string bookID = splitObject[14];
+                        string enteredBy = splitObject[15];
+
+                        //Create a new stock entry from it and insert into list
+                        Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, initials, sales, bookID, enteredBy);
+                        importedObjects.Add(newStock);
+                    }
+                    break;
+                case IMPORT_TYPE.ORDERS:
+                    {
+                        int orderID = Convert.ToInt32(splitObject[0]);
+                        string customerFirstName = splitObject[1];
+                        string customerLastName = splitObject[2];
+                        string institution = splitObject[3];
+                        string postcode = splitObject[4];
+                        string orderReference = splitObject[5];
+                        string progress = splitObject[6];
+                        string freightCost = splitObject[7];
+
+                        int invoiceNo;
+                        if (splitObject[8] == "")
+                            invoiceNo = -1;
+                        else
+                            invoiceNo = Convert.ToInt32(splitObject[8]);
+
+                        string invoiceDate = splitObject[9];
+                        string comment = splitObject[10];
+
+                        int customerID;
+                        if (splitObject[11] == "")
+                            customerID = -1;
+                        else
+                            customerID = Convert.ToInt32(splitObject[11]);
+
+                        //Create a new order entry from it and insert into list
+                        Order newOrder = new Order(orderID, customerFirstName, customerLastName, institution, postcode, orderReference, progress, freightCost, invoiceNo, invoiceDate, comment, customerID);
+                        importedObjects.Add(newOrder);
+                    }
+                    break;
+                case IMPORT_TYPE.ORDEREDSTOCK:
+                    {
+                        int orderedStockID = Convert.ToInt32(splitObject[0]);
+                        int orderedStockOrderID = Convert.ToInt32(splitObject[1]);
+
+                        int stockID;
+                        if (splitObject[2] == "")
+                            stockID = -1;
+                        else
+                            stockID = Convert.ToInt32(splitObject[2]);
+
+                        int quantity;
+                        if (splitObject[3] == "")
+                            quantity = 0;
+                        else
+                            quantity = Convert.ToInt32(splitObject[3]);
+                        string author = splitObject[4];
+                        string title = splitObject[5];
+                        string price = splitObject[6];
+                        string bookID = splitObject[7];
+                        string discount = splitObject[8];
+
+                        if (discount == "")
+                            discount = "$0.00";
+
+                        //Create a new order entry from it and insert into list
+                        OrderedStock newOrderedStock = new OrderedStock(orderedStockID, orderedStockOrderID, stockID, quantity, author, title, price, bookID, discount);
+                        importedObjects.Add(newOrderedStock);
+                    }
+                    break;
+            }
         }
 
         /*Precondition: txt file must be formatted as a CSV separated by a | instead of , in order of:
@@ -348,7 +622,6 @@ namespace Hard_To_Find
                 {
                     //Get number of single quotations
                     int numQuotes = unquoted.Split('\'').Length - 1;
-                    //int num = removedDashes.Count(c => c == '\'');
 
                     int previousIndex = 0;
 
@@ -370,16 +643,16 @@ namespace Hard_To_Find
 
                 //Importing from the old Access database contain a lot of new line characters
                 //Check if current line contains all of the columns
-                if (splitOrder.Length < CUSTOMER_ARRAY_LENGTH)
+                if (splitOrder.Length < OLD_CUSTOMER_ARRAY_LENGTH)
                 {
                     //If previous line had a new line character in it
                     if (newLineCharacter)
                     {
                         //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
-                        if ((splitOrder.Length + previousLine.Length - 1) == CUSTOMER_ARRAY_LENGTH)
+                        if ((splitOrder.Length + previousLine.Length - 1) == OLD_CUSTOMER_ARRAY_LENGTH)
                         {
                             //Go through and combined the lines into 1
-                            string[] combinedLines = new string[CUSTOMER_ARRAY_LENGTH];
+                            string[] combinedLines = new string[OLD_CUSTOMER_ARRAY_LENGTH];
                             int combinedLineIndex = 0;
 
                             for (int i = 0; i < previousLine.Length; i++)
@@ -442,7 +715,7 @@ namespace Hard_To_Find
                                     combinedLineIndex++;
                                 }
 
-                                if (combinedLines.Length == CUSTOMER_ARRAY_LENGTH)
+                                if (combinedLines.Length == OLD_CUSTOMER_ARRAY_LENGTH)
                                 {
                                     storeCustomer(combinedLines);
 
@@ -544,16 +817,16 @@ namespace Hard_To_Find
 
                 //Importing from the old Access database contain a lot of new line characters
                 //Check if current line contains all of the columns
-                if (splitOrder.Length < ORDER_ARRAY_LENGTH)
+                if (splitOrder.Length < OLD_ORDER_ARRAY_LENGTH)
                 {
                     //If previous line had a new line character in it
                     if (newLineCharacter)
                     {
                         //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
-                        if ((splitOrder.Length + previousLine.Length - 1) == ORDER_ARRAY_LENGTH)
+                        if ((splitOrder.Length + previousLine.Length - 1) == OLD_ORDER_ARRAY_LENGTH)
                         {
                             //Go through and combined the lines into 1
-                            string[] combinedLines = new string[ORDER_ARRAY_LENGTH];
+                            string[] combinedLines = new string[OLD_ORDER_ARRAY_LENGTH];
                             int combinedLineIndex = 0;
 
                             for (int i = 0; i < previousLine.Length; i++)
@@ -616,7 +889,7 @@ namespace Hard_To_Find
                                     combinedLineIndex++;
                                 }
 
-                                if (combinedLines.Length == ORDER_ARRAY_LENGTH)
+                                if (combinedLines.Length == OLD_ORDER_ARRAY_LENGTH)
                                 {
                                     storeOrder(combinedLines);
 
@@ -727,16 +1000,16 @@ namespace Hard_To_Find
 
                 //Importing from the old Access database contain a lot of new line characters
                 //Check if current line contains all of the columns
-                if (splitOrder.Length < ORDEREDSTOCK_ARRAY_LENGTH)
+                if (splitOrder.Length < OLD_ORDEREDSTOCK_ARRAY_LENGTH)
                 {
                     //If previous line had a new line character in it
                     if (newLineCharacter)
                     {
                         //Check that it wasn't a second new line character by seeing if it's columns + the previous lines columns = the number needed
-                        if ((splitOrder.Length + previousLine.Length - 1) == ORDEREDSTOCK_ARRAY_LENGTH)
+                        if ((splitOrder.Length + previousLine.Length - 1) == OLD_ORDEREDSTOCK_ARRAY_LENGTH)
                         {
                             //Go through and combined the lines into 1
-                            string[] combinedLines = new string[ORDEREDSTOCK_ARRAY_LENGTH];
+                            string[] combinedLines = new string[OLD_ORDEREDSTOCK_ARRAY_LENGTH];
                             int combinedLineIndex = 0;
 
                             for (int i = 0; i < previousLine.Length; i++)
@@ -799,7 +1072,7 @@ namespace Hard_To_Find
                                     combinedLineIndex++;
                                 }
 
-                                if (combinedLines.Length == ORDEREDSTOCK_ARRAY_LENGTH)
+                                if (combinedLines.Length == OLD_ORDEREDSTOCK_ARRAY_LENGTH)
                                 {
                                     storeOrderedStock(combinedLines);
 
@@ -898,7 +1171,7 @@ namespace Hard_To_Find
         public void createDatabaseTablesAsCSVFiles(string storagePath)
         {
             /*******************  Create and store customer CSV ***********************/
-            string customerFileName = @"\Customer.txt";
+            string customerFileName = @"\Customers.txt";
 
             List<Customer> allCustomers = dbManager.getAllCustomers();
 
@@ -999,7 +1272,7 @@ namespace Hard_To_Find
 
                     foreach (Order o in allOrders)
                     {
-                        string lineToCheck = o.orderID + "|\"" + o.customerFirstName + "\"|\"" + o.customerLastName + "\"|\"" + o.institution + "\"|\"" + o.postcode + "\"|\"" + o.orderReference + "\"|\"" + o.progress +
+                        string lineToCheck = o.orderID + "|\"" + o.firstName + "\"|\"" + o.lastName + "\"|\"" + o.institution + "\"|\"" + o.postcode + "\"|\"" + o.orderReference + "\"|\"" + o.progress +
                             "\"|\"" + o.freightCost + "\"|" + o.invoiceNo + "|\"" + o.invoiceDate + "\"|\"" + o.comments + "\"|" + o.customerID;
 
                         //The code below checks to see if there are any empty fields that are just quotations and removes the quotations

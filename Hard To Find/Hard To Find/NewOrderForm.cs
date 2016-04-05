@@ -16,7 +16,7 @@ namespace Hard_To_Find
         private List<Stock> orderedBooks;
         private DatabaseManager dbManager;
         private OrdersForm ordersForm;
-        FileManager fileManager;
+        private FileManager fileManager;
 
         //Constructor
         public NewOrderForm(OrdersForm ordersForm)

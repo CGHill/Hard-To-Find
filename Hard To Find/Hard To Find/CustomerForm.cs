@@ -120,7 +120,6 @@ namespace Hard_To_Find
          Postcondition: Starts the import process to move customers from a csv text file into the SQLite database*/
         private void btnImportCustomers_Click(object sender, EventArgs e)
         {
-
             //Set up file browser, to search for txt files and default directory of C: drive
             OpenFileDialog dialogBox = new OpenFileDialog();
             dialogBox.Title = "Open Customer txt file";

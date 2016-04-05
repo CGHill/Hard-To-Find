@@ -172,7 +172,7 @@ namespace Hard_To_Find
             foreach (Stock s in newStockEntered)
             {
                 //Check if any of the basic information required to save is missing
-                if (s.author == "" && s.title == "" && s.bookID == "")
+                if (s.author == "" || s.title == "" || s.bookID == "")
                 {
                     //Build up a list of the stock that failed to save to display to the user
                     if (!canSave)

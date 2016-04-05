@@ -8,8 +8,8 @@ namespace Hard_To_Find
     class Order
     {
         public int orderID { get; set; }
-        public string customerFirstName { get; set; }
-        public string customerLastName { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public string institution { get; set; }
         public string postcode { get; set; }
         public string orderReference { get; set; }
@@ -20,12 +20,12 @@ namespace Hard_To_Find
         public string comments { get; set; }
         public int customerID { get; set; }
 
-        public Order(int orderID, string customerFirstName, string customerLastName, string institution, string postcode, string orderReference, string progress, string freightCost, 
+        public Order(int orderID, string firstName, string lastName, string institution, string postcode, string orderReference, string progress, string freightCost, 
             int invoiceNo, string invoiceDate, string comments, int customerID)
         {
             this.orderID = orderID;
-            this.customerFirstName = customerFirstName;
-            this.customerLastName = customerLastName;
+            this.firstName = firstName;
+            this.lastName = lastName;
             this.institution = institution;
             this.postcode = postcode;
             this.orderReference = orderReference;
@@ -41,8 +41,8 @@ namespace Hard_To_Find
             string invoiceDate, string comments, int customerID)
         {
             this.orderID = -1;
-            this.customerFirstName = customerFirstName;
-            this.customerLastName = customerLastName;
+            this.firstName = firstName;
+            this.lastName = lastName;
             this.institution = institution;
             this.postcode = postcode;
             this.orderReference = orderReference;

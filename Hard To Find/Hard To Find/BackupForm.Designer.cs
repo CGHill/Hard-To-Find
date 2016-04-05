@@ -38,6 +38,7 @@
             this.btnRestoreOrderedStock = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -84,43 +85,43 @@
             // 
             // btnRestoreStock
             // 
-            this.btnRestoreStock.Enabled = false;
             this.btnRestoreStock.Location = new System.Drawing.Point(225, 66);
             this.btnRestoreStock.Name = "btnRestoreStock";
             this.btnRestoreStock.Size = new System.Drawing.Size(151, 34);
             this.btnRestoreStock.TabIndex = 4;
             this.btnRestoreStock.Text = "Restore Stock from CSV";
             this.btnRestoreStock.UseVisualStyleBackColor = true;
+            this.btnRestoreStock.Click += new System.EventHandler(this.btnRestoreStock_Click);
             // 
             // btnRestoreCustomers
             // 
-            this.btnRestoreCustomers.Enabled = false;
             this.btnRestoreCustomers.Location = new System.Drawing.Point(225, 26);
             this.btnRestoreCustomers.Name = "btnRestoreCustomers";
             this.btnRestoreCustomers.Size = new System.Drawing.Size(151, 34);
             this.btnRestoreCustomers.TabIndex = 5;
             this.btnRestoreCustomers.Text = "Restore Customers from CSV";
             this.btnRestoreCustomers.UseVisualStyleBackColor = true;
+            this.btnRestoreCustomers.Click += new System.EventHandler(this.btnRestoreCustomers_Click);
             // 
             // btnRestoreOrders
             // 
-            this.btnRestoreOrders.Enabled = false;
             this.btnRestoreOrders.Location = new System.Drawing.Point(225, 106);
             this.btnRestoreOrders.Name = "btnRestoreOrders";
             this.btnRestoreOrders.Size = new System.Drawing.Size(151, 34);
             this.btnRestoreOrders.TabIndex = 6;
             this.btnRestoreOrders.Text = "Restore Orders from CSV";
             this.btnRestoreOrders.UseVisualStyleBackColor = true;
+            this.btnRestoreOrders.Click += new System.EventHandler(this.btnRestoreOrders_Click);
             // 
             // btnRestoreOrderedStock
             // 
-            this.btnRestoreOrderedStock.Enabled = false;
             this.btnRestoreOrderedStock.Location = new System.Drawing.Point(225, 146);
             this.btnRestoreOrderedStock.Name = "btnRestoreOrderedStock";
             this.btnRestoreOrderedStock.Size = new System.Drawing.Size(151, 34);
             this.btnRestoreOrderedStock.TabIndex = 7;
             this.btnRestoreOrderedStock.Text = "Restore OrderedStock from CSV";
             this.btnRestoreOrderedStock.UseVisualStyleBackColor = true;
+            this.btnRestoreOrderedStock.Click += new System.EventHandler(this.btnRestoreOrderedStock_Click);
             // 
             // groupBox1
             // 
@@ -147,11 +148,20 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Restoration";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(-3, 387);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(439, 16);
+            this.progressBar1.TabIndex = 10;
+            this.progressBar1.Visible = false;
+            // 
             // BackupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 401);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnMainMenu);
@@ -175,5 +185,6 @@
         private System.Windows.Forms.Button btnRestoreOrderedStock;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

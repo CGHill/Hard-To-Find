@@ -66,7 +66,7 @@ namespace Hard_To_Find
             DataGridViewColumn colDiscount = dataGridView1.Columns[5];
             colDiscount.Width = 75;
 
-
+            //TODO this crashes program if orders table doesn't exist
             loadNewestOrder();
 
             //If this form was opened through customers orders then remove unneccessary controls and adjust form
@@ -372,7 +372,7 @@ namespace Hard_To_Find
                     else
                     {
                         //Use the default data that was stored in the order
-                        boxFirstName.Text = currOrder.customerFirstName + " " + currOrder.customerLastName;
+                        boxFirstName.Text = currOrder.firstName + " " + currOrder.lastName;
                     }
 
 

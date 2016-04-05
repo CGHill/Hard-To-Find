@@ -492,7 +492,7 @@ namespace Hard_To_Find
             if(customer != null)
                 text7.Text = customer.firstName + " " + customer.lastName;
             else
-                text7.Text = order.customerFirstName + " " + order.customerLastName;
+                text7.Text = order.firstName + " " + order.lastName;
 
             run7.Append(runProperties7);
             run7.Append(tabChar1);

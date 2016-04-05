@@ -181,7 +181,7 @@ namespace Hard_To_Find
         public void updateOrder(Order order)
         {
             //Apostrophies cause program to crash
-            string updateQuery = "UPDATE Orders SET customerFirstName = '" + order.customerFirstName + "', customerLastName = '" + order.customerLastName + "', institution = '" + order.institution + 
+            string updateQuery = "UPDATE Orders SET customerFirstName = '" + order.firstName + "', customerLastName = '" + order.lastName + "', institution = '" + order.institution + 
                 "', postcode = '" + order.postcode + "', orderReference = '" + order.orderReference + "', progress = '" + order.progress + "', freightCost = '" + order.freightCost +
                 "', invoice = '" + order.invoiceNo + "', invoiceDate = '" + order.invoiceDate + "', comments = '" + order.comments + "', customerID = '" + order.customerID + "' WHERE orderID = " + order.orderID;
 
@@ -341,12 +341,12 @@ namespace Hard_To_Find
                 //Build insert command. If order has an ID insert it with that ID if not (new order) and insert with a new ID using autoincrement from SQLite
                 if (o.orderID == -1)
                 {
-                    orderInsert = "INSERT INTO Orders VALUES(null, '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" + 
+                    orderInsert = "INSERT INTO Orders VALUES(null, '" + o.firstName + "', '" + o.lastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" + 
                         o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo + "', '" + o.invoiceDate + "', '" +  o.comments + "', '" + o.customerID + "')";
                 }
                 else
                 {
-                    orderInsert = "INSERT INTO Orders VALUES(" + o.orderID + ", '" + o.customerFirstName + "', '" + o.customerLastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference +  "', '" + 
+                    orderInsert = "INSERT INTO Orders VALUES(" + o.orderID + ", '" + o.firstName + "', '" + o.lastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference +  "', '" + 
                         o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo.ToString() + "', '" + o.invoiceDate + "', '" + o.comments + "', '" + o.customerID + "')";
                 }
 
@@ -373,7 +373,7 @@ namespace Hard_To_Find
             string orderInsert = "";
 
             //Build insert command
-            orderInsert = "INSERT INTO Orders VALUES(null, '" + newOrder.customerFirstName + "', '" + newOrder.customerLastName + "', '" + newOrder.institution + "', '" + newOrder.postcode + "', '" + 
+            orderInsert = "INSERT INTO Orders VALUES(null, '" + newOrder.firstName + "', '" + newOrder.lastName + "', '" + newOrder.institution + "', '" + newOrder.postcode + "', '" + 
                 newOrder.orderReference + "', '" + newOrder.progress + "', '" + newOrder.freightCost + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate + "', '" + newOrder.comments + "', '" + 
                 newOrder.customerID + "')";
                 
