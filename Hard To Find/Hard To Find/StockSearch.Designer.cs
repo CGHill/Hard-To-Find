@@ -42,15 +42,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnSelectStock = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.labResults = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSelectStock = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labResults = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +71,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(233, 292);
-            this.groupBox1.TabIndex = 29;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
             // 
@@ -82,7 +82,7 @@
             this.rdoInStock.Location = new System.Drawing.Point(80, 149);
             this.rdoInStock.Name = "rdoInStock";
             this.rdoInStock.Size = new System.Drawing.Size(91, 17);
-            this.rdoInStock.TabIndex = 5;
+            this.rdoInStock.TabIndex = 6;
             this.rdoInStock.TabStop = true;
             this.rdoInStock.Text = "Have in stock";
             this.rdoInStock.UseVisualStyleBackColor = true;
@@ -93,7 +93,7 @@
             this.rdoAllStock.Location = new System.Drawing.Point(80, 172);
             this.rdoAllStock.Name = "rdoAllStock";
             this.rdoAllStock.Size = new System.Drawing.Size(67, 17);
-            this.rdoAllStock.TabIndex = 6;
+            this.rdoAllStock.TabIndex = 7;
             this.rdoAllStock.Text = "All Stock";
             this.rdoAllStock.UseVisualStyleBackColor = true;
             // 
@@ -102,8 +102,8 @@
             this.boxSubject.Location = new System.Drawing.Point(80, 108);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
-            this.boxSubject.TabIndex = 4;
-            this.boxSubject.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxSubject_KeyPress);
+            this.boxSubject.TabIndex = 5;
+            this.boxSubject.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label4
             // 
@@ -119,7 +119,7 @@
             this.btnSearch.Location = new System.Drawing.Point(80, 247);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 7;
+            this.btnSearch.TabIndex = 8;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -129,8 +129,8 @@
             this.boxBookID.Location = new System.Drawing.Point(80, 30);
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(92, 20);
-            this.boxBookID.TabIndex = 1;
-            this.boxBookID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxBookID_KeyPress);
+            this.boxBookID.TabIndex = 2;
+            this.boxBookID.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label3
             // 
@@ -146,16 +146,16 @@
             this.boxTitle.Location = new System.Drawing.Point(80, 82);
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
-            this.boxTitle.TabIndex = 3;
-            this.boxTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxTitle_KeyPress);
+            this.boxTitle.TabIndex = 4;
+            this.boxTitle.KeyPress += TextBox_KeyPress_Enter;
             // 
             // boxAuthor
             // 
             this.boxAuthor.Location = new System.Drawing.Point(80, 56);
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
-            this.boxAuthor.TabIndex = 2;
-            this.boxAuthor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxAuthor_KeyPress);
+            this.boxAuthor.TabIndex = 3;
+            this.boxAuthor.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label2
             // 
@@ -179,8 +179,8 @@
             // 
             this.btnCancel.Location = new System.Drawing.Point(1013, 424);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(145, 23);
-            this.btnCancel.TabIndex = 10;
+            this.btnCancel.Size = new System.Drawing.Size(145, 35);
+            this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -203,40 +203,11 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(907, 362);
-            this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.Size = new System.Drawing.Size(907, 378);
+            this.dataGridView1.TabIndex = 9;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
-            // 
-            // btnSelectStock
-            // 
-            this.btnSelectStock.Enabled = false;
-            this.btnSelectStock.Location = new System.Drawing.Point(251, 424);
-            this.btnSelectStock.Name = "btnSelectStock";
-            this.btnSelectStock.Size = new System.Drawing.Size(156, 23);
-            this.btnSelectStock.TabIndex = 9;
-            this.btnSelectStock.Text = "Select Stock";
-            this.btnSelectStock.UseVisualStyleBackColor = true;
-            this.btnSelectStock.Click += new System.EventHandler(this.btnSelectStock_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(248, 386);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(92, 13);
-            this.label5.TabIndex = 31;
-            this.label5.Text = "Number of results:";
-            // 
-            // labResults
-            // 
-            this.labResults.AutoSize = true;
-            this.labResults.Location = new System.Drawing.Point(340, 386);
-            this.labResults.Name = "labResults";
-            this.labResults.Size = new System.Drawing.Size(13, 13);
-            this.labResults.TabIndex = 32;
-            this.labResults.Text = "0";
             // 
             // Column1
             // 
@@ -279,6 +250,35 @@
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // btnSelectStock
+            // 
+            this.btnSelectStock.Enabled = false;
+            this.btnSelectStock.Location = new System.Drawing.Point(251, 424);
+            this.btnSelectStock.Name = "btnSelectStock";
+            this.btnSelectStock.Size = new System.Drawing.Size(156, 35);
+            this.btnSelectStock.TabIndex = 10;
+            this.btnSelectStock.Text = "Select Stock";
+            this.btnSelectStock.UseVisualStyleBackColor = true;
+            this.btnSelectStock.Click += new System.EventHandler(this.btnSelectStock_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(248, 399);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(92, 13);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "Number of results:";
+            // 
+            // labResults
+            // 
+            this.labResults.AutoSize = true;
+            this.labResults.Location = new System.Drawing.Point(340, 399);
+            this.labResults.Name = "labResults";
+            this.labResults.Size = new System.Drawing.Size(13, 13);
+            this.labResults.TabIndex = 32;
+            this.labResults.Text = "0";
             // 
             // StockSearch
             // 

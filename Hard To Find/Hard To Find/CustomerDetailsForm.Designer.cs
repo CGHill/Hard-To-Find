@@ -107,6 +107,7 @@
             this.boxFirstName.ReadOnly = true;
             this.boxFirstName.Size = new System.Drawing.Size(190, 20);
             this.boxFirstName.TabIndex = 2;
+            this.boxFirstName.Enter += textbox_Enter;
             // 
             // boxLastName
             // 
@@ -115,6 +116,7 @@
             this.boxLastName.ReadOnly = true;
             this.boxLastName.Size = new System.Drawing.Size(190, 20);
             this.boxLastName.TabIndex = 3;
+            this.boxLastName.Enter += textbox_Enter;
             // 
             // boxAddress1
             // 
@@ -123,6 +125,7 @@
             this.boxAddress1.ReadOnly = true;
             this.boxAddress1.Size = new System.Drawing.Size(190, 20);
             this.boxAddress1.TabIndex = 5;
+            this.boxAddress1.Enter += textbox_Enter;
             // 
             // boxInstitution
             // 
@@ -131,6 +134,7 @@
             this.boxInstitution.ReadOnly = true;
             this.boxInstitution.Size = new System.Drawing.Size(190, 20);
             this.boxInstitution.TabIndex = 4;
+            this.boxInstitution.Enter += textbox_Enter;
             // 
             // label3
             // 
@@ -157,6 +161,7 @@
             this.boxAddress3.ReadOnly = true;
             this.boxAddress3.Size = new System.Drawing.Size(190, 20);
             this.boxAddress3.TabIndex = 7;
+            this.boxAddress3.Enter += textbox_Enter;
             // 
             // boxAddress2
             // 
@@ -165,6 +170,7 @@
             this.boxAddress2.ReadOnly = true;
             this.boxAddress2.Size = new System.Drawing.Size(190, 20);
             this.boxAddress2.TabIndex = 6;
+            this.boxAddress2.Enter += textbox_Enter;
             // 
             // label5
             // 
@@ -191,6 +197,7 @@
             this.boxPostcode.ReadOnly = true;
             this.boxPostcode.Size = new System.Drawing.Size(190, 20);
             this.boxPostcode.TabIndex = 8;
+            this.boxPostcode.Enter += textbox_Enter;
             // 
             // label7
             // 
@@ -208,6 +215,7 @@
             this.boxCountry.ReadOnly = true;
             this.boxCountry.Size = new System.Drawing.Size(190, 20);
             this.boxCountry.TabIndex = 9;
+            this.boxCountry.Enter += textbox_Enter;
             // 
             // label8
             // 
@@ -226,6 +234,7 @@
             this.boxComments.ReadOnly = true;
             this.boxComments.Size = new System.Drawing.Size(189, 75);
             this.boxComments.TabIndex = 11;
+            this.boxComments.Enter += textbox_Enter;
             // 
             // label9
             // 
@@ -243,6 +252,7 @@
             this.boxEmail.ReadOnly = true;
             this.boxEmail.Size = new System.Drawing.Size(189, 20);
             this.boxEmail.TabIndex = 10;
+            this.boxEmail.Enter += textbox_Enter;
             // 
             // label10
             // 
@@ -260,6 +270,7 @@
             this.boxPayment.ReadOnly = true;
             this.boxPayment.Size = new System.Drawing.Size(189, 20);
             this.boxPayment.TabIndex = 13;
+            this.boxPayment.Enter += textbox_Enter;
             // 
             // label13
             // 
@@ -277,6 +288,7 @@
             this.boxSales.ReadOnly = true;
             this.boxSales.Size = new System.Drawing.Size(189, 20);
             this.boxSales.TabIndex = 12;
+            this.boxSales.Enter += textbox_Enter;
             // 
             // label14
             // 
@@ -333,6 +345,7 @@
             this.boxCustID.ReadOnly = true;
             this.boxCustID.Size = new System.Drawing.Size(92, 20);
             this.boxCustID.TabIndex = 1;
+            this.boxCustID.Enter += textbox_Enter;
             // 
             // CustomersForm
             // 

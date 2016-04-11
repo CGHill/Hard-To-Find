@@ -63,7 +63,7 @@
             this.btnMainMenu.Location = new System.Drawing.Point(1025, 551);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(140, 40);
-            this.btnMainMenu.TabIndex = 12;
+            this.btnMainMenu.TabIndex = 13;
             this.btnMainMenu.Text = "Main Menu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
@@ -73,7 +73,7 @@
             this.btnImportStock.Location = new System.Drawing.Point(94, 481);
             this.btnImportStock.Name = "btnImportStock";
             this.btnImportStock.Size = new System.Drawing.Size(145, 40);
-            this.btnImportStock.TabIndex = 9;
+            this.btnImportStock.TabIndex = 10;
             this.btnImportStock.Text = "Import Stock";
             this.btnImportStock.UseVisualStyleBackColor = true;
             this.btnImportStock.Click += new System.EventHandler(this.btnImportStock_Click);
@@ -92,8 +92,8 @@
             this.boxBookID.Location = new System.Drawing.Point(80, 30);
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(92, 20);
-            this.boxBookID.TabIndex = 1;
-            this.boxBookID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxStockID_KeyPress);
+            this.boxBookID.TabIndex = 2;
+            this.boxBookID.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label3
             // 
@@ -109,16 +109,16 @@
             this.boxTitle.Location = new System.Drawing.Point(80, 82);
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
-            this.boxTitle.TabIndex = 3;
-            this.boxTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxTitle_KeyPress);
+            this.boxTitle.TabIndex = 4;
+            this.boxTitle.KeyPress += TextBox_KeyPress_Enter;
             // 
             // boxAuthor
             // 
             this.boxAuthor.Location = new System.Drawing.Point(80, 56);
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
-            this.boxAuthor.TabIndex = 2;
-            this.boxAuthor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxAuthor_KeyPress);
+            this.boxAuthor.TabIndex = 3;
+            this.boxAuthor.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label2
             // 
@@ -143,7 +143,7 @@
             this.btnSearch.Location = new System.Drawing.Point(80, 230);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 7;
+            this.btnSearch.TabIndex = 8;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -153,8 +153,8 @@
             this.boxSubject.Location = new System.Drawing.Point(80, 108);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
-            this.boxSubject.TabIndex = 4;
-            this.boxSubject.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxSubject_KeyPress);
+            this.boxSubject.TabIndex = 5;
+            this.boxSubject.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label4
             // 
@@ -184,7 +184,7 @@
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(907, 509);
-            this.dataGridView1.TabIndex = 10;
+            this.dataGridView1.TabIndex = 11;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
@@ -236,7 +236,7 @@
             this.btnNewStock.Location = new System.Drawing.Point(94, 404);
             this.btnNewStock.Name = "btnNewStock";
             this.btnNewStock.Size = new System.Drawing.Size(145, 33);
-            this.btnNewStock.TabIndex = 8;
+            this.btnNewStock.TabIndex = 9;
             this.btnNewStock.Text = "&New Stock";
             this.btnNewStock.UseVisualStyleBackColor = true;
             this.btnNewStock.Click += new System.EventHandler(this.btnNewStock_Click);
@@ -247,7 +247,7 @@
             this.btnStockDetails.Location = new System.Drawing.Point(258, 551);
             this.btnStockDetails.Name = "btnStockDetails";
             this.btnStockDetails.Size = new System.Drawing.Size(186, 40);
-            this.btnStockDetails.TabIndex = 11;
+            this.btnStockDetails.TabIndex = 12;
             this.btnStockDetails.Text = "Stock Details";
             this.btnStockDetails.UseVisualStyleBackColor = true;
             this.btnStockDetails.Click += new System.EventHandler(this.btnStockDetails_Click);
@@ -268,7 +268,7 @@
             this.groupBox1.Location = new System.Drawing.Point(14, 59);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(233, 268);
-            this.groupBox1.TabIndex = 28;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
             // 
@@ -279,7 +279,7 @@
             this.rdoInStock.Location = new System.Drawing.Point(80, 146);
             this.rdoInStock.Name = "rdoInStock";
             this.rdoInStock.Size = new System.Drawing.Size(91, 17);
-            this.rdoInStock.TabIndex = 5;
+            this.rdoInStock.TabIndex = 6;
             this.rdoInStock.TabStop = true;
             this.rdoInStock.Text = "Have in stock";
             this.rdoInStock.UseVisualStyleBackColor = true;
@@ -290,7 +290,7 @@
             this.rdoAllStock.Location = new System.Drawing.Point(80, 169);
             this.rdoAllStock.Name = "rdoAllStock";
             this.rdoAllStock.Size = new System.Drawing.Size(67, 17);
-            this.rdoAllStock.TabIndex = 6;
+            this.rdoAllStock.TabIndex = 7;
             this.rdoAllStock.Text = "All Stock";
             this.rdoAllStock.UseVisualStyleBackColor = true;
             // 

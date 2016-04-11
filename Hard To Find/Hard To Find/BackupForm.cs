@@ -45,6 +45,22 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
+         Postcondition: Listens for keypresses no matter which control has focus */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //Close form and return to main menu when escape is pressed
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                mainMenu.Show();
+                mainMenu.TopLevel = true;
+            }
+
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        /*Precondition:
          Postcondition: Opens folder browser for user to select a location to store the sqlite file in */
         private void btnBackupFile_Click(object sender, EventArgs e)
         {

@@ -14,6 +14,7 @@ namespace Hard_To_Find_Stock
         //Globals
         private DatabaseManager dbManager;
         private bool tabPress;
+        private bool earliestEntry;
         private List<Stock> newStockEntered;
         private int indexOfNewStock;
 
@@ -33,6 +34,7 @@ namespace Hard_To_Find_Stock
             dbManager = new DatabaseManager();
             newStockEntered = new List<Stock>();
             tabPress = false;
+            earliestEntry = true;
             indexOfNewStock = 0;
 
             boxAuthor.Select();
@@ -193,6 +195,15 @@ namespace Hard_To_Find_Stock
                 this.Close();
             }
 
+            if(keyData == (Keys.Control | Keys.Oemcomma))
+            {
+                previousEntry();
+            }
+            if (keyData ==  (Keys.Control | Keys.OemPeriod))
+            {
+                nextEntry();
+            }
+
             // Call the base class
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -215,47 +226,61 @@ namespace Hard_To_Find_Stock
          Postcondition: Moves to the previous stock entry */
         private void btnPrev_Click(object sender, EventArgs e)
         {
-            //Try to save the current newStock entry
-            saveEntry();  
+            previousEntry();
+        }
 
-            //Update the index
-            indexOfNewStock--;
-
-            //Update display for user
-            labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count);
-
-            //Check if it's the last entry to disable the button
-            if (indexOfNewStock == 0)
+        private void previousEntry()
+        {
+            if (!earliestEntry)
             {
-                btnPrev.Enabled = false;
+                //Try to save the current newStock entry
+                saveEntry();
+
+                //Update the index
+                indexOfNewStock--;
+
+                //Update display for user
+                labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count);
+
+                //Check if it's the last entry to disable the button
+                if (indexOfNewStock == 0)
+                {
+                    btnPrev.Enabled = false;
+                    earliestEntry = true;
+                }
+
+
+                //Load up the now current entry
+                Stock currStock = newStockEntered[indexOfNewStock];
+
+                boxQuantity.Text = currStock.quantity.ToString();
+                boxNote.Text = currStock.note;
+                boxAuthor.Text = currStock.author;
+                boxTitle.Text = currStock.title;
+                boxSubtitle.Text = currStock.subtitle;
+                boxPublisher.Text = currStock.publisher;
+                boxComment.Text = currStock.comments;
+                boxDescription.Text = currStock.description;
+                boxPrice.Text = currStock.price;
+                boxSubject.Text = currStock.subject;
+                boxCatalogues.Text = currStock.catalogue;
+                boxInitials.Text = currStock.initials;
+                boxSales.Text = currStock.sales;
+                boxBookID.Text = currStock.bookID;
+                boxDateEntered.Text = currStock.dateEntered;
+
+                boxAuthor.Focus();
             }
-
-
-            //Load up the now current entry
-            Stock currStock = newStockEntered[indexOfNewStock];
-
-            boxQuantity.Text = currStock.quantity.ToString();
-            boxNote.Text = currStock.note;
-            boxAuthor.Text = currStock.author;
-            boxTitle.Text = currStock.title;
-            boxSubtitle.Text = currStock.subtitle;
-            boxPublisher.Text = currStock.publisher;
-            boxComment.Text = currStock.comments;
-            boxDescription.Text = currStock.description;
-            boxPrice.Text = currStock.price;
-            boxSubject.Text = currStock.subject;
-            boxCatalogues.Text = currStock.catalogue;
-            boxInitials.Text = currStock.initials;
-            boxSales.Text = currStock.sales;
-            boxBookID.Text = currStock.bookID;
-            boxDateEntered.Text = currStock.dateEntered;
-
-            boxAuthor.Focus();
         }
 
         /*Precondition:
          Postcondition: Moves to the next entry in the list or create a new entry */
         private void btnNext_Click(object sender, EventArgs e)
+        {
+            nextEntry();
+        }
+
+        private void nextEntry()
         {
             //Check to see if any new info has been updated to stop creating blank entries
             if (wasAnyInfoEntered())
@@ -272,8 +297,11 @@ namespace Hard_To_Find_Stock
                 else
                     labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count + 1);
 
-                if (btnPrev.Enabled == false)
+                if (earliestEntry)
+                {
                     btnPrev.Enabled = true;
+                    earliestEntry = false;
+                }
 
                 //New Entry
                 if (indexOfNewStock == newStockEntered.Count)

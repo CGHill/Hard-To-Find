@@ -17,6 +17,7 @@ namespace Hard_To_Find
         private DatabaseManager dbManager;
         private OrdersForm ordersForm;
         private FileManager fileManager;
+        private bool tabPress;
 
         //Constructor
         public NewOrderForm(OrdersForm ordersForm)
@@ -36,6 +37,7 @@ namespace Hard_To_Find
             orderedBooks = new List<Stock>();
             dbManager = new DatabaseManager();
             fileManager = new FileManager();
+            tabPress = false;
 
             //Set up column widths
             DataGridViewColumn colQuantity = dataGridView1.Columns[0];
@@ -76,9 +78,35 @@ namespace Hard_To_Find
             {
                 this.Close();
             }
+            //Check for tab pressed
+            if (keyData == Keys.Tab)
+            {
+                tabPress = true;
+                return false;    // indicate that you handled this keystroke
+            }
+            //Check for shift+tab pressed
+            if (keyData == (Keys.Tab | Keys.Shift))
+            {
+                tabPress = true;
+                return false;    // indicate that you handled this keystroke
+            }
 
             // Call the base class
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+       /*Precondition:
+        Postcondition: Handles all the textboxes when they get focus to check if the text in them needs to be selected or not */
+        private void textbox_Enter(Object sender, EventArgs e)
+        {
+            if (tabPress)
+            {
+                TextBox enteredTextbox = (TextBox)sender;
+
+                enteredTextbox.SelectAll();
+
+                tabPress = false;
+            }
         }
 
         /*Precondition:

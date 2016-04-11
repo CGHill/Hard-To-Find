@@ -14,6 +14,7 @@ namespace Hard_To_Find
         //Globals
         private DatabaseManager dbManager;
         private Customer currCustomer;
+        private bool tabPress;
 
         //Constructor
         public CustomerDetailsForm(Customer currCustomer)
@@ -32,6 +33,7 @@ namespace Hard_To_Find
         {
             //Create instance of database manager and list for storing customers
             dbManager = new DatabaseManager();
+            tabPress = false;
 
             loadUpCustomer();
 
@@ -127,9 +129,35 @@ namespace Hard_To_Find
             {
                 this.Close();
             }
+            //Check for tab pressed
+            if (keyData == Keys.Tab)
+            {
+                tabPress = true;
+                return false;    // indicate that you handled this keystroke
+            }
+            //Check for shift+tab pressed
+            if (keyData == (Keys.Tab | Keys.Shift))
+            {
+                tabPress = true;
+                return false;    // indicate that you handled this keystroke
+            }
 
             // Call the base class
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        /*Precondition:
+         Postcondition: Handles all the textboxes when they get focus to check if the text in them needs to be selected or not */
+        private void textbox_Enter(Object sender, EventArgs e)
+        {
+            if (tabPress)
+            {
+                TextBox enteredTextbox = (TextBox)sender;
+
+                enteredTextbox.SelectAll();
+
+                tabPress = false;
+            }
         }
 
         /*Precondition:

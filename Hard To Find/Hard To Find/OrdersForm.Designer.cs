@@ -103,7 +103,7 @@
             this.btnMainMenu.Location = new System.Drawing.Point(896, 581);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(127, 39);
-            this.btnMainMenu.TabIndex = 32;
+            this.btnMainMenu.TabIndex = 35;
             this.btnMainMenu.Text = "Main Menu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
@@ -113,7 +113,7 @@
             this.btnImportOrders.Location = new System.Drawing.Point(68, 509);
             this.btnImportOrders.Name = "btnImportOrders";
             this.btnImportOrders.Size = new System.Drawing.Size(118, 33);
-            this.btnImportOrders.TabIndex = 33;
+            this.btnImportOrders.TabIndex = 10;
             this.btnImportOrders.Text = "Import Orders";
             this.btnImportOrders.UseVisualStyleBackColor = true;
             this.btnImportOrders.Click += new System.EventHandler(this.btnImportOrders_Click);
@@ -169,7 +169,7 @@
             this.btnImportOrderedStock.Location = new System.Drawing.Point(68, 548);
             this.btnImportOrderedStock.Name = "btnImportOrderedStock";
             this.btnImportOrderedStock.Size = new System.Drawing.Size(118, 33);
-            this.btnImportOrderedStock.TabIndex = 34;
+            this.btnImportOrderedStock.TabIndex = 11;
             this.btnImportOrderedStock.Text = "Import OrderedStock";
             this.btnImportOrderedStock.UseVisualStyleBackColor = true;
             this.btnImportOrderedStock.Click += new System.EventHandler(this.btnImportOrderedStock_Click);
@@ -185,7 +185,7 @@
             this.groupBox1.Location = new System.Drawing.Point(236, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(787, 569);
-            this.groupBox1.TabIndex = 21;
+            this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Invoice";
             // 
@@ -195,7 +195,7 @@
             this.btnSave.Location = new System.Drawing.Point(621, 89);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(118, 33);
-            this.btnSave.TabIndex = 18;
+            this.btnSave.TabIndex = 21;
             this.btnSave.Text = "Fini&shed Editing";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -214,7 +214,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(621, 49);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(118, 33);
-            this.btnUpdate.TabIndex = 17;
+            this.btnUpdate.TabIndex = 20;
             this.btnUpdate.Text = "&Edit";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -243,7 +243,7 @@
             this.groupBox3.Location = new System.Drawing.Point(21, 201);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(760, 176);
-            this.groupBox3.TabIndex = 19;
+            this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Customer Details";
             // 
@@ -253,7 +253,7 @@
             this.btnChangeCustomer.Location = new System.Drawing.Point(600, 137);
             this.btnChangeCustomer.Name = "btnChangeCustomer";
             this.btnChangeCustomer.Size = new System.Drawing.Size(118, 33);
-            this.btnChangeCustomer.TabIndex = 29;
+            this.btnChangeCustomer.TabIndex = 32;
             this.btnChangeCustomer.Text = "Change Customer";
             this.btnChangeCustomer.UseVisualStyleBackColor = true;
             this.btnChangeCustomer.Visible = false;
@@ -274,7 +274,7 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.ReadOnly = true;
             this.boxLastName.Size = new System.Drawing.Size(142, 20);
-            this.boxLastName.TabIndex = 22;
+            this.boxLastName.TabIndex = 25;
             // 
             // boxCustID
             // 
@@ -282,7 +282,7 @@
             this.boxCustID.Name = "boxCustID";
             this.boxCustID.ReadOnly = true;
             this.boxCustID.Size = new System.Drawing.Size(84, 20);
-            this.boxCustID.TabIndex = 20;
+            this.boxCustID.TabIndex = 23;
             // 
             // boxCountry
             // 
@@ -290,7 +290,7 @@
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.ReadOnly = true;
             this.boxCountry.Size = new System.Drawing.Size(142, 20);
-            this.boxCountry.TabIndex = 28;
+            this.boxCountry.TabIndex = 31;
             // 
             // boxAdd3
             // 
@@ -298,7 +298,7 @@
             this.boxAdd3.Name = "boxAdd3";
             this.boxAdd3.ReadOnly = true;
             this.boxAdd3.Size = new System.Drawing.Size(142, 20);
-            this.boxAdd3.TabIndex = 27;
+            this.boxAdd3.TabIndex = 30;
             // 
             // boxAdd2
             // 
@@ -306,7 +306,7 @@
             this.boxAdd2.Name = "boxAdd2";
             this.boxAdd2.ReadOnly = true;
             this.boxAdd2.Size = new System.Drawing.Size(142, 20);
-            this.boxAdd2.TabIndex = 26;
+            this.boxAdd2.TabIndex = 29;
             // 
             // boxAdd1
             // 
@@ -314,7 +314,7 @@
             this.boxAdd1.Name = "boxAdd1";
             this.boxAdd1.ReadOnly = true;
             this.boxAdd1.Size = new System.Drawing.Size(142, 20);
-            this.boxAdd1.TabIndex = 25;
+            this.boxAdd1.TabIndex = 28;
             // 
             // label17
             // 
@@ -367,7 +367,7 @@
             this.boxPostcode.Name = "boxPostcode";
             this.boxPostcode.ReadOnly = true;
             this.boxPostcode.Size = new System.Drawing.Size(142, 20);
-            this.boxPostcode.TabIndex = 24;
+            this.boxPostcode.TabIndex = 27;
             // 
             // label12
             // 
@@ -384,7 +384,7 @@
             this.boxInstitution.Name = "boxInstitution";
             this.boxInstitution.ReadOnly = true;
             this.boxInstitution.Size = new System.Drawing.Size(142, 20);
-            this.boxInstitution.TabIndex = 23;
+            this.boxInstitution.TabIndex = 26;
             // 
             // label11
             // 
@@ -401,7 +401,7 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.ReadOnly = true;
             this.boxFirstName.Size = new System.Drawing.Size(142, 20);
-            this.boxFirstName.TabIndex = 21;
+            this.boxFirstName.TabIndex = 24;
             // 
             // label9
             // 
@@ -429,7 +429,7 @@
             this.groupBox2.Location = new System.Drawing.Point(21, 19);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(512, 176);
-            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Order Details";
             // 
@@ -439,7 +439,7 @@
             this.boxOrderID.Name = "boxOrderID";
             this.boxOrderID.ReadOnly = true;
             this.boxOrderID.Size = new System.Drawing.Size(84, 20);
-            this.boxOrderID.TabIndex = 11;
+            this.boxOrderID.TabIndex = 14;
             // 
             // boxInvoiceDate
             // 
@@ -447,7 +447,7 @@
             this.boxInvoiceDate.Name = "boxInvoiceDate";
             this.boxInvoiceDate.ReadOnly = true;
             this.boxInvoiceDate.Size = new System.Drawing.Size(142, 20);
-            this.boxInvoiceDate.TabIndex = 14;
+            this.boxInvoiceDate.TabIndex = 17;
             // 
             // label4
             // 
@@ -464,7 +464,7 @@
             this.boxFreight.Name = "boxFreight";
             this.boxFreight.ReadOnly = true;
             this.boxFreight.Size = new System.Drawing.Size(142, 20);
-            this.boxFreight.TabIndex = 15;
+            this.boxFreight.TabIndex = 18;
             this.boxFreight.Leave += new System.EventHandler(this.boxFreight_Leave);
             // 
             // boxProgress
@@ -473,7 +473,7 @@
             this.boxProgress.Name = "boxProgress";
             this.boxProgress.ReadOnly = true;
             this.boxProgress.Size = new System.Drawing.Size(142, 20);
-            this.boxProgress.TabIndex = 13;
+            this.boxProgress.TabIndex = 16;
             // 
             // boxOrderRef
             // 
@@ -481,7 +481,7 @@
             this.boxOrderRef.Name = "boxOrderRef";
             this.boxOrderRef.ReadOnly = true;
             this.boxOrderRef.Size = new System.Drawing.Size(142, 20);
-            this.boxOrderRef.TabIndex = 12;
+            this.boxOrderRef.TabIndex = 15;
             // 
             // boxComments
             // 
@@ -490,7 +490,7 @@
             this.boxComments.Name = "boxComments";
             this.boxComments.ReadOnly = true;
             this.boxComments.Size = new System.Drawing.Size(142, 48);
-            this.boxComments.TabIndex = 16;
+            this.boxComments.TabIndex = 19;
             // 
             // label8
             // 
@@ -552,7 +552,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(775, 150);
-            this.dataGridView1.TabIndex = 30;
+            this.dataGridView1.TabIndex = 33;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
             // 
@@ -654,7 +654,7 @@
             this.btnAddBook.Location = new System.Drawing.Point(236, 581);
             this.btnAddBook.Name = "btnAddBook";
             this.btnAddBook.Size = new System.Drawing.Size(133, 39);
-            this.btnAddBook.TabIndex = 31;
+            this.btnAddBook.TabIndex = 34;
             this.btnAddBook.Text = "Add Book";
             this.btnAddBook.UseVisualStyleBackColor = true;
             this.btnAddBook.Visible = false;

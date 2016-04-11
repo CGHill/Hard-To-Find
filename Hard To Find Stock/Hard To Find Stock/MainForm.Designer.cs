@@ -75,7 +75,7 @@
             this.groupBox1.Location = new System.Drawing.Point(13, 51);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(233, 268);
-            this.groupBox1.TabIndex = 35;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
             // 
@@ -86,7 +86,7 @@
             this.rdoInStock.Location = new System.Drawing.Point(80, 146);
             this.rdoInStock.Name = "rdoInStock";
             this.rdoInStock.Size = new System.Drawing.Size(91, 17);
-            this.rdoInStock.TabIndex = 26;
+            this.rdoInStock.TabIndex = 6;
             this.rdoInStock.TabStop = true;
             this.rdoInStock.Text = "Have in stock";
             this.rdoInStock.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@
             this.rdoAllStock.Location = new System.Drawing.Point(80, 169);
             this.rdoAllStock.Name = "rdoAllStock";
             this.rdoAllStock.Size = new System.Drawing.Size(67, 17);
-            this.rdoAllStock.TabIndex = 25;
+            this.rdoAllStock.TabIndex = 7;
             this.rdoAllStock.Text = "All Stock";
             this.rdoAllStock.UseVisualStyleBackColor = true;
             // 
@@ -106,7 +106,7 @@
             this.boxSubject.Location = new System.Drawing.Point(80, 108);
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
-            this.boxSubject.TabIndex = 4;
+            this.boxSubject.TabIndex = 5;
             this.boxSubject.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxSubject_KeyPress);
             // 
             // label4
@@ -123,7 +123,7 @@
             this.btnSearch.Location = new System.Drawing.Point(80, 230);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 22;
+            this.btnSearch.TabIndex = 8;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -133,7 +133,7 @@
             this.boxBookID.Location = new System.Drawing.Point(80, 30);
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(92, 20);
-            this.boxBookID.TabIndex = 1;
+            this.boxBookID.TabIndex = 2;
             this.boxBookID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxStockID_KeyPress);
             // 
             // label3
@@ -150,7 +150,7 @@
             this.boxTitle.Location = new System.Drawing.Point(80, 82);
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
-            this.boxTitle.TabIndex = 3;
+            this.boxTitle.TabIndex = 4;
             this.boxTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxTitle_KeyPress);
             // 
             // boxAuthor
@@ -158,7 +158,7 @@
             this.boxAuthor.Location = new System.Drawing.Point(80, 56);
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
-            this.boxAuthor.TabIndex = 2;
+            this.boxAuthor.TabIndex = 3;
             this.boxAuthor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxAuthor_KeyPress);
             // 
             // label2
@@ -185,7 +185,7 @@
             this.btnStockDetails.Location = new System.Drawing.Point(257, 554);
             this.btnStockDetails.Name = "btnStockDetails";
             this.btnStockDetails.Size = new System.Drawing.Size(186, 40);
-            this.btnStockDetails.TabIndex = 34;
+            this.btnStockDetails.TabIndex = 13;
             this.btnStockDetails.Text = "Stock Details";
             this.btnStockDetails.UseVisualStyleBackColor = true;
             this.btnStockDetails.Click += new System.EventHandler(this.btnStockDetails_Click);
@@ -195,8 +195,8 @@
             this.btnNewStock.Location = new System.Drawing.Point(93, 342);
             this.btnNewStock.Name = "btnNewStock";
             this.btnNewStock.Size = new System.Drawing.Size(145, 23);
-            this.btnNewStock.TabIndex = 33;
-            this.btnNewStock.Text = "New Stock";
+            this.btnNewStock.TabIndex = 9;
+            this.btnNewStock.Text = "&New Stock";
             this.btnNewStock.UseVisualStyleBackColor = true;
             this.btnNewStock.Click += new System.EventHandler(this.btnNewStock_Click);
             // 
@@ -219,7 +219,7 @@
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(907, 509);
-            this.dataGridView1.TabIndex = 32;
+            this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
@@ -276,11 +276,11 @@
             // 
             // btnCreateExport
             // 
-            this.btnCreateExport.Location = new System.Drawing.Point(93, 473);
+            this.btnCreateExport.Location = new System.Drawing.Point(93, 418);
             this.btnCreateExport.Name = "btnCreateExport";
             this.btnCreateExport.Size = new System.Drawing.Size(145, 40);
-            this.btnCreateExport.TabIndex = 30;
-            this.btnCreateExport.Text = "Create Export File";
+            this.btnCreateExport.TabIndex = 10;
+            this.btnCreateExport.Text = "Create Export &File";
             this.btnCreateExport.UseVisualStyleBackColor = true;
             this.btnCreateExport.Click += new System.EventHandler(this.btnCreateExport_Click);
             // 
@@ -289,8 +289,8 @@
             this.btnExit.Location = new System.Drawing.Point(1025, 554);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(140, 40);
-            this.btnExit.TabIndex = 29;
-            this.btnExit.Text = "Exit";
+            this.btnExit.TabIndex = 14;
+            this.btnExit.Text = "&Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -314,10 +314,10 @@
             // 
             // btnSetExportLocation
             // 
-            this.btnSetExportLocation.Location = new System.Drawing.Point(93, 427);
+            this.btnSetExportLocation.Location = new System.Drawing.Point(93, 473);
             this.btnSetExportLocation.Name = "btnSetExportLocation";
             this.btnSetExportLocation.Size = new System.Drawing.Size(145, 40);
-            this.btnSetExportLocation.TabIndex = 38;
+            this.btnSetExportLocation.TabIndex = 11;
             this.btnSetExportLocation.Text = "Set Export Location";
             this.btnSetExportLocation.UseVisualStyleBackColor = true;
             this.btnSetExportLocation.Click += new System.EventHandler(this.btnSetExportLocation_Click);

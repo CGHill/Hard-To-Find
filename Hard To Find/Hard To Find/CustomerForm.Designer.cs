@@ -114,7 +114,7 @@
             this.btnCustDetails.Location = new System.Drawing.Point(265, 374);
             this.btnCustDetails.Name = "btnCustDetails";
             this.btnCustDetails.Size = new System.Drawing.Size(208, 38);
-            this.btnCustDetails.TabIndex = 8;
+            this.btnCustDetails.TabIndex = 10;
             this.btnCustDetails.Text = "Customer Details";
             this.btnCustDetails.UseVisualStyleBackColor = true;
             this.btnCustDetails.Click += new System.EventHandler(this.btnCustDetails_Click);
@@ -124,7 +124,7 @@
             this.btnSearch.Location = new System.Drawing.Point(77, 180);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 4;
+            this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -134,7 +134,7 @@
             this.btnMainMenu.Location = new System.Drawing.Point(840, 374);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(149, 38);
-            this.btnMainMenu.TabIndex = 9;
+            this.btnMainMenu.TabIndex = 11;
             this.btnMainMenu.Text = "Main M&enu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
@@ -144,7 +144,7 @@
             this.btnImportCustomers.Location = new System.Drawing.Point(101, 330);
             this.btnImportCustomers.Name = "btnImportCustomers";
             this.btnImportCustomers.Size = new System.Drawing.Size(145, 38);
-            this.btnImportCustomers.TabIndex = 6;
+            this.btnImportCustomers.TabIndex = 8;
             this.btnImportCustomers.Text = "Import Customers";
             this.btnImportCustomers.UseVisualStyleBackColor = true;
             this.btnImportCustomers.Click += new System.EventHandler(this.btnImportCustomers_Click);
@@ -163,7 +163,7 @@
             this.btnNewCustomer.Location = new System.Drawing.Point(101, 279);
             this.btnNewCustomer.Name = "btnNewCustomer";
             this.btnNewCustomer.Size = new System.Drawing.Size(145, 28);
-            this.btnNewCustomer.TabIndex = 5;
+            this.btnNewCustomer.TabIndex = 7;
             this.btnNewCustomer.Text = "&New Customer";
             this.btnNewCustomer.UseVisualStyleBackColor = true;
             this.btnNewCustomer.Click += new System.EventHandler(this.btnNewCustomer_Click);
@@ -193,7 +193,7 @@
             this.boxEmail.Location = new System.Drawing.Point(77, 134);
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.Size = new System.Drawing.Size(145, 20);
-            this.boxEmail.TabIndex = 18;
+            this.boxEmail.TabIndex = 5;
             this.boxEmail.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label5
@@ -210,7 +210,7 @@
             this.boxInstiution.Location = new System.Drawing.Point(77, 108);
             this.boxInstiution.Name = "boxInstiution";
             this.boxInstiution.Size = new System.Drawing.Size(145, 20);
-            this.boxInstiution.TabIndex = 16;
+            this.boxInstiution.TabIndex = 4;
             this.boxInstiution.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label4
@@ -241,7 +241,7 @@
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(724, 356);
-            this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.TabIndex = 9;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick_1);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged_1);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);

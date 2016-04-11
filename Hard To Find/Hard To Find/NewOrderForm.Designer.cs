@@ -89,7 +89,7 @@
             this.btnClose.Location = new System.Drawing.Point(691, 593);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(96, 34);
-            this.btnClose.TabIndex = 11;
+            this.btnClose.TabIndex = 14;
             this.btnClose.Text = "Cancel";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -368,6 +368,7 @@
             this.boxInvoiceDate.Name = "boxInvoiceDate";
             this.boxInvoiceDate.Size = new System.Drawing.Size(142, 20);
             this.boxInvoiceDate.TabIndex = 5;
+            this.boxInvoiceDate.Enter += textbox_Enter;
             // 
             // label9
             // 
@@ -386,6 +387,7 @@
             this.boxFreight.TabIndex = 6;
             this.boxFreight.Text = "$0.00";
             this.boxFreight.Leave += new System.EventHandler(this.boxFreight_Leave);
+            this.boxFreight.Enter += textbox_Enter;
             // 
             // boxProgress
             // 
@@ -393,6 +395,7 @@
             this.boxProgress.Name = "boxProgress";
             this.boxProgress.Size = new System.Drawing.Size(142, 20);
             this.boxProgress.TabIndex = 4;
+            this.boxProgress.Enter += textbox_Enter;
             // 
             // boxOrderRef
             // 
@@ -400,6 +403,7 @@
             this.boxOrderRef.Name = "boxOrderRef";
             this.boxOrderRef.Size = new System.Drawing.Size(142, 20);
             this.boxOrderRef.TabIndex = 3;
+            this.boxOrderRef.Enter += textbox_Enter;
             // 
             // boxComments
             // 
@@ -408,6 +412,7 @@
             this.boxComments.Name = "boxComments";
             this.boxComments.Size = new System.Drawing.Size(142, 48);
             this.boxComments.TabIndex = 7;
+            this.boxComments.Enter += textbox_Enter;
             // 
             // label10
             // 
@@ -458,7 +463,7 @@
             this.btnSaveOrder.Location = new System.Drawing.Point(12, 593);
             this.btnSaveOrder.Name = "btnSaveOrder";
             this.btnSaveOrder.Size = new System.Drawing.Size(108, 34);
-            this.btnSaveOrder.TabIndex = 10;
+            this.btnSaveOrder.TabIndex = 13;
             this.btnSaveOrder.Text = "Save && &Exit";
             this.btnSaveOrder.UseVisualStyleBackColor = true;
             this.btnSaveOrder.Click += new System.EventHandler(this.btnSaveOrder_Click);
@@ -499,7 +504,7 @@
             this.btnInvoice.Location = new System.Drawing.Point(216, 543);
             this.btnInvoice.Name = "btnInvoice";
             this.btnInvoice.Size = new System.Drawing.Size(108, 34);
-            this.btnInvoice.TabIndex = 58;
+            this.btnInvoice.TabIndex = 10;
             this.btnInvoice.Text = "Create &Invoice";
             this.btnInvoice.UseVisualStyleBackColor = true;
             this.btnInvoice.Click += new System.EventHandler(this.btnInvoice_Click);
@@ -510,7 +515,7 @@
             this.btnSmallMailingLabel.Name = "btnSmallMailingLabel";
             this.btnSmallMailingLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnSmallMailingLabel.Size = new System.Drawing.Size(74, 33);
-            this.btnSmallMailingLabel.TabIndex = 60;
+            this.btnSmallMailingLabel.TabIndex = 12;
             this.btnSmallMailingLabel.Text = "Small";
             this.btnSmallMailingLabel.UseVisualStyleBackColor = true;
             this.btnSmallMailingLabel.Click += new System.EventHandler(this.btnSmallMailingLabel_Click);
@@ -529,7 +534,7 @@
             this.btnBigMailingLabel.Location = new System.Drawing.Point(408, 543);
             this.btnBigMailingLabel.Name = "btnBigMailingLabel";
             this.btnBigMailingLabel.Size = new System.Drawing.Size(74, 33);
-            this.btnBigMailingLabel.TabIndex = 59;
+            this.btnBigMailingLabel.TabIndex = 11;
             this.btnBigMailingLabel.Text = "Big";
             this.btnBigMailingLabel.UseVisualStyleBackColor = true;
             this.btnBigMailingLabel.Click += new System.EventHandler(this.btnBigMailingLabel_Click);

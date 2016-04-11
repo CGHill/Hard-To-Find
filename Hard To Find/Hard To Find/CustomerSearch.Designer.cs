@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.boxEmail = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.boxInstiution = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.boxCustID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,10 +49,6 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.boxEmail = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.boxInstiution = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -73,12 +73,46 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
             // 
+            // boxEmail
+            // 
+            this.boxEmail.Location = new System.Drawing.Point(77, 135);
+            this.boxEmail.Name = "boxEmail";
+            this.boxEmail.Size = new System.Drawing.Size(145, 20);
+            this.boxEmail.TabIndex = 5;
+            this.boxEmail.KeyPress += TextBox_KeyPress_Enter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(36, 138);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Email:";
+            // 
+            // boxInstiution
+            // 
+            this.boxInstiution.Location = new System.Drawing.Point(77, 109);
+            this.boxInstiution.Name = "boxInstiution";
+            this.boxInstiution.Size = new System.Drawing.Size(145, 20);
+            this.boxInstiution.TabIndex = 4;
+            this.boxInstiution.KeyPress += TextBox_KeyPress_Enter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(17, 112);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 13);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Institution:";
+            // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(77, 184);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 4;
+            this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -141,7 +175,7 @@
             this.btnSelectCustomer.Location = new System.Drawing.Point(280, 356);
             this.btnSelectCustomer.Name = "btnSelectCustomer";
             this.btnSelectCustomer.Size = new System.Drawing.Size(166, 23);
-            this.btnSelectCustomer.TabIndex = 6;
+            this.btnSelectCustomer.TabIndex = 8;
             this.btnSelectCustomer.Text = "Select Customer";
             this.btnSelectCustomer.UseVisualStyleBackColor = true;
             this.btnSelectCustomer.Click += new System.EventHandler(this.btnSelectCustomer_Click);
@@ -151,7 +185,7 @@
             this.btnCancel.Location = new System.Drawing.Point(734, 356);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(158, 23);
-            this.btnCancel.TabIndex = 7;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -175,7 +209,7 @@
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(724, 316);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged_1);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
@@ -221,40 +255,6 @@
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // boxEmail
-            // 
-            this.boxEmail.Location = new System.Drawing.Point(77, 135);
-            this.boxEmail.Name = "boxEmail";
-            this.boxEmail.Size = new System.Drawing.Size(145, 20);
-            this.boxEmail.TabIndex = 22;
-            this.boxEmail.KeyPress += TextBox_KeyPress_Enter;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(36, 138);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 23;
-            this.label5.Text = "Email:";
-            // 
-            // boxInstiution
-            // 
-            this.boxInstiution.Location = new System.Drawing.Point(77, 109);
-            this.boxInstiution.Name = "boxInstiution";
-            this.boxInstiution.Size = new System.Drawing.Size(145, 20);
-            this.boxInstiution.TabIndex = 20;
-            this.boxInstiution.KeyPress += TextBox_KeyPress_Enter;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 112);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 13);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "Institution:";
             // 
             // CustomerSearch
             // 

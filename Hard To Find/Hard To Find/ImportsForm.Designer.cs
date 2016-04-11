@@ -62,7 +62,7 @@
             this.button3.Location = new System.Drawing.Point(79, 211);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(138, 32);
-            this.button3.TabIndex = 2;
+            this.button3.TabIndex = 3;
             this.button3.Text = "Import From Old Database";
             this.button3.UseVisualStyleBackColor = true;
             // 
@@ -71,7 +71,7 @@
             this.btnMainMenu.Location = new System.Drawing.Point(79, 285);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(138, 32);
-            this.btnMainMenu.TabIndex = 3;
+            this.btnMainMenu.TabIndex = 4;
             this.btnMainMenu.Text = "Main Menu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
@@ -89,7 +89,7 @@
             this.btnSetImportLocation.Location = new System.Drawing.Point(79, 124);
             this.btnSetImportLocation.Name = "btnSetImportLocation";
             this.btnSetImportLocation.Size = new System.Drawing.Size(138, 32);
-            this.btnSetImportLocation.TabIndex = 5;
+            this.btnSetImportLocation.TabIndex = 2;
             this.btnSetImportLocation.Text = "Set Import Location";
             this.btnSetImportLocation.UseVisualStyleBackColor = true;
             this.btnSetImportLocation.Click += new System.EventHandler(this.btnSetImportLocation_Click);

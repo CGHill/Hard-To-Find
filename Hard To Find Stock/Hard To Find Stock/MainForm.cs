@@ -97,15 +97,21 @@ namespace Hard_To_Find_Stock
                 if (found != null)
                 {
                     foundStock.Add(found);
+
                     labResults.Text = foundStock.Count.ToString();
+
+                    //Display found stock
+                    foreach (Stock s in foundStock)
+                    {
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
+                    }
+
+                    dataGridView1.Focus();
                 }
-
-                
-
-                //Display found stock
-                foreach (Stock s in foundStock)
+                else
                 {
-                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                    dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
+                    btnStockDetails.Enabled = false;
                 }
             }
             else if (boxAuthor.Text != "" || boxTitle.Text != "" || boxSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
@@ -124,20 +130,23 @@ namespace Hard_To_Find_Stock
 
                 //Search for stock based on the parameters entered
                 foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
-                labResults.Text = foundStock.Count.ToString();
 
+                labResults.Text = foundStock.Count.ToString();
 
                 if (foundStock.Count == 0)
                 {
                     dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
+                    btnStockDetails.Enabled = false;
                 }
                 else
                 {
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subtitle, s.price, s.bookID);
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
                     }
+
+                    dataGridView1.Focus();
                 }
             }
         }

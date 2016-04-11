@@ -107,47 +107,19 @@ namespace Hard_To_Find
             }
         }
 
-        /******************** Keypress Handlers to start search on enter press*****************************/
-        private void boxBookID_KeyPress(object sender, KeyPressEventArgs e)
+
+        /*Precondition:
+        Postcondition: Keypress handler for all textboxes. Starts the search for customers */
+        private void TextBox_KeyPress_Enter(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (Char)Keys.Enter)
             {
                 startSearch();
 
+                //Stops the windows noise
                 e.Handled = true;
             }
         }
-
-        private void boxAuthor_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-
-        private void boxTitle_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-
-        private void boxSubject_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-        /*************************************************************************************************/
 
         /*Precondition:
          Postcondition: Starts a search for stock depending on what search boxes have been filled in*/
@@ -168,18 +140,19 @@ namespace Hard_To_Find
                 string bookID = boxBookID.Text;
 
                 //Put found stock into list
-                foundStock.Add(dbManager.searchStock(bookID, searchAllStock));
-
-                labResults.Text = foundStock.Count.ToString();
-
-                if (foundStock.Count != 0)
+                Stock found = dbManager.searchStock(bookID, searchAllStock);
+                if (found != null)
                 {
+                    foundStock.Add(found);
+
+                    labResults.Text = foundStock.Count.ToString();
+
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
                         dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
-
                     }
+
                     dataGridView1.Focus();
                 }
                 else

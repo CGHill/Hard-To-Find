@@ -40,7 +40,7 @@
             this.btnMainMenu.Location = new System.Drawing.Point(73, 257);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(126, 32);
-            this.btnMainMenu.TabIndex = 1;
+            this.btnMainMenu.TabIndex = 4;
             this.btnMainMenu.Text = "Main Menu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
@@ -61,7 +61,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(73, 60);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(126, 20);
-            this.dateTimePicker1.TabIndex = 3;
+            this.dateTimePicker1.TabIndex = 1;
             // 
             // label1
             // 
@@ -78,7 +78,7 @@
             this.btnFreightReport.Location = new System.Drawing.Point(73, 149);
             this.btnFreightReport.Name = "btnFreightReport";
             this.btnFreightReport.Size = new System.Drawing.Size(126, 34);
-            this.btnFreightReport.TabIndex = 5;
+            this.btnFreightReport.TabIndex = 3;
             this.btnFreightReport.Text = "Monthly Freight Report";
             this.btnFreightReport.UseVisualStyleBackColor = true;
             this.btnFreightReport.Click += new System.EventHandler(this.btnFreightReport_Click);

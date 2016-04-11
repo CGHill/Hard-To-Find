@@ -71,7 +71,8 @@
             this.boxInitials.Name = "boxInitials";
             this.boxInitials.ReadOnly = true;
             this.boxInitials.Size = new System.Drawing.Size(211, 20);
-            this.boxInitials.TabIndex = 166;
+            this.boxInitials.TabIndex = 13;
+            this.boxInitials.Enter += textbox_Enter;
             // 
             // label12
             // 
@@ -88,7 +89,8 @@
             this.boxDateEntered.Name = "boxDateEntered";
             this.boxDateEntered.ReadOnly = true;
             this.boxDateEntered.Size = new System.Drawing.Size(211, 20);
-            this.boxDateEntered.TabIndex = 147;
+            this.boxDateEntered.TabIndex = 16;
+            this.boxDateEntered.Enter += textbox_Enter;
             // 
             // label16
             // 
@@ -105,7 +107,8 @@
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.ReadOnly = true;
             this.boxBookID.Size = new System.Drawing.Size(211, 20);
-            this.boxBookID.TabIndex = 146;
+            this.boxBookID.TabIndex = 15;
+            this.boxBookID.Enter += textbox_Enter;
             // 
             // label15
             // 
@@ -122,7 +125,8 @@
             this.boxSales.Name = "boxSales";
             this.boxSales.ReadOnly = true;
             this.boxSales.Size = new System.Drawing.Size(211, 20);
-            this.boxSales.TabIndex = 145;
+            this.boxSales.TabIndex = 14;
+            this.boxSales.Enter += textbox_Enter;
             // 
             // label13
             // 
@@ -139,7 +143,8 @@
             this.boxCatalogues.Name = "boxCatalogues";
             this.boxCatalogues.ReadOnly = true;
             this.boxCatalogues.Size = new System.Drawing.Size(211, 20);
-            this.boxCatalogues.TabIndex = 144;
+            this.boxCatalogues.TabIndex = 12;
+            this.boxCatalogues.Enter += textbox_Enter;
             // 
             // label9
             // 
@@ -157,7 +162,8 @@
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.ReadOnly = true;
             this.boxSubject.Size = new System.Drawing.Size(211, 72);
-            this.boxSubject.TabIndex = 143;
+            this.boxSubject.TabIndex = 11;
+            this.boxSubject.Enter += textbox_Enter;
             // 
             // label10
             // 
@@ -174,7 +180,9 @@
             this.boxPrice.Name = "boxPrice";
             this.boxPrice.ReadOnly = true;
             this.boxPrice.Size = new System.Drawing.Size(211, 20);
-            this.boxPrice.TabIndex = 142;
+            this.boxPrice.TabIndex = 10;
+            this.boxPrice.Enter += textbox_Enter;
+            this.boxPrice.Leave += new System.EventHandler(this.boxPrice_Leave);
             // 
             // label11
             // 
@@ -192,7 +200,8 @@
             this.boxComment.Name = "boxComment";
             this.boxComment.ReadOnly = true;
             this.boxComment.Size = new System.Drawing.Size(211, 23);
-            this.boxComment.TabIndex = 140;
+            this.boxComment.TabIndex = 9;
+            this.boxComment.Enter += textbox_Enter;
             // 
             // label8
             // 
@@ -210,7 +219,8 @@
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.ReadOnly = true;
             this.boxDescription.Size = new System.Drawing.Size(506, 90);
-            this.boxDescription.TabIndex = 141;
+            this.boxDescription.TabIndex = 8;
+            this.boxDescription.Enter += textbox_Enter;
             // 
             // label7
             // 
@@ -228,7 +238,8 @@
             this.boxPublisher.Name = "boxPublisher";
             this.boxPublisher.ReadOnly = true;
             this.boxPublisher.Size = new System.Drawing.Size(211, 45);
-            this.boxPublisher.TabIndex = 139;
+            this.boxPublisher.TabIndex = 7;
+            this.boxPublisher.Enter += textbox_Enter;
             // 
             // boxSubtitle
             // 
@@ -236,7 +247,8 @@
             this.boxSubtitle.Name = "boxSubtitle";
             this.boxSubtitle.ReadOnly = true;
             this.boxSubtitle.Size = new System.Drawing.Size(211, 20);
-            this.boxSubtitle.TabIndex = 138;
+            this.boxSubtitle.TabIndex = 6;
+            this.boxSubtitle.Enter += textbox_Enter;
             // 
             // label5
             // 
@@ -263,7 +275,8 @@
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.ReadOnly = true;
             this.boxTitle.Size = new System.Drawing.Size(211, 72);
-            this.boxTitle.TabIndex = 137;
+            this.boxTitle.TabIndex = 5;
+            this.boxTitle.Enter += textbox_Enter;
             // 
             // boxAuthor
             // 
@@ -271,7 +284,8 @@
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.ReadOnly = true;
             this.boxAuthor.Size = new System.Drawing.Size(211, 20);
-            this.boxAuthor.TabIndex = 136;
+            this.boxAuthor.TabIndex = 4;
+            this.boxAuthor.Enter += textbox_Enter;
             // 
             // label3
             // 
@@ -298,7 +312,8 @@
             this.boxNote.Name = "boxNote";
             this.boxNote.ReadOnly = true;
             this.boxNote.Size = new System.Drawing.Size(211, 20);
-            this.boxNote.TabIndex = 135;
+            this.boxNote.TabIndex = 3;
+            this.boxNote.Enter += textbox_Enter;
             // 
             // boxQuantity
             // 
@@ -306,8 +321,9 @@
             this.boxQuantity.Name = "boxQuantity";
             this.boxQuantity.ReadOnly = true;
             this.boxQuantity.Size = new System.Drawing.Size(211, 20);
-            this.boxQuantity.TabIndex = 134;
+            this.boxQuantity.TabIndex = 2;
             this.boxQuantity.Text = "1";
+            this.boxQuantity.Enter += textbox_Enter;
             // 
             // label2
             // 
@@ -333,7 +349,8 @@
             this.boxStockID.Name = "boxStockID";
             this.boxStockID.ReadOnly = true;
             this.boxStockID.Size = new System.Drawing.Size(211, 20);
-            this.boxStockID.TabIndex = 133;
+            this.boxStockID.TabIndex = 1;
+            this.boxStockID.Enter += textbox_Enter;
             // 
             // label17
             // 
@@ -349,7 +366,7 @@
             this.btnClose.Location = new System.Drawing.Point(620, 355);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(109, 34);
-            this.btnClose.TabIndex = 150;
+            this.btnClose.TabIndex = 19;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -360,7 +377,7 @@
             this.btnSave.Location = new System.Drawing.Point(620, 72);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
-            this.btnSave.TabIndex = 149;
+            this.btnSave.TabIndex = 18;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -370,7 +387,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(620, 32);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(109, 34);
-            this.btnUpdate.TabIndex = 148;
+            this.btnUpdate.TabIndex = 17;
             this.btnUpdate.Text = "&Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);

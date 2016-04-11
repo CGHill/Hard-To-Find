@@ -82,6 +82,7 @@
             this.boxPayment.Name = "boxPayment";
             this.boxPayment.Size = new System.Drawing.Size(189, 20);
             this.boxPayment.TabIndex = 11;
+            this.boxPayment.Enter += textbox_Enter;
             // 
             // label13
             // 
@@ -98,6 +99,7 @@
             this.boxSales.Name = "boxSales";
             this.boxSales.Size = new System.Drawing.Size(189, 20);
             this.boxSales.TabIndex = 10;
+            this.boxSales.Enter += textbox_Enter;
             // 
             // label14
             // 
@@ -115,6 +117,7 @@
             this.boxComments.Name = "boxComments";
             this.boxComments.Size = new System.Drawing.Size(189, 75);
             this.boxComments.TabIndex = 9;
+            this.boxComments.Enter += textbox_Enter;
             // 
             // label9
             // 
@@ -131,6 +134,7 @@
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.Size = new System.Drawing.Size(189, 20);
             this.boxEmail.TabIndex = 8;
+            this.boxEmail.Enter += textbox_Enter;
             // 
             // label10
             // 
@@ -147,6 +151,7 @@
             this.boxCountry.Name = "boxCountry";
             this.boxCountry.Size = new System.Drawing.Size(190, 20);
             this.boxCountry.TabIndex = 7;
+            this.boxCountry.Enter += textbox_Enter;
             // 
             // label8
             // 
@@ -163,6 +168,7 @@
             this.boxPostcode.Name = "boxPostcode";
             this.boxPostcode.Size = new System.Drawing.Size(190, 20);
             this.boxPostcode.TabIndex = 6;
+            this.boxPostcode.Enter += textbox_Enter;
             // 
             // label7
             // 
@@ -179,6 +185,7 @@
             this.boxAddress3.Name = "boxAddress3";
             this.boxAddress3.Size = new System.Drawing.Size(190, 20);
             this.boxAddress3.TabIndex = 5;
+            this.boxAddress3.Enter += textbox_Enter;
             // 
             // boxAddress2
             // 
@@ -186,6 +193,7 @@
             this.boxAddress2.Name = "boxAddress2";
             this.boxAddress2.Size = new System.Drawing.Size(190, 20);
             this.boxAddress2.TabIndex = 4;
+            this.boxAddress2.Enter += textbox_Enter;
             // 
             // label5
             // 
@@ -211,6 +219,7 @@
             this.boxAddress1.Name = "boxAddress1";
             this.boxAddress1.Size = new System.Drawing.Size(190, 20);
             this.boxAddress1.TabIndex = 3;
+            this.boxAddress1.Enter += textbox_Enter;
             // 
             // boxInstitution
             // 
@@ -218,6 +227,7 @@
             this.boxInstitution.Name = "boxInstitution";
             this.boxInstitution.Size = new System.Drawing.Size(190, 20);
             this.boxInstitution.TabIndex = 2;
+            this.boxInstitution.Enter += textbox_Enter;
             // 
             // label3
             // 
@@ -243,6 +253,7 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.Size = new System.Drawing.Size(190, 20);
             this.boxLastName.TabIndex = 1;
+            this.boxLastName.Enter += textbox_Enter;
             // 
             // boxFirstName
             // 
@@ -250,6 +261,7 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.Size = new System.Drawing.Size(190, 20);
             this.boxFirstName.TabIndex = 0;
+            this.boxFirstName.Enter += textbox_Enter;
             // 
             // label2
             // 

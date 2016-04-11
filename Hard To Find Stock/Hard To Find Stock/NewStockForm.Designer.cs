@@ -71,7 +71,7 @@
             this.btnCancel.Location = new System.Drawing.Point(669, 343);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 34);
-            this.btnCancel.TabIndex = 16;
+            this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -81,7 +81,7 @@
             this.btnSave.Location = new System.Drawing.Point(669, 290);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
-            this.btnSave.TabIndex = 15;
+            this.btnSave.TabIndex = 18;
             this.btnSave.Text = "Save && Exit";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -91,7 +91,8 @@
             this.boxDateEntered.Location = new System.Drawing.Point(393, 258);
             this.boxDateEntered.Name = "boxDateEntered";
             this.boxDateEntered.Size = new System.Drawing.Size(211, 20);
-            this.boxDateEntered.TabIndex = 14;
+            this.boxDateEntered.TabIndex = 15;
+            this.boxDateEntered.Enter += textbox_Enter;
             // 
             // label16
             // 
@@ -107,7 +108,8 @@
             this.boxBookID.Location = new System.Drawing.Point(393, 232);
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(211, 20);
-            this.boxBookID.TabIndex = 13;
+            this.boxBookID.TabIndex = 14;
+            this.boxBookID.Enter += textbox_Enter;
             // 
             // label15
             // 
@@ -123,7 +125,7 @@
             this.boxSales.Location = new System.Drawing.Point(393, 206);
             this.boxSales.Name = "boxSales";
             this.boxSales.Size = new System.Drawing.Size(211, 20);
-            this.boxSales.TabIndex = 12;
+            this.boxSales.TabIndex = 13;
             // 
             // label13
             // 
@@ -140,6 +142,7 @@
             this.boxCatalogues.Name = "boxCatalogues";
             this.boxCatalogues.Size = new System.Drawing.Size(211, 20);
             this.boxCatalogues.TabIndex = 11;
+            this.boxCatalogues.Enter += textbox_Enter;
             // 
             // label9
             // 
@@ -157,6 +160,7 @@
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(211, 72);
             this.boxSubject.TabIndex = 10;
+            this.boxSubject.Enter += textbox_Enter;
             // 
             // label10
             // 
@@ -174,6 +178,7 @@
             this.boxPrice.Size = new System.Drawing.Size(211, 20);
             this.boxPrice.TabIndex = 9;
             this.boxPrice.Leave += new System.EventHandler(this.boxPrice_Leave);
+            this.boxPrice.Enter += textbox_Enter;
             // 
             // label11
             // 
@@ -191,6 +196,7 @@
             this.boxComment.Name = "boxComment";
             this.boxComment.Size = new System.Drawing.Size(212, 20);
             this.boxComment.TabIndex = 7;
+            this.boxComment.Enter += textbox_Enter;
             // 
             // label8
             // 
@@ -208,6 +214,7 @@
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.Size = new System.Drawing.Size(515, 90);
             this.boxDescription.TabIndex = 8;
+            this.boxDescription.Enter += textbox_Enter;
             // 
             // label7
             // 
@@ -225,6 +232,7 @@
             this.boxPublisher.Name = "boxPublisher";
             this.boxPublisher.Size = new System.Drawing.Size(211, 45);
             this.boxPublisher.TabIndex = 6;
+            this.boxPublisher.Enter += textbox_Enter;
             // 
             // boxSubtitle
             // 
@@ -232,6 +240,7 @@
             this.boxSubtitle.Name = "boxSubtitle";
             this.boxSubtitle.Size = new System.Drawing.Size(211, 20);
             this.boxSubtitle.TabIndex = 5;
+            this.boxSubtitle.Enter += textbox_Enter;
             // 
             // label5
             // 
@@ -258,6 +267,7 @@
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(211, 72);
             this.boxTitle.TabIndex = 4;
+            this.boxTitle.Enter += textbox_Enter;
             // 
             // boxAuthor
             // 
@@ -265,6 +275,7 @@
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(211, 20);
             this.boxAuthor.TabIndex = 3;
+            this.boxAuthor.Enter += textbox_Enter;
             // 
             // label3
             // 
@@ -291,6 +302,7 @@
             this.boxNote.Name = "boxNote";
             this.boxNote.Size = new System.Drawing.Size(212, 20);
             this.boxNote.TabIndex = 2;
+            this.boxNote.Enter += textbox_Enter;
             // 
             // boxQuantity
             // 
@@ -299,6 +311,7 @@
             this.boxQuantity.Size = new System.Drawing.Size(211, 20);
             this.boxQuantity.TabIndex = 1;
             this.boxQuantity.Text = "1";
+            this.boxQuantity.Enter += textbox_Enter;
             // 
             // label2
             // 
@@ -323,7 +336,8 @@
             this.boxInitials.Location = new System.Drawing.Point(393, 180);
             this.boxInitials.Name = "boxInitials";
             this.boxInitials.Size = new System.Drawing.Size(211, 20);
-            this.boxInitials.TabIndex = 103;
+            this.boxInitials.TabIndex = 12;
+            this.boxInitials.Enter += textbox_Enter;
             // 
             // label12
             // 
@@ -340,7 +354,7 @@
             this.btnPrev.Location = new System.Drawing.Point(637, 118);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(91, 34);
-            this.btnPrev.TabIndex = 106;
+            this.btnPrev.TabIndex = 16;
             this.btnPrev.Text = "&Previous";
             this.btnPrev.UseVisualStyleBackColor = true;
             this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
@@ -350,7 +364,7 @@
             this.btnNext.Location = new System.Drawing.Point(734, 118);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(91, 34);
-            this.btnNext.TabIndex = 107;
+            this.btnNext.TabIndex = 17;
             this.btnNext.Text = "&Next";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
