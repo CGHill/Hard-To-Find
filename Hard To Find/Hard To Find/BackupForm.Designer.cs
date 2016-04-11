@@ -39,6 +39,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -125,11 +126,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnBackupFile);
             this.groupBox1.Controls.Add(this.btnBackupCSV);
             this.groupBox1.Location = new System.Drawing.Point(23, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(386, 84);
+            this.groupBox1.Size = new System.Drawing.Size(386, 87);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Create backups";
@@ -156,6 +158,15 @@
             this.progressBar1.TabIndex = 10;
             this.progressBar1.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(195, 65);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(185, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Note: CSV backup may take a minute";
+            // 
             // BackupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -168,6 +179,7 @@
             this.Name = "BackupForm";
             this.Text = "BackupForm";
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -186,5 +198,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label1;
     }
 }

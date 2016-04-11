@@ -107,6 +107,7 @@
       <DependentUpon>ImportsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MailingLabelCreator.cs" />
+    <Compile Include="MonthlyReportCreator.cs" />
     <Compile Include="NewCustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -109,6 +109,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition:
+        Postcondition: Clears the database of exsisting customers and replaces it with the customers in the csv file */
         private void btnRestoreCustomers_Click(object sender, EventArgs e)
         {
             //Set up file browser, to search for txt files and default directory of C: drive
@@ -163,6 +165,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition:
+        Postcondition: Clears the database of exsisting stock and replaces it with the stock in the csv file */
         private void btnRestoreStock_Click(object sender, EventArgs e)
         {
             //Set up file browser, to search for txt files and default directory of C: drive
@@ -217,6 +221,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition:
+        Postcondition: Clears the database of exsisting orders and replaces it with the orders in the csv file */
         private void btnRestoreOrders_Click(object sender, EventArgs e)
         {
             //Set up file browser, to search for txt files and default directory of C: drive
@@ -270,6 +276,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition:
+        Postcondition: Clears the database of exsisting ordered stock and replaces it with the ordered stock in the csv file */
         private void btnRestoreOrderedStock_Click(object sender, EventArgs e)
         {
             //Set up file browser, to search for txt files and default directory of C: drive

@@ -15,16 +15,16 @@ namespace Hard_To_Find
         //Globals
         private DatabaseManager dbManager;
         private FileManager fileManager;
-        private MainMenu form1;
+        private MainMenu mainMenu;
 
 
         //Constructor
-        public FileExportForm(MainMenu form1)
+        public FileExportForm(MainMenu mainMenu)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            this.form1 = form1;
+            this.mainMenu = mainMenu;
 
             setup();
         }
@@ -88,8 +88,8 @@ namespace Hard_To_Find
         private void btnMainMenu_Click(object sender, EventArgs e)
         {
             this.Close();
-            form1.Show();
-            form1.TopLevel = true;
+            mainMenu.Show();
+            mainMenu.TopLevel = true;
         }
 
         /*Precondition:
@@ -100,8 +100,8 @@ namespace Hard_To_Find
             if (keyData == Keys.Escape)
             {
                 this.Close();
-                form1.Show();
-                form1.TopLevel = true;
+                mainMenu.Show();
+                mainMenu.TopLevel = true;
             }
 
             // Call the base class

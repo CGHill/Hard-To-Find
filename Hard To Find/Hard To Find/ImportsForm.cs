@@ -36,13 +36,13 @@ namespace Hard_To_Find
             fileManager = new FileManager();
             dbManager = new DatabaseManager();
 
-            if (!fileManager.checkForStorageLocation())
+            if (!fileManager.checkForImportStorageLocation())
             {
                 importFileLocation = fileManager.getStorageFilePath();
 
                 canImport = false;
 
-                MessageBox.Show("No file storage location set./nCannot import files");
+                MessageBox.Show("Please Set import location before trying to import");
             }
             else
             {
@@ -109,6 +109,21 @@ namespace Hard_To_Find
 
             // Call the base class
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        /*Precondition: 
+         Postcondition: Allows the user to set the location to import stock files from */
+        private void btnSetImportLocation_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select storage location";
+
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                string path = folderBrowser.SelectedPath;
+
+                fileManager.setImportStorageLocationFile(folderBrowser.SelectedPath);
+            }
         }
     }
 }

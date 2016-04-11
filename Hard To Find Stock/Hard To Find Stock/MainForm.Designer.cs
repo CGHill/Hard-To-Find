@@ -54,6 +54,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.labResults = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnSetExportLocation = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -191,7 +192,7 @@
             // 
             // btnNewStock
             // 
-            this.btnNewStock.Location = new System.Drawing.Point(93, 396);
+            this.btnNewStock.Location = new System.Drawing.Point(93, 342);
             this.btnNewStock.Name = "btnNewStock";
             this.btnNewStock.Size = new System.Drawing.Size(145, 23);
             this.btnNewStock.TabIndex = 33;
@@ -311,11 +312,22 @@
             this.label5.TabIndex = 36;
             this.label5.Text = "Number of results:";
             // 
+            // btnSetExportLocation
+            // 
+            this.btnSetExportLocation.Location = new System.Drawing.Point(93, 427);
+            this.btnSetExportLocation.Name = "btnSetExportLocation";
+            this.btnSetExportLocation.Size = new System.Drawing.Size(145, 40);
+            this.btnSetExportLocation.TabIndex = 38;
+            this.btnSetExportLocation.Text = "Set Export Location";
+            this.btnSetExportLocation.UseVisualStyleBackColor = true;
+            this.btnSetExportLocation.Click += new System.EventHandler(this.btnSetExportLocation_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1177, 612);
+            this.Controls.Add(this.btnSetExportLocation);
             this.Controls.Add(this.labResults);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
@@ -363,6 +375,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Label labResults;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnSetExportLocation;
     }
 }
 

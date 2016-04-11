@@ -71,7 +71,6 @@
             // 
             // btnReports
             // 
-            this.btnReports.Enabled = false;
             this.btnReports.Location = new System.Drawing.Point(236, 61);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(123, 37);

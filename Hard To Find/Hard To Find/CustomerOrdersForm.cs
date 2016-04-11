@@ -83,7 +83,7 @@ namespace Hard_To_Find
             boxOrderID.Text = currOrder.orderID.ToString();
             boxOrderRef.Text = currOrder.orderReference;
             boxProgress.Text = currOrder.progress;
-            boxInvoiceDate.Text = currOrder.invoiceDate;
+            boxInvoiceDate.Text = currOrder.invoiceDate.ToString("d-MM-yyyy");
             boxFreight.Text = currOrder.freightCost;
             boxComments.Text = currOrder.comments;
 

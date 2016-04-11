@@ -114,7 +114,7 @@ namespace Hard_To_Find
             dbConnection.Open();
 
             string createOrdersTable = "CREATE TABLE IF NOT EXISTS Orders(orderID INTEGER PRIMARY KEY AUTOINCREMENT, customerFirstName VARCHAR(100), customerLastName VARCHAR(100), institution VARCHAR(100), postcode VARCHAR(50)," +
-                " orderReference VARCHAR(40), progress VARCHAR(100), freightCost VARCHAR(10), invoice INTEGER, invoiceDate VARCHAR(100), comments VARCHAR(200), customerID INTEGER)";
+                " orderReference VARCHAR(40), progress VARCHAR(100), freightCost VARCHAR(10), invoice INTEGER, invoiceDate DATETIME, comments VARCHAR(200), customerID INTEGER)";
 
             SQLiteCommand createOrdersTableCommand = new SQLiteCommand(createOrdersTable, dbConnection);
             createOrdersTableCommand.ExecuteNonQuery();
@@ -183,7 +183,7 @@ namespace Hard_To_Find
             //Apostrophies cause program to crash
             string updateQuery = "UPDATE Orders SET customerFirstName = '" + order.firstName + "', customerLastName = '" + order.lastName + "', institution = '" + order.institution + 
                 "', postcode = '" + order.postcode + "', orderReference = '" + order.orderReference + "', progress = '" + order.progress + "', freightCost = '" + order.freightCost +
-                "', invoice = '" + order.invoiceNo + "', invoiceDate = '" + order.invoiceDate + "', comments = '" + order.comments + "', customerID = '" + order.customerID + "' WHERE orderID = " + order.orderID;
+                "', invoice = '" + order.invoiceNo + "', invoiceDate = '" + order.invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', comments = '" + order.comments + "', customerID = '" + order.customerID + "' WHERE orderID = " + order.orderID;
 
             dbConnection.Open();
             SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -196,7 +196,7 @@ namespace Hard_To_Find
         public void updateOrderedStock(OrderedStock orderedStock)
         {
             //Apostrophies cause program to crash
-            string updateQuery = "UPDATE OrderedStock SET stockID =" + orderedStock.stockID + ", quantity = " + orderedStock.quantity + ", author = '" + orderedStock.author + "', title = '" + orderedStock.title +
+            string updateQuery = "UPDATE OrderedStock SET stockID = " + orderedStock.stockID + ", quantity = " + orderedStock.quantity + ", author = '" + orderedStock.author + "', title = '" + orderedStock.title +
                 "', price = '" + orderedStock.price + "', bookID = '" + orderedStock.bookID + "', discount = '" + orderedStock.discount + "' WHERE orderedStockID = " + orderedStock.orderedStockID;
 
             dbConnection.Open();
@@ -341,13 +341,13 @@ namespace Hard_To_Find
                 //Build insert command. If order has an ID insert it with that ID if not (new order) and insert with a new ID using autoincrement from SQLite
                 if (o.orderID == -1)
                 {
-                    orderInsert = "INSERT INTO Orders VALUES(null, '" + o.firstName + "', '" + o.lastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" + 
-                        o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo + "', '" + o.invoiceDate + "', '" +  o.comments + "', '" + o.customerID + "')";
+                    orderInsert = "INSERT INTO Orders VALUES(null, '" + o.firstName + "', '" + o.lastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" +
+                        o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo + "', '" + o.invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + o.comments + "', '" + o.customerID + "')";
                 }
                 else
                 {
-                    orderInsert = "INSERT INTO Orders VALUES(" + o.orderID + ", '" + o.firstName + "', '" + o.lastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference +  "', '" + 
-                        o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo.ToString() + "', '" + o.invoiceDate + "', '" + o.comments + "', '" + o.customerID + "')";
+                    orderInsert = "INSERT INTO Orders VALUES(" + o.orderID + ", '" + o.firstName + "', '" + o.lastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference +  "', '" +
+                        o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo.ToString() + "', '" + o.invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + o.comments + "', '" + o.customerID + "')";
                 }
 
                 SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
@@ -373,8 +373,8 @@ namespace Hard_To_Find
             string orderInsert = "";
 
             //Build insert command
-            orderInsert = "INSERT INTO Orders VALUES(null, '" + newOrder.firstName + "', '" + newOrder.lastName + "', '" + newOrder.institution + "', '" + newOrder.postcode + "', '" + 
-                newOrder.orderReference + "', '" + newOrder.progress + "', '" + newOrder.freightCost + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate + "', '" + newOrder.comments + "', '" + 
+            orderInsert = "INSERT INTO Orders VALUES(null, '" + newOrder.firstName + "', '" + newOrder.lastName + "', '" + newOrder.institution + "', '" + newOrder.postcode + "', '" +
+                newOrder.orderReference + "', '" + newOrder.progress + "', '" + newOrder.freightCost + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + newOrder.comments + "', '" + 
                 newOrder.customerID + "')";
                 
             SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
@@ -721,8 +721,14 @@ namespace Hard_To_Find
             //Loop over and store results
             while (reader.Read())
             {
+                string date = reader[9].ToString();
+                string[] splitOnSpace = date.Split(' ');
+                string[] splitOnSlash = splitOnSpace[0].Split('/');
+
+                DateTime currDate = new DateTime(Convert.ToInt32(splitOnSlash[2]), Convert.ToInt32(splitOnSlash[1]), Convert.ToInt32(splitOnSlash[0]));
+
                 foundOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), Convert.ToInt32(reader[8]), reader[9].ToString(), reader[10].ToString(), Convert.ToInt32(reader[11]));
+                    reader[7].ToString(), Convert.ToInt32(reader[8]), currDate, reader[10].ToString(), Convert.ToInt32(reader[11]));
             }
 
             dbConnection.Close();
@@ -774,8 +780,14 @@ namespace Hard_To_Find
             //Loop over and store results
             while (reader.Read())
             {
+                string date = reader[9].ToString();
+                string[] splitOnSpace = date.Split(' ');
+                string[] splitOnSlash = splitOnSpace[0].Split('/');
+
+                DateTime currDate = new DateTime(Convert.ToInt32(splitOnSlash[2]), Convert.ToInt32(splitOnSlash[1]), Convert.ToInt32(splitOnSlash[0]));
+
                 Order foundOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), Convert.ToInt32(reader[8]), reader[9].ToString(), reader[10].ToString(), Convert.ToInt32(reader[11]));
+                    reader[7].ToString(), Convert.ToInt32(reader[8]), currDate, reader[10].ToString(), Convert.ToInt32(reader[11]));
 
                 foundOrders.Add(foundOrder);
             }
@@ -932,8 +944,14 @@ namespace Hard_To_Find
             //Loop over and store results
             while (reader.Read())
             {
+                string date = reader[9].ToString();
+                string[] splitOnSpace = date.Split(' ');
+                string[] splitOnSlash = splitOnSpace[0].Split('/');
+
+                DateTime currDate = new DateTime(Convert.ToInt32(splitOnSlash[2]), Convert.ToInt32(splitOnSlash[1]), Convert.ToInt32(splitOnSlash[0]));
+
                 Order currOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                    reader[7].ToString(), Convert.ToInt32(reader[8]), reader[9].ToString(), reader[10].ToString(), Convert.ToInt32(reader[11]));
+                    reader[7].ToString(), Convert.ToInt32(reader[8]), currDate, reader[10].ToString(), Convert.ToInt32(reader[11]));
 
                 foundOrders.Add(currOrder);
             }
@@ -970,6 +988,48 @@ namespace Hard_To_Find
 
             //Return results
             return foundOrderedStock;
+        }
+
+        /*Precondition: month needs to be a number e.g march = "03", year = "2016"
+        Postcondition: Returns a list of Orders that were made in the passed in month and year */
+        public List<Order> getOrdersByMonth(string month, string year)
+        {
+            List<Order> foundOrders = new List<Order>();
+
+            dbConnection.Open();
+
+            //Days in months needs to be incremented by 1 to get the full range from the database
+            int daysInMonth = DateTime.DaysInMonth(Convert.ToInt32(year), Convert.ToInt32(month));
+            daysInMonth += 1;
+
+
+            string day1 = "01";
+            string day2 = daysInMonth.ToString();
+
+            //Execute SQL query
+            string sql = "SELECT * FROM Orders WHERE invoiceDate BETWEEN '" + year + "-" + month + "-" + day1 + "' AND '" + year + "-" + month + "-" + day2 + "'";
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            //Loop over and store results
+            while (reader.Read())
+            {
+                string date = reader[9].ToString();
+                string[] splitOnSpace = date.Split(' ');
+                string[] splitOnSlash = splitOnSpace[0].Split('/');
+
+                //Convert date into datetime
+                DateTime currDate = new DateTime(Convert.ToInt32(splitOnSlash[2]), Convert.ToInt32(splitOnSlash[1]), Convert.ToInt32(splitOnSlash[0]));
+
+                Order foundOrder = new Order(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                    reader[7].ToString(), Convert.ToInt32(reader[8]), currDate, reader[10].ToString(), Convert.ToInt32(reader[11]));
+
+                foundOrders.Add(foundOrder);
+            }
+
+            dbConnection.Close();
+
+            return foundOrders;
         }
     }
 }

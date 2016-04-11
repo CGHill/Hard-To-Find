@@ -196,7 +196,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(118, 33);
             this.btnSave.TabIndex = 18;
-            this.btnSave.Text = "&Save";
+            this.btnSave.Text = "Fini&shed Editing";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -215,7 +215,7 @@
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(118, 33);
             this.btnUpdate.TabIndex = 17;
-            this.btnUpdate.Text = "&Update";
+            this.btnUpdate.Text = "&Edit";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 

@@ -33,6 +33,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.btnMainMenu = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnSetImportLocation = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAutoImport
@@ -48,7 +49,7 @@
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(79, 79);
+            this.button2.Location = new System.Drawing.Point(79, 67);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 32);
             this.button2.TabIndex = 1;
@@ -58,7 +59,7 @@
             // button3
             // 
             this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(79, 144);
+            this.button3.Location = new System.Drawing.Point(79, 211);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(138, 32);
             this.button3.TabIndex = 2;
@@ -67,7 +68,7 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(79, 242);
+            this.btnMainMenu.Location = new System.Drawing.Point(79, 285);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(138, 32);
             this.btnMainMenu.TabIndex = 3;
@@ -77,17 +78,28 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(-2, 293);
+            this.progressBar1.Location = new System.Drawing.Point(-3, 347);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(302, 12);
             this.progressBar1.TabIndex = 4;
             this.progressBar1.Visible = false;
             // 
+            // btnSetImportLocation
+            // 
+            this.btnSetImportLocation.Location = new System.Drawing.Point(79, 124);
+            this.btnSetImportLocation.Name = "btnSetImportLocation";
+            this.btnSetImportLocation.Size = new System.Drawing.Size(138, 32);
+            this.btnSetImportLocation.TabIndex = 5;
+            this.btnSetImportLocation.Text = "Set Import Location";
+            this.btnSetImportLocation.UseVisualStyleBackColor = true;
+            this.btnSetImportLocation.Click += new System.EventHandler(this.btnSetImportLocation_Click);
+            // 
             // ImportsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(297, 302);
+            this.ClientSize = new System.Drawing.Size(297, 357);
+            this.Controls.Add(this.btnSetImportLocation);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnMainMenu);
             this.Controls.Add(this.button3);
@@ -106,5 +118,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnMainMenu;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnSetImportLocation;
     }
 }

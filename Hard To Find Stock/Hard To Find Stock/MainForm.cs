@@ -13,11 +13,10 @@ namespace Hard_To_Find_Stock
     public partial class MainForm : Form
     {
         //Globals
-        const string STORAGE_FOLDER = @"\Export Files";
-
         private DatabaseManager dbManager;
         private List<Stock> allStock;
         private List<Stock> foundStock;
+        private FileManager fileManager;
 
         //Constructor
         public MainForm()
@@ -34,6 +33,7 @@ namespace Hard_To_Find_Stock
         {
             //Create DB and list to store stock in
             dbManager = new DatabaseManager();
+            fileManager = new FileManager();
             allStock = new List<Stock>();
 
             boxBookID.Select();
@@ -51,12 +51,20 @@ namespace Hard_To_Find_Stock
             DataGridViewColumn column6 = dataGridView1.Columns[5];
             column6.Width = 75;
 
-            if (!Directory.Exists(Environment.CurrentDirectory + STORAGE_FOLDER))
-            {
-                Directory.CreateDirectory(Environment.CurrentDirectory + STORAGE_FOLDER);
-            }
-
             dbManager.createNewStockTable();
+
+            if (!fileManager.checkForStorageLocation())
+            {
+                FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+                folderBrowser.Description = "Select storage location";
+
+                if (folderBrowser.ShowDialog() == DialogResult.OK)
+                {
+                    string path = folderBrowser.SelectedPath;
+
+                    fileManager.setStorageLocationFile(folderBrowser.SelectedPath);
+                }
+            }
         }
 
         /*Precondition:
@@ -235,39 +243,36 @@ namespace Hard_To_Find_Stock
          Postcondition: When button is clicked, creates a csv file that contains all of the new stock that has been entered and stores it in the Export Files folder */
         private void btnCreateExport_Click(object sender, EventArgs e)
         {
-            string timeStamp = getTimestamp(DateTime.Now);
-
-            //Create a unique filename using timestamp
-            string fileName = @"\Stock" + timeStamp + ".txt";
-
             List<Stock> allNewStock = dbManager.getAllNewStock();
 
             if (allNewStock.Count > 0)
             {
-                //Check that the storage location for the file exists
-                if (!File.Exists(Environment.CurrentDirectory + STORAGE_FOLDER + fileName))
+                string timeStamp = getTimestamp(DateTime.Now);
+
+                //Create a unique filename using timestamp
+                string fileName = @"\Stock" + timeStamp + ".txt";
+
+                string storageLocation = fileManager.getStorageFilePath() + fileName;
+
+                //Create the textfile and write the newstock information into it
+                using (FileStream stream = File.Create(storageLocation))
                 {
-                    //Create the textfile and write the newstock information into it
-                    using (FileStream stream = File.Create(Environment.CurrentDirectory + STORAGE_FOLDER + fileName))
+                    StreamWriter sw = new StreamWriter(stream);
+
+                    foreach (Stock s in allNewStock)
                     {
-                        StreamWriter sw = new StreamWriter(stream);
-
-                        foreach (Stock s in allNewStock)
-                        {
-                            sw.WriteLine("-1" + "|\"" + s.quantity + "\"|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description +
-                                "\"|\"" + s.comments + "\"|\"" + "" + "\"|\"" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + "" + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered);
-                        }
-
-                        sw.Close();
+                        sw.WriteLine("-1" + "|\"" + s.quantity + "\"|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description +
+                            "\"|\"" + s.comments + "\"|\"" + "" + "\"|\"" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + "" + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"");
                     }
 
+                    sw.Close();
                 }
 
                 //Reset the new stock table
                 dbManager.dropNewStockTable();
                 dbManager.createNewStockTable();
 
-                MessageBox.Show("Export File created.\nStorage Location: " + Environment.CurrentDirectory + STORAGE_FOLDER + fileName);
+                MessageBox.Show("Export File created");
             }
             else
                 MessageBox.Show("No new data");
@@ -278,6 +283,19 @@ namespace Hard_To_Find_Stock
         private static String getTimestamp(DateTime value)
         {
             return value.ToString("yyyyMMddHHmmssfff");
+        }
+
+        private void btnSetExportLocation_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select storage location";
+
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                string path = folderBrowser.SelectedPath;
+
+                fileManager.setStorageLocationFile(folderBrowser.SelectedPath);
+            }
         }
 
     }

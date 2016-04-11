@@ -80,7 +80,6 @@ namespace Hard_To_Find
          Postcondition: Allows the user to set and change the storage location of files */
         private void btnSetStorageLocation_Click(object sender, EventArgs e)
         {
-           
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
             folderBrowser.Description = "Select storage location";
 
@@ -88,7 +87,7 @@ namespace Hard_To_Find
             {
                 string path = folderBrowser.SelectedPath;
 
-                fileManager.createStorageLocationFile(folderBrowser.SelectedPath);
+                fileManager.setStorageLocationFile(folderBrowser.SelectedPath);
             }
         }
 
@@ -101,6 +100,8 @@ namespace Hard_To_Find
             importForm.Show();
         }
 
+        /*Precondition: 
+         Postcondition: Opens up the backup form */
         private void btnBackup_Click(object sender, EventArgs e)
         {
             this.Hide();

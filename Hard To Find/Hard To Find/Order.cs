@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hard_To_Find
 {
-    class Order
+    public class Order
     {
         public int orderID { get; set; }
         public string firstName { get; set; }
@@ -16,12 +16,12 @@ namespace Hard_To_Find
         public string progress { get; set; }
         public string freightCost { get; set; }
         public int invoiceNo { get; set; }
-        public string invoiceDate { get; set; }
+        public DateTime invoiceDate { get; set; }
         public string comments { get; set; }
         public int customerID { get; set; }
 
-        public Order(int orderID, string firstName, string lastName, string institution, string postcode, string orderReference, string progress, string freightCost, 
-            int invoiceNo, string invoiceDate, string comments, int customerID)
+        public Order(int orderID, string firstName, string lastName, string institution, string postcode, string orderReference, string progress, string freightCost,
+            int invoiceNo, DateTime invoiceDate, string comments, int customerID)
         {
             this.orderID = orderID;
             this.firstName = firstName;
@@ -37,8 +37,8 @@ namespace Hard_To_Find
             this.customerID = customerID;
         }
 
-        public Order(string firstName, string lastName, string institution, string postcode, string orderReference, string progress, string freightcost, int invoiceNo, 
-            string invoiceDate, string comments, int customerID)
+        public Order(string firstName, string lastName, string institution, string postcode, string orderReference, string progress, string freightcost, int invoiceNo,
+            DateTime invoiceDate, string comments, int customerID)
         {
             this.orderID = -1;
             this.firstName = firstName;

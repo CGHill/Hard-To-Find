@@ -11,6 +11,7 @@ namespace Hard_To_Find
         //Constants
         public enum IMPORT_TYPE { CUSTOMER, STOCK, ORDERS, ORDEREDSTOCK }
         const string STORAGE_FILE_NAME = "FileStorageLocation.txt";
+        const string IMPORT_FILE_STORAGE = "ImportStorageLocation.txt";
         const int OLD_CUSTOMER_ARRAY_LENGTH = 15;
         const int OLD_ORDER_ARRAY_LENGTH = 18;
         const int OLD_ORDEREDSTOCK_ARRAY_LENGTH = 19;
@@ -51,22 +52,27 @@ namespace Hard_To_Find
 
             return haveStorageLocation;
         }
+        
 
         /*Precondition:
          Postcondition: Creates all of the folders to store files in, moves files over if a storage location had previously been set. Updates text file with new storage location */
-        public void createStorageLocationFile(string newStorageFilePath)
+        public void setStorageLocationFile(string newStorageFilePath)
         {
             //File paths for new folder directories
             string invoiceFolderPath = newStorageFilePath + @"\Invoices";
             string mailingLabelsFolderPath = newStorageFilePath + @"\Mailing Labels";
             string exportFilesFolderPath = newStorageFilePath + @"\Export Files";
             string importFilesFolderPath = newStorageFilePath + @"\Import Files";
+            string salesReportsFolderPath = newStorageFilePath + @"\Sales Reports";
+            string freightReportsFolderPath = newStorageFilePath + @"\Freight Reports";
 
             //Create the folders in their new directory
             Directory.CreateDirectory(invoiceFolderPath);
             Directory.CreateDirectory(mailingLabelsFolderPath);
             Directory.CreateDirectory(exportFilesFolderPath);
             Directory.CreateDirectory(importFilesFolderPath);
+            Directory.CreateDirectory(salesReportsFolderPath);
+            Directory.CreateDirectory(freightReportsFolderPath);
 
             //If the storage loaction hasn't previously been set then create the file with the new storage location
             if (!File.Exists(STORAGE_FILE_NAME))
@@ -96,6 +102,8 @@ namespace Hard_To_Find
                 DirectoryInfo dMailingLabels = new DirectoryInfo(oldStoragePath + @"\Mailing Labels");
                 DirectoryInfo dExportFiles = new DirectoryInfo(oldStoragePath + @"\Export Files");
                 DirectoryInfo dImportFiles = new DirectoryInfo(oldStoragePath + @"\Import Files");
+                DirectoryInfo dSalesReports = new DirectoryInfo(oldStoragePath + @"\Sales Reports");
+                DirectoryInfo dFreightReports = new DirectoryInfo(oldStoragePath + @"\Freight Reports");
 
 
                 //Loop over all the files in each directory and move them to the new location
@@ -117,12 +125,22 @@ namespace Hard_To_Find
                 {
                     Directory.Move(file.FullName, newStorageFilePath + @"\Import Files\" + file.Name);
                 }
+                foreach (var file in dSalesReports.GetFiles())
+                {
+                    Directory.Move(file.FullName, newStorageFilePath + @"\Sales Reports\" + file.Name);
+                }
+                foreach (var file in dFreightReports.GetFiles())
+                {
+                    Directory.Move(file.FullName, newStorageFilePath + @"\Freight Reports\" + file.Name);
+                }
 
                 //Delete the old, now empty folders
                 Directory.Delete(oldStoragePath + @"\Invoices", true);
                 Directory.Delete(oldStoragePath + @"\Mailing Labels", true);
                 Directory.Delete(oldStoragePath + @"\Export Files", true);
                 Directory.Delete(oldStoragePath + @"\Import Files", true);
+                Directory.Delete(oldStoragePath + @"\Sales Reports", true);
+                Directory.Delete(oldStoragePath + @"\Freight Reports", true);
             }
         }
 
@@ -148,13 +166,60 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
+         Postcondition: Returns true if the file that contains the file & folder storage location exists */
+        public bool checkForImportStorageLocation()
+        {
+            bool haveStorageLocation = false;
+
+            if (File.Exists(IMPORT_FILE_STORAGE))
+                haveStorageLocation = true;
+
+            return haveStorageLocation;
+        }
+
+        /*Precondition:
+         Postcondition: Sets the import file location */
+        public void setImportStorageLocationFile(string newStorageFilePath)
+        {
+            //Create or overwrite the file to contain the storage location of imports folder
+            using (FileStream fs = File.Create(IMPORT_FILE_STORAGE))
+            {
+                StreamWriter sw = new StreamWriter(fs);
+
+                sw.WriteLine(newStorageFilePath);
+                sw.Close();
+            }
+        }
+
+        /*Precondition:
+         Postcondition: Returns a string containing the path where the storage folders are */
+        public string getImportStorageFilePath()
+        {
+            //Open file from passed in path
+            StreamReader file = new StreamReader(IMPORT_FILE_STORAGE);
+
+            string storageFilePath = "";
+            string line;
+
+            //Read through and get the storage path, file should only contain 1 line
+            while ((line = file.ReadLine()) != null)
+            {
+                storageFilePath = line;
+            }
+
+            file.Close();
+
+            return storageFilePath;
+        }
+
+        /*Precondition:
          Postcondition: Returns a list of strings of all of the import file paths */
         public List<string> getAllImportFilePaths()
         {
             List<string> allFilePaths = new List<string>();
 
             //Get info about the import files folder
-            DirectoryInfo dImportFiles = new DirectoryInfo(getStorageFilePath() + @"\Import Files");
+            DirectoryInfo dImportFiles = new DirectoryInfo(getImportStorageFilePath());
 
             //Loop over all the files in the Import Files folder and store it's filepath
             foreach (var file in dImportFiles.GetFiles())
@@ -387,7 +452,11 @@ namespace Hard_To_Find
                         else
                             invoiceNo = Convert.ToInt32(splitObject[8]);
 
-                        string invoiceDate = splitObject[9];
+                        string stringDate = splitObject[9];
+                        string[] splitDate = stringDate.Split('/');
+
+                        DateTime invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
+
                         string comment = splitObject[10];
 
                         int customerID;
@@ -939,7 +1008,22 @@ namespace Hard_To_Find
             else
                 invoiceNo = Convert.ToInt32(splitOrder[13]);
 
-            string invoiceDate = splitOrder[14];
+            DateTime invoiceDate;
+            try
+            {
+                string stringDate = splitOrder[14];
+                string[] splitDate;
+                if(stringDate.Contains('-'))
+                    splitDate = stringDate.Split('-');
+                else
+                    splitDate = stringDate.Split('/');
+
+                invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
+            }
+            catch (IndexOutOfRangeException)
+            {
+                invoiceDate = new DateTime(1,1,1);
+            }
             string comments = splitOrder[15];
 
             int customerID;
@@ -1167,7 +1251,8 @@ namespace Hard_To_Find
             }
         }
 
-
+        /*Precondition: 
+         Postcondition: Takes each table in the database and stores them as a csv text file in the given filepath */
         public void createDatabaseTablesAsCSVFiles(string storagePath)
         {
             /*******************  Create and store customer CSV ***********************/

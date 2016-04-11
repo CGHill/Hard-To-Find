@@ -317,7 +317,7 @@ namespace Hard_To_Find
 
                     if (folderBrowser.ShowDialog() == DialogResult.OK)
                     {
-                        fileManager.createStorageLocationFile(folderBrowser.SelectedPath);
+                        fileManager.setStorageLocationFile(folderBrowser.SelectedPath);
 
                         canStoreFiles = true;
                     }
@@ -347,7 +347,10 @@ namespace Hard_To_Find
             string country = SyntaxHelper.escapeSingleQuotes(boxCountry.Text);
             string orderRef = SyntaxHelper.escapeSingleQuotes(boxOrderRef.Text);
             string progress = SyntaxHelper.escapeSingleQuotes(boxProgress.Text);
-            string invoiceDate = SyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
+            string stringDate = SyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
+            string[] splitDate = stringDate.Split('/');
+            DateTime invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
+
             string freight = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
             string comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
 

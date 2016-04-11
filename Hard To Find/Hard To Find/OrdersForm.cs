@@ -14,7 +14,7 @@ namespace Hard_To_Find
     public partial class OrdersForm : Form, IStockReceiver, ICustomerReceiver
     {
         //Globals
-        private MainMenu form1;
+        private MainMenu mainMenu;
         private DatabaseManager dbManager;
         private List<Order> allOrders;
         private List<OrderedStock> allOrderedStock;
@@ -26,9 +26,9 @@ namespace Hard_To_Find
         private bool canEdit;
 
         //Constructor
-        public OrdersForm(MainMenu form1)
+        public OrdersForm(MainMenu mainMenu)
         {
-            this.form1 = form1;
+            this.mainMenu = mainMenu;
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
@@ -70,7 +70,7 @@ namespace Hard_To_Find
             loadNewestOrder();
 
             //If this form was opened through customers orders then remove unneccessary controls and adjust form
-            if (form1 == null)
+            if (mainMenu == null)
             {
                 labOrderID.Visible = false;
                 boxOrderSearchID.Visible = false;
@@ -83,16 +83,6 @@ namespace Hard_To_Find
                 btnNewOrder.Enabled = false;
                 btnNewOrder.Visible = false;
 
-                btnCreateInvoice.Enabled = false;
-                btnCreateInvoice.Visible = false;
-
-                labMailingLabels.Visible = false;
-
-                btnBigMailingLabel.Enabled = false;
-                btnBigMailingLabel.Visible = false;
-
-                btnSmallMailingLabel.Enabled = false;
-                btnSmallMailingLabel.Visible = false;
 
                 btnImportOrders.Enabled = false;
                 btnImportOrders.Visible = false;
@@ -108,12 +98,15 @@ namespace Hard_To_Find
 
                 btnMainMenu.Text = "Close";
 
-                groupBox1.Left = groupBox1.Left - 200;
-                btnAddBook.Left = btnAddBook.Left - 200;
-                btnMainMenu.Left = btnMainMenu.Left - 200;
+                groupBox1.Left = groupBox1.Left - 50;
+                btnAddBook.Left = btnAddBook.Left - 50;
+                btnMainMenu.Left = btnMainMenu.Left - 50;
+                btnCreateInvoice.Left = btnCreateInvoice.Left - 40;
+                btnBigMailingLabel.Left = btnBigMailingLabel.Left - 40;
+                btnSmallMailingLabel.Left = btnSmallMailingLabel.Left - 40;
+                labMailingLabels.Left = labMailingLabels.Left - 40;
 
-
-                Width = Width - 180;
+                Width = Width - 50;
             }
         }
 
@@ -122,10 +115,10 @@ namespace Hard_To_Find
         private void btnMainMenu_Click(object sender, EventArgs e)
         {
             this.Close();
-            if (form1 != null)
+            if (mainMenu != null)
             {
-                form1.Show();
-                form1.TopLevel = true;
+                mainMenu.Show();
+                mainMenu.TopLevel = true;
             }
         }
 
@@ -137,20 +130,26 @@ namespace Hard_To_Find
             if (keyData == Keys.Escape)
             {
                 this.Close();
-                if (form1 != null)
+                if (mainMenu != null)
                 {
-                    form1.Show();
-                    form1.TopLevel = true;
+                    mainMenu.Show();
+                    mainMenu.TopLevel = true;
                 }
             }
             //Load up previous order if left is pressed
-            if (keyData == Keys.Left)
+            if (keyData == (Keys.Control | Keys.Oemcomma))
             {
+                if (canEdit)
+                    saveEntry();
+
                 previousOrder();
             }
             //Load up next order if right is pressed
-            if (keyData == Keys.Right)
+            if (keyData == (Keys.Control | Keys.OemPeriod))
             {
+                if (canEdit)
+                    saveEntry();
+
                 nextOrder();
             }
 
@@ -349,7 +348,7 @@ namespace Hard_To_Find
                     boxOrderID.Text = currOrder.orderID.ToString();
                     boxOrderRef.Text = currOrder.orderReference;
                     boxProgress.Text = currOrder.progress;
-                    boxInvoiceDate.Text = currOrder.invoiceDate;
+                    boxInvoiceDate.Text = currOrder.invoiceDate.ToString("d/MM/yyyy");
                     boxFreight.Text = currOrder.freightCost;
                     boxComments.Text = currOrder.comments;
 
@@ -489,7 +488,7 @@ namespace Hard_To_Find
 
                     if (folderBrowser.ShowDialog() == DialogResult.OK)
                     {
-                        fileManager.createStorageLocationFile(folderBrowser.SelectedPath);
+                        fileManager.setStorageLocationFile(folderBrowser.SelectedPath);
 
                         canStoreFiles = true;
                     }
@@ -515,6 +514,9 @@ namespace Hard_To_Find
          Postcondition: Asks to load up the latest order */
         private void btnNewestOrder_Click(object sender, EventArgs e)
         {
+            if (canEdit)
+                saveEntry();
+
             loadNewestOrder();
         }
 
@@ -550,34 +552,46 @@ namespace Hard_To_Find
                 toggleEditing();
                 canEdit = false;
 
-                //Get the updated fields
-                currOrder.orderReference = SyntaxHelper.escapeSingleQuotes(boxOrderRef.Text);
-                currOrder.progress = SyntaxHelper.escapeSingleQuotes(boxProgress.Text);
-                currOrder.invoiceDate = SyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
-                currOrder.freightCost = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
-                currOrder.comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
-
-                //Update order in the database
-                dbManager.updateOrder(currOrder);
-
-                //Update the orderedStock in the database
-                foreach (OrderedStock os in currOrderedStock)
-                {
-                    dbManager.updateOrderedStock(os);
-                }
-
-                //Insert any new orderedStock that was added
-                dbManager.insertOrderedStock(newOrderedStock);
-
-                //Ad new ordered stock to the overall orderedStock list
-                foreach (OrderedStock os in newOrderedStock)
-                {
-                    currOrderedStock.Add(os);
-                }
-
-                //Reset the newOrderedStock list
-                newOrderedStock = new List<OrderedStock>();
+                saveEntry();
             }
+        }
+
+        /*Precondition: 
+         Postcondition: Updates all of the information of the current order to the database */
+        private void saveEntry()
+        {
+            //Get the updated fields
+            currOrder.orderReference = SyntaxHelper.escapeSingleQuotes(boxOrderRef.Text);
+            currOrder.progress = SyntaxHelper.escapeSingleQuotes(boxProgress.Text);
+            string stringDate = SyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
+            string[] splitDate = stringDate.Split('/');
+            currOrder.invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
+
+            currOrder.freightCost = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+            currOrder.comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
+
+            //Update order in the database
+            dbManager.updateOrder(currOrder);
+
+            //Update the orderedStock in the database
+            foreach (OrderedStock os in currOrderedStock)
+            {
+                os.title = SyntaxHelper.escapeSingleQuotes(os.title);
+                os.author = SyntaxHelper.escapeSingleQuotes(os.author);
+                dbManager.updateOrderedStock(os);
+            }
+
+            //Insert any new orderedStock that was added
+            dbManager.insertOrderedStock(newOrderedStock);
+
+            //Ad new ordered stock to the overall orderedStock list
+            foreach (OrderedStock os in newOrderedStock)
+            {
+                currOrderedStock.Add(os);
+            }
+
+            //Reset the newOrderedStock list
+            newOrderedStock = new List<OrderedStock>();
         }
 
         /*Precondition: 
@@ -810,6 +824,9 @@ namespace Hard_To_Find
          Postcondition: Asks to load up the previous order */
         private void btnPrev_Click(object sender, EventArgs e)
         {
+            if (canEdit)
+                saveEntry();
+
             previousOrder();
         }
 
@@ -817,6 +834,9 @@ namespace Hard_To_Find
          Postcondition: Asks to load up the next order */
         private void btnNext_Click(object sender, EventArgs e)
         {
+            if (canEdit)
+                saveEntry();
+
             nextOrder();
         }
 
