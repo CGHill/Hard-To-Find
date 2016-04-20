@@ -13,18 +13,18 @@ namespace Hard_To_Find
     {
         //Globals
         const int ORDER_ARRAY_LENGTH = 15;
-        private MainMenu form1;
+        private MainMenu mainMenu;
         private DatabaseManager dbManager;
         private FileManager fileManager;
         private List<Customer> foundCustomers;
         private List<Customer> allCustomers;
 
         //Constructor
-        public CustomerForm(MainMenu form1)
+        public CustomerForm(MainMenu mainMenu)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.form1 = form1;
+            this.mainMenu = mainMenu;
 
             setup();
         }
@@ -53,7 +53,15 @@ namespace Hard_To_Find
             DataGridViewColumn colEmail = dataGridView1.Columns[5];
             colEmail.Width = 182;
 
+            //Set focus to first name box
             boxFirstName.Select();
+
+            //Setup event handlers for when enter is pressed while on textboxes
+            boxCustID.KeyPress += TextBox_KeyPress_Enter;
+            boxFirstName.KeyPress += TextBox_KeyPress_Enter;
+            boxLastName.KeyPress += TextBox_KeyPress_Enter;
+            boxInstiution.KeyPress += TextBox_KeyPress_Enter;
+            boxEmail.KeyPress += TextBox_KeyPress_Enter;
         }
 
         /*Precondition:
@@ -61,8 +69,8 @@ namespace Hard_To_Find
         private void btnMainMenu_Click(object sender, EventArgs e)
         {
             this.Close();
-            form1.Show();
-            form1.TopLevel = true;
+            mainMenu.Show();
+            mainMenu.Activate();
         }
 
         /*Precondition:
@@ -73,8 +81,8 @@ namespace Hard_To_Find
             if (keyData == Keys.Escape)
             {
                 this.Close();
-                form1.Show();
-                form1.TopLevel = true;
+                mainMenu.Show();
+                mainMenu.Activate();
             }
 
             // Call the base class
@@ -112,7 +120,7 @@ namespace Hard_To_Find
 
             Customer customerToDisplay = foundCustomers[currRow];
 
-            CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay);
+            CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay, this);
             cf.Show();
         }
 
@@ -141,6 +149,8 @@ namespace Hard_To_Find
                         allCustomers = fileManager.getCustomersFromFile(filename);
 
                         progressBar1.Visible = true;
+                        progressBar1.Maximum = allCustomers.Count;
+                        progressBar1.Value = 0;
 
                         //TODO find a better place for this?
                         dbManager.dropCustomerTable();
@@ -187,6 +197,8 @@ namespace Hard_To_Find
             dataGridView1.Rows.Clear();
             btnCustDetails.Enabled = false;
 
+            
+
             //Check if an ID has been entered and search on that if it has
             if (boxCustID.Text != "")
             {
@@ -217,6 +229,8 @@ namespace Hard_To_Find
                 string instutution = null;
                 string email = null;
 
+                //Check if the user wants the name to match exactly what they typed
+                bool exactName = checkExactName.Checked;
 
                 //Get names if they have been entered
                 if (boxFirstName.Text != "")
@@ -229,7 +243,7 @@ namespace Hard_To_Find
                     email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
 
                 //Search for customers with names entered
-                foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email);
+                foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email, exactName);
 
                 if (foundCustomers.Count == 0)
                 {
@@ -238,6 +252,8 @@ namespace Hard_To_Find
                 }
                 else
                 {
+                    foundCustomers = foundCustomers.OrderBy(x => x.firstName).ToList();
+
                     //Display found customers
                     foreach (Customer c in foundCustomers)
                     {
@@ -266,7 +282,7 @@ namespace Hard_To_Find
 
                 Customer customerToDisplay = foundCustomers[currRow];
 
-                CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay);
+                CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay, this);
                 cf.Show();
             }
             catch (NullReferenceException)
@@ -287,7 +303,7 @@ namespace Hard_To_Find
 
                 Customer customerToDisplay = foundCustomers[currRow];
 
-                CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay);
+                CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay, this);
                 cf.Show();
             }
         }
@@ -303,6 +319,13 @@ namespace Hard_To_Find
                 //Stops the windows noise
                 e.Handled = true;
             }
+        }
+
+        /*Precondition:
+         Postcondition: Updates the datagrid when focus is regained, used after user has updated a customer entry */
+        private void CustomerForm_Activated(object sender, EventArgs e)
+        {
+            startSearch();
         }
     }
 }

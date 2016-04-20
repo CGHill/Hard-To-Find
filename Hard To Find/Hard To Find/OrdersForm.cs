@@ -118,7 +118,7 @@ namespace Hard_To_Find
             if (mainMenu != null)
             {
                 mainMenu.Show();
-                mainMenu.TopLevel = true;
+                mainMenu.Activate();
             }
         }
 
@@ -133,7 +133,7 @@ namespace Hard_To_Find
                 if (mainMenu != null)
                 {
                     mainMenu.Show();
-                    mainMenu.TopLevel = true;
+                    mainMenu.Activate();
                 }
             }
             //Load up previous order if left is pressed
@@ -180,6 +180,8 @@ namespace Hard_To_Find
                         allOrders = fileManager.getOrdersFromFile(filename);
 
                         progressBar1.Visible = true;
+                        progressBar1.Maximum = allOrders.Count;
+                        progressBar1.Value = 0;
 
                         //TODO find a better place for this?
                         dbManager.dropOrdersTable();
@@ -238,9 +240,11 @@ namespace Hard_To_Find
 
                         //Insert all of the new orders into the database
                         progressBar1.Value = 0;
-                        progressBar1.Maximum = 42386;
+                        progressBar1.Maximum = allOrderedStock.Count;
                         progressBar1.Visible = true;
+
                         dbManager.insertOrderedStock(allOrderedStock, progressBar1);
+
                         progressBar1.Visible = false;
 
                         //Inform user that the process has been finished
@@ -686,7 +690,6 @@ namespace Hard_To_Find
             catch (NullReferenceException)
             {
                 //Cell was exited and price and discount are empty
-
                 bool containsValue = false;
 
                 DataGridViewRow row = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex];

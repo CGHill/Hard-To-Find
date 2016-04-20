@@ -16,6 +16,8 @@ namespace Hard_To_Find_Stock
         private bool tabPress;
         private bool earliestEntry;
         private List<Stock> newStockEntered;
+        private List<bool> newStockAlreadyInDatabase;
+        private bool dataPulledFromMainStockTable;
         private int indexOfNewStock;
 
         //Constructor
@@ -33,11 +35,81 @@ namespace Hard_To_Find_Stock
         {
             dbManager = new DatabaseManager();
             newStockEntered = new List<Stock>();
+            newStockAlreadyInDatabase = new List<bool>();
+            dataPulledFromMainStockTable = false;
             tabPress = false;
             earliestEntry = true;
             indexOfNewStock = 0;
 
+            //Setup event handlers for when a texbox is entered
+            boxQuantity.Enter += textbox_Enter;
+            boxNote.Enter += textbox_Enter;
+            boxAuthor.Enter += textbox_Enter;
+            boxTitle.Enter += textbox_Enter;
+            boxSubtitle.Enter += textbox_Enter;
+            boxPublisher.Enter += textbox_Enter;
+            boxComment.Enter += textbox_Enter;
+            boxDescription.Enter += textbox_Enter;
+            boxPrice.Enter += textbox_Enter;
+            boxSubject.Enter += textbox_Enter;
+            boxCatalogues.Enter += textbox_Enter;
+            boxInitials.Enter += textbox_Enter;
+            boxSales.Enter += textbox_Enter;
+            boxBookID.Enter += textbox_Enter;
+            boxDateEntered.Enter += textbox_Enter;
+
+            //Give focus to author box
             boxAuthor.Select();
+
+            //Get all of the stock that's in the newstock table
+            newStockEntered = dbManager.getAllNewStock();
+
+            //Check to see newstock wasn't 0
+            if (newStockEntered.Count != 0)
+            {
+                //Set the index to the last entry
+                indexOfNewStock = newStockEntered.Count - 1;
+
+                //Get the last entry
+                Stock currStock = newStockEntered[indexOfNewStock];
+
+                //Load up last entry into textboxes
+                loadStockIntoTextboxes(currStock);
+
+                btnPrev.Enabled = true;
+                earliestEntry = false;
+
+                //Track which entries came from the database already
+                for (int i = 0; i < newStockEntered.Count; i++)
+                {
+                    newStockAlreadyInDatabase.Add(true);
+                }
+            }
+            else //Nothing in newstock table, load in last 5 entries from stock table so user can get the most recent bookIDs
+            {
+                newStockEntered = dbManager.getLastFiveStockEntries();
+
+                if (newStockEntered.Count != 0)
+                {
+                    indexOfNewStock = newStockEntered.Count - 1;
+
+                    Stock currStock = newStockEntered[indexOfNewStock];
+
+                    loadStockIntoTextboxes(currStock);
+
+                    btnPrev.Enabled = true;
+                    earliestEntry = false;
+
+                    dataPulledFromMainStockTable = true;
+
+                    for (int i = 0; i < newStockEntered.Count; i++)
+                    {
+                        newStockAlreadyInDatabase.Add(true);
+                    }
+                }
+                else //Else couldn't get any stock, start from stratch
+                    newStockEntered = new List<Stock>();
+            }
         }
 
         /*Precondition: 
@@ -55,36 +127,75 @@ namespace Hard_To_Find_Stock
             //Loop over stock checking if they can be saved
             foreach (Stock s in newStockEntered)
             {
-                //Check if any of the basic information required to save is missing
-                if (s.author == "" && s.title == "" && s.bookID == "")
+                //Check to see if all the boxes are blank so the entry can be ignored
+                if (s.note != "" || s.author != "" || s.title != "" || s.subtitle != "" || s.publisher != "" || s.comments != "" || s.description != "" || s.price != "" || s.subject != "" || s.catalogue != ""
+                    || s.initials != "" || s.sales != "" || s.bookID != "" || s.dateEntered != "")
                 {
-                    //Build up a list of the stock that failed to save to display to the user
-                    if (!canSave)
-                        failedEntries += ", " + failedEntryIndex.ToString();
-                    else
-                        failedEntries += failedEntryIndex.ToString();
+                    //Check if any of the basic information required to save is missing
+                    if (s.author == "" || s.title == "" || s.bookID == "")
+                    {
+                        //Build up a list of the stock that failed to save to display to the user
+                        if (!canSave)
+                            failedEntries += ", " + failedEntryIndex.ToString();
+                        else
+                            failedEntries += failedEntryIndex.ToString();
 
-                    canSave = false;
+                        canSave = false;
+                    }
                 }
                 failedEntryIndex++;
             }
 
             if (canSave)
             {
+                int index = 0;
+
                 //Add to database
                 foreach (Stock s in newStockEntered)
                 {
-                    if (s.author != "" && s.title != "" && s.bookID != "")
+                    //Check to see if all the boxes are blank so the entry can be ignored
+                    if (s.note != "" || s.author != "" || s.title != "" || s.subtitle != "" || s.publisher != "" || s.comments != "" || s.description != "" || s.price != "" || s.subject != "" || s.catalogue != ""
+                        || s.initials != "" || s.sales != "" || s.bookID != "" || s.dateEntered != "")
                     {
-                        dbManager.insertStock(s);
+                        //Check to see if index is within range of the array
+                        if (index < newStockAlreadyInDatabase.Count)
+                        {
+                            //Check to see whether entry is already in the database
+                            if (!newStockAlreadyInDatabase[index])
+                            {
+                                //Put entry into database
+                                if (s.author != "" && s.title != "" && s.bookID != "")
+                                    dbManager.insertNewStock(s);
+                            }
+                        }
+                        else
+                        {
+                            //Entry outside range of array, hasn't been entered into database so enter it
+                            if (s.author != "" && s.title != "" && s.bookID != "")
+                                dbManager.insertNewStock(s);
+                        }
                     }
+
+                    index++;
                 }
 
                 //Finished saving, close form
                 this.Close();
             }
             else
+            {
+                //Not enough information entered to save, inform user and load up the first failed entry
                 MessageBox.Show("Issues with entries: " + failedEntries + "\nPlease make sure author, title and bookID and filled in on all entries");
+
+                string[] failedEntrySplit = failedEntries.Split(',');
+
+                int indexOfFailed = Convert.ToInt32(failedEntrySplit[0]) - 1;
+
+                indexOfNewStock = indexOfFailed;
+
+                Stock failedStock = newStockEntered[indexOfFailed];
+                loadStockIntoTextboxes(failedStock);
+            }
             
         }
 
@@ -229,6 +340,9 @@ namespace Hard_To_Find_Stock
             previousEntry();
         }
 
+
+        /*Precondition:
+         Postcondition: Save current entry and load up previous */
         private void previousEntry()
         {
             if (!earliestEntry)
@@ -239,9 +353,6 @@ namespace Hard_To_Find_Stock
                 //Update the index
                 indexOfNewStock--;
 
-                //Update display for user
-                labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count);
-
                 //Check if it's the last entry to disable the button
                 if (indexOfNewStock == 0)
                 {
@@ -249,25 +360,10 @@ namespace Hard_To_Find_Stock
                     earliestEntry = true;
                 }
 
-
                 //Load up the now current entry
                 Stock currStock = newStockEntered[indexOfNewStock];
 
-                boxQuantity.Text = currStock.quantity.ToString();
-                boxNote.Text = currStock.note;
-                boxAuthor.Text = currStock.author;
-                boxTitle.Text = currStock.title;
-                boxSubtitle.Text = currStock.subtitle;
-                boxPublisher.Text = currStock.publisher;
-                boxComment.Text = currStock.comments;
-                boxDescription.Text = currStock.description;
-                boxPrice.Text = currStock.price;
-                boxSubject.Text = currStock.subject;
-                boxCatalogues.Text = currStock.catalogue;
-                boxInitials.Text = currStock.initials;
-                boxSales.Text = currStock.sales;
-                boxBookID.Text = currStock.bookID;
-                boxDateEntered.Text = currStock.dateEntered;
+                loadStockIntoTextboxes(currStock);
 
                 boxAuthor.Focus();
             }
@@ -280,6 +376,8 @@ namespace Hard_To_Find_Stock
             nextEntry();
         }
 
+        /*Precondition:
+         Postcondition: Save current entry and load up next entry or blank */
         private void nextEntry()
         {
             //Check to see if any new info has been updated to stop creating blank entries
@@ -326,21 +424,7 @@ namespace Hard_To_Find_Stock
                 {
                     Stock currStock = newStockEntered[indexOfNewStock];
 
-                    boxQuantity.Text = currStock.quantity.ToString(); ;
-                    boxNote.Text = currStock.note;
-                    boxAuthor.Text = currStock.author;
-                    boxTitle.Text = currStock.title;
-                    boxSubtitle.Text = currStock.subtitle;
-                    boxPublisher.Text = currStock.publisher;
-                    boxComment.Text = currStock.comments;
-                    boxDescription.Text = currStock.description;
-                    boxPrice.Text = currStock.price;
-                    boxSubject.Text = currStock.subject;
-                    boxCatalogues.Text = currStock.catalogue;
-                    boxInitials.Text = currStock.initials;
-                    boxSales.Text = currStock.sales;
-                    boxBookID.Text = currStock.bookID;
-                    boxDateEntered.Text = currStock.dateEntered;
+                    loadStockIntoTextboxes(currStock);
                 }
 
                 //Reset focus back to the author box
@@ -352,48 +436,65 @@ namespace Hard_To_Find_Stock
          Postcondition: Checks to see if it's current information entered is a new entry that needs saved or existing entry that needs updated */
         private void saveEntry()
         {
-            //Check if it's a new entry
-            if (indexOfNewStock == newStockEntered.Count)
+            if (wasAnyInfoEntered())
             {
-                int quantity = Convert.ToInt32(boxQuantity.Text);
-                string note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
-                string author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-                string title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-                string subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-                string publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-                string description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-                string comment = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
-                string price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
-                string subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-                string catalogues = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-                string initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
-                string sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-                string bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-                string dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+                //Check if it's a new entry
+                if (indexOfNewStock == newStockEntered.Count)
+                {
+                    int quantity = Convert.ToInt32(boxQuantity.Text);
+                    string note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
+                    string author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+                    string title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+                    string subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+                    string publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
+                    string description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
+                    string comment = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
+                    string price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+                    string subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+                    string catalogues = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
+                    string initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
+                    string sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
+                    string bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
+                    string dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
 
-                Stock newStock = new Stock(quantity, note, author, title, subtitle, publisher, description, comment, price, subject, catalogues, initials, sales, bookID, dateEntered);
+                    Stock newStock = new Stock(quantity, note, author, title, subtitle, publisher, description, comment, price, subject, catalogues, initials, sales, bookID, dateEntered);
 
-                newStockEntered.Add(newStock);
-            }
-            else //Existing entry, update values
-            {
-                Stock currStock = newStockEntered[indexOfNewStock];
+                    newStockEntered.Add(newStock);
+                    newStockAlreadyInDatabase.Add(false);
+                }
+                else //Existing entry, update values
+                {
+                    Stock currStock = newStockEntered[indexOfNewStock];
 
-                currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-                currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
-                currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-                currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-                currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-                currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-                currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-                currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
-                currStock.price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
-                currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-                currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-                currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
-                currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-                currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-                currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+                    currStock.quantity = Convert.ToInt32(boxQuantity.Text);
+                    currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
+                    currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+                    currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+                    currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+                    currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
+                    currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
+                    currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
+                    currStock.price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+                    currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+                    currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
+                    currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
+                    currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
+                    currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
+                    currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+
+                    //Check to see if entry is in the database, then update it if it is
+                    if (indexOfNewStock < newStockAlreadyInDatabase.Count)
+                    {
+                        if (newStockAlreadyInDatabase[indexOfNewStock])
+                        {
+                            //Check to see if entry came from the main database stock table or not and update accordingly
+                            if (!dataPulledFromMainStockTable)
+                                dbManager.updateNewStock(currStock);
+                            else
+                                dbManager.updateStock(currStock);
+                        }
+                    }
+                }
             }
         }
 
@@ -409,6 +510,27 @@ namespace Hard_To_Find_Stock
                 infoEntered = true;
 
             return infoEntered;
+        }
+
+        private void loadStockIntoTextboxes(Stock currStock)
+        {
+            boxQuantity.Text = currStock.quantity.ToString(); ;
+            boxNote.Text = currStock.note;
+            boxAuthor.Text = currStock.author;
+            boxTitle.Text = currStock.title;
+            boxSubtitle.Text = currStock.subtitle;
+            boxPublisher.Text = currStock.publisher;
+            boxComment.Text = currStock.comments;
+            boxDescription.Text = currStock.description;
+            boxPrice.Text = currStock.price;
+            boxSubject.Text = currStock.subject;
+            boxCatalogues.Text = currStock.catalogue;
+            boxInitials.Text = currStock.initials;
+            boxSales.Text = currStock.sales;
+            boxBookID.Text = currStock.bookID;
+            boxDateEntered.Text = currStock.dateEntered;
+
+            labEntryCounter.Text = (indexOfNewStock + 1).ToString() + " / " + (newStockEntered.Count);
         }
     }
 }

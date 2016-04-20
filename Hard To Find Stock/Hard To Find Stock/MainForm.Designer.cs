@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkExactPhrase = new System.Windows.Forms.CheckBox();
             this.rdoInStock = new System.Windows.Forms.RadioButton();
             this.rdoAllStock = new System.Windows.Forms.RadioButton();
             this.boxSubject = new System.Windows.Forms.TextBox();
@@ -49,7 +50,6 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnCreateExport = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.labResults = new System.Windows.Forms.Label();
@@ -61,6 +61,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkExactPhrase);
             this.groupBox1.Controls.Add(this.rdoInStock);
             this.groupBox1.Controls.Add(this.rdoAllStock);
             this.groupBox1.Controls.Add(this.boxSubject);
@@ -72,12 +73,22 @@
             this.groupBox1.Controls.Add(this.boxAuthor);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(13, 51);
+            this.groupBox1.Location = new System.Drawing.Point(18, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(233, 268);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
+            // 
+            // checkExactPhrase
+            // 
+            this.checkExactPhrase.AutoSize = true;
+            this.checkExactPhrase.Location = new System.Drawing.Point(80, 192);
+            this.checkExactPhrase.Name = "checkExactPhrase";
+            this.checkExactPhrase.Size = new System.Drawing.Size(88, 17);
+            this.checkExactPhrase.TabIndex = 7;
+            this.checkExactPhrase.Text = "Exact phrase";
+            this.checkExactPhrase.UseVisualStyleBackColor = true;
             // 
             // rdoInStock
             // 
@@ -107,7 +118,6 @@
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
             this.boxSubject.TabIndex = 5;
-            this.boxSubject.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxSubject_KeyPress);
             // 
             // label4
             // 
@@ -123,7 +133,7 @@
             this.btnSearch.Location = new System.Drawing.Point(80, 230);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 8;
+            this.btnSearch.TabIndex = 9;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -134,7 +144,6 @@
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(92, 20);
             this.boxBookID.TabIndex = 2;
-            this.boxBookID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxStockID_KeyPress);
             // 
             // label3
             // 
@@ -151,7 +160,6 @@
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
             this.boxTitle.TabIndex = 4;
-            this.boxTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxTitle_KeyPress);
             // 
             // boxAuthor
             // 
@@ -159,7 +167,6 @@
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
             this.boxAuthor.TabIndex = 3;
-            this.boxAuthor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxAuthor_KeyPress);
             // 
             // label2
             // 
@@ -192,9 +199,9 @@
             // 
             // btnNewStock
             // 
-            this.btnNewStock.Location = new System.Drawing.Point(93, 342);
+            this.btnNewStock.Location = new System.Drawing.Point(98, 319);
             this.btnNewStock.Name = "btnNewStock";
-            this.btnNewStock.Size = new System.Drawing.Size(145, 23);
+            this.btnNewStock.Size = new System.Drawing.Size(145, 30);
             this.btnNewStock.TabIndex = 9;
             this.btnNewStock.Text = "&New Stock";
             this.btnNewStock.UseVisualStyleBackColor = true;
@@ -265,18 +272,9 @@
             this.Column5.ReadOnly = true;
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(-6, 600);
-            this.progressBar1.Maximum = 161768;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1183, 14);
-            this.progressBar1.TabIndex = 31;
-            this.progressBar1.Visible = false;
-            // 
             // btnCreateExport
             // 
-            this.btnCreateExport.Location = new System.Drawing.Point(93, 418);
+            this.btnCreateExport.Location = new System.Drawing.Point(98, 427);
             this.btnCreateExport.Name = "btnCreateExport";
             this.btnCreateExport.Size = new System.Drawing.Size(145, 40);
             this.btnCreateExport.TabIndex = 10;
@@ -314,7 +312,7 @@
             // 
             // btnSetExportLocation
             // 
-            this.btnSetExportLocation.Location = new System.Drawing.Point(93, 473);
+            this.btnSetExportLocation.Location = new System.Drawing.Point(98, 473);
             this.btnSetExportLocation.Name = "btnSetExportLocation";
             this.btnSetExportLocation.Size = new System.Drawing.Size(145, 40);
             this.btnSetExportLocation.TabIndex = 11;
@@ -334,7 +332,6 @@
             this.Controls.Add(this.btnStockDetails);
             this.Controls.Add(this.btnNewStock);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnCreateExport);
             this.Controls.Add(this.btnExit);
             this.Name = "MainForm";
@@ -364,7 +361,6 @@
         private System.Windows.Forms.Button btnStockDetails;
         private System.Windows.Forms.Button btnNewStock;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btnCreateExport;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
@@ -376,6 +372,7 @@
         private System.Windows.Forms.Label labResults;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSetExportLocation;
+        private System.Windows.Forms.CheckBox checkExactPhrase;
     }
 }
 

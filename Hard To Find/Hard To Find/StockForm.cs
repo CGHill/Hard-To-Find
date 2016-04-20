@@ -13,16 +13,16 @@ namespace Hard_To_Find
     public partial class StockForm : Form
     {
         //Variables
-        private MainMenu form1;
+        private MainMenu mainMenu;
         private DatabaseManager dbManager;
         private List<Stock> allStock;
         private List<Stock> foundStock;
         private FileManager fileManager;
 
         //Constructor
-        public StockForm(MainMenu form1)
+        public StockForm(MainMenu mainMenu)
         {
-            this.form1 = form1;
+            this.mainMenu = mainMenu;
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
@@ -38,7 +38,7 @@ namespace Hard_To_Find
             fileManager = new FileManager();
             allStock = new List<Stock>();
             
-
+            //Set up datagridview column widths
             DataGridViewColumn column1 = dataGridView1.Columns[0];
             column1.Width = 50;
             DataGridViewColumn column2 = dataGridView1.Columns[1];
@@ -52,7 +52,14 @@ namespace Hard_To_Find
             DataGridViewColumn column6 = dataGridView1.Columns[5];
             column6.Width = 75;
 
+            //Give focus to bookID box
             boxBookID.Select();
+
+            //Set up event handlers for when enter is pressed in textboxes
+            boxBookID.KeyPress += TextBox_KeyPress_Enter;
+            boxAuthor.KeyPress += TextBox_KeyPress_Enter;
+            boxTitle.KeyPress += TextBox_KeyPress_Enter;
+            boxSubject.KeyPress += TextBox_KeyPress_Enter;
         }
 
         /*Precondition: 
@@ -60,8 +67,8 @@ namespace Hard_To_Find
         private void btnMainMenu_Click(object sender, EventArgs e)
         {
             this.Close();
-            form1.Show();
-            form1.TopLevel = true;
+            mainMenu.Show();
+            mainMenu.Activate();
         }
 
         /*Precondition:
@@ -71,8 +78,8 @@ namespace Hard_To_Find
             if (keyData == Keys.Escape)
             {
                 this.Close();
-                form1.Show();
-                form1.TopLevel = true;
+                mainMenu.Show();
+                mainMenu.Activate();
             }
 
             // Call the base class
@@ -103,6 +110,8 @@ namespace Hard_To_Find
                         allStock = fileManager.getStockFromFile(filename);
 
                         progressBar1.Visible = true;
+                        progressBar1.Maximum = allStock.Count;
+                        progressBar1.Value = 0;
 
                         //TODO find a better place for this
                         dbManager.dropStockTable();
@@ -154,7 +163,7 @@ namespace Hard_To_Find
 
             Stock stockToDisplay = foundStock[currRow];
 
-            StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
+            StockDetailsForm sdf = new StockDetailsForm(stockToDisplay, this);
             sdf.Show();
         }
 
@@ -176,7 +185,7 @@ namespace Hard_To_Find
 
                 Stock stockToDisplay = foundStock[currRow];
 
-                StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
+                StockDetailsForm sdf = new StockDetailsForm(stockToDisplay, this);
                 sdf.Show();
             }
             catch (NullReferenceException)
@@ -252,8 +261,10 @@ namespace Hard_To_Find
                 if (boxSubject.Text != "")
                     subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
 
+                bool exactPhrase = checkExactPhrase.Checked;
+
                 //Search for stock based on the parameters entered
-                foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
+                foundStock = dbManager.searchStock(author, title, subject, searchAllStock, exactPhrase);
 
                 labResults.Text = foundStock.Count.ToString();
 
@@ -264,6 +275,8 @@ namespace Hard_To_Find
                 }
                 else
                 {
+                    foundStock = foundStock.OrderBy(x => x.title).ToList();
+
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
@@ -289,9 +302,16 @@ namespace Hard_To_Find
                 Stock stockToDisplay = foundStock[currRow];
 
                 //Open up stock details form
-                StockDetailsForm sdf = new StockDetailsForm(stockToDisplay);
+                StockDetailsForm sdf = new StockDetailsForm(stockToDisplay, this);
                 sdf.Show();
             }
+        }
+
+        /*Precondition: 
+         Postcondition: Updates the datagrid list when user has finished looking at stock details incase they edited */
+        private void StockForm_Activated(object sender, EventArgs e)
+        {
+            startSearch();
         }
     }
 }

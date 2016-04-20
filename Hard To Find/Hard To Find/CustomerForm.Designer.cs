@@ -41,6 +41,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnNewCustomer = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkExactName = new System.Windows.Forms.CheckBox();
             this.boxEmail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.boxInstiution = new System.Windows.Forms.TextBox();
@@ -62,7 +63,6 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.Size = new System.Drawing.Size(145, 20);
             this.boxLastName.TabIndex = 3;
-            this.boxLastName.KeyPress += TextBox_KeyPress_Enter;
             // 
             // boxFirstName
             // 
@@ -70,7 +70,6 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.Size = new System.Drawing.Size(145, 20);
             this.boxFirstName.TabIndex = 2;
-            this.boxFirstName.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label2
             // 
@@ -97,7 +96,6 @@
             this.boxCustID.Size = new System.Drawing.Size(82, 20);
             this.boxCustID.TabIndex = 1;
             this.boxCustID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxCustID_KeyPress);
-            this.boxCustID.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label3
             // 
@@ -121,10 +119,10 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(77, 180);
+            this.btnSearch.Location = new System.Drawing.Point(77, 193);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 6;
+            this.btnSearch.TabIndex = 7;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -170,6 +168,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkExactName);
             this.groupBox1.Controls.Add(this.boxEmail);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.boxInstiution);
@@ -183,10 +182,20 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(24, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(233, 219);
+            this.groupBox1.Size = new System.Drawing.Size(233, 224);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
+            // 
+            // checkExactName
+            // 
+            this.checkExactName.AutoSize = true;
+            this.checkExactName.Location = new System.Drawing.Point(77, 160);
+            this.checkExactName.Name = "checkExactName";
+            this.checkExactName.Size = new System.Drawing.Size(82, 17);
+            this.checkExactName.TabIndex = 6;
+            this.checkExactName.Text = "Exact name";
+            this.checkExactName.UseVisualStyleBackColor = true;
             // 
             // boxEmail
             // 
@@ -194,7 +203,6 @@
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.Size = new System.Drawing.Size(145, 20);
             this.boxEmail.TabIndex = 5;
-            this.boxEmail.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label5
             // 
@@ -211,7 +219,6 @@
             this.boxInstiution.Name = "boxInstiution";
             this.boxInstiution.Size = new System.Drawing.Size(145, 20);
             this.boxInstiution.TabIndex = 4;
-            this.boxInstiution.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label4
             // 
@@ -302,6 +309,7 @@
             this.Controls.Add(this.btnCustDetails);
             this.Name = "CustomerForm";
             this.Text = "Customer Search";
+            this.Activated += new System.EventHandler(this.CustomerForm_Activated);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -335,5 +343,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox boxInstiution;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkExactName;
     }
 }

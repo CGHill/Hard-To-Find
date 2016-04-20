@@ -82,7 +82,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 18;
-            this.btnSave.Text = "Save && Exit";
+            this.btnSave.Text = "&Save && Exit";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -92,7 +92,6 @@
             this.boxDateEntered.Name = "boxDateEntered";
             this.boxDateEntered.Size = new System.Drawing.Size(211, 20);
             this.boxDateEntered.TabIndex = 15;
-            this.boxDateEntered.Enter += textbox_Enter;
             // 
             // label16
             // 
@@ -109,7 +108,6 @@
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(211, 20);
             this.boxBookID.TabIndex = 14;
-            this.boxBookID.Enter += textbox_Enter;
             // 
             // label15
             // 
@@ -142,7 +140,6 @@
             this.boxCatalogues.Name = "boxCatalogues";
             this.boxCatalogues.Size = new System.Drawing.Size(211, 20);
             this.boxCatalogues.TabIndex = 11;
-            this.boxCatalogues.Enter += textbox_Enter;
             // 
             // label9
             // 
@@ -160,7 +157,6 @@
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(211, 72);
             this.boxSubject.TabIndex = 10;
-            this.boxSubject.Enter += textbox_Enter;
             // 
             // label10
             // 
@@ -178,7 +174,6 @@
             this.boxPrice.Size = new System.Drawing.Size(211, 20);
             this.boxPrice.TabIndex = 9;
             this.boxPrice.Leave += new System.EventHandler(this.boxPrice_Leave);
-            this.boxPrice.Enter += textbox_Enter;
             // 
             // label11
             // 
@@ -196,7 +191,6 @@
             this.boxComment.Name = "boxComment";
             this.boxComment.Size = new System.Drawing.Size(212, 20);
             this.boxComment.TabIndex = 7;
-            this.boxComment.Enter += textbox_Enter;
             // 
             // label8
             // 
@@ -214,7 +208,6 @@
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.Size = new System.Drawing.Size(515, 90);
             this.boxDescription.TabIndex = 8;
-            this.boxDescription.Enter += textbox_Enter;
             // 
             // label7
             // 
@@ -232,7 +225,6 @@
             this.boxPublisher.Name = "boxPublisher";
             this.boxPublisher.Size = new System.Drawing.Size(211, 45);
             this.boxPublisher.TabIndex = 6;
-            this.boxPublisher.Enter += textbox_Enter;
             // 
             // boxSubtitle
             // 
@@ -240,7 +232,6 @@
             this.boxSubtitle.Name = "boxSubtitle";
             this.boxSubtitle.Size = new System.Drawing.Size(211, 20);
             this.boxSubtitle.TabIndex = 5;
-            this.boxSubtitle.Enter += textbox_Enter;
             // 
             // label5
             // 
@@ -267,7 +258,6 @@
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(211, 72);
             this.boxTitle.TabIndex = 4;
-            this.boxTitle.Enter += textbox_Enter;
             // 
             // boxAuthor
             // 
@@ -275,7 +265,6 @@
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(211, 20);
             this.boxAuthor.TabIndex = 3;
-            this.boxAuthor.Enter += textbox_Enter;
             // 
             // label3
             // 
@@ -302,7 +291,6 @@
             this.boxNote.Name = "boxNote";
             this.boxNote.Size = new System.Drawing.Size(212, 20);
             this.boxNote.TabIndex = 2;
-            this.boxNote.Enter += textbox_Enter;
             // 
             // boxQuantity
             // 
@@ -311,7 +299,6 @@
             this.boxQuantity.Size = new System.Drawing.Size(211, 20);
             this.boxQuantity.TabIndex = 1;
             this.boxQuantity.Text = "1";
-            this.boxQuantity.Enter += textbox_Enter;
             // 
             // label2
             // 
@@ -337,7 +324,6 @@
             this.boxInitials.Name = "boxInitials";
             this.boxInitials.Size = new System.Drawing.Size(211, 20);
             this.boxInitials.TabIndex = 12;
-            this.boxInitials.Enter += textbox_Enter;
             // 
             // label12
             // 

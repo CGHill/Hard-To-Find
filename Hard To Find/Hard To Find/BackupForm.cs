@@ -41,7 +41,7 @@ namespace Hard_To_Find
         {
             this.Close();
             mainMenu.Show();
-            mainMenu.TopLevel = true;
+            mainMenu.Activate();
         }
 
         /*Precondition:
@@ -53,7 +53,7 @@ namespace Hard_To_Find
             {
                 this.Close();
                 mainMenu.Show();
-                mainMenu.TopLevel = true;
+                mainMenu.Activate();
             }
 
             // Call the base class
@@ -118,8 +118,14 @@ namespace Hard_To_Find
             {
                 string path = folderBrowser.SelectedPath;
 
+                //Change cursor so user has feedback that program is doing something
+                Cursor.Current = Cursors.WaitCursor;
+
                 //Pass in the selected location
                 fileManager.createDatabaseTablesAsCSVFiles(path);
+
+                //Change cursor back to default
+                Cursor.Current = Cursors.Default;
 
                 MessageBox.Show("Backed up to: " + path);
             }
@@ -153,6 +159,8 @@ namespace Hard_To_Find
                             allCustomers.Add((Customer)o);
 
                         progressBar1.Visible = true;
+                        progressBar1.Maximum = allCustomers.Count;
+                        progressBar1.Value = 0;
 
                         //TODO find a better place for this?
                         dbManager.dropCustomerTable();
@@ -209,6 +217,8 @@ namespace Hard_To_Find
                             allStock.Add((Stock)o);
 
                         progressBar1.Visible = true;
+                        progressBar1.Maximum = allStock.Count;
+                        progressBar1.Value = 0;
 
                         //TODO find a better place for this?
                         dbManager.dropStockTable();
@@ -264,6 +274,8 @@ namespace Hard_To_Find
                             allOrders.Add((Order)o);
 
                         progressBar1.Visible = true;
+                        progressBar1.Maximum = allOrders.Count;
+                        progressBar1.Value = 0;
 
                         //TODO find a better place for this?
                         dbManager.dropOrdersTable();
@@ -318,15 +330,17 @@ namespace Hard_To_Find
                         foreach (Object o in ordersAsObject)
                             allOrderedStock.Add((OrderedStock)o);
 
+                        //Insert all of the new orders into the database
+                        progressBar1.Visible = true;
+                        progressBar1.Maximum = allOrderedStock.Count;
+                        progressBar1.Value = 0;
+
                         //TODO find a better place for this
                         dbManager.dropOrderedStockTable();
                         dbManager.createOrderedStock();
 
-                        //Insert all of the new orders into the database
-                        progressBar1.Value = 0;
-                        progressBar1.Maximum = 42386;
-                        progressBar1.Visible = true;
                         dbManager.insertOrderedStock(allOrderedStock, progressBar1);
+
                         progressBar1.Visible = false;
 
                         //Inform user that the process has been finished

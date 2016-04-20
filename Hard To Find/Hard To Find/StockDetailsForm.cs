@@ -14,15 +14,17 @@ namespace Hard_To_Find
         //Global variables
         private DatabaseManager dbManager;
         private Stock currStock;
+        Form previousForm;
         private bool tabPress;
 
         //Constructor
-        public StockDetailsForm(Stock currStock)
+        public StockDetailsForm(Stock currStock, Form previousForm)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
             this.currStock = currStock;
+            this.previousForm = previousForm;
 
             setup();            
         }
@@ -33,6 +35,24 @@ namespace Hard_To_Find
         {
             dbManager = new DatabaseManager();
             tabPress = false;
+
+            //Setup event handlers for when a texbox is entered
+            boxStockID.Enter += textbox_Enter;
+            boxQuantity.Enter += textbox_Enter;
+            boxNote.Enter += textbox_Enter;
+            boxAuthor.Enter += textbox_Enter;
+            boxTitle.Enter += textbox_Enter;
+            boxSubtitle.Enter += textbox_Enter;
+            boxPublisher.Enter += textbox_Enter;
+            boxComment.Enter += textbox_Enter;
+            boxDescription.Enter += textbox_Enter;
+            boxPrice.Enter += textbox_Enter;
+            boxSubject.Enter += textbox_Enter;
+            boxCatalogues.Enter += textbox_Enter;
+            boxInitials.Enter += textbox_Enter;
+            boxSales.Enter += textbox_Enter;
+            boxBookID.Enter += textbox_Enter;
+            boxDateEntered.Enter += textbox_Enter;
 
             loadStock();
 
@@ -46,6 +66,7 @@ namespace Hard_To_Find
             if (keyData == Keys.Escape)
             {
                 this.Close();
+                previousForm.Activate();
             }
             //Check for tab pressed
             if (keyData == Keys.Tab)
@@ -187,6 +208,7 @@ namespace Hard_To_Find
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+            previousForm.Activate();
         }
     }
 }

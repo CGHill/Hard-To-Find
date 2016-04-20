@@ -67,6 +67,7 @@
     <Compile Include="CustomerOrdersForm.Designer.cs">
       <DependentUpon>CustomerOrdersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FreightReportCreator.cs" />
     <Compile Include="ICustomerReceiver.cs" />
     <Compile Include="CustomerSearch.cs">
       <SubType>Form</SubType>
@@ -107,7 +108,7 @@
       <DependentUpon>ImportsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MailingLabelCreator.cs" />
-    <Compile Include="MonthlyReportCreator.cs" />
+    <Compile Include="SalesReportCreator.cs" />
     <Compile Include="NewCustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>

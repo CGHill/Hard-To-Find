@@ -14,15 +14,17 @@ namespace Hard_To_Find
         //Globals
         private DatabaseManager dbManager;
         private Customer currCustomer;
+        private Form previousForm;
         private bool tabPress;
 
         //Constructor
-        public CustomerDetailsForm(Customer currCustomer)
+        public CustomerDetailsForm(Customer currCustomer, Form previousForm)
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
 
             this.currCustomer = currCustomer;
+            this.previousForm = previousForm;
 
             setup();
         }
@@ -35,8 +37,25 @@ namespace Hard_To_Find
             dbManager = new DatabaseManager();
             tabPress = false;
 
+            //Setup Event Handler for textboxes to highlight text when they are entered if tab was pressed
+            boxCustID.Enter += textbox_Enter;
+            boxFirstName.Enter += textbox_Enter;
+            boxLastName.Enter += textbox_Enter;
+            boxInstitution.Enter += textbox_Enter;
+            boxAddress1.Enter += textbox_Enter;
+            boxAddress2.Enter += textbox_Enter;
+            boxAddress3.Enter += textbox_Enter;
+            boxPostcode.Enter += textbox_Enter;
+            boxCountry.Enter += textbox_Enter;
+            boxEmail.Enter += textbox_Enter;
+            boxComments.Enter += textbox_Enter;
+            boxSales.Enter += textbox_Enter;
+            boxPayment.Enter += textbox_Enter;
+
+            //Fill in the texboxes with customers data
             loadUpCustomer();
 
+            //Move focus onto button
             btnCustomersOrders.Select();
         }
 
@@ -118,6 +137,7 @@ namespace Hard_To_Find
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+            previousForm.Activate();
         }
 
         /*Precondition:
@@ -128,6 +148,7 @@ namespace Hard_To_Find
             if (keyData == Keys.Escape)
             {
                 this.Close();
+                previousForm.Activate();
             }
             //Check for tab pressed
             if (keyData == Keys.Tab)

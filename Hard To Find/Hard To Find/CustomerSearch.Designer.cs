@@ -49,12 +49,14 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkExactName = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkExactName);
             this.groupBox1.Controls.Add(this.boxEmail);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.boxInstiution);
@@ -68,7 +70,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(25, 34);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(249, 226);
+            this.groupBox1.Size = new System.Drawing.Size(249, 236);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
@@ -79,7 +81,6 @@
             this.boxEmail.Name = "boxEmail";
             this.boxEmail.Size = new System.Drawing.Size(145, 20);
             this.boxEmail.TabIndex = 5;
-            this.boxEmail.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label5
             // 
@@ -96,7 +97,6 @@
             this.boxInstiution.Name = "boxInstiution";
             this.boxInstiution.Size = new System.Drawing.Size(145, 20);
             this.boxInstiution.TabIndex = 4;
-            this.boxInstiution.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label4
             // 
@@ -109,7 +109,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(77, 184);
+            this.btnSearch.Location = new System.Drawing.Point(77, 207);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
             this.btnSearch.TabIndex = 6;
@@ -124,7 +124,6 @@
             this.boxCustID.Size = new System.Drawing.Size(82, 20);
             this.boxCustID.TabIndex = 1;
             this.boxCustID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxCustID_KeyPress);
-            this.boxCustID.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label3
             // 
@@ -141,7 +140,6 @@
             this.boxLastName.Name = "boxLastName";
             this.boxLastName.Size = new System.Drawing.Size(145, 20);
             this.boxLastName.TabIndex = 3;
-            this.boxLastName.KeyPress += TextBox_KeyPress_Enter;
             // 
             // boxFirstName
             // 
@@ -149,7 +147,6 @@
             this.boxFirstName.Name = "boxFirstName";
             this.boxFirstName.Size = new System.Drawing.Size(145, 20);
             this.boxFirstName.TabIndex = 2;
-            this.boxFirstName.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label2
             // 
@@ -256,6 +253,16 @@
             this.Column6.ReadOnly = true;
             this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // checkExactName
+            // 
+            this.checkExactName.AutoSize = true;
+            this.checkExactName.Location = new System.Drawing.Point(77, 170);
+            this.checkExactName.Name = "checkExactName";
+            this.checkExactName.Size = new System.Drawing.Size(82, 17);
+            this.checkExactName.TabIndex = 24;
+            this.checkExactName.Text = "Exact name";
+            this.checkExactName.UseVisualStyleBackColor = true;
+            // 
             // CustomerSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -297,5 +304,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox boxInstiution;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkExactName;
     }
 }

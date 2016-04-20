@@ -36,8 +36,8 @@ namespace Hard_To_Find_Stock
             fileManager = new FileManager();
             allStock = new List<Stock>();
 
-            boxBookID.Select();
 
+            //Setup datagridview column widths
             DataGridViewColumn column1 = dataGridView1.Columns[0];
             column1.Width = 50;
             DataGridViewColumn column2 = dataGridView1.Columns[1];
@@ -51,8 +51,16 @@ namespace Hard_To_Find_Stock
             DataGridViewColumn column6 = dataGridView1.Columns[5];
             column6.Width = 75;
 
+            //Make the newstock table if it doesn't exist already
             dbManager.createNewStockTable();
 
+            //Setup keypress handlers for when enter is pressed on textboxes
+            boxBookID.KeyPress += TextBox_KeyPress_Enter;
+            boxAuthor.KeyPress += TextBox_KeyPress_Enter;
+            boxTitle.KeyPress += TextBox_KeyPress_Enter;
+            boxSubject.KeyPress += TextBox_KeyPress_Enter;
+
+            //Check to make sure storage location has been set for export files, if not then ask user to set it
             if (!fileManager.checkForStorageLocation())
             {
                 FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
@@ -64,6 +72,22 @@ namespace Hard_To_Find_Stock
 
                     fileManager.setStorageLocationFile(folderBrowser.SelectedPath);
                 }
+            }
+
+            //Give focus to bookID box
+            boxBookID.Select();
+        }
+
+        /*Precondition:
+        Postcondition: Keypress handler for all textboxes. Starts the search for customers */
+        private void TextBox_KeyPress_Enter(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                startSearch();
+
+                //Stops the windows noise
+                e.Handled = true;
             }
         }
 
@@ -128,8 +152,11 @@ namespace Hard_To_Find_Stock
                 if (boxSubject.Text != "")
                     subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
 
+                //Check to see if user wants to search for exactly what they've entered
+                bool exactPhrase = checkExactPhrase.Checked;
+
                 //Search for stock based on the parameters entered
-                foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
+                foundStock = dbManager.searchStock(author, title, subject, searchAllStock, exactPhrase);
 
                 labResults.Text = foundStock.Count.ToString();
 
@@ -140,6 +167,8 @@ namespace Hard_To_Find_Stock
                 }
                 else
                 {
+                    foundStock = foundStock.OrderBy(x => x.title).ToList();
+
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
@@ -204,50 +233,6 @@ namespace Hard_To_Find_Stock
             Application.Exit();
         }
 
-
-        /**************** Keypress handlers to check if enter has been pushed to start search ***********************/
-        private void boxStockID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-
-        }
-
-        private void boxAuthor_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-
-        private void boxTitle_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-
-        private void boxSubject_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (Char)Keys.Enter)
-            {
-                startSearch();
-
-                e.Handled = true;
-            }
-        }
-        /***********************************************************************************************************/
-
         /*Precondition:
          Postcondition: When button is clicked, creates a csv file that contains all of the new stock that has been entered and stores it in the Export Files folder */
         private void btnCreateExport_Click(object sender, EventArgs e)
@@ -277,6 +262,8 @@ namespace Hard_To_Find_Stock
                     sw.Close();
                 }
 
+                dbManager.insertStock(allNewStock);
+
                 //Reset the new stock table
                 dbManager.dropNewStockTable();
                 dbManager.createNewStockTable();
@@ -294,6 +281,8 @@ namespace Hard_To_Find_Stock
             return value.ToString("yyyyMMddHHmmssfff");
         }
 
+        /*Precondition:
+         Postcondition: Opens folder browser for user to select where they want the export files to be stored */
         private void btnSetExportLocation_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
@@ -306,6 +295,5 @@ namespace Hard_To_Find_Stock
                 fileManager.setStorageLocationFile(folderBrowser.SelectedPath);
             }
         }
-
     }
 }

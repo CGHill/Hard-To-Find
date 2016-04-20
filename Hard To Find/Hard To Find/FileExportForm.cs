@@ -89,7 +89,7 @@ namespace Hard_To_Find
         {
             this.Close();
             mainMenu.Show();
-            mainMenu.TopLevel = true;
+            mainMenu.Activate();
         }
 
         /*Precondition:
@@ -101,7 +101,7 @@ namespace Hard_To_Find
             {
                 this.Close();
                 mainMenu.Show();
-                mainMenu.TopLevel = true;
+                mainMenu.Activate();
             }
 
             // Call the base class

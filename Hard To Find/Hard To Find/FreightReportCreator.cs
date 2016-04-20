@@ -13,29 +13,22 @@ using A = DocumentFormat.OpenXml.Drawing;
 
 namespace Hard_To_Find
 {
-    public class MonthlyReportCreator
+    class FreightReportCreator
     {
         //Globals
         private List<Order> orders;
         private DatabaseManager dbManager;
         private double grandTotal;
-        private int indexOfArrays;
         private string title;
-        private int[] booksPerOrder;
-        private double[] pricePerOrder;
 
         //Constructor
-        public MonthlyReportCreator(string title, List<Order> orders, int[] booksPerOrder, double[] pricePerOrder)
+        public FreightReportCreator(string title, List<Order> orders)
         {
             this.dbManager = new DatabaseManager();
             grandTotal = 0;
-            indexOfArrays = 0;
 
             this.title = title;
             this.orders = orders;
-            this.booksPerOrder = booksPerOrder;
-            this.pricePerOrder = pricePerOrder;
-
         }
 
         // Creates a WordprocessingDocument.
@@ -199,7 +192,7 @@ namespace Hard_To_Find
             runProperties1.Append(bold2);
             runProperties1.Append(fontSize2);
             Text text1 = new Text();
-            text1.Text = "Monthly Sales Report";
+            text1.Text = "Monthly Freight Report";
 
             run1.Append(runProperties1);
             run1.Append(text1);
@@ -366,7 +359,7 @@ namespace Hard_To_Find
             runProperties4.Append(runFonts8);
             runProperties4.Append(bold7);
             Text text4 = new Text();
-            text4.Text = "Country";
+            text4.Text = "Invoice Number";
 
             run4.Append(runProperties4);
             run4.Append(text4);
@@ -422,7 +415,7 @@ namespace Hard_To_Find
             runProperties5.Append(runFonts10);
             runProperties5.Append(bold9);
             Text text5 = new Text();
-            text5.Text = "Quantity";
+            text5.Text = "Country";
 
             run5.Append(runProperties5);
             run5.Append(text5);
@@ -478,7 +471,7 @@ namespace Hard_To_Find
             runProperties6.Append(runFonts12);
             runProperties6.Append(bold11);
             Text text6 = new Text();
-            text6.Text = "Price";
+            text6.Text = "Freight Cost";
 
             run6.Append(runProperties6);
             run6.Append(text6);
@@ -541,6 +534,8 @@ namespace Hard_To_Find
 
                 runProperties7.Append(runFonts14);
                 runProperties7.Append(fontSize5);
+
+                //Invoice Date
                 Text text7 = new Text();
                 text7.Text = o.invoiceDate.ToString("dd/MM/yyyy");
 
@@ -595,12 +590,8 @@ namespace Hard_To_Find
                 runProperties8.Append(fontSize7);
                 Text text8 = new Text();
 
-                Customer cust = dbManager.searchCustomers(o.customerID);
-
-                if (cust != null)
-                    text8.Text = cust.country;
-                else
-                    text8.Text = "";
+                //Invoice Number
+                text8.Text = o.invoiceNo.ToString();
 
                 run8.Append(runProperties8);
                 run8.Append(text8);
@@ -655,8 +646,13 @@ namespace Hard_To_Find
                 runProperties9.Append(fontSize9);
                 Text text9 = new Text();
                     
-                //Quantity
-                text9.Text = booksPerOrder[indexOfArrays].ToString();
+                //Country
+                Customer cust = dbManager.searchCustomers(o.customerID);
+
+                if (cust != null)
+                    text9.Text = cust.country;
+                else
+                    text9.Text = "";
 
                 run9.Append(runProperties9);
                 run9.Append(text9);
@@ -709,10 +705,13 @@ namespace Hard_To_Find
                 runProperties10.Append(fontSize11);
                 Text text10 = new Text();
 
-                //Price
-                text10.Text = "$" + String.Format("{0:0.00}", pricePerOrder[indexOfArrays]);
+                //Freight cost
+                text10.Text = o.freightCost;
 
-                grandTotal += pricePerOrder[indexOfArrays];
+                double freightCostNum = Convert.ToDouble(o.freightCost.Substring(1));
+
+                //Add to grand total
+                grandTotal += freightCostNum;
 
                 run10.Append(runProperties10);
                 run10.Append(text10);
@@ -729,8 +728,6 @@ namespace Hard_To_Find
                 tableRow.Append(tableCell8);
 
                 table1.Append(tableRow);
-                
-                indexOfArrays++;
             }
             /**************************** End loop ***********************************/
 
@@ -2574,7 +2571,6 @@ namespace Hard_To_Find
             document.PackageProperties.Modified = System.Xml.XmlConvert.ToDateTime("2016-04-06T01:42:00Z", System.Xml.XmlDateTimeSerializationMode.RoundtripKind);
             document.PackageProperties.LastModifiedBy = "Cameron Hill";
         }
-
 
     }
 }

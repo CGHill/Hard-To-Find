@@ -49,6 +49,11 @@ namespace Hard_To_Find
             column6.Width = 75;
 
             boxBookID.Select();
+
+            boxBookID.KeyPress += TextBox_KeyPress_Enter;
+            boxAuthor.KeyPress += TextBox_KeyPress_Enter;
+            boxTitle.KeyPress += TextBox_KeyPress_Enter;
+            boxSubject.KeyPress += TextBox_KeyPress_Enter;
         }
 
         /*Precondition:
@@ -175,8 +180,10 @@ namespace Hard_To_Find
                 if (boxSubject.Text != "")
                     subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
 
+                bool exactPhrase = checkExactPhrase.Checked;
+
                 //Search for stock based on the parameters entered
-                foundStock = dbManager.searchStock(author, title, subject, searchAllStock);
+                foundStock = dbManager.searchStock(author, title, subject, searchAllStock, exactPhrase);
 
                 labResults.Text = foundStock.Count.ToString();
 
@@ -187,6 +194,8 @@ namespace Hard_To_Find
                 }
                 else
                 {
+                    foundStock = foundStock.OrderBy(x => x.title).ToList();
+
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {

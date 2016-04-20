@@ -44,7 +44,7 @@ namespace Hard_To_Find
         {
             this.Close();
             mainMenu.Show();
-            mainMenu.TopLevel = true;
+            mainMenu.Activate();
         }
 
         /*Precondition:
@@ -55,7 +55,7 @@ namespace Hard_To_Find
             {
                 this.Close();
                 mainMenu.Show();
-                mainMenu.TopLevel = true;
+                mainMenu.Activate();
             }
 
             // Call the base class
@@ -115,7 +115,7 @@ namespace Hard_To_Find
                 //Check that there were new orders
                 if (ordersForMonth.Count > 0)
                 {
-                    MonthlyReportCreator mrc = new MonthlyReportCreator(title, ordersForMonth, booksPerOrder, pricePerOrder);
+                    SalesReportCreator mrc = new SalesReportCreator(title, ordersForMonth, booksPerOrder, pricePerOrder);
 
                     //Get file name and filepath
                     string documentName = dateTimePicker1.Value.ToString("MMMM yyyy") + " Sales Report.docx";
@@ -137,9 +137,49 @@ namespace Hard_To_Find
             }
         }
 
+
+        /*Precondition: 
+         Postcondition: Creates and opens the sales report for the given month */
         private void btnFreightReport_Click(object sender, EventArgs e)
         {
+            //Check if location for the reports storage has been set
+            bool haveStorageLocation = checkForStorageLocation();
 
+            if (haveStorageLocation)
+            {
+                //Get the date from datepicker for the database search
+                string date = dateTimePicker1.Value.ToString("MM/yyyy");
+
+                //Get a 2nd date for the title of the report
+                string title = dateTimePicker1.Value.ToString("MMMM yyyy");
+
+                string[] splitDate = date.Split('/');
+
+                //Get Orders from database
+                List<Order> ordersForMonth = dbManager.getOrdersByMonth(splitDate[0], splitDate[1]);
+                //Check that there were new orders
+                if (ordersForMonth.Count > 0)
+                {
+                    FreightReportCreator frc = new FreightReportCreator(title, ordersForMonth);
+
+                    //Get file name and filepath
+                    string documentName = dateTimePicker1.Value.ToString("MMMM yyyy") + " Freight Report.docx";
+                    string filePath = fileManager.getStorageFilePath() + @"\Freight Reports\" + documentName;
+
+                    //Create the report
+                    bool successfulFileCreation = frc.createReport(filePath);
+
+                    //Open the report
+                    if (successfulFileCreation)
+                        System.Diagnostics.Process.Start(filePath);
+                    else
+                        MessageBox.Show("File failed to be created");
+                }
+                else
+                {
+                    MessageBox.Show("No orders for " + dateTimePicker1.Value.ToString("MMMM yyyy"));
+                }
+            }
         }
 
         /*Precondition: 

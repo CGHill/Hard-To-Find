@@ -33,72 +33,24 @@ namespace Hard_To_Find_Stock
             dbManager = new DatabaseManager();
             loadStock();
 
-            btnUpdate.Select();
+            //boxStockID.BackColor = Color.White;
+            //boxQuantity.BackColor = Color.White;
+            //boxNote.BackColor = Color.White;
+            //boxAuthor.BackColor = Color.White;
+            //boxTitle.BackColor = Color.White;
+            //boxSubtitle.BackColor = Color.White;
+            //boxPublisher.BackColor = Color.White;
+            //boxDescription.BackColor = Color.White;
+            //boxComment.BackColor = Color.White;
+            //boxPrice.BackColor = Color.White;
+            //boxSubject.BackColor = Color.White;
+            //boxCatalogues.BackColor = Color.White;
+            //boxInitials.BackColor = Color.White;
+            //boxSales.BackColor = Color.White;
+            //boxBookID.BackColor = Color.White;
+            //boxDateEntered.BackColor = Color.White;
         }
-
-        /*Precondition:
-         Postcondition: Toggle text boxes to be written in*/
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            toggleBoxesReadOnly();
-            btnSave.Enabled = true;
-            btnUpdate.Enabled = false;
-        }
-
-        /*Precondition:
-         Postcondition: Toggle text boxes back. Send updated stock to database so the updates can be stored*/
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            toggleBoxesReadOnly();
-            btnSave.Enabled = false;
-            btnUpdate.Enabled = true;
-
-            //Check if the stock being edited is a new entry that hasn't been entered into the main system yet
-            Stock newStock = dbManager.searchNewStock(currStock.bookID, true);
-
-            //Update all stock information
-            currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-            currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
-            currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-            currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-            currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-            currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-            currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-            currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
-            currStock.price = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
-            currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-            currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-            currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
-            currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-            currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-            currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
-
-            //Update the newStock table as well
-            if (newStock != null)
-            {
-                newStock.quantity = currStock.quantity;
-                newStock.note = currStock.note;
-                newStock.author = currStock.author;
-                newStock.title = currStock.title;
-                newStock.subtitle = currStock.subtitle;
-                newStock.publisher = currStock.publisher;
-                newStock.description = currStock.description;
-                newStock.comments = currStock.comments;
-                newStock.price = currStock.price;
-                newStock.subject = currStock.subject;
-                newStock.catalogue = currStock.catalogue;
-                newStock.initials = currStock.initials;
-                newStock.sales = currStock.sales;
-                newStock.bookID = currStock.bookID;
-                newStock.dateEntered = currStock.dateEntered;
-
-                dbManager.updateNewStock(newStock);
-            }
-
-            //Send updated stock information to database
-            dbManager.updateStock(currStock);
-        }
-
+       
         /*Precondition:
          Postcondition: Closes this form*/
         private void btnClose_Click(object sender, EventArgs e)
@@ -117,27 +69,6 @@ namespace Hard_To_Find_Stock
 
             // Call the base class
             return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        /*Precondition: None
-         Postcondition: Toggles textboxes ReadOnly between true and false so that stock data can be updated */
-        private void toggleBoxesReadOnly()
-        {
-            boxQuantity.ReadOnly = !boxQuantity.ReadOnly;
-            boxNote.ReadOnly = !boxNote.ReadOnly;
-            boxAuthor.ReadOnly = !boxAuthor.ReadOnly;
-            boxTitle.ReadOnly = !boxTitle.ReadOnly;
-            boxSubtitle.ReadOnly = !boxSubtitle.ReadOnly;
-            boxPublisher.ReadOnly = !boxPublisher.ReadOnly;
-            boxDescription.ReadOnly = !boxDescription.ReadOnly;
-            boxComment.ReadOnly = !boxComment.ReadOnly;
-            boxPrice.ReadOnly = !boxPrice.ReadOnly;
-            boxSubject.ReadOnly = !boxSubject.ReadOnly;
-            boxCatalogues.ReadOnly = !boxCatalogues.ReadOnly;
-            boxInitials.ReadOnly = !boxInitials.ReadOnly;
-            boxSales.ReadOnly = !boxSales.ReadOnly;
-            boxBookID.ReadOnly = !boxBookID.ReadOnly;
-            boxDateEntered.ReadOnly = !boxDateEntered.ReadOnly;
         }
 
         /*Precondition:
@@ -160,29 +91,6 @@ namespace Hard_To_Find_Stock
             boxSales.Text = currStock.sales;
             boxBookID.Text = currStock.bookID;
             boxDateEntered.Text = currStock.dateEntered;
-        }
-
-        /*Precondition:
-        Postcondition: Adds a $ sign and makes number 2 decimal places if it's not already */
-        private void boxPrice_Leave(object sender, EventArgs e)
-        {
-            string priceEntered = boxPrice.Text;
-
-            if (priceEntered != "")
-            {
-                bool noLetters = priceEntered.All(x => !char.IsLetter(x));
-
-                if (noLetters)
-                {
-                    string checkedPrice = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(priceEntered);
-
-                    boxPrice.Text = checkedPrice;
-                }
-                else
-                {
-                    MessageBox.Show("Price shouldn't contain letters");
-                }
-            }
         }
     }
 }

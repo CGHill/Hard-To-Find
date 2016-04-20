@@ -26,7 +26,6 @@ namespace Hard_To_Find
         private List<Customer> allCustomers;
         private List<Order> allOrders;
         private List<OrderedStock> allOrderedStock;
-        private List<Object> importedObjects;
 
         //Constructor
         public FileManager()
@@ -231,11 +230,30 @@ namespace Hard_To_Find
             return allFilePaths;
         }
 
+        /*Precondition:
+         Postcondition: Imports data in from CSV files, based on the type passed in */
         public List<Object> importFromCSV(string filePath, IMPORT_TYPE type)
         {
-            importedObjects = new List<Object>();
+            List<Object> importedObjects = new List<Object>();
        
             int currArrayLength = 0;
+
+            //Set the right array length for the import type
+            switch (type)
+            {
+                case IMPORT_TYPE.CUSTOMER:
+                    currArrayLength = CUSTOMER_ARRAY_LENGTH;
+                    break;
+                case IMPORT_TYPE.STOCK:
+                    currArrayLength = STOCK_ARRAY_LENGTH;
+                    break;
+                case IMPORT_TYPE.ORDERS:
+                    currArrayLength = ORDER_ARRAY_LENGTH;
+                    break;
+                case IMPORT_TYPE.ORDEREDSTOCK:
+                    currArrayLength = ORDEREDSTOCK_ARRAY_LENGTH;
+                    break;
+            }
 
             //Open file from passed in path
             StreamReader file = new StreamReader(filePath);
@@ -274,7 +292,6 @@ namespace Hard_To_Find
                 //Split on | instead of comma because Order entries could contain commas in comments
                 string[] splitObject = unquoted.Split('|');
 
-                //Importing from the old Access database contain a lot of new line characters
                 //Check if current line contains all of the columns
                 if (splitObject.Length < currArrayLength)
                 {
@@ -309,7 +326,8 @@ namespace Hard_To_Find
                             }
 
                             //Pull out all of the columns
-                            storeImportObject(combinedLines, type);
+                            Object completedObject = formImportObjectFromArray(combinedLines, type);
+                            importedObjects.Add(completedObject);
 
                             //Reset values
                             newLineCharacter = false;
@@ -350,7 +368,8 @@ namespace Hard_To_Find
 
                                 if (combinedLines.Length == currArrayLength)
                                 {
-                                    storeImportObject(combinedLines, type);
+                                    Object completedObject = formImportObjectFromArray(combinedLines, type);
+                                    importedObjects.Add(completedObject);
 
                                     //Reset values
                                     newLineCharacter = false;
@@ -369,7 +388,8 @@ namespace Hard_To_Find
                 }
                 else     //Else a normal line
                 {
-                    storeImportObject(splitObject, type);
+                    Object completedObject = formImportObjectFromArray(splitObject, type);
+                    importedObjects.Add(completedObject);
                 }
             }
             //Close text file
@@ -379,8 +399,11 @@ namespace Hard_To_Find
         }
 
         //TODO fix up array indexes
-        private void storeImportObject(string[] splitObject, IMPORT_TYPE type)
+        private Object formImportObjectFromArray(string[] splitObject, IMPORT_TYPE type)
         {
+            Object completedObject = null;
+
+            //Turn object passed in, into the proper formed type
             switch (type)
             {
                 case IMPORT_TYPE.CUSTOMER:
@@ -401,7 +424,7 @@ namespace Hard_To_Find
 
                         //Create new customer and insert into list
                         Customer newCust = new Customer(custID, custFirstName, custLastName, custInstitution, custAddress1, custAddress2, custAddress3, custCountry, custPostCode, custEmail, custComments, custSales, custPayment);
-                        importedObjects.Add(newCust);
+                        completedObject = newCust;
                     }
                     break;
                 case IMPORT_TYPE.STOCK:
@@ -432,7 +455,7 @@ namespace Hard_To_Find
 
                         //Create a new stock entry from it and insert into list
                         Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, initials, sales, bookID, enteredBy);
-                        importedObjects.Add(newStock);
+                        completedObject = newStock;
                     }
                     break;
                 case IMPORT_TYPE.ORDERS:
@@ -453,9 +476,12 @@ namespace Hard_To_Find
                             invoiceNo = Convert.ToInt32(splitObject[8]);
 
                         string stringDate = splitObject[9];
-                        string[] splitDate = stringDate.Split('/');
+                        string[] splitOnSpaceDate = stringDate.Split(' ');
+                        string[] splitDate = splitOnSpaceDate[0].Split('/');
 
-                        DateTime invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
+                        DateTime invoiceDate = new DateTime(1, 1, 1);
+
+                        invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
 
                         string comment = splitObject[10];
 
@@ -467,7 +493,7 @@ namespace Hard_To_Find
 
                         //Create a new order entry from it and insert into list
                         Order newOrder = new Order(orderID, customerFirstName, customerLastName, institution, postcode, orderReference, progress, freightCost, invoiceNo, invoiceDate, comment, customerID);
-                        importedObjects.Add(newOrder);
+                        completedObject = newOrder;
                     }
                     break;
                 case IMPORT_TYPE.ORDEREDSTOCK:
@@ -497,10 +523,12 @@ namespace Hard_To_Find
 
                         //Create a new order entry from it and insert into list
                         OrderedStock newOrderedStock = new OrderedStock(orderedStockID, orderedStockOrderID, stockID, quantity, author, title, price, bookID, discount);
-                        importedObjects.Add(newOrderedStock);
+                        completedObject = newOrderedStock;
                     }
                     break;
             }
+
+            return completedObject;
         }
 
         /*Precondition: txt file must be formatted as a CSV separated by a | instead of , in order of:

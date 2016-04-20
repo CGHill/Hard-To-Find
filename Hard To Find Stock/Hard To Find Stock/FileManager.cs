@@ -59,6 +59,5 @@ namespace Hard_To_Find_Stock
 
             return storageFilePath;
         }
-
     }
 }

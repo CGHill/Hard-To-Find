@@ -33,6 +33,20 @@ namespace Hard_To_Find
             nof = null;
             tabPress = false;
 
+            //Setup Event Handler for textboxes to highlight text when they are entered if tab was pressed
+            boxFirstName.Enter += textbox_Enter;
+            boxLastName.Enter += textbox_Enter;
+            boxInstitution.Enter += textbox_Enter;
+            boxAddress1.Enter += textbox_Enter;
+            boxAddress2.Enter += textbox_Enter;
+            boxAddress3.Enter += textbox_Enter;
+            boxPostcode.Enter += textbox_Enter;
+            boxCountry.Enter += textbox_Enter;
+            boxEmail.Enter += textbox_Enter;
+            boxComments.Enter += textbox_Enter;
+            boxSales.Enter += textbox_Enter;
+            boxPayment.Enter += textbox_Enter;
+
             boxFirstName.Select();
         }
 
@@ -65,6 +79,7 @@ namespace Hard_To_Find
             {
                 Customer newCustomer = new Customer(firstName, lastName, institution, address1, address2, address3, country, postcode, email, comments, sales, payment);
 
+                int nextID = dbManager.getNextCustomerID();
                 dbManager.insertCustomer(newCustomer);
 
                 //If not null then it was created from the new order form, so send customer back to that
@@ -72,6 +87,11 @@ namespace Hard_To_Find
                 {
                     nof.addCustomer(newCustomer);
                 }
+
+                newCustomer.custID = nextID;
+
+                CustomerDetailsForm cdf = new CustomerDetailsForm(newCustomer, this);
+                cdf.Show();
 
                 this.Close();
             }

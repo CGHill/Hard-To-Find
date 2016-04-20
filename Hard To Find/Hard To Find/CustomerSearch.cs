@@ -49,7 +49,15 @@ namespace Hard_To_Find
             DataGridViewColumn colEmail = dataGridView1.Columns[5];
             colEmail.Width = 182;
 
+            //Give focus to firstname box
             boxFirstName.Select();
+
+            //Setup keypress handler for when enter is pressed in textboxes
+            boxCustID.KeyPress += TextBox_KeyPress_Enter;
+            boxFirstName.KeyPress += TextBox_KeyPress_Enter;
+            boxLastName.KeyPress += TextBox_KeyPress_Enter;
+            boxInstiution.KeyPress += TextBox_KeyPress_Enter;
+            boxEmail.KeyPress += TextBox_KeyPress_Enter;
         }
 
         /*Precondition:
@@ -92,7 +100,7 @@ namespace Hard_To_Find
         }
 
 
-        /********************* Keypress handlers to check for enter to start search ************************************/
+        /********************* Event Handlers ************************************/
 
         /*Precondition:
          Postcondition: Only allows numbers to be entered in textbox */
@@ -153,6 +161,8 @@ namespace Hard_To_Find
             dataGridView1.Rows.Clear();
             btnSelectCustomer.Enabled = false;
 
+            
+
             //Check if an ID has been entered and search on that if it has
             if (boxCustID.Text != "")
             {
@@ -194,8 +204,11 @@ namespace Hard_To_Find
                 if (boxEmail.Text != "")
                     email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
 
+                //Check to see if user wants to only find exactly what they typed in
+                bool exactName = checkExactName.Checked;
+
                 //Search for customers with names entered
-                foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email);
+                foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email, exactName);
 
                 if (foundCustomers.Count == 0)
                 {
@@ -204,6 +217,8 @@ namespace Hard_To_Find
                 }
                 else
                 {
+                    foundCustomers = foundCustomers.OrderBy(x => x.firstName).ToList();
+
                     //Display found customers
                     foreach (Customer c in foundCustomers)
                     {

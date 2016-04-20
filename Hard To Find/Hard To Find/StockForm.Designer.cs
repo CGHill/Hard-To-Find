@@ -50,6 +50,7 @@
             this.btnNewStock = new System.Windows.Forms.Button();
             this.btnStockDetails = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkExactPhrase = new System.Windows.Forms.CheckBox();
             this.rdoInStock = new System.Windows.Forms.RadioButton();
             this.rdoAllStock = new System.Windows.Forms.RadioButton();
             this.labResults = new System.Windows.Forms.Label();
@@ -93,7 +94,6 @@
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(92, 20);
             this.boxBookID.TabIndex = 2;
-            this.boxBookID.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label3
             // 
@@ -110,7 +110,6 @@
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
             this.boxTitle.TabIndex = 4;
-            this.boxTitle.KeyPress += TextBox_KeyPress_Enter;
             // 
             // boxAuthor
             // 
@@ -118,7 +117,6 @@
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
             this.boxAuthor.TabIndex = 3;
-            this.boxAuthor.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label2
             // 
@@ -143,7 +141,7 @@
             this.btnSearch.Location = new System.Drawing.Point(80, 230);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 23);
-            this.btnSearch.TabIndex = 8;
+            this.btnSearch.TabIndex = 9;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -154,7 +152,6 @@
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
             this.boxSubject.TabIndex = 5;
-            this.boxSubject.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label4
             // 
@@ -254,6 +251,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkExactPhrase);
             this.groupBox1.Controls.Add(this.rdoInStock);
             this.groupBox1.Controls.Add(this.rdoAllStock);
             this.groupBox1.Controls.Add(this.boxSubject);
@@ -271,6 +269,16 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
+            // 
+            // checkExactPhrase
+            // 
+            this.checkExactPhrase.AutoSize = true;
+            this.checkExactPhrase.Location = new System.Drawing.Point(80, 192);
+            this.checkExactPhrase.Name = "checkExactPhrase";
+            this.checkExactPhrase.Size = new System.Drawing.Size(88, 17);
+            this.checkExactPhrase.TabIndex = 8;
+            this.checkExactPhrase.Text = "Exact phrase";
+            this.checkExactPhrase.UseVisualStyleBackColor = true;
             // 
             // rdoInStock
             // 
@@ -328,6 +336,7 @@
             this.Controls.Add(this.btnMainMenu);
             this.Name = "StockForm";
             this.Text = "Stock Search";
+            this.Activated += new System.EventHandler(this.StockForm_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -364,5 +373,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.CheckBox checkExactPhrase;
     }
 }

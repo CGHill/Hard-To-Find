@@ -39,6 +39,13 @@ namespace Hard_To_Find
             fileManager = new FileManager();
             tabPress = false;
 
+            //Setup event handlers for when textboxes are entered
+            boxOrderRef.Enter += textbox_Enter;
+            boxProgress.Enter += textbox_Enter;
+            boxInvoiceDate.Enter += textbox_Enter;
+            boxFreight.Enter += textbox_Enter;
+            boxComments.Enter += textbox_Enter;
+
             //Set up column widths
             DataGridViewColumn colQuantity = dataGridView1.Columns[0];
             colQuantity.Width = 50;
@@ -53,6 +60,9 @@ namespace Hard_To_Find
             DataGridViewColumn colDiscount = dataGridView1.Columns[5];
             colDiscount.Width = 75;
 
+            //Make it so that user can't enter information into blank row
+            dataGridView1.Rows[0].ReadOnly = true;
+
             //Display the OrderID/Invoice number for the user
             boxInvoiceNo.Text = dbManager.getNextOrderID().ToString();
 
@@ -60,6 +70,14 @@ namespace Hard_To_Find
             boxInvoiceDate.Text = date;
 
             btnFindCustomer.Select();
+
+            if (ordersForm == null)
+            {
+                btnFindCustomer.Enabled = false;
+                btnFindCustomer.Visible = false;
+                btnNewCustomer.Enabled = false;
+                btnNewCustomer.Visible = false;
+            }
         }
 
         /*Precondition:

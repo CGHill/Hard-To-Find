@@ -51,12 +51,14 @@
             this.btnSelectStock = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.labResults = new System.Windows.Forms.Label();
+            this.checkExactPhrase = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkExactPhrase);
             this.groupBox1.Controls.Add(this.rdoInStock);
             this.groupBox1.Controls.Add(this.rdoAllStock);
             this.groupBox1.Controls.Add(this.boxSubject);
@@ -103,7 +105,6 @@
             this.boxSubject.Name = "boxSubject";
             this.boxSubject.Size = new System.Drawing.Size(145, 20);
             this.boxSubject.TabIndex = 5;
-            this.boxSubject.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label4
             // 
@@ -130,7 +131,6 @@
             this.boxBookID.Name = "boxBookID";
             this.boxBookID.Size = new System.Drawing.Size(92, 20);
             this.boxBookID.TabIndex = 2;
-            this.boxBookID.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label3
             // 
@@ -147,7 +147,6 @@
             this.boxTitle.Name = "boxTitle";
             this.boxTitle.Size = new System.Drawing.Size(145, 20);
             this.boxTitle.TabIndex = 4;
-            this.boxTitle.KeyPress += TextBox_KeyPress_Enter;
             // 
             // boxAuthor
             // 
@@ -155,7 +154,6 @@
             this.boxAuthor.Name = "boxAuthor";
             this.boxAuthor.Size = new System.Drawing.Size(145, 20);
             this.boxAuthor.TabIndex = 3;
-            this.boxAuthor.KeyPress += TextBox_KeyPress_Enter;
             // 
             // label2
             // 
@@ -280,6 +278,16 @@
             this.labResults.TabIndex = 32;
             this.labResults.Text = "0";
             // 
+            // checkExactPhrase
+            // 
+            this.checkExactPhrase.AutoSize = true;
+            this.checkExactPhrase.Location = new System.Drawing.Point(80, 195);
+            this.checkExactPhrase.Name = "checkExactPhrase";
+            this.checkExactPhrase.Size = new System.Drawing.Size(88, 17);
+            this.checkExactPhrase.TabIndex = 26;
+            this.checkExactPhrase.Text = "Exact phrase";
+            this.checkExactPhrase.UseVisualStyleBackColor = true;
+            // 
             // StockSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -326,5 +334,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.CheckBox checkExactPhrase;
     }
 }

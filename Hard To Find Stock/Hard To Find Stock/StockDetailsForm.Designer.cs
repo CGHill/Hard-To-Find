@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.boxStockID = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.boxDateEntered = new System.Windows.Forms.TextBox();
@@ -67,34 +65,13 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(620, 355);
+            this.btnClose.Location = new System.Drawing.Point(484, 395);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(109, 34);
             this.btnClose.TabIndex = 19;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(620, 72);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(109, 34);
-            this.btnSave.TabIndex = 18;
-            this.btnSave.Text = "&Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(620, 32);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(109, 34);
-            this.btnUpdate.TabIndex = 17;
-            this.btnUpdate.Text = "&Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // boxStockID
             // 
@@ -206,7 +183,6 @@
             this.boxPrice.ReadOnly = true;
             this.boxPrice.Size = new System.Drawing.Size(211, 20);
             this.boxPrice.TabIndex = 10;
-            this.boxPrice.Leave += new System.EventHandler(this.boxPrice_Leave);
             // 
             // label11
             // 
@@ -380,7 +356,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(779, 413);
+            this.ClientSize = new System.Drawing.Size(636, 455);
             this.Controls.Add(this.boxInitials);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.boxDateEntered);
@@ -414,8 +390,6 @@
             this.Controls.Add(this.boxStockID);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnUpdate);
             this.Name = "StockDetailsForm";
             this.Text = "Stock Details";
             this.ResumeLayout(false);
@@ -426,8 +400,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.TextBox boxStockID;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox boxDateEntered;

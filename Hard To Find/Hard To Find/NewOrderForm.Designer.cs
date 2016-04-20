@@ -368,7 +368,6 @@
             this.boxInvoiceDate.Name = "boxInvoiceDate";
             this.boxInvoiceDate.Size = new System.Drawing.Size(142, 20);
             this.boxInvoiceDate.TabIndex = 5;
-            this.boxInvoiceDate.Enter += textbox_Enter;
             // 
             // label9
             // 
@@ -387,7 +386,6 @@
             this.boxFreight.TabIndex = 6;
             this.boxFreight.Text = "$0.00";
             this.boxFreight.Leave += new System.EventHandler(this.boxFreight_Leave);
-            this.boxFreight.Enter += textbox_Enter;
             // 
             // boxProgress
             // 
@@ -395,7 +393,6 @@
             this.boxProgress.Name = "boxProgress";
             this.boxProgress.Size = new System.Drawing.Size(142, 20);
             this.boxProgress.TabIndex = 4;
-            this.boxProgress.Enter += textbox_Enter;
             // 
             // boxOrderRef
             // 
@@ -403,7 +400,6 @@
             this.boxOrderRef.Name = "boxOrderRef";
             this.boxOrderRef.Size = new System.Drawing.Size(142, 20);
             this.boxOrderRef.TabIndex = 3;
-            this.boxOrderRef.Enter += textbox_Enter;
             // 
             // boxComments
             // 
@@ -412,7 +408,6 @@
             this.boxComments.Name = "boxComments";
             this.boxComments.Size = new System.Drawing.Size(142, 48);
             this.boxComments.TabIndex = 7;
-            this.boxComments.Enter += textbox_Enter;
             // 
             // label10
             // 
@@ -464,7 +459,7 @@
             this.btnSaveOrder.Name = "btnSaveOrder";
             this.btnSaveOrder.Size = new System.Drawing.Size(108, 34);
             this.btnSaveOrder.TabIndex = 13;
-            this.btnSaveOrder.Text = "Save && &Exit";
+            this.btnSaveOrder.Text = "&Save && Exit";
             this.btnSaveOrder.UseVisualStyleBackColor = true;
             this.btnSaveOrder.Click += new System.EventHandler(this.btnSaveOrder_Click);
             // 

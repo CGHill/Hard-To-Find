@@ -42,6 +42,7 @@ namespace Hard_To_Find
             DataGridViewColumn colInvoiceDate = dataGridView1.Columns[2];
             colInvoiceDate.Width = 100;
 
+            //Set column widths of 2nd datagridview
             DataGridViewColumn colQuantity = dataGridView2.Columns[0];
             colQuantity.Width = 50;
             DataGridViewColumn colAuthor = dataGridView2.Columns[1];
@@ -55,6 +56,7 @@ namespace Hard_To_Find
             DataGridViewColumn colDiscount = dataGridView2.Columns[5];
             colDiscount.Width = 75;
 
+            //Find the customers orders
             customersOrders = dbManager.searchCustomersOrders(currCustomer.custID);
 
             //Set up first order from customer if they have any orders
