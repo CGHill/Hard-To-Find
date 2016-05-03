@@ -54,7 +54,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labCustomerName = new System.Windows.Forms.Label();
             this.btnGoToOrder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -68,7 +68,7 @@
             this.Column7,
             this.Column8,
             this.Column11});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 29);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 36);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -114,7 +114,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(12, 185);
+            this.groupBox1.Location = new System.Drawing.Point(12, 192);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(770, 334);
             this.groupBox1.TabIndex = 1;
@@ -286,7 +286,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(662, 525);
+            this.btnClose.Location = new System.Drawing.Point(662, 532);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 29);
             this.btnClose.TabIndex = 9;
@@ -294,18 +294,19 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // label2
+            // labCustomerName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 13);
-            this.label2.TabIndex = 55;
-            this.label2.Text = "Customers Orders:";
+            this.labCustomerName.AutoSize = true;
+            this.labCustomerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labCustomerName.Location = new System.Drawing.Point(9, 13);
+            this.labCustomerName.Name = "labCustomerName";
+            this.labCustomerName.Size = new System.Drawing.Size(75, 15);
+            this.labCustomerName.TabIndex = 55;
+            this.labCustomerName.Text = "Orders for:";
             // 
             // btnGoToOrder
             // 
-            this.btnGoToOrder.Location = new System.Drawing.Point(18, 525);
+            this.btnGoToOrder.Location = new System.Drawing.Point(18, 532);
             this.btnGoToOrder.Name = "btnGoToOrder";
             this.btnGoToOrder.Size = new System.Drawing.Size(120, 29);
             this.btnGoToOrder.TabIndex = 8;
@@ -317,9 +318,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 566);
+            this.ClientSize = new System.Drawing.Size(794, 577);
             this.Controls.Add(this.btnGoToOrder);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labCustomerName);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
@@ -352,7 +353,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labCustomerName;
         private System.Windows.Forms.TextBox boxOrderID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;

@@ -13,14 +13,15 @@ namespace Hard_To_Find
     {
         //Globals
         private DatabaseManager dbManager;
-        private NewOrderForm nof;
+        private ICustomerReceiver customerReciever;
         private bool tabPress;
 
         //Constructor
-        public NewCustomerForm()
+        public NewCustomerForm(ICustomerReceiver customerReciever)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.customerReciever = customerReciever;
 
             setup();
         }
@@ -30,7 +31,6 @@ namespace Hard_To_Find
         private void setup()
         {
             dbManager = new DatabaseManager();
-            nof = null;
             tabPress = false;
 
             //Setup Event Handler for textboxes to highlight text when they are entered if tab was pressed
@@ -81,17 +81,9 @@ namespace Hard_To_Find
 
                 int nextID = dbManager.getNextCustomerID();
                 dbManager.insertCustomer(newCustomer);
-
-                //If not null then it was created from the new order form, so send customer back to that
-                if (nof != null)
-                {
-                    nof.addCustomer(newCustomer);
-                }
-
                 newCustomer.custID = nextID;
 
-                CustomerDetailsForm cdf = new CustomerDetailsForm(newCustomer, this);
-                cdf.Show();
+                customerReciever.addCustomer(newCustomer);
 
                 this.Close();
             }
@@ -99,13 +91,6 @@ namespace Hard_To_Find
             {
                 MessageBox.Show("Not enough information entered");
             }
-        }
-
-        /*Precondition: 
-          Postcondition: Set the form to send the new customer back to */
-        public void setNewOrderForm(NewOrderForm nof)
-        {
-            this.nof = nof;
         }
 
         /*Precondition:

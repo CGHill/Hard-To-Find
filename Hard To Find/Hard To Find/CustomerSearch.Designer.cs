@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkExactName = new System.Windows.Forms.CheckBox();
             this.boxEmail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.boxInstiution = new System.Windows.Forms.TextBox();
@@ -49,7 +50,8 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkExactName = new System.Windows.Forms.CheckBox();
+            this.labResults = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -74,6 +76,16 @@
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
+            // 
+            // checkExactName
+            // 
+            this.checkExactName.AutoSize = true;
+            this.checkExactName.Location = new System.Drawing.Point(77, 170);
+            this.checkExactName.Name = "checkExactName";
+            this.checkExactName.Size = new System.Drawing.Size(82, 17);
+            this.checkExactName.TabIndex = 24;
+            this.checkExactName.Text = "Exact name";
+            this.checkExactName.UseVisualStyleBackColor = true;
             // 
             // boxEmail
             // 
@@ -169,9 +181,9 @@
             // btnSelectCustomer
             // 
             this.btnSelectCustomer.Enabled = false;
-            this.btnSelectCustomer.Location = new System.Drawing.Point(280, 356);
+            this.btnSelectCustomer.Location = new System.Drawing.Point(280, 412);
             this.btnSelectCustomer.Name = "btnSelectCustomer";
-            this.btnSelectCustomer.Size = new System.Drawing.Size(166, 23);
+            this.btnSelectCustomer.Size = new System.Drawing.Size(166, 26);
             this.btnSelectCustomer.TabIndex = 8;
             this.btnSelectCustomer.Text = "Select Customer";
             this.btnSelectCustomer.UseVisualStyleBackColor = true;
@@ -179,9 +191,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(734, 356);
+            this.btnCancel.Location = new System.Drawing.Point(846, 412);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(158, 23);
+            this.btnCancel.Size = new System.Drawing.Size(158, 26);
             this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -205,7 +217,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(724, 316);
+            this.dataGridView1.Size = new System.Drawing.Size(724, 345);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged_1);
@@ -253,21 +265,31 @@
             this.Column6.ReadOnly = true;
             this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // checkExactName
+            // labResults
             // 
-            this.checkExactName.AutoSize = true;
-            this.checkExactName.Location = new System.Drawing.Point(77, 170);
-            this.checkExactName.Name = "checkExactName";
-            this.checkExactName.Size = new System.Drawing.Size(82, 17);
-            this.checkExactName.TabIndex = 24;
-            this.checkExactName.Text = "Exact name";
-            this.checkExactName.UseVisualStyleBackColor = true;
+            this.labResults.AutoSize = true;
+            this.labResults.Location = new System.Drawing.Point(369, 386);
+            this.labResults.Name = "labResults";
+            this.labResults.Size = new System.Drawing.Size(13, 13);
+            this.labResults.TabIndex = 75;
+            this.labResults.Text = "0";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(277, 386);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(92, 13);
+            this.label19.TabIndex = 74;
+            this.label19.Text = "Number of results:";
             // 
             // CustomerSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 420);
+            this.ClientSize = new System.Drawing.Size(1047, 450);
+            this.Controls.Add(this.labResults);
+            this.Controls.Add(this.label19);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSelectCustomer);
@@ -278,6 +300,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -305,5 +328,7 @@
         private System.Windows.Forms.TextBox boxInstiution;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkExactName;
+        private System.Windows.Forms.Label labResults;
+        private System.Windows.Forms.Label label19;
     }
 }

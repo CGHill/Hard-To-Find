@@ -14,13 +14,13 @@ namespace Hard_To_Find
         public string postcode { get; set; }
         public string orderReference { get; set; }
         public string progress { get; set; }
-        public string freightCost { get; set; }
+        public double freightCost { get; set; }
         public int invoiceNo { get; set; }
         public DateTime invoiceDate { get; set; }
         public string comments { get; set; }
         public int customerID { get; set; }
 
-        public Order(int orderID, string firstName, string lastName, string institution, string postcode, string orderReference, string progress, string freightCost,
+        public Order(int orderID, string firstName, string lastName, string institution, string postcode, string orderReference, string progress, double freightCost,
             int invoiceNo, DateTime invoiceDate, string comments, int customerID)
         {
             this.orderID = orderID;
@@ -37,7 +37,7 @@ namespace Hard_To_Find
             this.customerID = customerID;
         }
 
-        public Order(string firstName, string lastName, string institution, string postcode, string orderReference, string progress, string freightcost, int invoiceNo,
+        public Order(string firstName, string lastName, string institution, string postcode, string orderReference, string progress, double freightcost, int invoiceNo,
             DateTime invoiceDate, string comments, int customerID)
         {
             this.orderID = -1;

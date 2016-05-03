@@ -39,7 +39,6 @@ namespace Hard_To_Find
         }
 
         // Creates a WordprocessingDocument.
-        // Creates a WordprocessingDocument.
         public bool createReport(string filePath)
         {
             bool fileCreationSuccessful = true;

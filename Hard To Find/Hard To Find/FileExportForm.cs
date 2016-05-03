@@ -41,21 +41,32 @@ namespace Hard_To_Find
          Postcondition: Creates a text file that contains all stock in stock and stores it in the export files folder */
         private void btnABEExport_Click(object sender, EventArgs e)
         {
+            //Change cursor so user has feedback that program is doing something
+            Cursor.Current = Cursors.WaitCursor;
+
             string filePath = fileManager.getStorageFilePath() + @"\Export Files\ABEInternetExport.txt";
             List<Stock> allStockInStock = dbManager.getAllStockInStock();
 
             using (FileStream fs = File.Create(filePath))
             {
                 StreamWriter sw = new StreamWriter(fs);
+                
+                //Check if user wants the headers added to the file
+                if(checkAddHeaders.Checked)
+                    sw.WriteLine("stockID~author~title~subtitle~publisher~description~comments~price~subject~catalogue~bookID");
 
+                //Loop over stock writing it to the text file
                 foreach (Stock s in allStockInStock)
                 {
                     string line = s.stockID.ToString() + "~" + s.author + "~" + s.title + "~" + s.subtitle + "~" + s.publisher + "~" + s.description + "~" + s.comments +
-                        "~" + s.price + "~" + s.subject + "~" + s.catalogue + "~" + s.bookID; 
+                        "~$" + String.Format("{0:0.00}", s.price) + "~" + s.subject + "~" + s.catalogue + "~" + s.bookID; 
                     sw.WriteLine(line);
                 }
                 sw.Close();
             }
+
+            //Change cursor back to default
+            Cursor.Current = Cursors.Default;
 
             MessageBox.Show("Completed\nExported file stored at: " + filePath);
         }
@@ -64,6 +75,9 @@ namespace Hard_To_Find
          Postcondition: Creates a text file that contains all stock in stock and stores it in the export files folder. This one includes date entered */
         private void btnHTFExport_Click(object sender, EventArgs e)
         {
+            //Change cursor so user has feedback that program is doing something
+            Cursor.Current = Cursors.WaitCursor;
+
             string filePath = fileManager.getStorageFilePath() + @"\Export Files\HTFInternetExport.txt";
             List<Stock> allStockInStock = dbManager.getAllStockInStock();
 
@@ -71,14 +85,20 @@ namespace Hard_To_Find
             {
                 StreamWriter sw = new StreamWriter(fs);
 
+                if (checkAddHeaders.Checked)
+                    sw.WriteLine("stockID~author~title~subtitle~publisher~description~comments~price~subject~catalogue~bookID~dateEntered");
+
                 foreach (Stock s in allStockInStock)
                 {
                     string line = s.stockID.ToString() + "~" + s.author + "~" + s.title + "~" + s.subtitle + "~" + s.publisher + "~" + s.description + "~" + s.comments +
-                        "~" + s.price + "~" + s.subject + "~" + s.catalogue + "~" + s.bookID + "~" + s.dateEntered;
+                        "~$" + String.Format("{0:0.00}", s.price) + "~" + s.subject + "~" + s.catalogue + "~" + s.bookID + "~" + s.dateEntered;
                     sw.WriteLine(line);
                 }
                 sw.Close();
             }
+
+            //Change cursor back to default
+            Cursor.Current = Cursors.Default;
 
             MessageBox.Show("Completed\nExported file stored at: " + filePath);
         }

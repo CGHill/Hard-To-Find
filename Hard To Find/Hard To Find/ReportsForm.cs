@@ -100,9 +100,9 @@ namespace Hard_To_Find
                         //Tally up the number of books bought in the order
                         booksPerOrder[indexOfArrays] += os.quantity;
 
-                        //Convert string to double, remove $ from price
-                        double costOfBook = Convert.ToDouble(os.price.Substring(1));
-                        costOfBook -= Convert.ToDouble(os.discount.Substring(1));
+                        //Discount the price
+                        double costOfBook = os.price;
+                        costOfBook -= os.discount;
 
                         //Tally up prices for order
                         pricePerOrder[indexOfArrays] += costOfBook;

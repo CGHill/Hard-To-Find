@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Hard_To_Find
 {
-    public partial class CustomerForm : Form
+    public partial class CustomerForm : Form, ICustomerReceiver
     {
         //Globals
         const int ORDER_ARRAY_LENGTH = 15;
@@ -18,6 +18,8 @@ namespace Hard_To_Find
         private FileManager fileManager;
         private List<Customer> foundCustomers;
         private List<Customer> allCustomers;
+        private Customer currCustomer;
+
 
         //Constructor
         public CustomerForm(MainMenu mainMenu)
@@ -38,6 +40,7 @@ namespace Hard_To_Find
             fileManager = new FileManager();
             foundCustomers = new List<Customer>();
             allCustomers = new List<Customer>();
+            currCustomer = null;
 
             //Set up column widths
             DataGridViewColumn colFirstName = dataGridView1.Columns[0];
@@ -54,14 +57,14 @@ namespace Hard_To_Find
             colEmail.Width = 182;
 
             //Set focus to first name box
-            boxFirstName.Select();
+            boxSearchFirstName.Select();
 
             //Setup event handlers for when enter is pressed while on textboxes
-            boxCustID.KeyPress += TextBox_KeyPress_Enter;
-            boxFirstName.KeyPress += TextBox_KeyPress_Enter;
-            boxLastName.KeyPress += TextBox_KeyPress_Enter;
-            boxInstiution.KeyPress += TextBox_KeyPress_Enter;
-            boxEmail.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchCustID.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchFirstName.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchLastName.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchInstiution.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchEmail.KeyPress += TextBox_KeyPress_Enter;
         }
 
         /*Precondition:
@@ -100,91 +103,17 @@ namespace Hard_To_Find
          Postcondition: Only allows numbers to be entered into ID textbox*/
         private void boxCustID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-
-        /*Precondition: Can't be called until something has been selected in datagrid
-         Postcondition: Opens up new form to display further customer details*/
-        private void btnCustDetails_Click(object sender, EventArgs e)
-        {
-            int currRow = dataGridView1.CurrentCell.RowIndex;
-
-            Customer customerToDisplay = foundCustomers[currRow];
-
-            CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay, this);
-            cf.Show();
-        }
-
-        /*Precondition: Customer CSV order = ID, first name, last name, institution, address1, address2, address3, country, postcode, phone, fax, email, comments, sales, payment
-         Postcondition: Starts the import process to move customers from a csv text file into the SQLite database*/
-        private void btnImportCustomers_Click(object sender, EventArgs e)
-        {
-            //Set up file browser, to search for txt files and default directory of C: drive
-            OpenFileDialog dialogBox = new OpenFileDialog();
-            dialogBox.Title = "Open Customer txt file";
-            dialogBox.Filter = "TXT files|*.txt";
-            dialogBox.InitialDirectory = @"C:\";
-
-            //Open the file browser and wait for user to select file
-            if (dialogBox.ShowDialog() == DialogResult.OK)
-            {
-                //Get the path for the file the user clicked on
-                string filename = dialogBox.FileName;
-
-                if (filename.Contains("\\Customers.txt"))
-                {
-                    allCustomers = new List<Customer>();
-
-                    try
-                    {
-                        allCustomers = fileManager.getCustomersFromFile(filename);
-
-                        progressBar1.Visible = true;
-                        progressBar1.Maximum = allCustomers.Count;
-                        progressBar1.Value = 0;
-
-                        //TODO find a better place for this?
-                        dbManager.dropCustomerTable();
-                        dbManager.createCustomerTable();
-
-                        //Insert all of the new orders into the database
-                        dbManager.insertCustomers(allCustomers, progressBar1);
-                        progressBar1.Visible = false;
-
-                        //Inform user that the process has been finished
-                        MessageBox.Show("Finished import");
-                    }
-                    catch (FormatException)
-                    {
-                        MessageBox.Show("Error: File was formatted incorrectly");
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        MessageBox.Show("Error: File was formatted incorrectly");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Error: Wrong file selected");
-                }
-            }
-        }
-
 
         /*Precondition:
          Postcondition: Open form to create a new customer*/
         private void btnNewCustomer_Click(object sender, EventArgs e)
         {
-            NewCustomerForm ncf = new NewCustomerForm();
+            NewCustomerForm ncf = new NewCustomerForm(this);
             ncf.Show();
         }
 
@@ -195,14 +124,12 @@ namespace Hard_To_Find
             //Reset datagrid and foundcustomers so searches don't stack
             foundCustomers = new List<Customer>();
             dataGridView1.Rows.Clear();
-            btnCustDetails.Enabled = false;
-
-            
+            bool customersFound = false;
 
             //Check if an ID has been entered and search on that if it has
-            if (boxCustID.Text != "")
+            if (boxSearchCustID.Text != "")
             {
-                int custID = Convert.ToInt32(boxCustID.Text);
+                int custID = Convert.ToInt32(boxSearchCustID.Text);
 
                 //Put found customer into list
                 foundCustomers.Add(dbManager.searchCustomers(custID));
@@ -212,17 +139,19 @@ namespace Hard_To_Find
                 {
                     if (c != null)
                     {
+                        //Display number of results to user
+                        labResults.Text = foundCustomers.Count.ToString();
+
+                        customersFound = true;
                         dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
                         dataGridView1.Focus();
                     }
                     else
-                    {
-                        dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
-                        btnCustDetails.Enabled = false;
-                    }
+                        labResults.Text = "0";
                 }
             }
-            else if (boxFirstName.Text != "" || boxLastName.Text != "" || boxInstiution.Text != "" || boxEmail.Text != "")//Else if ID hasn't been entered check for first and last name
+            //Else if ID hasn't been entered check for other fields to search on
+            else if (boxSearchFirstName.Text != "" || boxSearchLastName.Text != "" || boxSearchInstiution.Text != "" || boxSearchEmail.Text != "")
             {
                 string firstName = null;
                 string lastName = null;
@@ -232,26 +161,27 @@ namespace Hard_To_Find
                 //Check if the user wants the name to match exactly what they typed
                 bool exactName = checkExactName.Checked;
 
-                //Get names if they have been entered
-                if (boxFirstName.Text != "")
-                    firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
-                if (boxLastName.Text != "")
-                    lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
-                if (boxInstiution.Text != "")
-                    instutution = SyntaxHelper.escapeSingleQuotes(boxInstiution.Text);
-                if (boxEmail.Text != "")
-                    email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
+                //Get fields if they have been entered
+                if (boxSearchFirstName.Text != "")
+                    firstName = SyntaxHelper.escapeSingleQuotes(boxSearchFirstName.Text);
+                if (boxSearchLastName.Text != "")
+                    lastName = SyntaxHelper.escapeSingleQuotes(boxSearchLastName.Text);
+                if (boxSearchInstiution.Text != "")
+                    instutution = SyntaxHelper.escapeSingleQuotes(boxSearchInstiution.Text);
+                if (boxSearchEmail.Text != "")
+                    email = SyntaxHelper.escapeSingleQuotes(boxSearchEmail.Text);
 
-                //Search for customers with names entered
+                //Search for customers with fields entered
                 foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email, exactName);
 
-                if (foundCustomers.Count == 0)
+                //display number of results to user
+                labResults.Text = foundCustomers.Count.ToString();
+
+                if (foundCustomers.Count > 0)
                 {
-                    dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
-                    btnCustDetails.Enabled = false;
-                }
-                else
-                {
+                    customersFound = true;
+
+                    //Sort customers by first name
                     foundCustomers = foundCustomers.OrderBy(x => x.firstName).ToList();
 
                     //Display found customers
@@ -263,53 +193,82 @@ namespace Hard_To_Find
                     dataGridView1.Focus();
                 }
             }
+
+            //If there wasn't a customer in the search, display it in the datagrid and clear the textboxes
+            if (!customersFound)
+            {
+                currCustomer = null;
+
+                dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
+
+                boxCustID.Text = "";
+                boxFirstName.Text = "";
+                boxLastName.Text = "";
+                boxInstitution.Text = "";
+                boxAddress1.Text = "";
+                boxAddress2.Text = "";
+                boxAddress3.Text = "";
+                boxPostcode.Text = "";
+                boxCountry.Text = "";
+                boxEmail.Text = "";
+                boxComments.Text = "";
+                boxSales.Text = "";
+                boxPayment.Text = "";
+            }
         }
 
         /*Precondition:
         Postcondition: Enables details button when entry is selected in datagrid*/
         private void dataGridView1_SelectionChanged_1(object sender, EventArgs e)
         {
-            btnCustDetails.Enabled = true;
-        }
-
-        /*Precondition:
-         Postcondition: Open up form for customer details that was double clicked on*/
-        private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            try
+            if (foundCustomers.Count != 0)
             {
                 int currRow = dataGridView1.CurrentCell.RowIndex;
 
-                Customer customerToDisplay = foundCustomers[currRow];
+                currCustomer = foundCustomers[currRow];
 
-                CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay, this);
-                cf.Show();
-            }
-            catch (NullReferenceException)
-            {
-                //Do nothing, user double clicked on header of datagrid
+                if(currCustomer != null)
+                    loadUpCustomer();
             }
         }
 
         /*Precondition:
-         Postcondition: Opens up the customer details of the selected customer when enter is pressed on datagridview */
+         Postcondition: Fills text boxes up with the current customers data*/
+        public void loadUpCustomer()
+        {
+            boxCustID.Text = currCustomer.custID.ToString();
+            boxFirstName.Text = currCustomer.firstName;
+            boxLastName.Text = currCustomer.lastName;
+            boxInstitution.Text = currCustomer.institution;
+            boxAddress1.Text = currCustomer.address1;
+            boxAddress2.Text = currCustomer.address2;
+            boxAddress3.Text = currCustomer.address3;
+            boxPostcode.Text = currCustomer.postCode;
+            boxCountry.Text = currCustomer.country;
+            boxEmail.Text = currCustomer.email;
+            boxComments.Text = currCustomer.comments;
+            boxSales.Text = currCustomer.sales;
+            boxPayment.Text = currCustomer.payment;
+        }
+
+        /*Precondition: Needs a customer to be selected in datagrid for enter keypress to work
+         Postcondition: Opens up the customers orders of the selected customer when enter is pressed on datagridview */
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
 
-                int currRow = dataGridView1.CurrentCell.RowIndex;
-
-                Customer customerToDisplay = foundCustomers[currRow];
-
-                CustomerDetailsForm cf = new CustomerDetailsForm(customerToDisplay, this);
-                cf.Show();
+                if (currCustomer != null)
+                {
+                    CustomerOrdersForm cof = new CustomerOrdersForm(currCustomer);
+                    cof.Show();
+                }
             }
         }
 
         /*Precondition:
-         Postcondition: Keypress Hanlder for all the textboxes in the form. Starts search when enter is pressed */
+         Postcondition: Keypress Handler for all the textboxes in the form. Starts search when enter is pressed */
         private void TextBox_KeyPress_Enter(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (Char)Keys.Enter)
@@ -322,10 +281,109 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
-         Postcondition: Updates the datagrid when focus is regained, used after user has updated a customer entry */
-        private void CustomerForm_Activated(object sender, EventArgs e)
+         Postcondition: Disables datagrid to customer can't be switched, toggles textboxes readonly to allow customers to be edited */
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
+            dataGridView1.Enabled = false;
+            toggleBoxesReadOnly();
+            btnSave.Enabled = true;
+            btnUpdate.Enabled = false;
+
+            boxFirstName.Select();
+        }
+
+        /*Precondition:
+         Postcondition: Toggle to disable editing, update the customers fields to the database */
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Enabled = true;
+            int currRow = dataGridView1.CurrentCell.RowIndex;
+
+
+            btnUpdate.Enabled = true;
+            btnSave.Enabled = false;
+            toggleBoxesReadOnly();
+
+            //Update all fields
+            currCustomer.firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
+            currCustomer.lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+            currCustomer.institution = SyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
+            currCustomer.address1 = SyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
+            currCustomer.address2 = SyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
+            currCustomer.address3 = SyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
+            currCustomer.postCode = SyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
+            currCustomer.country = SyntaxHelper.escapeSingleQuotes(boxCountry.Text);
+            currCustomer.email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
+            currCustomer.comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
+            currCustomer.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            currCustomer.payment = SyntaxHelper.escapeSingleQuotes(boxPayment.Text);
+
+            //Send to dbManager to update entry
+            dbManager.updateCustomer(currCustomer);
+
             startSearch();
+
+            dataGridView1.Rows[currRow].Selected = true;
+        }
+
+        /*Precondition: None
+        Postcondition: Toggles textboxes ReadOnly between true and false so that customer data can be updated */
+        private void toggleBoxesReadOnly()
+        {
+            boxFirstName.ReadOnly = !boxFirstName.ReadOnly;
+            boxLastName.ReadOnly = !boxLastName.ReadOnly;
+            boxInstitution.ReadOnly = !boxInstitution.ReadOnly;
+            boxAddress1.ReadOnly = !boxAddress1.ReadOnly;
+            boxAddress2.ReadOnly = !boxAddress2.ReadOnly;
+            boxAddress3.ReadOnly = !boxAddress3.ReadOnly;
+            boxPostcode.ReadOnly = !boxPostcode.ReadOnly;
+            boxCountry.ReadOnly = !boxCountry.ReadOnly;
+            boxEmail.ReadOnly = !boxEmail.ReadOnly;
+            boxComments.ReadOnly = !boxComments.ReadOnly;
+            boxSales.ReadOnly = !boxSales.ReadOnly;
+            boxPayment.ReadOnly = !boxPayment.ReadOnly;
+        }
+
+        /*Precondition: Needs a customer to be selected in datagrid to work
+         Postcondition: Opens form to view customers orders */
+        private void btnCustomersOrders_Click(object sender, EventArgs e)
+        {
+            if (currCustomer != null)
+            {
+                CustomerOrdersForm cof = new CustomerOrdersForm(currCustomer);
+                cof.Show();
+            }
+        }
+
+        /*Precondition: Needs a customer to be selected in datagrid to work
+         Postcondition: Opens form to create an order for the selected customer */
+        private void btnCreateOrder_Click(object sender, EventArgs e)
+        {
+            if (currCustomer != null)
+            {
+                NewOrderForm orderForm = new NewOrderForm(null);
+                orderForm.addCustomer(currCustomer);
+                orderForm.Show();
+            }
+        }
+
+        /*Precondition: Needs search to be done first and customers to be found
+         Postcondition: Opens form to create an order for the selected customer */
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (currCustomer != null)
+            {
+                CustomerOrdersForm cof = new CustomerOrdersForm(currCustomer);
+                cof.Show();
+            }
+        }
+
+        /*Precondition: 
+         Postcondition: New customer was entered into database, load up their details and set to currCustomer */
+        public void addCustomer(Customer newCustomer)
+        {
+            currCustomer = newCustomer;
+            loadUpCustomer();
         }
     }
 }

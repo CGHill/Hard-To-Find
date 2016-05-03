@@ -108,5 +108,12 @@ namespace Hard_To_Find
             BackupForm buf = new BackupForm(this);
             buf.Show();
         }
+
+        private void btnSetup_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SetupForm sf = new SetupForm(this);
+            sf.Show();
+        }
     }
 }

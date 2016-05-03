@@ -1810,7 +1810,7 @@ namespace Hard_To_Find
                 Text text30 = new Text();
 
                 //TODO Price
-                text30.Text = o.price;
+                text30.Text = "$" + String.Format("{0:0.00}", o.price);
 
                 run31.Append(runProperties31);
                 run31.Append(text30);
@@ -1872,7 +1872,7 @@ namespace Hard_To_Find
                 Text text31 = new Text();
 
                 //TODO Discount
-                text31.Text = o.discount;
+                text31.Text = "$" + String.Format("{0:0.00}", o.discount);
 
                 run32.Append(runProperties32);
                 run32.Append(text31);
@@ -1933,15 +1933,7 @@ namespace Hard_To_Find
                 Text text32 = new Text();
 
                 //Total
-                string price = o.price;
-                price = price.Remove(0, 1);
-                double priceNum = Convert.ToDouble(price);
-
-                string discount = o.discount;
-                discount = discount.Remove(0, 1);
-                double discountNum = Convert.ToDouble(discount);
-
-                double total = priceNum - discountNum;
+                double total = o.price - o.discount;
 
                 grandTotal += total;
 
@@ -2233,7 +2225,7 @@ namespace Hard_To_Find
             Text text36 = new Text();
 
             //TODO freight price
-            text36.Text = order.freightCost;
+            text36.Text = "$" + String.Format("{0:0.00}", order.freightCost);
 
             run37.Append(runProperties37);
             run37.Append(text36);
@@ -2361,10 +2353,7 @@ namespace Hard_To_Find
             Text text39 = new Text();
 
             //TODO add in total + freightCost
-            string freightCostString = order.freightCost;
-            freightCostString = freightCostString.Remove(0, 1);
-            double freightCost = Convert.ToDouble(freightCostString);
-            double finalTotal = grandTotal + freightCost;
+            double finalTotal = grandTotal + order.freightCost;
 
             text39.Text = "$" + String.Format("{0:0.00}", finalTotal);
 

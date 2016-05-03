@@ -706,12 +706,10 @@ namespace Hard_To_Find
                 Text text10 = new Text();
 
                 //Freight cost
-                text10.Text = o.freightCost;
-
-                double freightCostNum = Convert.ToDouble(o.freightCost.Substring(1));
+                text10.Text = "$" + String.Format("{0:0.00}", o.freightCost);
 
                 //Add to grand total
-                grandTotal += freightCostNum;
+                grandTotal += o.freightCost;
 
                 run10.Append(runProperties10);
                 run10.Append(text10);

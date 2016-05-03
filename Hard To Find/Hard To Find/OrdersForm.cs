@@ -66,7 +66,6 @@ namespace Hard_To_Find
             DataGridViewColumn colDiscount = dataGridView1.Columns[5];
             colDiscount.Width = 75;
 
-            //TODO this crashes program if orders table doesn't exist
             loadNewestOrder();
 
             //If this form was opened through customers orders then remove unneccessary controls and adjust form
@@ -82,13 +81,6 @@ namespace Hard_To_Find
 
                 btnNewOrder.Enabled = false;
                 btnNewOrder.Visible = false;
-
-
-                btnImportOrders.Enabled = false;
-                btnImportOrders.Visible = false;
-
-                btnImportOrderedStock.Enabled = false;
-                btnImportOrderedStock.Visible = false;
 
                 btnPrev.Enabled = false;
                 btnPrev.Visible = false;
@@ -307,13 +299,7 @@ namespace Hard_To_Find
          Postcondition: Only allows numbers to be entered into ID textbox*/
         private void boxOrderID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -353,7 +339,7 @@ namespace Hard_To_Find
                     boxOrderRef.Text = currOrder.orderReference;
                     boxProgress.Text = currOrder.progress;
                     boxInvoiceDate.Text = currOrder.invoiceDate.ToString("d/MM/yyyy");
-                    boxFreight.Text = currOrder.freightCost;
+                    boxFreight.Text = "$" + String.Format("{0:0.00}", currOrder.freightCost);
                     boxComments.Text = currOrder.comments;
 
                     //Search for customer attatched to the order
@@ -382,12 +368,15 @@ namespace Hard_To_Find
                     //Loop over and display all of the ordered stock for the order
                     foreach (OrderedStock o in currOrderedStock)
                     {
-                        dataGridView1.Rows.Add(o.quantity, o.author, o.title, o.price, o.bookID, o.discount);
+                        dataGridView1.Rows.Add(o.quantity, o.author, o.title, "$" + String.Format("{0:0.00}", o.price), o.bookID, "$" + String.Format("{0:0.00}", o.discount));
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Order not found");
+                    if (orderID == -1)
+                        boxOrderSearchID.Text = "";
+                    else
+                        MessageBox.Show("Order not found");
                 }
             }
         }
@@ -405,21 +394,28 @@ namespace Hard_To_Find
         private void btnCreateInvoice_Click(object sender, EventArgs e)
         {
             bool haveStorageLocation = checkForStorageLocation();
+            bool foldersExists = fileManager.haveStorageFolders();
+
 
             if (haveStorageLocation)
             {
-                if (currOrder != null)
+                if (foldersExists)
                 {
-                    InvoiceCreator wdm = new InvoiceCreator(this, currCustomer, currOrder, currOrderedStock);
+                    if (currOrder != null)
+                    {
+                        InvoiceCreator wdm = new InvoiceCreator(this, currCustomer, currOrder, currOrderedStock);
 
-                    string documentName = currOrder.orderID.ToString() + ".docx";
+                        string documentName = currOrder.orderID.ToString() + ".docx";
 
-                    string filePath = fileManager.getStorageFilePath() + @"\Invoices\" + documentName;
-                    bool successfulFileCreation = wdm.createInvoice(filePath);
+                        string filePath = fileManager.getStorageFilePath() + @"\Invoices\" + documentName;
+                        bool successfulFileCreation = wdm.createInvoice(filePath);
 
-                    if(successfulFileCreation)
-                        System.Diagnostics.Process.Start(filePath);
+                        if (successfulFileCreation)
+                            System.Diagnostics.Process.Start(filePath);
+                    }
                 }
+                else
+                    MessageBox.Show("Storage folders don't exist.\nTry going to the setup menu and clicking the set storage location button");
             }
         }
 
@@ -542,6 +538,11 @@ namespace Hard_To_Find
             if (currOrder != null)
             {
                 toggleEditing();
+                int lastRowIndex = dataGridView1.Rows.Count - 1;
+
+                //Make it so that user can't enter information into blank row
+                dataGridView1.Rows[lastRowIndex].ReadOnly = true;
+
                 canEdit = true;
             }
         }
@@ -571,7 +572,17 @@ namespace Hard_To_Find
             string[] splitDate = stringDate.Split('/');
             currOrder.invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
 
-            currOrder.freightCost = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+            string freightCostString = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+            if (freightCostString != "")
+            {
+                if (freightCostString[0] == '$')
+                    currOrder.freightCost = Convert.ToDouble(freightCostString.Substring(1));
+                else
+                    currOrder.freightCost = Convert.ToDouble(freightCostString);
+            }
+            else
+                currOrder.freightCost = 0.00;
+
             currOrder.comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
 
             //Update order in the database
@@ -627,9 +638,22 @@ namespace Hard_To_Find
             try
             {
                 //Try to add a $ sign and make the numbers decimals in the price and discount boxes in the datagrid
+                string quantityCellValue = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 string priceCellValue = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
                 string discountCellValue = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
 
+                if (quantityCellValue == "")
+                    dataGridView1.Rows[e.RowIndex].Cells[0].Value = "1";
+                else
+                {
+                    bool noLetters = quantityCellValue.All(x => !char.IsLetter(x));
+
+                    if (!noLetters)
+                    {
+                        dataGridView1.Rows[e.RowIndex].Cells[0].Value = "1";
+                        MessageBox.Show("Price should not have letters");
+                    }
+                }
                 if (priceCellValue != "")
                 {
                     bool noLetters = priceCellValue.All(x => !char.IsLetter(x));
@@ -682,9 +706,29 @@ namespace Hard_To_Find
                 current.quantity = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
                 current.author = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
                 current.title = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString());
-                current.price = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
+
+                string priceString = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
+                if (priceString != "")
+                {
+                    if(priceString[0] == '$')
+                        current.price = Convert.ToDouble(priceString.Substring(1));
+                    else
+                        current.price = Convert.ToDouble(priceString);
+                }
+                else
+                    current.price = 0.00;
+
                 current.bookID = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
-                current.discount = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString());
+                string discountString = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString());
+                if (discountString != "")
+                {
+                    if(discountString[0] == '$')
+                        current.discount = Convert.ToDouble(discountString.Substring(1));
+                    else
+                        current.discount = Convert.ToDouble(discountString);
+                }
+                else
+                    current.discount = 0.00;
             
             }
             catch (NullReferenceException)
@@ -718,10 +762,10 @@ namespace Hard_To_Find
          Postcondition: Adds the stock send in into the newOrderedStock list, also add it to the datagrid to be viewed */
         public void addStock(Stock newStock)
         {
-            OrderedStock os = new OrderedStock(currOrder.orderID, newStock.stockID, 1, newStock.author, newStock.title, newStock.price, newStock.bookID, "$0.00");
+            OrderedStock os = new OrderedStock(currOrder.orderID, newStock.stockID, 1, newStock.author, newStock.title, newStock.price, newStock.bookID, 0.00);
             newOrderedStock.Add(os);
 
-            dataGridView1.Rows.Add(1, newStock.author, newStock.title, newStock.price, newStock.bookID, "$0.00");
+            dataGridView1.Rows.Add(1, newStock.author, newStock.title, "$" + String.Format("{0:0.00}", newStock.price), newStock.bookID, "$0.00");
         }
 
         /*Precondition: 
@@ -765,7 +809,7 @@ namespace Hard_To_Find
                         OrderedStock orderedStockToDelete = currOrderedStock[selectedRow];
                         currOrderedStock.RemoveAt(selectedRow);
 
-                        dbManager.deleteOrderedStock(orderedStockToDelete);
+                        dbManager.deleteOrderedStock(orderedStockToDelete.orderedStockID);
                     }
                     else
                     {
@@ -880,6 +924,5 @@ namespace Hard_To_Find
                 btnPrev.Enabled = false;
             }
         }
-
     }
 }

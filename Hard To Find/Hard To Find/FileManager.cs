@@ -12,6 +12,7 @@ namespace Hard_To_Find
         public enum IMPORT_TYPE { CUSTOMER, STOCK, ORDERS, ORDEREDSTOCK }
         const string STORAGE_FILE_NAME = "FileStorageLocation.txt";
         const string IMPORT_FILE_STORAGE = "ImportStorageLocation.txt";
+        const string STOCK_EXPORT_FILE_STORAGE = "StockExportStorageLocation.txt";
         const int OLD_CUSTOMER_ARRAY_LENGTH = 15;
         const int OLD_ORDER_ARRAY_LENGTH = 18;
         const int OLD_ORDEREDSTOCK_ARRAY_LENGTH = 19;
@@ -51,7 +52,26 @@ namespace Hard_To_Find
 
             return haveStorageLocation;
         }
-        
+
+        public bool haveStorageFolders()
+        {
+            bool haveFolders = true;
+
+            string folderPath = getStorageFilePath();
+
+            if (!Directory.Exists(folderPath + @"\Invoices"))
+                haveFolders = false;
+            if (!Directory.Exists(folderPath + @"\Mailing Labels"))
+                haveFolders = false;
+            if (!Directory.Exists(folderPath + @"\Export Files"))
+                haveFolders = false;
+            if (!Directory.Exists(folderPath + @"\Sales Reports"))
+                haveFolders = false;
+            if (!Directory.Exists(folderPath + @"\Freight Reports"))
+                haveFolders = false;
+
+            return haveFolders;
+        }
 
         /*Precondition:
          Postcondition: Creates all of the folders to store files in, moves files over if a storage location had previously been set. Updates text file with new storage location */
@@ -61,7 +81,6 @@ namespace Hard_To_Find
             string invoiceFolderPath = newStorageFilePath + @"\Invoices";
             string mailingLabelsFolderPath = newStorageFilePath + @"\Mailing Labels";
             string exportFilesFolderPath = newStorageFilePath + @"\Export Files";
-            string importFilesFolderPath = newStorageFilePath + @"\Import Files";
             string salesReportsFolderPath = newStorageFilePath + @"\Sales Reports";
             string freightReportsFolderPath = newStorageFilePath + @"\Freight Reports";
 
@@ -69,7 +88,6 @@ namespace Hard_To_Find
             Directory.CreateDirectory(invoiceFolderPath);
             Directory.CreateDirectory(mailingLabelsFolderPath);
             Directory.CreateDirectory(exportFilesFolderPath);
-            Directory.CreateDirectory(importFilesFolderPath);
             Directory.CreateDirectory(salesReportsFolderPath);
             Directory.CreateDirectory(freightReportsFolderPath);
 
@@ -100,7 +118,6 @@ namespace Hard_To_Find
                 DirectoryInfo dInvoices = new DirectoryInfo(oldStoragePath + @"\Invoices");
                 DirectoryInfo dMailingLabels = new DirectoryInfo(oldStoragePath + @"\Mailing Labels");
                 DirectoryInfo dExportFiles = new DirectoryInfo(oldStoragePath + @"\Export Files");
-                DirectoryInfo dImportFiles = new DirectoryInfo(oldStoragePath + @"\Import Files");
                 DirectoryInfo dSalesReports = new DirectoryInfo(oldStoragePath + @"\Sales Reports");
                 DirectoryInfo dFreightReports = new DirectoryInfo(oldStoragePath + @"\Freight Reports");
 
@@ -120,10 +137,6 @@ namespace Hard_To_Find
                 {
                     Directory.Move(file.FullName, newStorageFilePath + @"\Export Files\" + file.Name);
                 }
-                foreach (var file in dImportFiles.GetFiles())
-                {
-                    Directory.Move(file.FullName, newStorageFilePath + @"\Import Files\" + file.Name);
-                }
                 foreach (var file in dSalesReports.GetFiles())
                 {
                     Directory.Move(file.FullName, newStorageFilePath + @"\Sales Reports\" + file.Name);
@@ -137,7 +150,6 @@ namespace Hard_To_Find
                 Directory.Delete(oldStoragePath + @"\Invoices", true);
                 Directory.Delete(oldStoragePath + @"\Mailing Labels", true);
                 Directory.Delete(oldStoragePath + @"\Export Files", true);
-                Directory.Delete(oldStoragePath + @"\Import Files", true);
                 Directory.Delete(oldStoragePath + @"\Sales Reports", true);
                 Directory.Delete(oldStoragePath + @"\Freight Reports", true);
             }
@@ -191,11 +203,46 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
+         Postcondition: Sets the import file location */
+        public void setStockExportStorageLocationFile(string newStorageFilePath)
+        {
+            //Create or overwrite the file to contain the storage location of imports folder
+            using (FileStream fs = File.Create(STOCK_EXPORT_FILE_STORAGE))
+            {
+                StreamWriter sw = new StreamWriter(fs);
+
+                sw.WriteLine(newStorageFilePath);
+                sw.Close();
+            }
+        }
+
+        /*Precondition:
          Postcondition: Returns a string containing the path where the storage folders are */
         public string getImportStorageFilePath()
         {
             //Open file from passed in path
             StreamReader file = new StreamReader(IMPORT_FILE_STORAGE);
+
+            string storageFilePath = "";
+            string line;
+
+            //Read through and get the storage path, file should only contain 1 line
+            while ((line = file.ReadLine()) != null)
+            {
+                storageFilePath = line;
+            }
+
+            file.Close();
+
+            return storageFilePath;
+        }
+
+        /*Precondition:
+         Postcondition: Returns a string containing the path where the storage folders are */
+        public string getStockExportStorageFilePath()
+        {
+            //Open file from passed in path
+            StreamReader file = new StreamReader(STOCK_EXPORT_FILE_STORAGE);
 
             string storageFilePath = "";
             string line;
@@ -445,7 +492,8 @@ namespace Hard_To_Find
                         string publisher = splitObject[6];
                         string description = splitObject[7];
                         string comments = splitObject[8];
-                        string price = splitObject[9];
+                        string priceString = splitObject[9];
+                        double price = Convert.ToDouble(priceString.Substring(1));
                         string subject = splitObject[10];
                         string catalogue = splitObject[11];
                         string initials = splitObject[12];
@@ -467,7 +515,8 @@ namespace Hard_To_Find
                         string postcode = splitObject[4];
                         string orderReference = splitObject[5];
                         string progress = splitObject[6];
-                        string freightCost = splitObject[7];
+                        string freightCostString = splitObject[7];
+                        double freightCost = Convert.ToDouble(freightCostString.Substring(1));
 
                         int invoiceNo;
                         if (splitObject[8] == "")
@@ -514,12 +563,15 @@ namespace Hard_To_Find
                             quantity = Convert.ToInt32(splitObject[3]);
                         string author = splitObject[4];
                         string title = splitObject[5];
-                        string price = splitObject[6];
+                        string priceString = splitObject[6];
+                        double price = 0.00;
+                        if(priceString != "")
+                            price = Convert.ToDouble(priceString.Substring(1));
                         string bookID = splitObject[7];
-                        string discount = splitObject[8];
-
-                        if (discount == "")
-                            discount = "$0.00";
+                        string discountString = splitObject[8];
+                        double discount = 0.00;
+                        if (discountString != "")
+                            discount = Convert.ToDouble(discountString.Substring(1));
 
                         //Create a new order entry from it and insert into list
                         OrderedStock newOrderedStock = new OrderedStock(orderedStockID, orderedStockOrderID, stockID, quantity, author, title, price, bookID, discount);
@@ -626,7 +678,15 @@ namespace Hard_To_Find
                             string publisher = combinedLines[6];
                             string description = combinedLines[7];
                             string comments = combinedLines[8];
-                            string price = combinedLines[10];
+                            string priceString = combinedLines[10];
+                            double price = 0.00;
+                            if (priceString != "")
+                            {
+                                if(priceString[0] == '$')
+                                    price = Convert.ToDouble(priceString.Substring(1));
+                                else
+                                    price = Convert.ToDouble(priceString);
+                            }
                             string subject = combinedLines[11];
                             string catalogue = combinedLines[12];
                             string initials = combinedLines[13];
@@ -675,7 +735,10 @@ namespace Hard_To_Find
                     string publisher = splitStock[6];
                     string description = splitStock[7];
                     string comments = splitStock[8];
-                    string price = splitStock[10];
+                    string priceString = splitStock[10];
+                    double price = 0.00;
+                    if(priceString != "")
+                        price = Convert.ToDouble(priceString.Substring(1));
                     string subject = splitStock[11];
                     string catalogue = splitStock[12];
                     string initials = splitStock[13];
@@ -1028,7 +1091,10 @@ namespace Hard_To_Find
             string postcode = splitOrder[4];
             string orderReference = splitOrder[5];
             string progress = splitOrder[11];
-            string freightCost = splitOrder[12];
+            string freightCostString = splitOrder[12];
+            double freightCost = 0.00;
+            if(freightCostString != "")
+                freightCost = Convert.ToDouble(freightCostString.Substring(1));
 
             int invoiceNo;
             if (splitOrder[13] == "")
@@ -1235,12 +1301,15 @@ namespace Hard_To_Find
                 quantity = Convert.ToInt32(splitOrderedStock[3]);
             string author = splitOrderedStock[4];
             string title = splitOrderedStock[5];
-            string price = splitOrderedStock[11];
+            string priceString = splitOrderedStock[11];
+            double price = 0.00;
+            if (priceString != "")
+                price = Convert.ToDouble(priceString.Substring(1));
             string bookID = splitOrderedStock[16];
-            string discount = splitOrderedStock[18];
-
-            if (discount == "")
-                discount = "$0.00";
+            string discountString = splitOrderedStock[18];
+            double discount = 0.00;
+            if(discountString != "")
+                discount = Convert.ToDouble(discountString.Substring(1));
 
             //Create a new order entry from it and insert into list
             OrderedStock newOrderedStock = new OrderedStock(orderedStockID, orderID, stockID, quantity, author, title, price, bookID, discount);
@@ -1342,7 +1411,7 @@ namespace Hard_To_Find
                     foreach (Stock s in allStock)
                     {
                         string lineToCheck = s.stockID + "|" + s.quantity + "|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description + "\"|\"" + s.comments
-                            + "\"|\"" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + s.initials + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"";
+                            + "\"|\"$" + String.Format("{0:0.00}", s.price) +"\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + s.initials + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"";
 
                         //The code below checks to see if there are any empty fields that are just quotations and removes the quotations
                         string[] splitToCheckForEmpty = lineToCheck.Split('|');
@@ -1386,7 +1455,7 @@ namespace Hard_To_Find
                     foreach (Order o in allOrders)
                     {
                         string lineToCheck = o.orderID + "|\"" + o.firstName + "\"|\"" + o.lastName + "\"|\"" + o.institution + "\"|\"" + o.postcode + "\"|\"" + o.orderReference + "\"|\"" + o.progress +
-                            "\"|\"" + o.freightCost + "\"|" + o.invoiceNo + "|\"" + o.invoiceDate + "\"|\"" + o.comments + "\"|" + o.customerID;
+                            "\"|\"$" + String.Format("{0:0.00}", o.freightCost) + "\"|" + o.invoiceNo + "|\"" + o.invoiceDate + "\"|\"" + o.comments + "\"|" + o.customerID;
 
                         //The code below checks to see if there are any empty fields that are just quotations and removes the quotations
                         string[] splitToCheckForEmpty = lineToCheck.Split('|');
@@ -1429,8 +1498,8 @@ namespace Hard_To_Find
 
                     foreach (OrderedStock os in allOrderedStock)
                     {
-                        string lineToCheck = os.orderedStockID + "|" + os.orderID + "|" + os.stockID + "|" + os.quantity + "|\"" + os.author + "\"|\"" + os.title + "\"|\"" + os.price + "\"|\"" 
-                            + os.bookID + "\"|\"" + os.discount + "\"";
+                        string lineToCheck = os.orderedStockID + "|" + os.orderID + "|" + os.stockID + "|" + os.quantity + "|\"" + os.author + "\"|\"" + os.title + "\"|\"$" + String.Format("{0:0.00}", os.price) + "\"|\""
+                            + os.bookID + "\"|\"$" + String.Format("{0:0.00}", os.discount) + "\"";
 
                         //The code below checks to see if there are any empty fields that are just quotations and removes the quotations
                         string[] splitToCheckForEmpty = lineToCheck.Split('|');
@@ -1458,6 +1527,55 @@ namespace Hard_To_Find
                     sw.Close();
                 }
             }
+        }
+
+        public void writeStockExportToDeskPCFile(int numToExport)
+        {
+            string storagePath = getStockExportStorageFilePath();
+            string fileName = @"\Stock" + getTimestamp(DateTime.Now) + ".txt";
+
+            List<Stock> mostRecent = dbManager.getRecentStock(numToExport);
+
+            using (FileStream stream = File.Create(storagePath + fileName))
+            {
+                StreamWriter sw = new StreamWriter(stream);
+                foreach (Stock s in mostRecent)
+                {
+                    string lineToCheck = s.stockID + "|" + s.quantity + "|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description + "\"|\"" + s.comments
+                           + "\"|\"" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + s.initials + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"";
+
+                    //The code below checks to see if there are any empty fields that are just quotations and removes the quotations
+                    string[] splitToCheckForEmpty = lineToCheck.Split('|');
+                    string lineToWrite = "";
+
+                    for (int i = 0; i < splitToCheckForEmpty.Length; i++)
+                    {
+                        if (i != splitToCheckForEmpty.Length - 1)
+                        {
+                            if (splitToCheckForEmpty[i].Contains("\"\""))
+                                lineToWrite += "|";
+                            else
+                                lineToWrite += splitToCheckForEmpty[i] + "|";
+                        }
+                        else
+                        {
+                            if (!splitToCheckForEmpty[i].Contains("\"\""))
+                                lineToWrite += splitToCheckForEmpty[i];
+                        }
+                    }
+
+                    sw.WriteLine(lineToWrite);
+                }
+                sw.Close();
+            }
+        }
+
+        /*Precondition:
+        Postcondition: Returns a timestamp of current year,month, day and time */
+        private static string getTimestamp(DateTime value)
+        {
+
+            return value.ToString("yyyyMMddHHmmssfff");
         }
     }
 }

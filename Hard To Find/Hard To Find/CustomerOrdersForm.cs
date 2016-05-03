@@ -34,6 +34,8 @@ namespace Hard_To_Find
             dbManager = new DatabaseManager();
             customersOrders = new List<Order>();
 
+            labCustomerName.Text = "Orders for: " + currCustomer.firstName + " " + currCustomer.lastName;
+
             //Set up column widths
             DataGridViewColumn colOrderID = dataGridView1.Columns[0];
             colOrderID.Width = 100;
@@ -86,7 +88,7 @@ namespace Hard_To_Find
             boxOrderRef.Text = currOrder.orderReference;
             boxProgress.Text = currOrder.progress;
             boxInvoiceDate.Text = currOrder.invoiceDate.ToString("d-MM-yyyy");
-            boxFreight.Text = currOrder.freightCost;
+            boxFreight.Text = "$" + String.Format("{0:0.00}", currOrder.freightCost);
             boxComments.Text = currOrder.comments;
 
             //Search DB for stock for the order

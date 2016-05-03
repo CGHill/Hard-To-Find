@@ -164,10 +164,20 @@ namespace Hard_To_Find_Stock
                 {
                     string stockInsert = "";
 
-                    //Build insert command
-                    stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
-                        + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.initials + "', '" + s.sales + "', '" + s.bookID +
-                        "', '" + s.dateEntered + "')";
+                    if (s.stockID != -1)
+                    {
+                        //Build insert command
+                        stockInsert = "INSERT INTO Stock VALUES(" + s.stockID + ", '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
+                            + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.initials + "', '" + s.sales + "', '" + s.bookID +
+                            "', '" + s.dateEntered + "')";
+                    }
+                    else
+                    {
+                        //Build insert command
+                        stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
+                            + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.initials + "', '" + s.sales + "', '" + s.bookID +
+                            "', '" + s.dateEntered + "')";
+                    }
 
                     SQLiteCommand insertCommand = new SQLiteCommand(stockInsert, dbConnection);
                     insertCommand.ExecuteNonQuery();
@@ -205,7 +215,7 @@ namespace Hard_To_Find_Stock
                 while (reader.Read())
                 {
                     foundStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                        reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
+                        reader[7].ToString(), reader[8].ToString(), Convert.ToDouble(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
                 }
 
                 dbConnection.Close();
@@ -214,6 +224,38 @@ namespace Hard_To_Find_Stock
             //Return results
             return foundStock;
         }
+        /*Precondition: 
+         Postcondition: Returns the stock that has the ID that was passed in */
+        public Stock searchStock(int stockID)
+        {
+            Stock foundStock = null;
+
+            //Check to see if stock table exists
+            if (checkForTable("Stock"))
+            {
+                dbConnection.Open();
+
+                //Execute SQL query
+                string sql = "SELECT * FROM Stock WHERE stockID = " + stockID;
+
+                SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                //Loop over and store results
+                while (reader.Read())
+                {
+                    foundStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
+                        reader[7].ToString(), reader[8].ToString(), Convert.ToDouble(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
+                }
+
+                dbConnection.Close();
+            }
+
+            //Return results
+            return foundStock;
+        }
+
+
 
         /*Precondition:
          Postcondition: Returns stock entry that matches the ID passed in*/
@@ -239,7 +281,7 @@ namespace Hard_To_Find_Stock
                 while (reader.Read())
                 {
                     foundStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                        reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
+                        reader[7].ToString(), reader[8].ToString(), Convert.ToDouble(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
                 }
 
                 dbConnection.Close();
@@ -363,7 +405,7 @@ namespace Hard_To_Find_Stock
                 while (reader.Read())
                 {
                     Stock currStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                        reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
+                        reader[7].ToString(), reader[8].ToString(), Convert.ToDouble(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
 
                     foundStock.Add(currStock);
                 }
@@ -420,7 +462,7 @@ namespace Hard_To_Find_Stock
                 while (reader.Read())
                 {
                     Stock nextStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                        reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
+                        reader[7].ToString(), reader[8].ToString(), Convert.ToDouble(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
 
                     allStockInStock.Add(nextStock);
                 }
@@ -449,7 +491,7 @@ namespace Hard_To_Find_Stock
                 while (reader.Read())
                 {
                     Stock nextStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                        reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
+                        reader[7].ToString(), reader[8].ToString(), Convert.ToDouble(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
 
                     allStockInStock.Add(nextStock);
                 }
@@ -481,7 +523,7 @@ namespace Hard_To_Find_Stock
                 while (reader.Read())
                 {
                     Stock currStock = new Stock(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(),
-                        reader[7].ToString(), reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
+                        reader[7].ToString(), reader[8].ToString(), Convert.ToDouble(reader[9]), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString());
 
                     lastFive.Add(currStock);
                 }
@@ -490,6 +532,62 @@ namespace Hard_To_Find_Stock
             }
 
             return lastFive;
+        }
+
+        public void deleteStockFromIDForward(int id)
+        {
+            //Check to make sure stock table exists
+            if (checkForTable("Stock"))
+            {
+                dbConnection.Open();
+
+                string deleteQuery = "DELETE from Stock WHERE stockID >= " + id;
+
+                SQLiteCommand deleteCommand = new SQLiteCommand(deleteQuery, dbConnection);
+                deleteCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+        }
+
+        /*Precondition: 
+         Postcondition: Returns the last stock that was entered into the database */
+        public Stock getLastStock()
+        {
+            Stock lastStock = null;
+
+            //Check to make sure orders table exists
+            if (checkForTable("Stock"))
+            {
+                dbConnection.Open();
+                int lastIDValue = 0;
+
+                //Search for the ID of the last stock entered
+                string sql = "SELECT MAX(stockID) FROM Stock";
+                SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                //Loop over and store results
+                while (reader.Read())
+                {
+                    lastIDValue = Convert.ToInt32(reader[0]);
+                }
+
+                //Select the last stock entry from the database
+                string getLastStock = "SELECT * FROM Stock WHERE stockID = " + lastIDValue;
+                SQLiteCommand getLastStockCommand = new SQLiteCommand(getLastStock, dbConnection);
+                SQLiteDataReader getLastStockReader = getLastStockCommand.ExecuteReader();
+
+                //Loop over and store results
+                while (getLastStockReader.Read())
+                {
+                    lastStock = new Stock(Convert.ToInt32(getLastStockReader[0]), Convert.ToInt32(getLastStockReader[1]), getLastStockReader[2].ToString(), getLastStockReader[3].ToString(), getLastStockReader[4].ToString(), getLastStockReader[5].ToString(), getLastStockReader[6].ToString(),
+                        getLastStockReader[7].ToString(), getLastStockReader[8].ToString(), Convert.ToDouble(getLastStockReader[9]), getLastStockReader[10].ToString(), getLastStockReader[11].ToString(), getLastStockReader[12].ToString(), getLastStockReader[13].ToString(), getLastStockReader[14].ToString(), getLastStockReader[15].ToString());
+                }
+                dbConnection.Close();
+            }
+
+            return lastStock;
         }
     }
 }

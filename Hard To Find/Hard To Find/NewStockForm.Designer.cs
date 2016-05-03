@@ -96,7 +96,6 @@
             // 
             // btnPrev
             // 
-            this.btnPrev.Enabled = false;
             this.btnPrev.Location = new System.Drawing.Point(637, 118);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(91, 34);
@@ -334,6 +333,7 @@
             this.boxQuantity.Size = new System.Drawing.Size(211, 20);
             this.boxQuantity.TabIndex = 1;
             this.boxQuantity.Text = "1";
+            this.boxQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.boxQuantity_KeyPress_1);
             // 
             // label2
             // 

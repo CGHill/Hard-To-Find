@@ -106,13 +106,7 @@ namespace Hard_To_Find
          Postcondition: Only allows numbers to be entered in textbox */
         private void boxCustID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -128,12 +122,19 @@ namespace Hard_To_Find
                 //Supress key to stop datagrid moving to the next row
                 e.SuppressKeyPress = true;
 
-                int currRow = dataGridView1.CurrentCell.RowIndex;
+                try
+                {
+                    int currRow = dataGridView1.CurrentCell.RowIndex;
 
-                //Get the customer and pass it back to the form that needs it
-                Customer selectedCustomer = foundCustomers[currRow];
-                customerReceiver.addCustomer(selectedCustomer);
-                this.Close();
+                    //Get the customer and pass it back to the form that needs it
+                    Customer selectedCustomer = foundCustomers[currRow];
+                    customerReceiver.addCustomer(selectedCustomer);
+                    this.Close();
+                }
+                catch (NullReferenceException)
+                {
+                    //User hit enter on datagrid when nothing was searched
+                }
             }
         }
 
@@ -159,9 +160,9 @@ namespace Hard_To_Find
             //Reset datagrid and foundcustomers so searches don't stack
             foundCustomers = new List<Customer>();
             dataGridView1.Rows.Clear();
-            btnSelectCustomer.Enabled = false;
+            bool customersFound = false;
 
-            
+
 
             //Check if an ID has been entered and search on that if it has
             if (boxCustID.Text != "")
@@ -171,19 +172,20 @@ namespace Hard_To_Find
                 //Put found customer into list
                 foundCustomers.Add(dbManager.searchCustomers(custID));
 
+                labResults.Text = foundCustomers.Count.ToString();
+
                 //Display found customer
                 foreach (Customer c in foundCustomers)
                 {
                     if (c != null)
                     {
+                        labResults.Text = foundCustomers.Count.ToString();
+                        customersFound = true;
                         dataGridView1.Rows.Add(c.firstName, c.lastName, c.address1, c.address2, c.country, c.email);
                         dataGridView1.Focus();
                     }
                     else
-                    {
-                        dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
-                        btnSelectCustomer.Enabled = false;
-                    }
+                        labResults.Text = "0";
                 }
             }
             else if (boxFirstName.Text != "" || boxLastName.Text != "" || boxInstiution.Text != "" || boxEmail.Text != "")//Else if ID hasn't been entered check for first and last name
@@ -193,6 +195,8 @@ namespace Hard_To_Find
                 string instutution = null;
                 string email = null;
 
+                //Check if the user wants the name to match exactly what they typed
+                bool exactName = checkExactName.Checked;
 
                 //Get names if they have been entered
                 if (boxFirstName.Text != "")
@@ -204,19 +208,14 @@ namespace Hard_To_Find
                 if (boxEmail.Text != "")
                     email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
 
-                //Check to see if user wants to only find exactly what they typed in
-                bool exactName = checkExactName.Checked;
-
                 //Search for customers with names entered
                 foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email, exactName);
 
-                if (foundCustomers.Count == 0)
+                labResults.Text = foundCustomers.Count.ToString();
+
+                if (foundCustomers.Count > 0)
                 {
-                    dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
-                    btnSelectCustomer.Enabled = false;
-                }
-                else
-                {
+                    customersFound = true;
                     foundCustomers = foundCustomers.OrderBy(x => x.firstName).ToList();
 
                     //Display found customers
@@ -227,6 +226,11 @@ namespace Hard_To_Find
 
                     dataGridView1.Focus();
                 }
+            }
+
+            if (!customersFound)
+            {
+                dataGridView1.Rows.Add("No customer found", "", "", "", "", "");
             }
         }
 
@@ -241,11 +245,18 @@ namespace Hard_To_Find
         Postcondition: Send customer back to order form for autofill and close this form*/
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            int currRow = dataGridView1.CurrentCell.RowIndex;
+            try
+            {
+                int currRow = dataGridView1.CurrentCell.RowIndex;
 
-            Customer selectedCustomer = foundCustomers[currRow];
-            customerReceiver.addCustomer(selectedCustomer);
-            this.Close();
+                Customer selectedCustomer = foundCustomers[currRow];
+                customerReceiver.addCustomer(selectedCustomer);
+                this.Close();
+            }
+            catch (NullReferenceException)
+            {
+                //User clicked on header
+            }
         }
 
        

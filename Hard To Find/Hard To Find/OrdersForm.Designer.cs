@@ -30,13 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.btnMainMenu = new System.Windows.Forms.Button();
-            this.btnImportOrders = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labOrderID = new System.Windows.Forms.Label();
             this.boxOrderSearchID = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
-            this.btnImportOrderedStock = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -108,16 +106,6 @@
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
             // 
-            // btnImportOrders
-            // 
-            this.btnImportOrders.Location = new System.Drawing.Point(68, 509);
-            this.btnImportOrders.Name = "btnImportOrders";
-            this.btnImportOrders.Size = new System.Drawing.Size(118, 33);
-            this.btnImportOrders.TabIndex = 10;
-            this.btnImportOrders.Text = "Import Orders";
-            this.btnImportOrders.UseVisualStyleBackColor = true;
-            this.btnImportOrders.Click += new System.EventHandler(this.btnImportOrders_Click);
-            // 
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(-1, 626);
@@ -163,16 +151,6 @@
             this.btnNewOrder.Text = "&New Order";
             this.btnNewOrder.UseVisualStyleBackColor = true;
             this.btnNewOrder.Click += new System.EventHandler(this.btnNewOrder_Click);
-            // 
-            // btnImportOrderedStock
-            // 
-            this.btnImportOrderedStock.Location = new System.Drawing.Point(68, 548);
-            this.btnImportOrderedStock.Name = "btnImportOrderedStock";
-            this.btnImportOrderedStock.Size = new System.Drawing.Size(118, 33);
-            this.btnImportOrderedStock.TabIndex = 11;
-            this.btnImportOrderedStock.Text = "Import OrderedStock";
-            this.btnImportOrderedStock.UseVisualStyleBackColor = true;
-            this.btnImportOrderedStock.Click += new System.EventHandler(this.btnImportOrderedStock_Click);
             // 
             // groupBox1
             // 
@@ -708,13 +686,11 @@
             this.Controls.Add(this.btnBigMailingLabel);
             this.Controls.Add(this.btnCreateInvoice);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnImportOrderedStock);
             this.Controls.Add(this.btnNewOrder);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.boxOrderSearchID);
             this.Controls.Add(this.labOrderID);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.btnImportOrders);
             this.Controls.Add(this.btnMainMenu);
             this.Name = "OrdersForm";
             this.Text = "Orders";
@@ -734,13 +710,11 @@
         #endregion
 
         private System.Windows.Forms.Button btnMainMenu;
-        private System.Windows.Forms.Button btnImportOrders;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label labOrderID;
         private System.Windows.Forms.TextBox boxOrderSearchID;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnNewOrder;
-        private System.Windows.Forms.Button btnImportOrderedStock;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;

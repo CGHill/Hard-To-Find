@@ -155,7 +155,7 @@ namespace Hard_To_Find
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, "$" + String.Format("{0:0.00}", s.price), s.bookID);
                     }
 
                     dataGridView1.Focus();
@@ -199,7 +199,7 @@ namespace Hard_To_Find
                     //Display found stock
                     foreach (Stock s in foundStock)
                     {
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, "$" + String.Format("{0:0.00}", s.price), s.bookID);
                     }
 
                     dataGridView1.Focus();

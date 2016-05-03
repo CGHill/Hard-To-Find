@@ -18,6 +18,7 @@ namespace Hard_To_Find
         private List<Stock> allStock;
         private List<Stock> foundStock;
         private FileManager fileManager;
+        private Stock currStock;
 
         //Constructor
         public StockForm(MainMenu mainMenu)
@@ -53,13 +54,13 @@ namespace Hard_To_Find
             column6.Width = 75;
 
             //Give focus to bookID box
-            boxBookID.Select();
+            boxSearchBookID.Select();
 
             //Set up event handlers for when enter is pressed in textboxes
-            boxBookID.KeyPress += TextBox_KeyPress_Enter;
-            boxAuthor.KeyPress += TextBox_KeyPress_Enter;
-            boxTitle.KeyPress += TextBox_KeyPress_Enter;
-            boxSubject.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchBookID.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchAuthor.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchTitle.KeyPress += TextBox_KeyPress_Enter;
+            boxSearchSubject.KeyPress += TextBox_KeyPress_Enter;
         }
 
         /*Precondition: 
@@ -87,60 +88,6 @@ namespace Hard_To_Find
         }
 
 
-        /*Precondition: 
-         Postcondition: Opens file browser for user to select a txt file to import stock*/
-        private void btnImportStock_Click(object sender, EventArgs e)
-        {
-            //Set up file browser, to search for txt files and default directory of C: drive
-            OpenFileDialog dialogBox = new OpenFileDialog();
-            dialogBox.Title = "Open Stock txt file";
-            dialogBox.Filter = "TXT files|*.txt";
-            dialogBox.InitialDirectory = @"C:\";
-
-            //Open the file browser and wait for user to select file
-            if (dialogBox.ShowDialog() == DialogResult.OK)
-            {
-                //Get the path for the file the user clicked on
-                string filename = dialogBox.FileName;
-
-                if (filename.Contains("\\Stock.txt"))
-                {
-                    try
-                    {
-                        allStock = fileManager.getStockFromFile(filename);
-
-                        progressBar1.Visible = true;
-                        progressBar1.Maximum = allStock.Count;
-                        progressBar1.Value = 0;
-
-                        //TODO find a better place for this
-                        dbManager.dropStockTable();
-                        dbManager.createStockTable();
-
-                        //Insert all of the new stock into the database
-                        dbManager.insertStock(allStock, progressBar1);
-                        progressBar1.Visible = false;
-
-                        //Inform user that the process has been finished
-                        MessageBox.Show("Finished import");
-                    }
-                    catch (FormatException)
-                    {
-                        MessageBox.Show("Error: File was formatted incorrectly");
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        MessageBox.Show("Error: File was formatted incorrectly");
-                    }
-                    
-                }
-                else
-                {
-                    MessageBox.Show("Error: Wrong file selected");
-                }
-            }
-        }
-
         /*Precondition:
          Postcondition: Starts search for Stock depending on which text boxes have been filled*/
         private void btnSearch_Click(object sender, EventArgs e)
@@ -149,23 +96,41 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
-         Postcondition: Enables button to view more details about stock */
+         Postcondition: Update textboxes with selected stock */
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            btnStockDetails.Enabled = true;
+            if (foundStock.Count != 0)
+            {
+                int currRow = dataGridView1.CurrentCell.RowIndex;
+
+                currStock = foundStock[currRow];
+
+                loadStock();
+            }
         }
 
-        /*Precondition: Requires something be selected in the datagrid first
-         Postcondition: Opens form to display futher details about stock*/
-        private void btnStockDetails_Click(object sender, EventArgs e)
+        /*Precondition:
+         Postcondition: Loads up text boxes with the current stocks information*/
+        private void loadStock()
         {
-            int currRow = dataGridView1.CurrentCell.RowIndex;
-
-            Stock stockToDisplay = foundStock[currRow];
-
-            StockDetailsForm sdf = new StockDetailsForm(stockToDisplay, this);
-            sdf.Show();
+            boxStockID.Text = currStock.stockID.ToString();
+            boxQuantity.Text = currStock.quantity.ToString();
+            boxNote.Text = currStock.note;
+            boxAuthor.Text = currStock.author;
+            boxTitle.Text = currStock.title;
+            boxSubtitle.Text = currStock.subtitle;
+            boxPublisher.Text = currStock.publisher;
+            boxDescription.Text = currStock.description;
+            boxComment.Text = currStock.comments;
+            boxPrice.Text = "$" + String.Format("{0:0.00}", currStock.price);
+            boxSubject.Text = currStock.subject;
+            boxCatalogues.Text = currStock.catalogue;
+            boxInitials.Text = currStock.initials;
+            boxSales.Text = currStock.sales;
+            boxBookID.Text = currStock.bookID;
+            boxDateEntered.Text = currStock.dateEntered;
         }
+     
 
         /*Precondition: 
          Postcondition: Open form to create a new stock entry */
@@ -175,24 +140,6 @@ namespace Hard_To_Find
             nsf.Show();
         }
 
-        /*Precondition: 
-         Postcondition: Allow stock to be selected on double click */
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                int currRow = dataGridView1.CurrentCell.RowIndex;
-
-                Stock stockToDisplay = foundStock[currRow];
-
-                StockDetailsForm sdf = new StockDetailsForm(stockToDisplay, this);
-                sdf.Show();
-            }
-            catch (NullReferenceException)
-            {
-                //Do nothing, user double clicked on header
-            }
-        }
 
         /*Precondition:
         Postcondition: Keypress handler for all textboxes. Starts the search for customers */
@@ -214,104 +161,232 @@ namespace Hard_To_Find
             //Reset datagrid and stock for new search
             foundStock = new List<Stock>();
             dataGridView1.Rows.Clear();
-            btnStockDetails.Enabled = false;
             bool searchAllStock = true;
 
             if (rdoInStock.Checked)
                 searchAllStock = false;
 
             //If ID was entered then search only on that
-            if (boxBookID.Text != "")
+            if (boxSearchBookID.Text != "")
             {
-                string bookID = boxBookID.Text;
+                string bookID = boxSearchBookID.Text;
 
                 //Put found stock into list
                 Stock found = dbManager.searchStock(bookID, searchAllStock);
                 if (found != null)
                 {
                     foundStock.Add(found);
-
-                    labResults.Text = foundStock.Count.ToString();
-
-                    //Display found stock
-                    foreach (Stock s in foundStock)
-                    {
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
-                    }
-
-                    dataGridView1.Focus();
-                }
-                else
-                {
-                    dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
-                    btnStockDetails.Enabled = false;
                 }
             }
-            else if (boxAuthor.Text != "" || boxTitle.Text != "" || boxSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
+            else if (boxSearchAuthor.Text != "" || boxSearchTitle.Text != "" || boxSearchSubject.Text != "") //ID wasn't entered, search if any other fields have been filled
             {
                 string author = null;
                 string title = null;
                 string subject = null;
 
                 //Find out which fields have been entered to be included in the search
-                if (boxAuthor.Text != "")
-                    author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-                if (boxTitle.Text != "")
-                    title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-                if (boxSubject.Text != "")
-                    subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+                if (boxSearchAuthor.Text != "")
+                    author = SyntaxHelper.escapeSingleQuotes(boxSearchAuthor.Text);
+                if (boxSearchTitle.Text != "")
+                    title = SyntaxHelper.escapeSingleQuotes(boxSearchTitle.Text);
+                if (boxSearchSubject.Text != "")
+                    subject = SyntaxHelper.escapeSingleQuotes(boxSearchSubject.Text);
 
                 bool exactPhrase = checkExactPhrase.Checked;
 
                 //Search for stock based on the parameters entered
                 foundStock = dbManager.searchStock(author, title, subject, searchAllStock, exactPhrase);
+            }
 
-                labResults.Text = foundStock.Count.ToString();
-
-                if (foundStock.Count == 0)
+            //Sort the information as the user wants
+            if (comboBox1.SelectedItem != null)
+            {
+                string selectedSort = comboBox1.SelectedItem.ToString();
+                switch (selectedSort)
                 {
-                    dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
-                    btnStockDetails.Enabled = false;
+                    case "Quantity":
+                        foundStock = foundStock.OrderBy(x => x.quantity).ToList();
+                        break;
+                    case "Author":
+                        foundStock = foundStock.OrderBy(x => x.author).ToList();
+                        break;
+                    case "Title":
+                        foundStock = foundStock.OrderBy(x => x.title).ToList();
+                        break;
+                    case "Price":
+                        foundStock = foundStock.OrderBy(x => x.price).ToList();
+                        break;
                 }
-                else
-                {
-                    foundStock = foundStock.OrderBy(x => x.title).ToList();
+            }
 
-                    //Display found stock
-                    foreach (Stock s in foundStock)
+            //Add information to datagrid to be displayed
+            labResults.Text = foundStock.Count.ToString();
+            if (foundStock.Count == 0)
+            {
+                dataGridView1.Rows.Add("", "No stock found", "", "", "", "");
+            }
+            else
+            {
+                //Display found stock
+                foreach (Stock s in foundStock)
+                {
+                    dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, "$" + String.Format("{0:0.00}", s.price), s.bookID);
+                }
+
+                dataGridView1.Focus();
+            }
+        }
+
+        private void btnExportToDesk_Click(object sender, EventArgs e)
+        {
+            ConfirmExportToDeskForm cf = new ConfirmExportToDeskForm(this);
+            cf.Show();
+        }
+
+        public void startExport(int numEntries)
+        {
+            //Change cursor so user has feedback that program is doing something
+            Cursor.Current = Cursors.WaitCursor;
+
+            fileManager.writeStockExportToDeskPCFile(numEntries);
+
+            //Change cursor back to default
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Enabled = false;
+
+            toggleBoxesReadOnly();
+            btnSave.Enabled = true;
+            btnUpdate.Enabled = false;
+
+            boxQuantity.Select();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Enabled = true;
+            int currRow = dataGridView1.CurrentCell.RowIndex;
+
+
+            toggleBoxesReadOnly();
+            btnSave.Enabled = false;
+            btnUpdate.Enabled = true;
+
+            //Update all stock information
+            currStock.quantity = Convert.ToInt32(boxQuantity.Text);
+            currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
+            currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+            currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+            currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
+            currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
+            currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
+            currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
+            
+            currStock.price = 0.00;
+            string priceString = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+            if (priceString != "")
+            {
+                if (priceString[0] == '$')
+                    currStock.price = Convert.ToDouble(priceString.Substring(1));
+                else
+                    currStock.price = Convert.ToDouble(priceString);
+            }
+
+            currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+            currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
+            currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
+            currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
+            currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
+            currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+
+            //Send updated stock information to database
+            dbManager.updateStock(currStock);
+
+            startSearch();
+
+            //Reselect row so user stays on the same entry
+            dataGridView1.Rows[currRow].Selected = true;
+        }
+
+        /*Precondition: None
+         Postcondition: Toggles textboxes ReadOnly between true and false so that stock data can be updated */
+        private void toggleBoxesReadOnly()
+        {
+            boxQuantity.ReadOnly = !boxQuantity.ReadOnly;
+            boxNote.ReadOnly = !boxNote.ReadOnly;
+            boxAuthor.ReadOnly = !boxAuthor.ReadOnly;
+            boxTitle.ReadOnly = !boxTitle.ReadOnly;
+            boxSubtitle.ReadOnly = !boxSubtitle.ReadOnly;
+            boxPublisher.ReadOnly = !boxPublisher.ReadOnly;
+            boxDescription.ReadOnly = !boxDescription.ReadOnly;
+            boxComment.ReadOnly = !boxComment.ReadOnly;
+            boxPrice.ReadOnly = !boxPrice.ReadOnly;
+            boxSubject.ReadOnly = !boxSubject.ReadOnly;
+            boxCatalogues.ReadOnly = !boxCatalogues.ReadOnly;
+            boxInitials.ReadOnly = !boxInitials.ReadOnly;
+            boxSales.ReadOnly = !boxSales.ReadOnly;
+            boxBookID.ReadOnly = !boxBookID.ReadOnly;
+            boxDateEntered.ReadOnly = !boxDateEntered.ReadOnly;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (foundStock != null)
+            {
+                if (foundStock.Count != 0)
+                {
+                    dataGridView1.Rows.Clear();
+
+                    string selectedSort = comboBox1.SelectedItem.ToString();
+
+                    switch (selectedSort)
                     {
-                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, s.price, s.bookID);
+                        case "Quantity":
+                            foundStock = foundStock.OrderBy(x => x.quantity).ToList();
+                            break;
+                        case "Author":
+                            foundStock = foundStock.OrderBy(x => x.author).ToList();
+                            break;
+                        case "Title":
+                            foundStock = foundStock.OrderBy(x => x.title).ToList();
+                            break;
+                        case "Price":
+                            foundStock = foundStock.OrderBy(x => x.price).ToList();
+                            break;
                     }
 
-                    dataGridView1.Focus();
+                    foreach (Stock s in foundStock)
+                    {
+                        dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, "$" + String.Format("{0:0.00}", s.price), s.bookID);
+                    }
                 }
             }
         }
 
         /*Precondition:
-        Postcondition: Opens up selected stock for more detail when enter is pressed while on datagrid */
-        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+         Postcondition: Automatically sets the price to contain a $ and 2 decimal places if not already set */
+        private void boxPrice_Leave(object sender, EventArgs e)
         {
-            //Check key was enter
-            if (e.KeyCode == Keys.Enter)
+            string priceEntered = boxPrice.Text;
+
+            bool noLetters = priceEntered.All(x => !char.IsLetter(x));
+
+            if (noLetters)
             {
-                e.Handled = true;
+                if (priceEntered != "")
+                {
+                    string checkedPrice = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(priceEntered);
 
-                int currRow = dataGridView1.CurrentCell.RowIndex;
-
-                Stock stockToDisplay = foundStock[currRow];
-
-                //Open up stock details form
-                StockDetailsForm sdf = new StockDetailsForm(stockToDisplay, this);
-                sdf.Show();
+                    boxPrice.Text = checkedPrice;
+                }
             }
-        }
-
-        /*Precondition: 
-         Postcondition: Updates the datagrid list when user has finished looking at stock details incase they edited */
-        private void StockForm_Activated(object sender, EventArgs e)
-        {
-            startSearch();
+            else
+            {
+                MessageBox.Show("Price should not have letters");
+            }
         }
     }
 }

@@ -34,9 +34,9 @@
             this.btnReports = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnFileExports = new System.Windows.Forms.Button();
-            this.btnSetStorageLocation = new System.Windows.Forms.Button();
             this.btnImports = new System.Windows.Forms.Button();
             this.btnBackup = new System.Windows.Forms.Button();
+            this.btnSetup = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCustomers
@@ -99,19 +99,9 @@
             this.btnFileExports.UseVisualStyleBackColor = true;
             this.btnFileExports.Click += new System.EventHandler(this.btnFileExports_Click);
             // 
-            // btnSetStorageLocation
-            // 
-            this.btnSetStorageLocation.Location = new System.Drawing.Point(236, 191);
-            this.btnSetStorageLocation.Name = "btnSetStorageLocation";
-            this.btnSetStorageLocation.Size = new System.Drawing.Size(123, 37);
-            this.btnSetStorageLocation.TabIndex = 5;
-            this.btnSetStorageLocation.Text = "Set Storage &Location";
-            this.btnSetStorageLocation.UseVisualStyleBackColor = true;
-            this.btnSetStorageLocation.Click += new System.EventHandler(this.btnSetStorageLocation_Click);
-            // 
             // btnImports
             // 
-            this.btnImports.Location = new System.Drawing.Point(396, 61);
+            this.btnImports.Location = new System.Drawing.Point(236, 191);
             this.btnImports.Name = "btnImports";
             this.btnImports.Size = new System.Drawing.Size(123, 37);
             this.btnImports.TabIndex = 6;
@@ -121,7 +111,7 @@
             // 
             // btnBackup
             // 
-            this.btnBackup.Location = new System.Drawing.Point(396, 124);
+            this.btnBackup.Location = new System.Drawing.Point(396, 61);
             this.btnBackup.Name = "btnBackup";
             this.btnBackup.Size = new System.Drawing.Size(123, 37);
             this.btnBackup.TabIndex = 7;
@@ -129,14 +119,24 @@
             this.btnBackup.UseVisualStyleBackColor = true;
             this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
             // 
+            // btnSetup
+            // 
+            this.btnSetup.Location = new System.Drawing.Point(396, 124);
+            this.btnSetup.Name = "btnSetup";
+            this.btnSetup.Size = new System.Drawing.Size(123, 37);
+            this.btnSetup.TabIndex = 9;
+            this.btnSetup.Text = "Setup";
+            this.btnSetup.UseVisualStyleBackColor = true;
+            this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(593, 366);
+            this.Controls.Add(this.btnSetup);
             this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.btnImports);
-            this.Controls.Add(this.btnSetStorageLocation);
             this.Controls.Add(this.btnFileExports);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnReports);
@@ -157,9 +157,9 @@
         private System.Windows.Forms.Button btnReports;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnFileExports;
-        private System.Windows.Forms.Button btnSetStorageLocation;
         private System.Windows.Forms.Button btnImports;
         private System.Windows.Forms.Button btnBackup;
+        private System.Windows.Forms.Button btnSetup;
     }
 }
 

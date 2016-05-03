@@ -60,6 +60,12 @@
     <Compile Include="BackupForm.Designer.cs">
       <DependentUpon>BackupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfirmExportToDeskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfirmExportToDeskForm.Designer.cs">
+      <DependentUpon>ConfirmExportToDeskForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerOrdersForm.cs">
       <SubType>Form</SubType>
@@ -80,12 +86,6 @@
     </Compile>
     <Compile Include="CustomerForm.Designer.cs">
       <DependentUpon>CustomerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerDetailsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CustomerDetailsForm.Designer.cs">
-      <DependentUpon>CustomerDetailsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="FileExportForm.cs">
@@ -143,14 +143,14 @@
     <Compile Include="ReportsForm.Designer.cs">
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SyntaxHelper.cs" />
-    <Compile Include="Stock.cs" />
-    <Compile Include="StockDetailsForm.cs">
+    <Compile Include="SetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StockDetailsForm.Designer.cs">
-      <DependentUpon>StockDetailsForm.cs</DependentUpon>
+    <Compile Include="SetupForm.Designer.cs">
+      <DependentUpon>SetupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SyntaxHelper.cs" />
+    <Compile Include="Stock.cs" />
     <Compile Include="StockForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +168,9 @@
     <EmbeddedResource Include="BackupForm.resx">
       <DependentUpon>BackupForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfirmExportToDeskForm.resx">
+      <DependentUpon>ConfirmExportToDeskForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomerOrdersForm.resx">
       <DependentUpon>CustomerOrdersForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -176,9 +179,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerForm.resx">
       <DependentUpon>CustomerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CustomerDetailsForm.resx">
-      <DependentUpon>CustomerDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileExportForm.resx">
       <DependentUpon>FileExportForm.cs</DependentUpon>
@@ -213,8 +213,8 @@
     <EmbeddedResource Include="ReportsForm.resx">
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StockDetailsForm.resx">
-      <DependentUpon>StockDetailsForm.cs</DependentUpon>
+    <EmbeddedResource Include="SetupForm.resx">
+      <DependentUpon>SetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StockForm.resx">
       <DependentUpon>StockForm.cs</DependentUpon>
@@ -222,7 +222,6 @@
     <EmbeddedResource Include="StockSearch.resx">
       <DependentUpon>StockSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -203,8 +203,7 @@ namespace Hard_To_Find
           Postcondition: Open form for creating new customer */
         private void btnNewCustomer_Click(object sender, EventArgs e)
         {
-            NewCustomerForm ncf = new NewCustomerForm();
-            ncf.setNewOrderForm(this);
+            NewCustomerForm ncf = new NewCustomerForm(this);
             ncf.Show();
         }
 
@@ -214,7 +213,7 @@ namespace Hard_To_Find
         {
             orderedBooks.Add(newStock);
 
-            dataGridView1.Rows.Add(1, newStock.author, newStock.title, newStock.price, newStock.bookID, "$0.00");
+            dataGridView1.Rows.Add(1, newStock.author, newStock.title, "$" + String.Format("{0:0.00}", newStock.price), newStock.bookID, "$0.00");
         }
 
         /*Precondition:
@@ -240,8 +239,22 @@ namespace Hard_To_Find
             try
             {
                 //Try to add a $ sign and make the numbers decimals in the price and discount boxes in the datagrid
+                string quantityCellValue = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 string priceCellValue = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
                 string discountCellValue = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+                
+                if (quantityCellValue == "")
+                    dataGridView1.Rows[e.RowIndex].Cells[0].Value = "1";
+                else
+                {
+                    bool noLetters = quantityCellValue.All(x => !char.IsLetter(x));
+
+                    if (!noLetters)
+                    {
+                        dataGridView1.Rows[e.RowIndex].Cells[0].Value = "1";
+                        MessageBox.Show("Price should not have letters");
+                    }
+                }
 
                 if (priceCellValue != "")
                 {
@@ -397,7 +410,13 @@ namespace Hard_To_Find
             string[] splitDate = stringDate.Split('/');
             DateTime invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
 
-            string freight = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+            string freightString = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+            double freight = 0.00;
+            if(freightString[0] == '$')
+                freight = Convert.ToDouble(freightString.Substring(1));
+            else
+                freight = Convert.ToDouble(freightString);
+
             string comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
 
             //Get invoice/orderID for current order
@@ -422,14 +441,29 @@ namespace Hard_To_Find
             //Loop over all the books selected and create orderedStock from them
             foreach (Stock s in orderedBooks)
             {
-                //TODO fix this so it all comes from datagrid
                 //Get quantity, price and discount from the datagrid
                 int quantity = Convert.ToInt32(dataGridView1.Rows[currRowIndex].Cells[0].Value.ToString());
-                string price = dataGridView1.Rows[currRowIndex].Cells[3].Value.ToString();
-                string discount = dataGridView1.Rows[currRowIndex].Cells[5].Value.ToString();
-                string author = SyntaxHelper.escapeSingleQuotes(s.author);
-                string title = SyntaxHelper.escapeSingleQuotes(s.title);
-                string bookID = SyntaxHelper.escapeSingleQuotes(s.bookID);
+                string author = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[currRowIndex].Cells[1].Value.ToString());
+                string title = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[currRowIndex].Cells[2].Value.ToString());
+                string priceString = dataGridView1.Rows[currRowIndex].Cells[3].Value.ToString();
+                double price = 0.00;
+                if (priceString != "")
+                {
+                    if(priceString[0] == '$')
+                        price = Convert.ToDouble(priceString.Substring(1));
+                    else
+                        price = Convert.ToDouble(priceString);
+                }
+                string bookID = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[currRowIndex].Cells[4].Value.ToString());
+                string discountString = dataGridView1.Rows[currRowIndex].Cells[5].Value.ToString();
+                double discount = 0.00;
+                if (discountString != "")
+                {
+                    if(discountString[0] == '$')
+                        discount = Convert.ToDouble(discountString.Substring(1));
+                    else
+                        discount = Convert.ToDouble(discountString);
+                }
 
                 //Create the orderedStock and store
                 OrderedStock o = new OrderedStock(nextOrderIDAndInvoiceNo, s.stockID, quantity, author, title, price, bookID, discount);

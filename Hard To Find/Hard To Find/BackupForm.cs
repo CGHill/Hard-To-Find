@@ -155,6 +155,7 @@ namespace Hard_To_Find
                     {
                         List<Object> customersAsObject = fileManager.importFromCSV(filename, FileManager.IMPORT_TYPE.CUSTOMER);
 
+                        //Turn objects into customers
                         foreach (Object o in customersAsObject)
                             allCustomers.Add((Customer)o);
 
@@ -162,7 +163,6 @@ namespace Hard_To_Find
                         progressBar1.Maximum = allCustomers.Count;
                         progressBar1.Value = 0;
 
-                        //TODO find a better place for this?
                         dbManager.dropCustomerTable();
                         dbManager.createCustomerTable();
 
@@ -213,6 +213,7 @@ namespace Hard_To_Find
                     {
                         List<Object> stockAsObject = fileManager.importFromCSV(filename, FileManager.IMPORT_TYPE.STOCK);
 
+                        //Turn objects into stock
                         foreach (Object o in stockAsObject)
                             allStock.Add((Stock)o);
 
@@ -270,6 +271,7 @@ namespace Hard_To_Find
                     {
                         List<Object> ordersAsObject = fileManager.importFromCSV(filename, FileManager.IMPORT_TYPE.ORDERS);
 
+                        //Turn objects into orders
                         foreach (Object o in ordersAsObject)
                             allOrders.Add((Order)o);
 
@@ -327,6 +329,7 @@ namespace Hard_To_Find
                     {
                         List<Object> ordersAsObject = fileManager.importFromCSV(filename, FileManager.IMPORT_TYPE.ORDEREDSTOCK);
 
+                        //Turn objects into orderedstock
                         foreach (Object o in ordersAsObject)
                             allOrderedStock.Add((OrderedStock)o);
 
@@ -335,7 +338,6 @@ namespace Hard_To_Find
                         progressBar1.Maximum = allOrderedStock.Count;
                         progressBar1.Value = 0;
 
-                        //TODO find a better place for this
                         dbManager.dropOrderedStockTable();
                         dbManager.createOrderedStock();
 

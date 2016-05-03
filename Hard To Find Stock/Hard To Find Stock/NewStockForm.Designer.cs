@@ -336,7 +336,6 @@
             // 
             // btnPrev
             // 
-            this.btnPrev.Enabled = false;
             this.btnPrev.Location = new System.Drawing.Point(637, 118);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(91, 34);

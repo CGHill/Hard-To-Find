@@ -111,18 +111,47 @@ namespace Hard_To_Find
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        /*Precondition: 
-         Postcondition: Allows the user to set the location to import stock files from */
-        private void btnSetImportLocation_Click(object sender, EventArgs e)
+
+        private void btnManualImport_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            folderBrowser.Description = "Select storage location";
-
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            if (canImport)
             {
-                string path = folderBrowser.SelectedPath;
+                //Set up file browser, to search for txt files and default directory of C: drive
+                OpenFileDialog dialogBox = new OpenFileDialog();
+                dialogBox.Title = "Open Stock txt file";
+                dialogBox.Filter = "TXT files|*.txt";
+                dialogBox.InitialDirectory = @"C:\";
 
-                fileManager.setImportStorageLocationFile(folderBrowser.SelectedPath);
+                //Open the file browser and wait for user to select file
+                if (dialogBox.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path for the file the user clicked on
+                    string filename = dialogBox.FileName;
+
+                    if (filename.Contains("\\Stock"))
+                    {
+                        //Get a list of stock objects out of the text file
+                        List<Stock> newStock = fileManager.getStockFromFile(filename);
+
+                        progressBar1.Visible = true;
+                        progressBar1.Maximum = newStock.Count;
+                        progressBar1.Value = 0;
+
+                        //Insert all of the new stock into the database
+                        dbManager.insertStock(newStock, progressBar1);
+
+                        progressBar1.Visible = false;
+
+                        //Delete the now used file so it doesn't get repeated
+                        fileManager.deleteFile(filename);
+
+                        MessageBox.Show("Completed");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: Wrong file selected");
+                    }
+                }
             }
         }
     }
