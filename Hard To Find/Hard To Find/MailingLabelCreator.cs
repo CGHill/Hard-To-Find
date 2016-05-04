@@ -190,23 +190,6 @@ namespace Hard_To_Find
             paragraphProperties1.Append(spacingBetweenLines1);
             paragraphProperties1.Append(paragraphMarkRunProperties1);
 
-            Run run1 = new Run() { RsidRunProperties = "00570900" };
-
-            RunProperties runProperties1 = new RunProperties();
-            RunFonts runFonts2 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-            FontSize fontSize2 = new FontSize() { Val = customerDetailsFontSize };
-
-            runProperties1.Append(runFonts2);
-            runProperties1.Append(fontSize2);
-            Text text1 = new Text();
-            text1.Text = "To:";
-
-            run1.Append(runProperties1);
-            run1.Append(text1);
-
-            paragraph1.Append(paragraphProperties1);
-            paragraph1.Append(run1);
-
             Paragraph paragraph2 = new Paragraph() { RsidParagraphMarkRevision = "00570900", RsidParagraphAddition = "003627FC", RsidParagraphProperties = "003627FC", RsidRunAdditionDefault = "003627FC" };
 
             ParagraphProperties paragraphProperties2 = new ParagraphProperties();
