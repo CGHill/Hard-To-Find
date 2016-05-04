@@ -111,10 +111,11 @@ namespace Hard_To_Find
          Postcondition: Gets the user to select the file to copy into the programs directory for use */
         private void btnRestoreFile_Click(object sender, EventArgs e)
         {
+            string backuppath = fileManager.getBackupStorageFilePath(); 
              //Set up file browser, to search for txt files and default directory of C: drive
             OpenFileDialog dialogBox = new OpenFileDialog();
             dialogBox.Title = "Select HardToFindDB.sqlite";
-            dialogBox.InitialDirectory = @"C:\";
+            dialogBox.InitialDirectory = backuppath;
 
             //Open the file browser and wait for user to select file
             if (dialogBox.ShowDialog() == DialogResult.OK)

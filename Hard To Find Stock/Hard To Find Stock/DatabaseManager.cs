@@ -164,19 +164,34 @@ namespace Hard_To_Find_Stock
                 {
                     string stockInsert = "";
 
+                    string note = SyntaxHelper.escapeSingleQuotes(s.note);
+                    string author = SyntaxHelper.escapeSingleQuotes(s.author);
+                    string title = SyntaxHelper.escapeSingleQuotes(s.title);
+                    string subtitle = SyntaxHelper.escapeSingleQuotes(s.subtitle);
+                    string publisher = SyntaxHelper.escapeSingleQuotes(s.publisher);
+                    string description = SyntaxHelper.escapeSingleQuotes(s.description);
+                    string comments = SyntaxHelper.escapeSingleQuotes(s.comments);
+                    string subject = SyntaxHelper.escapeSingleQuotes(s.subject);
+                    string catalogue = SyntaxHelper.escapeSingleQuotes(s.catalogue);
+                    string initials = SyntaxHelper.escapeSingleQuotes(s.initials);
+                    string sales = SyntaxHelper.escapeSingleQuotes(s.sales);
+                    string bookID = SyntaxHelper.escapeSingleQuotes(s.bookID);
+                    string dateEntered = SyntaxHelper.escapeSingleQuotes(s.dateEntered);
+
+
                     if (s.stockID != -1)
                     {
                         //Build insert command
-                        stockInsert = "INSERT INTO Stock VALUES(" + s.stockID + ", '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
-                            + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.initials + "', '" + s.sales + "', '" + s.bookID +
-                            "', '" + s.dateEntered + "')";
+                        stockInsert = "INSERT INTO Stock VALUES(" + s.stockID + ", '" + s.quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                            + "', '" + description + "', '" + comments + "', '" + s.price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                            "', '" + dateEntered + "')";
                     }
                     else
                     {
                         //Build insert command
-                        stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
-                            + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.initials + "', '" + s.sales + "', '" + s.bookID +
-                            "', '" + s.dateEntered + "')";
+                        stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                            + "', '" + description + "', '" + comments + "', '" + s.price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                            "', '" + dateEntered + "')";
                     }
 
                     SQLiteCommand insertCommand = new SQLiteCommand(stockInsert, dbConnection);
