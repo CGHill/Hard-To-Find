@@ -13,6 +13,7 @@ namespace Hard_To_Find
         const string STORAGE_FILE_NAME = "FileStorageLocation.txt";
         const string IMPORT_FILE_STORAGE = "ImportStorageLocation.txt";
         const string STOCK_EXPORT_FILE_STORAGE = "StockExportStorageLocation.txt";
+        const string BACKUP_FILE_STORAGE = "BackupStorageLocation.txt";
         const int OLD_CUSTOMER_ARRAY_LENGTH = 15;
         const int OLD_ORDER_ARRAY_LENGTH = 18;
         const int OLD_ORDEREDSTOCK_ARRAY_LENGTH = 19;
@@ -257,6 +258,42 @@ namespace Hard_To_Find
 
             return storageFilePath;
         }
+
+        /*Precondition:
+         Postcondition: Sets the backup file location */
+        public void setBackupStorageLocationFile(string newStorageFilePath)
+        {
+            //Create or overwrite the file to contain the storage location of imports folder
+            using (FileStream fs = File.Create(BACKUP_FILE_STORAGE))
+            {
+                StreamWriter sw = new StreamWriter(fs);
+
+                sw.WriteLine(newStorageFilePath);
+                sw.Close();
+            }
+        }
+
+        /*Precondition:
+         Postcondition: Returns a string containing the path where the backups are stored */
+        public string getBackupStorageFilePath()
+        {
+            //Open file from passed in path
+            StreamReader file = new StreamReader(BACKUP_FILE_STORAGE);
+
+            string storageFilePath = "";
+            string line;
+
+            //Read through and get the storage path, file should only contain 1 line
+            while ((line = file.ReadLine()) != null)
+            {
+                storageFilePath = line;
+            }
+
+            file.Close();
+
+            return storageFilePath;
+        }
+
 
         /*Precondition:
          Postcondition: Returns a list of strings of all of the import file paths */
@@ -1325,11 +1362,11 @@ namespace Hard_To_Find
 
         /*Precondition: 
          Postcondition: Copies the sqlite database file into the selected location */
-        public void copyDatabaseFile(string filePath)
+        public void copyDatabaseFile(string filePath, string fileName)
         {
             if (File.Exists("HardToFindDB.sqlite"))
             {
-                File.Copy("HardToFindDB.sqlite", filePath + @"\HardToFindDB.sqlite");
+                File.Copy("HardToFindDB.sqlite", filePath + @"\" + fileName + ".sqlite");
             }
         }
 
@@ -1337,7 +1374,7 @@ namespace Hard_To_Find
          Postcondition: Checks that the file has the correct name then copies it into the directory to be used for the rest of the program */
         public bool restoreDatabaseFile(string filePath)
         {
-            if (filePath.Contains("HardToFindDB.sqlite"))
+            if (filePath.Contains(".sqlite"))
             {
                 File.Copy(filePath, Environment.CurrentDirectory + @"\HardToFindDB.sqlite", true);
                 return true;

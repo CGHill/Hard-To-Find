@@ -40,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.checkNewStorage = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -126,12 +127,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkNewStorage);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnBackupFile);
             this.groupBox1.Controls.Add(this.btnBackupCSV);
             this.groupBox1.Location = new System.Drawing.Point(23, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(386, 87);
+            this.groupBox1.Size = new System.Drawing.Size(386, 89);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Create backups";
@@ -167,6 +169,16 @@
             this.progressBar1.TabIndex = 10;
             this.progressBar1.Visible = false;
             // 
+            // checkNewStorage
+            // 
+            this.checkNewStorage.AutoSize = true;
+            this.checkNewStorage.Location = new System.Drawing.Point(6, 64);
+            this.checkNewStorage.Name = "checkNewStorage";
+            this.checkNewStorage.Size = new System.Drawing.Size(165, 17);
+            this.checkNewStorage.TabIndex = 5;
+            this.checkNewStorage.Text = "Select New Storage Location";
+            this.checkNewStorage.UseVisualStyleBackColor = true;
+            // 
             // BackupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,5 +211,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkNewStorage;
     }
 }

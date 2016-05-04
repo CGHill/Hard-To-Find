@@ -64,20 +64,47 @@ namespace Hard_To_Find
          Postcondition: Opens folder browser for user to select a location to store the sqlite file in */
         private void btnBackupFile_Click(object sender, EventArgs e)
         {
-            //Setup folder browser
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            folderBrowser.Description = "Select storage location";
+            string fileName = getBackupFileName();
 
-            //Check the user selected something
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            if (checkNewStorage.Checked)
             {
-                string path = folderBrowser.SelectedPath;
+                //Setup folder browser
+                FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+                folderBrowser.Description = "Select storage location";
 
-                //Get the file copied over
-                fileManager.copyDatabaseFile(path);
+                //Check the user selected something
+                if (folderBrowser.ShowDialog() == DialogResult.OK)
+                {
+                    string path = folderBrowser.SelectedPath;
 
+                    fileManager.setBackupStorageLocationFile(path);
+
+                    //Get the file copied over
+                    fileManager.copyDatabaseFile(path, fileName);
+
+                    MessageBox.Show("Backed up to: " + path);
+                }
+            }
+            else
+            {
+                string path = fileManager.getBackupStorageFilePath();
+                fileManager.copyDatabaseFile(path, fileName);
                 MessageBox.Show("Backed up to: " + path);
             }
+        }
+
+        private string getBackupFileName()
+        {
+            return "HTFDB_" + getCurrDate(DateTime.Now);
+
+        }
+
+        /*Precondition:
+        Postcondition: Returns a timestamp of current year,month, day and time */
+        private static string getCurrDate(DateTime value)
+        {
+
+            return value.ToString("MMMM_d_yyyy");
         }
 
         /*Precondition:
@@ -101,7 +128,7 @@ namespace Hard_To_Find
                 if(success)
                     MessageBox.Show("Restored to backup");
                 else
-                    MessageBox.Show("File was not called HardToFindDB.sqlite");
+                    MessageBox.Show("File was not an .sqlite file");
             }
         }
 
@@ -109,14 +136,34 @@ namespace Hard_To_Find
          Postcondition: Gets the user to select the file to copy into the programs directory for use */
         private void btnBackupCSV_Click(object sender, EventArgs e)
         {
-            //Setup folder browsers
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            folderBrowser.Description = "Select storage location";
-
-            //Check user selected a location
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            if (checkNewStorage.Checked)
             {
-                string path = folderBrowser.SelectedPath;
+                //Setup folder browsers
+                FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+                folderBrowser.Description = "Select storage location";
+
+                //Check user selected a location
+                if (folderBrowser.ShowDialog() == DialogResult.OK)
+                {
+                    string path = folderBrowser.SelectedPath;
+
+                    fileManager.setBackupStorageLocationFile(path);
+
+                    //Change cursor so user has feedback that program is doing something
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    //Pass in the selected location
+                    fileManager.createDatabaseTablesAsCSVFiles(path);
+
+                    //Change cursor back to default
+                    Cursor.Current = Cursors.Default;
+
+                    MessageBox.Show("Backed up to: " + path);
+                }
+            }
+            else
+            {
+                string path = fileManager.getBackupStorageFilePath();
 
                 //Change cursor so user has feedback that program is doing something
                 Cursor.Current = Cursors.WaitCursor;
