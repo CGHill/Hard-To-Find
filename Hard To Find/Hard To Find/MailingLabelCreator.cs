@@ -31,16 +31,16 @@ namespace Hard_To_Find
 
             if (bigLabel)
             {
-                customerDetailsFontSize = "36";
-                bookshopLabelTitleSize = "34";
-                bookshopLabelSubTitleSize = "22";
+                customerDetailsFontSize = "48";
+                bookshopLabelTitleSize = "24";
+                bookshopLabelSubTitleSize = "18";
                 tableCellWidth = "6282";
             }
             else
             {
-                customerDetailsFontSize = "26";
-                bookshopLabelTitleSize = "24";
-                bookshopLabelSubTitleSize = "12";
+                customerDetailsFontSize = "28";
+                bookshopLabelTitleSize = "22";
+                bookshopLabelSubTitleSize = "8";
                 tableCellWidth = "3355";
             }
         }
@@ -206,6 +206,7 @@ namespace Hard_To_Find
             paragraphProperties2.Append(paragraphMarkRunProperties2);
 
             Run run2 = new Run() { RsidRunProperties = "00570900" };
+            Bold bold8 = new Bold();
 
             RunProperties runProperties2 = new RunProperties();
             RunFonts runFonts4 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
@@ -213,6 +214,7 @@ namespace Hard_To_Find
 
             runProperties2.Append(runFonts4);
             runProperties2.Append(fontSize4);
+            runProperties2.Append(bold8);
             Text text2 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             
             //TODO add in customer first Name
@@ -223,11 +225,13 @@ namespace Hard_To_Find
             ProofError proofError1 = new ProofError() { Type = ProofingErrorValues.SpellStart };
 
             Run run3 = new Run() { RsidRunProperties = "00570900" };
+            Bold bold9 = new Bold();
 
             RunProperties runProperties3 = new RunProperties();
             RunFonts runFonts5 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
             FontSize fontSize5 = new FontSize() { Val = customerDetailsFontSize };
 
+            runProperties3.Append(bold9);
             runProperties3.Append(runFonts5);
             runProperties3.Append(fontSize5);
             Text text3 = new Text();
@@ -245,6 +249,45 @@ namespace Hard_To_Find
             paragraph2.Append(run3);
             paragraph2.Append(proofError2);
 
+
+            Paragraph paragraphInstitute = new Paragraph() { RsidParagraphMarkRevision = "00570900", RsidParagraphAddition = "003627FC", RsidParagraphProperties = "003627FC", RsidRunAdditionDefault = "003627FC" };
+
+            ParagraphProperties paragraphInstituteProperties = new ParagraphProperties();
+            SpacingBetweenLines institudeSpacingBetweenLines = new SpacingBetweenLines() { After = "0" };
+
+            ParagraphMarkRunProperties paragraphInstituteMarkRunProperties = new ParagraphMarkRunProperties();
+            RunFonts paragraphRunFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            FontSize paragraphFontSize = new FontSize() { Val = "26" };
+
+            paragraphInstituteMarkRunProperties.Append(paragraphRunFonts);
+            paragraphInstituteMarkRunProperties.Append(paragraphFontSize);
+
+            paragraphInstituteProperties.Append(institudeSpacingBetweenLines);
+            paragraphInstituteProperties.Append(paragraphInstituteMarkRunProperties);
+
+            Run instituteRun = new Run() { RsidRunProperties = "00570900" };
+            Bold instituteBold = new Bold();
+
+            RunProperties instituteRunProperties = new RunProperties();
+            RunFonts instituteRunFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            FontSize instituteFontSize = new FontSize() { Val = customerDetailsFontSize };
+
+            instituteRunProperties.Append(instituteBold);
+            instituteRunProperties.Append(instituteRunFonts);
+            instituteRunProperties.Append(instituteFontSize);
+            Text instituteText = new Text() { Space = SpaceProcessingModeValues.Preserve };
+
+            //TODO add in institute
+            instituteText.Text = customer.institution;
+
+            instituteRun.Append(instituteRunProperties);
+            instituteRun.Append(instituteText);
+            ProofError instituteProofError3 = new ProofError() { Type = ProofingErrorValues.SpellStart };
+
+            paragraphInstitute.Append(paragraphInstituteProperties);
+            paragraphInstitute.Append(instituteRun);
+            paragraphInstitute.Append(instituteProofError3);
+
             Paragraph paragraph3 = new Paragraph() { RsidParagraphMarkRevision = "00570900", RsidParagraphAddition = "003627FC", RsidParagraphProperties = "003627FC", RsidRunAdditionDefault = "003627FC" };
 
             ParagraphProperties paragraphProperties3 = new ParagraphProperties();
@@ -261,11 +304,13 @@ namespace Hard_To_Find
             paragraphProperties3.Append(paragraphMarkRunProperties3);
 
             Run run4 = new Run() { RsidRunProperties = "00570900" };
+            Bold bold10 = new Bold();
 
             RunProperties runProperties4 = new RunProperties();
             RunFonts runFonts7 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
             FontSize fontSize7 = new FontSize() { Val = customerDetailsFontSize };
 
+            runProperties4.Append(bold10);
             runProperties4.Append(runFonts7);
             runProperties4.Append(fontSize7);
             Text text4 = new Text() { Space = SpaceProcessingModeValues.Preserve };
@@ -298,11 +343,13 @@ namespace Hard_To_Find
             ProofError proofError5 = new ProofError() { Type = ProofingErrorValues.SpellStart };
 
             Run run7 = new Run() { RsidRunProperties = "00570900" };
+            Bold bold11 = new Bold();
 
             RunProperties runProperties7 = new RunProperties();
             RunFonts runFonts11 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
             FontSize fontSize11 = new FontSize() { Val = customerDetailsFontSize };
 
+            runProperties7.Append(bold11);
             runProperties7.Append(runFonts11);
             runProperties7.Append(fontSize11);
             Text text7 = new Text();
@@ -333,11 +380,13 @@ namespace Hard_To_Find
             paragraphProperties5.Append(paragraphMarkRunProperties5);
 
             Run run9 = new Run() { RsidRunProperties = "00570900" };
+            Bold bold12 = new Bold();
 
             RunProperties runProperties9 = new RunProperties();
             RunFonts runFonts14 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
             FontSize fontSize14 = new FontSize() { Val = customerDetailsFontSize };
 
+            runProperties9.Append(bold12);
             runProperties9.Append(runFonts14);
             runProperties9.Append(fontSize14);
             Text text9 = new Text();
@@ -371,11 +420,13 @@ namespace Hard_To_Find
             paragraphProperties6.Append(paragraphMarkRunProperties6);
 
             Run run10 = new Run() { RsidRunProperties = "00570900" };
+            Bold bold13 = new Bold();
 
             RunProperties runProperties10 = new RunProperties();
             RunFonts runFonts16 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
             FontSize fontSize16 = new FontSize() { Val = customerDetailsFontSize };
 
+            runProperties10.Append(bold13);
             runProperties10.Append(runFonts16);
             runProperties10.Append(fontSize16);
             Text text10 = new Text();
@@ -405,11 +456,13 @@ namespace Hard_To_Find
             paragraphProperties7.Append(paragraphMarkRunProperties7);
 
             Run run11 = new Run() { RsidRunProperties = "00570900" };
+            Bold bold14 = new Bold();
 
             RunProperties runProperties11 = new RunProperties();
             RunFonts runFonts18 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
             FontSize fontSize18 = new FontSize() { Val = customerDetailsFontSize };
 
+            runProperties11.Append(bold14);
             runProperties11.Append(runFonts18);
             runProperties11.Append(fontSize18);
             Text text11 = new Text();
@@ -518,49 +571,13 @@ namespace Hard_To_Find
             runProperties12.Append(bold3);
             runProperties12.Append(fontSize21);
             Text text12 = new Text();
-            text12.Text = "Hard To Find Books";
+            text12.Text = "Hard To Find Books Internet NZ Ltd.";
 
             run12.Append(runProperties12);
             run12.Append(text12);
 
             paragraph9.Append(paragraphProperties9);
             paragraph9.Append(run12);
-
-            Paragraph paragraph10 = new Paragraph() { RsidParagraphMarkRevision = "002F2805", RsidParagraphAddition = "00E81AA7", RsidParagraphProperties = "00E81AA7", RsidRunAdditionDefault = "00E81AA7" };
-
-            ParagraphProperties paragraphProperties10 = new ParagraphProperties();
-            Justification justification3 = new Justification() { Val = JustificationValues.Center };
-
-            ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
-            RunFonts runFonts22 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-            Bold bold4 = new Bold();
-            FontSize fontSize22 = new FontSize() { Val = "24" };
-
-            paragraphMarkRunProperties10.Append(runFonts22);
-            paragraphMarkRunProperties10.Append(bold4);
-            paragraphMarkRunProperties10.Append(fontSize22);
-
-            paragraphProperties10.Append(justification3);
-            paragraphProperties10.Append(paragraphMarkRunProperties10);
-
-            Run run13 = new Run() { RsidRunProperties = "002F2805" };
-
-            RunProperties runProperties13 = new RunProperties();
-            RunFonts runFonts23 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-            Bold bold5 = new Bold();
-            FontSize fontSize23 = new FontSize() { Val = bookshopLabelTitleSize };
-
-            runProperties13.Append(runFonts23);
-            runProperties13.Append(bold5);
-            runProperties13.Append(fontSize23);
-            Text text13 = new Text();
-            text13.Text = "Internet NZ Ltd.";
-
-            run13.Append(runProperties13);
-            run13.Append(text13);
-
-            paragraph10.Append(paragraphProperties10);
-            paragraph10.Append(run13);
 
             Paragraph paragraph11 = new Paragraph() { RsidParagraphMarkRevision = "00E27825", RsidParagraphAddition = "00E81AA7", RsidParagraphProperties = "00E81AA7", RsidRunAdditionDefault = "00E81AA7" };
 
@@ -618,7 +635,7 @@ namespace Hard_To_Find
             runProperties15.Append(runFonts27);
             runProperties15.Append(fontSize27);
             Text text15 = new Text();
-            text15.Text = "Phone: +64 3 4745983, Email: books@hardtofind.zo.nz";
+            text15.Text = "Phone: +64 3 4745983, Email: books@hardtofind.co.nz";
 
             run15.Append(runProperties15);
             run15.Append(text15);
@@ -650,7 +667,7 @@ namespace Hard_To_Find
             runProperties16.Append(runFonts29);
             runProperties16.Append(fontSize29);
             Text text16 = new Text();
-            text16.Text = "GST: 70-526-627 Website: www.hardtofind.conz";
+            text16.Text = "Website: www.hardtofind.co.nz";
 
             run16.Append(runProperties16);
             run16.Append(text16);
@@ -679,7 +696,6 @@ namespace Hard_To_Find
 
             tableCell1.Append(tableCellProperties1);
             tableCell1.Append(paragraph9);
-            tableCell1.Append(paragraph10);
             tableCell1.Append(paragraph11);
             tableCell1.Append(paragraph12);
             tableCell1.Append(paragraph13);
@@ -735,14 +751,30 @@ namespace Hard_To_Find
             sectionProperties1.Append(columns1);
             sectionProperties1.Append(docGrid1);
 
+            
             body1.Append(paragraph1);
-            body1.Append(paragraph2);
-            body1.Append(paragraph3);
-            body1.Append(paragraph4);
-            body1.Append(paragraph5);
-            body1.Append(paragraph6);
-            body1.Append(paragraph7);
+            if (customer.firstName != "" || customer.lastName != "")
+                body1.Append(paragraph2);
+            if(customer.institution != "")
+                body1.Append(paragraphInstitute);
+            if(customer.address1 != "")
+                body1.Append(paragraph3);
+            if(customer.address2 != "")
+                body1.Append(paragraph4);
+            if(customer.address3 != "")
+                body1.Append(paragraph5);
+            if(customer.postCode != "")
+                body1.Append(paragraph6);
+            if(customer.country != "")
+                body1.Append(paragraph7);
             body1.Append(paragraph8);
+
+            //Add gap between customer details and store details
+            Paragraph blank = new Paragraph();
+            Run lineBreak = new Run(new Break());
+            blank.Append(lineBreak);
+            body1.Append(blank);
+
             body1.Append(table1);
             body1.Append(paragraph15);
             body1.Append(paragraph16);

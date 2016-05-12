@@ -90,11 +90,25 @@ namespace Hard_To_Find_Stock
             //Check to make sure stock table exists
             if (checkForTable("Stock"))
             {
+                string note = SyntaxHelper.escapeSingleQuotes(stock.note);
+                string author = SyntaxHelper.escapeSingleQuotes(stock.author);
+                string title = SyntaxHelper.escapeSingleQuotes(stock.title);
+                string subtitle = SyntaxHelper.escapeSingleQuotes(stock.subtitle);
+                string publisher = SyntaxHelper.escapeSingleQuotes(stock.publisher);
+                string description = SyntaxHelper.escapeSingleQuotes(stock.description);
+                string comments = SyntaxHelper.escapeSingleQuotes(stock.comments);
+                string subject = SyntaxHelper.escapeSingleQuotes(stock.subject);
+                string catalogue = SyntaxHelper.escapeSingleQuotes(stock.catalogue);
+                string initials = SyntaxHelper.escapeSingleQuotes(stock.initials);
+                string sales = SyntaxHelper.escapeSingleQuotes(stock.sales);
+                string bookID = SyntaxHelper.escapeSingleQuotes(stock.bookID);
+                string dateEntered = SyntaxHelper.escapeSingleQuotes(stock.dateEntered);
+
                 //Apostrophies cause program to crash
-                string updateQuery = "UPDATE Stock SET quantity =" + stock.quantity + ", note = '" + stock.note + "', author = '" + stock.author + "', title = '" + stock.title +
-                    "', subtitle = '" + stock.subtitle + "', publisher = '" + stock.publisher + "', description = '" + stock.description + "', comments = '" + stock.comments +
-                    "', price = '" + stock.price + "', subject = '" + stock.subject + "', catalogue = '" + stock.catalogue + "', initials = '" + stock.initials + "', sales = '" + stock.sales +
-                    "', bookID = '" + stock.bookID + "', dateEntered = '" + stock.dateEntered + "' WHERE stockID = " + stock.stockID;
+                string updateQuery = "UPDATE Stock SET quantity =" + stock.quantity + ", note = '" + note + "', author = '" + author + "', title = '" + title +
+                    "', subtitle = '" + subtitle + "', publisher = '" + publisher + "', description = '" + description + "', comments = '" + comments +
+                    "', price = '" + stock.price + "', subject = '" + subject + "', catalogue = '" + catalogue + "', initials = '" + initials + "', sales = '" + sales +
+                    "', bookID = '" + bookID + "', dateEntered = '" + dateEntered + "' WHERE stockID = " + stock.stockID;
 
                 dbConnection.Open();
                 SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -110,11 +124,25 @@ namespace Hard_To_Find_Stock
             //Check to make sure newstock table exists
             if (checkForTable("NewStock"))
             {
+                string note = SyntaxHelper.escapeSingleQuotes(stock.note);
+                string author = SyntaxHelper.escapeSingleQuotes(stock.author);
+                string title = SyntaxHelper.escapeSingleQuotes(stock.title);
+                string subtitle = SyntaxHelper.escapeSingleQuotes(stock.subtitle);
+                string publisher = SyntaxHelper.escapeSingleQuotes(stock.publisher);
+                string description = SyntaxHelper.escapeSingleQuotes(stock.description);
+                string comments = SyntaxHelper.escapeSingleQuotes(stock.comments);
+                string subject = SyntaxHelper.escapeSingleQuotes(stock.subject);
+                string catalogue = SyntaxHelper.escapeSingleQuotes(stock.catalogue);
+                string initials = SyntaxHelper.escapeSingleQuotes(stock.initials);
+                string sales = SyntaxHelper.escapeSingleQuotes(stock.sales);
+                string bookID = SyntaxHelper.escapeSingleQuotes(stock.bookID);
+                string dateEntered = SyntaxHelper.escapeSingleQuotes(stock.dateEntered);
+
                 //Apostrophies cause program to crash
-                string updateQuery = "UPDATE NewStock SET quantity =" + stock.quantity + ", note = '" + stock.note + "', author = '" + stock.author + "', title = '" + stock.title +
-                    "', subtitle = '" + stock.subtitle + "', publisher = '" + stock.publisher + "', description = '" + stock.description + "', comments = '" + stock.comments +
-                    "', price = '" + stock.price + "', subject = '" + stock.subject + "', catalogue = '" + stock.catalogue + "', initials = '" + stock.initials + "', sales = '" + stock.sales +
-                    "', bookID = '" + stock.bookID + "', dateEntered = '" + stock.dateEntered + "' WHERE stockID = " + stock.stockID;
+                string updateQuery = "UPDATE NewStock SET quantity =" + stock.quantity + ", note = '" + note + "', author = '" + author + "', title = '" + title +
+                    "', subtitle = '" + subtitle + "', publisher = '" + publisher + "', description = '" + description + "', comments = '" + comments +
+                    "', price = '" + stock.price + "', subject = '" + subject + "', catalogue = '" + catalogue + "', initials = '" + initials + "', sales = '" + sales +
+                    "', bookID = '" + bookID + "', dateEntered = '" + dateEntered + "' WHERE stockID = " + stock.stockID;
 
                 dbConnection.Open();
                 SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -132,10 +160,24 @@ namespace Hard_To_Find_Stock
                 //Open DB and start transcation - transaction hugely increases speed of insert
                 dbConnection.Open();
 
+                string note = SyntaxHelper.escapeSingleQuotes(newStock.note);
+                string author = SyntaxHelper.escapeSingleQuotes(newStock.author);
+                string title = SyntaxHelper.escapeSingleQuotes(newStock.title);
+                string subtitle = SyntaxHelper.escapeSingleQuotes(newStock.subtitle);
+                string publisher = SyntaxHelper.escapeSingleQuotes(newStock.publisher);
+                string description = SyntaxHelper.escapeSingleQuotes(newStock.description);
+                string comments = SyntaxHelper.escapeSingleQuotes(newStock.comments);
+                string subject = SyntaxHelper.escapeSingleQuotes(newStock.subject);
+                string catalogue = SyntaxHelper.escapeSingleQuotes(newStock.catalogue);
+                string initials = SyntaxHelper.escapeSingleQuotes(newStock.initials);
+                string sales = SyntaxHelper.escapeSingleQuotes(newStock.sales);
+                string bookID = SyntaxHelper.escapeSingleQuotes(newStock.bookID);
+                string dateEntered = SyntaxHelper.escapeSingleQuotes(newStock.dateEntered);
+
                 //Build insert command
-                string stockInsert = "INSERT INTO NewStock VALUES(null, '" + newStock.quantity + "', '" + newStock.note + "', '" + newStock.author + "', '" + newStock.title + "', '" + newStock.subtitle + "', '" + newStock.publisher
-                    + "', '" + newStock.description + "', '" + newStock.comments + "', '" + newStock.price + "', '" + newStock.subject + "', '" + newStock.catalogue + "', '" + newStock.initials + "', '" + newStock.sales + "', '" + newStock.bookID +
-                    "', '" + newStock.dateEntered + "')";
+                string stockInsert = "INSERT INTO NewStock VALUES(null, '" + newStock.quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                    + "', '" + description + "', '" + comments + "', '" + newStock.price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                    "', '" + dateEntered + "')";
 
 
                 SQLiteCommand insertCommand = new SQLiteCommand(stockInsert, dbConnection);
