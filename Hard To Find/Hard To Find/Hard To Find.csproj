@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
@@ -47,21 +51,84 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomersForm.cs">
+    <Compile Include="BackupForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomersForm.Designer.cs">
-      <DependentUpon>CustomersForm.cs</DependentUpon>
+    <Compile Include="BackupForm.Designer.cs">
+      <DependentUpon>BackupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfirmExportToDeskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfirmExportToDeskForm.Designer.cs">
+      <DependentUpon>ConfirmExportToDeskForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs" />
+    <Compile Include="CustomerOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerOrdersForm.Designer.cs">
+      <DependentUpon>CustomerOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FreightReportCreator.cs" />
+    <Compile Include="ICustomerReceiver.cs" />
+    <Compile Include="CustomerSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerSearch.Designer.cs">
+      <DependentUpon>CustomerSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerForm.Designer.cs">
+      <DependentUpon>CustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseManager.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FileExportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FileExportForm.Designer.cs">
+      <DependentUpon>FileExportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileManager.cs" />
+    <Compile Include="MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportsForm.Designer.cs">
+      <DependentUpon>ImportsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MailingLabelCreator.cs" />
+    <Compile Include="SalesReportCreator.cs" />
+    <Compile Include="NewCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewCustomerForm.Designer.cs">
+      <DependentUpon>NewCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewOrderForm.Designer.cs">
+      <DependentUpon>NewOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewStockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewStockForm.Designer.cs">
+      <DependentUpon>NewStockForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderedStock.cs" />
     <Compile Include="OrdersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,17 +143,60 @@
     <Compile Include="ReportsForm.Designer.cs">
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetupForm.Designer.cs">
+      <DependentUpon>SetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyntaxHelper.cs" />
+    <Compile Include="Stock.cs" />
     <Compile Include="StockForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="StockForm.Designer.cs">
       <DependentUpon>StockForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CustomersForm.resx">
-      <DependentUpon>CustomersForm.cs</DependentUpon>
+    <Compile Include="IStockReceiver.cs" />
+    <Compile Include="StockSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockSearch.Designer.cs">
+      <DependentUpon>StockSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceCreator.cs" />
+    <EmbeddedResource Include="BackupForm.resx">
+      <DependentUpon>BackupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ConfirmExportToDeskForm.resx">
+      <DependentUpon>ConfirmExportToDeskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerOrdersForm.resx">
+      <DependentUpon>CustomerOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerSearch.resx">
+      <DependentUpon>CustomerSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerForm.resx">
+      <DependentUpon>CustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileExportForm.resx">
+      <DependentUpon>FileExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportsForm.resx">
+      <DependentUpon>ImportsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewCustomerForm.resx">
+      <DependentUpon>NewCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewOrderForm.resx">
+      <DependentUpon>NewOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewStockForm.resx">
+      <DependentUpon>NewStockForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrdersForm.resx">
       <DependentUpon>OrdersForm.cs</DependentUpon>
@@ -103,8 +213,14 @@
     <EmbeddedResource Include="ReportsForm.resx">
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SetupForm.resx">
+      <DependentUpon>SetupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StockForm.resx">
       <DependentUpon>StockForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockSearch.resx">
+      <DependentUpon>StockSearch.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
