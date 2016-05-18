@@ -487,8 +487,8 @@ namespace Hard_To_Find
             runProperties7.Append(fontSize14);
             TabChar tabChar1 = new TabChar();
             Text text7 = new Text();
+
             //TODO add in customer name
-            //text7.Text = "Linda Fisher";
             if(customer != null)
                 text7.Text = customer.firstName + " " + customer.lastName;
             else
@@ -501,6 +501,42 @@ namespace Hard_To_Find
             paragraph9.Append(paragraphProperties9);
             paragraph9.Append(run7);
 
+            Paragraph paragraphInstitute = new Paragraph() { RsidParagraphAddition = "00417926", RsidParagraphProperties = "00417926", RsidRunAdditionDefault = "00910498" };
+
+            ParagraphProperties paragraphInstituteProperties = new ParagraphProperties();
+            SpacingBetweenLines institudeSpacingBetweenLines = new SpacingBetweenLines() { After = "0" };
+
+            ParagraphMarkRunProperties paragraphInstituteMarkRunProperties = new ParagraphMarkRunProperties();
+            RunFonts paragraphRunFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            FontSize paragraphFontSize = new FontSize() { Val = "24" };
+
+            paragraphInstituteMarkRunProperties.Append(paragraphRunFonts);
+            paragraphInstituteMarkRunProperties.Append(paragraphFontSize);
+
+            paragraphInstituteProperties.Append(institudeSpacingBetweenLines);
+            paragraphInstituteProperties.Append(paragraphInstituteMarkRunProperties);
+
+            Run instituteRun = new Run();
+
+            RunProperties instituteRunProperties = new RunProperties();
+            RunFonts instituteRunFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            FontSize instituteFontSize = new FontSize() { Val = "24" };
+
+            instituteRunProperties.Append(instituteRunFonts);
+            instituteRunProperties.Append(instituteFontSize);
+            TabChar instituteTabChar = new TabChar();
+            Text instituteText = new Text();
+
+            //TODO add in institute
+            instituteText.Text = customer.institution;
+
+            instituteRun.Append(instituteRunProperties);
+            instituteRun.Append(instituteTabChar);
+            instituteRun.Append(instituteText);
+
+            paragraphInstitute.Append(paragraphInstituteProperties);
+            paragraphInstitute.Append(instituteRun);
+           
             Paragraph paragraph10 = new Paragraph() { RsidParagraphAddition = "00910498", RsidParagraphProperties = "00417926", RsidRunAdditionDefault = "00910498" };
 
             ParagraphProperties paragraphProperties10 = new ParagraphProperties();
@@ -688,7 +724,6 @@ namespace Hard_To_Find
             Text text12 = new Text();
 
             //TODO add in country
-            //text12.Text = "New Zealand";
             if(customer != null)
                 text12.Text = customer.country;
             else
@@ -2484,12 +2519,30 @@ namespace Hard_To_Find
             body1.Append(paragraph6);
             body1.Append(paragraph7);
             body1.Append(paragraph8);
-            body1.Append(paragraph9);
-            body1.Append(paragraph10);
-            body1.Append(paragraph11);
-            body1.Append(paragraph12);
-            body1.Append(paragraph13);
-            body1.Append(paragraph14);
+
+            if (customer != null)
+            {
+                if (customer.firstName != "" || customer.lastName != "")
+                    body1.Append(paragraph9);
+            }
+            else
+            {
+                if(order.firstName != "" || order.lastName != "")
+                    body1.Append(paragraph9);
+            }
+
+            if (customer.institution != "")
+                body1.Append(paragraphInstitute);
+            if(customer.address1 != "")
+                body1.Append(paragraph10);
+            if(customer.address2 != "")
+                body1.Append(paragraph11);
+            if(customer.address3 != "")
+                body1.Append(paragraph12);
+            if(customer.postCode != "")
+                body1.Append(paragraph13);
+            if(customer.country != "")
+                body1.Append(paragraph14);
             body1.Append(paragraph15);
             body1.Append(table1);
             body1.Append(paragraph22);

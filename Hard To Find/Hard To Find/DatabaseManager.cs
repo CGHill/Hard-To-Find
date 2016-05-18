@@ -763,20 +763,46 @@ namespace Hard_To_Find
                 //Title included so add that to query
                 if (title != null)
                 {
-                    if (addAnds)
+                    if (!exactPhrase)
                     {
-                        if (exactPhrase)
-                            searchQuery += " AND title = '" + title + "'";
-                        else
-                            searchQuery += " AND title LIKE '%" + title + "%'";
+                        string[] splitTitle = title.Split(' ');
+
+                        foreach (string s in splitTitle)
+                        {
+                            if (addAnds)
+                            {
+                                if (exactPhrase)
+                                    searchQuery += " AND title = '" + s + "'";
+                                else
+                                    searchQuery += " AND title LIKE '%" + s + "%'";
+                            }
+                            else
+                            {
+                                if (exactPhrase)
+                                    searchQuery += " title = '" + s + "'";
+                                else
+                                    searchQuery += " title LIKE '%" + s + "%'";
+                                addAnds = true;
+                            }
+                        }
                     }
                     else
                     {
-                        if (exactPhrase)
-                            searchQuery += " title = '" + title + "'";
+                        if (addAnds)
+                        {
+                            if (exactPhrase)
+                                searchQuery += " AND title = '" + title + "'";
+                            else
+                                searchQuery += " AND title LIKE '%" + title + "%'";
+                        }
                         else
-                            searchQuery += " title LIKE '%" + title + "%'";
-                        addAnds = true;
+                        {
+                            if (exactPhrase)
+                                searchQuery += " title = '" + title + "'";
+                            else
+                                searchQuery += " title LIKE '%" + title + "%'";
+                            addAnds = true;
+                        }
                     }
                 }
                 //Subject included so add that to query
