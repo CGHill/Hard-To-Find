@@ -355,7 +355,7 @@ namespace Hard_To_Find_Stock
             //Create storage for stock that's found
             List<Stock> foundStock = new List<Stock>();
 
-            //Check to make sure stock table exists
+            //Check to see if stock table exists
             if (checkForTable("Stock"))
             {
                 dbConnection.Open();
@@ -419,20 +419,46 @@ namespace Hard_To_Find_Stock
                 //Title included so add that to query
                 if (title != null)
                 {
-                    if (addAnds)
+                    if (!exactPhrase)
                     {
-                        if (exactPhrase)
-                            searchQuery += " AND title = '" + title + "'";
-                        else
-                            searchQuery += " AND title LIKE '%" + title + "%'";
+                        string[] splitTitle = title.Split(' ');
+
+                        foreach (string s in splitTitle)
+                        {
+                            if (addAnds)
+                            {
+                                if (exactPhrase)
+                                    searchQuery += " AND title = '" + s + "'";
+                                else
+                                    searchQuery += " AND title LIKE '%" + s + "%'";
+                            }
+                            else
+                            {
+                                if (exactPhrase)
+                                    searchQuery += " title = '" + s + "'";
+                                else
+                                    searchQuery += " title LIKE '%" + s + "%'";
+                                addAnds = true;
+                            }
+                        }
                     }
                     else
                     {
-                        if (exactPhrase)
-                            searchQuery += " title = '" + title + "'";
+                        if (addAnds)
+                        {
+                            if (exactPhrase)
+                                searchQuery += " AND title = '" + title + "'";
+                            else
+                                searchQuery += " AND title LIKE '%" + title + "%'";
+                        }
                         else
-                            searchQuery += " title LIKE '%" + title + "%'";
-                        addAnds = true;
+                        {
+                            if (exactPhrase)
+                                searchQuery += " title = '" + title + "'";
+                            else
+                                searchQuery += " title LIKE '%" + title + "%'";
+                            addAnds = true;
+                        }
                     }
                 }
                 //Subject included so add that to query
@@ -448,6 +474,7 @@ namespace Hard_To_Find_Stock
                     }
                 }
 
+                //Make search non-case sensitive
                 searchQuery += " COLLATE NOCASE";
 
                 if (!searchAllStock)
