@@ -1366,7 +1366,7 @@ namespace Hard_To_Find
         {
             if (File.Exists("HardToFindDB.sqlite"))
             {
-                File.Copy("HardToFindDB.sqlite", filePath + @"\" + fileName + ".sqlite");
+                File.Copy("HardToFindDB.sqlite", filePath + @"\" + fileName + ".sqlite", true);
             }
         }
 
