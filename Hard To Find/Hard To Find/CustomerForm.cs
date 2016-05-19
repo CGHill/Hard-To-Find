@@ -321,9 +321,12 @@ namespace Hard_To_Find
             //Send to dbManager to update entry
             dbManager.updateCustomer(currCustomer);
 
-            startSearch();
-
-            dataGridView1.Rows[currRow].Selected = true;
+            dataGridView1.Rows[currRow].Cells[0].Value = currCustomer.firstName;
+            dataGridView1.Rows[currRow].Cells[1].Value = currCustomer.lastName;
+            dataGridView1.Rows[currRow].Cells[2].Value = currCustomer.address1;
+            dataGridView1.Rows[currRow].Cells[3].Value = currCustomer.address2;
+            dataGridView1.Rows[currRow].Cells[4].Value = currCustomer.country;
+            dataGridView1.Rows[currRow].Cells[5].Value = currCustomer.email;
         }
 
         /*Precondition: None

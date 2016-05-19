@@ -732,7 +732,7 @@ namespace Hard_To_Find
                             string enteredBy = combinedLines[16];
 
                             //Create a new stock entry from it and insert into list
-                            Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, initials,sales, bookID, enteredBy);
+                            Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, initials, sales, bookID, enteredBy);
                             allStock.Add(newStock);
 
                             /*this.Invoke((MethodInvoker)delegate

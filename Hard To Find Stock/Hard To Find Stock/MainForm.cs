@@ -256,7 +256,7 @@ namespace Hard_To_Find_Stock
                     foreach (Stock s in allNewStock)
                     {
                         sw.WriteLine("-1" + "|\"" + s.quantity + "\"|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description +
-                            "\"|\"" + s.comments + "\"|\"" + "" + "\"|\"$" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + "" + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"");
+                            "\"|\"" + s.comments + "\"|\"" + "" + "\"|\"$" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + s.initials + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"");
 
                         //Set id to negative so doesn't conflict and it gets a new ID when inserted into main table
                         s.stockID = -1;
