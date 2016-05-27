@@ -59,30 +59,35 @@ namespace Hard_To_Find
                 //Get a list of all the import files filepaths
                 List<String> allImportFilePaths = fileManager.getAllImportFilePaths();
 
-                //Loop through each filepath
-                foreach (string s in allImportFilePaths)
+                if (allImportFilePaths.Count > 0)
                 {
-                    //Check if it's a stock file
-                    if (s.Contains("Stock"))
+                    //Loop through each filepath
+                    foreach (string s in allImportFilePaths)
                     {
-                        //Get a list of stock objects out of the text file
-                        List<Stock> newStock = fileManager.getStockFromFile(s);
+                        //Check if it's a stock file
+                        if (s.Contains("Stock"))
+                        {
+                            //Get a list of stock objects out of the text file
+                            List<Stock> newStock = fileManager.getStockFromFile(s);
 
-                        progressBar1.Visible = true;
-                        progressBar1.Maximum = newStock.Count;
-                        progressBar1.Value = 0;
+                            progressBar1.Visible = true;
+                            progressBar1.Maximum = newStock.Count;
+                            progressBar1.Value = 0;
 
-                        //Insert all of the new stock into the database
-                        dbManager.insertStock(newStock, progressBar1);
+                            //Insert all of the new stock into the database
+                            dbManager.insertStock(newStock, progressBar1);
 
-                        progressBar1.Visible = false;
+                            progressBar1.Visible = false;
 
-                        //Delete the now used file so it doesn't get repeated
-                        fileManager.deleteFile(s);
+                            //Delete the now used file so it doesn't get repeated
+                            fileManager.deleteFile(s);
+                        }
                     }
-                }
 
-                MessageBox.Show("Completed");
+                    MessageBox.Show("Completed");
+                }
+                else
+                    MessageBox.Show("No new files");
             }
         }
 

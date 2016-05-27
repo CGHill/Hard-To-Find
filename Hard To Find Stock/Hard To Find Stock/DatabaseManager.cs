@@ -90,6 +90,7 @@ namespace Hard_To_Find_Stock
             //Check to make sure stock table exists
             if (checkForTable("Stock"))
             {
+                int quantity = stock.quantity;
                 string note = SyntaxHelper.escapeSingleQuotes(stock.note);
                 string author = SyntaxHelper.escapeSingleQuotes(stock.author);
                 string title = SyntaxHelper.escapeSingleQuotes(stock.title);
@@ -97,18 +98,20 @@ namespace Hard_To_Find_Stock
                 string publisher = SyntaxHelper.escapeSingleQuotes(stock.publisher);
                 string description = SyntaxHelper.escapeSingleQuotes(stock.description);
                 string comments = SyntaxHelper.escapeSingleQuotes(stock.comments);
+                double price = stock.price;
                 string subject = SyntaxHelper.escapeSingleQuotes(stock.subject);
                 string catalogue = SyntaxHelper.escapeSingleQuotes(stock.catalogue);
                 string initials = SyntaxHelper.escapeSingleQuotes(stock.initials);
                 string sales = SyntaxHelper.escapeSingleQuotes(stock.sales);
                 string bookID = SyntaxHelper.escapeSingleQuotes(stock.bookID);
                 string dateEntered = SyntaxHelper.escapeSingleQuotes(stock.dateEntered);
+                int stockID = stock.stockID;
 
                 //Apostrophies cause program to crash
-                string updateQuery = "UPDATE Stock SET quantity =" + stock.quantity + ", note = '" + note + "', author = '" + author + "', title = '" + title +
+                string updateQuery = "UPDATE Stock SET quantity =" + quantity + ", note = '" + note + "', author = '" + author + "', title = '" + title +
                     "', subtitle = '" + subtitle + "', publisher = '" + publisher + "', description = '" + description + "', comments = '" + comments +
-                    "', price = '" + stock.price + "', subject = '" + subject + "', catalogue = '" + catalogue + "', initials = '" + initials + "', sales = '" + sales +
-                    "', bookID = '" + bookID + "', dateEntered = '" + dateEntered + "' WHERE stockID = " + stock.stockID;
+                    "', price = '" + price + "', subject = '" + subject + "', catalogue = '" + catalogue + "', initials = '" + initials + "', sales = '" + sales +
+                    "', bookID = '" + bookID + "', dateEntered = '" + dateEntered + "' WHERE stockID = " + stockID;
 
                 dbConnection.Open();
                 SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -124,6 +127,7 @@ namespace Hard_To_Find_Stock
             //Check to make sure newstock table exists
             if (checkForTable("NewStock"))
             {
+                int quantity = stock.quantity;
                 string note = SyntaxHelper.escapeSingleQuotes(stock.note);
                 string author = SyntaxHelper.escapeSingleQuotes(stock.author);
                 string title = SyntaxHelper.escapeSingleQuotes(stock.title);
@@ -131,18 +135,20 @@ namespace Hard_To_Find_Stock
                 string publisher = SyntaxHelper.escapeSingleQuotes(stock.publisher);
                 string description = SyntaxHelper.escapeSingleQuotes(stock.description);
                 string comments = SyntaxHelper.escapeSingleQuotes(stock.comments);
+                double price = stock.price;
                 string subject = SyntaxHelper.escapeSingleQuotes(stock.subject);
                 string catalogue = SyntaxHelper.escapeSingleQuotes(stock.catalogue);
                 string initials = SyntaxHelper.escapeSingleQuotes(stock.initials);
                 string sales = SyntaxHelper.escapeSingleQuotes(stock.sales);
                 string bookID = SyntaxHelper.escapeSingleQuotes(stock.bookID);
                 string dateEntered = SyntaxHelper.escapeSingleQuotes(stock.dateEntered);
+                int stockID = stock.stockID;
 
                 //Apostrophies cause program to crash
-                string updateQuery = "UPDATE NewStock SET quantity =" + stock.quantity + ", note = '" + note + "', author = '" + author + "', title = '" + title +
+                string updateQuery = "UPDATE NewStock SET quantity =" + quantity + ", note = '" + note + "', author = '" + author + "', title = '" + title +
                     "', subtitle = '" + subtitle + "', publisher = '" + publisher + "', description = '" + description + "', comments = '" + comments +
-                    "', price = '" + stock.price + "', subject = '" + subject + "', catalogue = '" + catalogue + "', initials = '" + initials + "', sales = '" + sales +
-                    "', bookID = '" + bookID + "', dateEntered = '" + dateEntered + "' WHERE stockID = " + stock.stockID;
+                    "', price = '" + price + "', subject = '" + subject + "', catalogue = '" + catalogue + "', initials = '" + initials + "', sales = '" + sales +
+                    "', bookID = '" + bookID + "', dateEntered = '" + dateEntered + "' WHERE stockID = " + stockID;
 
                 dbConnection.Open();
                 SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -160,6 +166,7 @@ namespace Hard_To_Find_Stock
                 //Open DB and start transcation - transaction hugely increases speed of insert
                 dbConnection.Open();
 
+                int quantity = newStock.quantity;
                 string note = SyntaxHelper.escapeSingleQuotes(newStock.note);
                 string author = SyntaxHelper.escapeSingleQuotes(newStock.author);
                 string title = SyntaxHelper.escapeSingleQuotes(newStock.title);
@@ -167,16 +174,18 @@ namespace Hard_To_Find_Stock
                 string publisher = SyntaxHelper.escapeSingleQuotes(newStock.publisher);
                 string description = SyntaxHelper.escapeSingleQuotes(newStock.description);
                 string comments = SyntaxHelper.escapeSingleQuotes(newStock.comments);
+                double price = newStock.price;
                 string subject = SyntaxHelper.escapeSingleQuotes(newStock.subject);
                 string catalogue = SyntaxHelper.escapeSingleQuotes(newStock.catalogue);
                 string initials = SyntaxHelper.escapeSingleQuotes(newStock.initials);
                 string sales = SyntaxHelper.escapeSingleQuotes(newStock.sales);
                 string bookID = SyntaxHelper.escapeSingleQuotes(newStock.bookID);
                 string dateEntered = SyntaxHelper.escapeSingleQuotes(newStock.dateEntered);
+                int newStockID = newStock.stockID;
 
                 //Build insert command
-                string stockInsert = "INSERT INTO NewStock VALUES(null, '" + newStock.quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
-                    + "', '" + description + "', '" + comments + "', '" + newStock.price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                string stockInsert = "INSERT INTO NewStock VALUES(null, '" + quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                    + "', '" + description + "', '" + comments + "', '" + price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
                     "', '" + dateEntered + "')";
 
 
@@ -206,6 +215,7 @@ namespace Hard_To_Find_Stock
                 {
                     string stockInsert = "";
 
+                    int quantity = s.quantity;
                     string note = SyntaxHelper.escapeSingleQuotes(s.note);
                     string author = SyntaxHelper.escapeSingleQuotes(s.author);
                     string title = SyntaxHelper.escapeSingleQuotes(s.title);
@@ -213,26 +223,28 @@ namespace Hard_To_Find_Stock
                     string publisher = SyntaxHelper.escapeSingleQuotes(s.publisher);
                     string description = SyntaxHelper.escapeSingleQuotes(s.description);
                     string comments = SyntaxHelper.escapeSingleQuotes(s.comments);
+                    double price = s.price;
                     string subject = SyntaxHelper.escapeSingleQuotes(s.subject);
                     string catalogue = SyntaxHelper.escapeSingleQuotes(s.catalogue);
                     string initials = SyntaxHelper.escapeSingleQuotes(s.initials);
                     string sales = SyntaxHelper.escapeSingleQuotes(s.sales);
                     string bookID = SyntaxHelper.escapeSingleQuotes(s.bookID);
                     string dateEntered = SyntaxHelper.escapeSingleQuotes(s.dateEntered);
+                    int stockID = s.stockID;
 
 
                     if (s.stockID != -1)
                     {
                         //Build insert command
-                        stockInsert = "INSERT INTO Stock VALUES(" + s.stockID + ", '" + s.quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
-                            + "', '" + description + "', '" + comments + "', '" + s.price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                        stockInsert = "INSERT INTO Stock VALUES(" + stockID + ", '" + quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                            + "', '" + description + "', '" + comments + "', '" + price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
                             "', '" + dateEntered + "')";
                     }
                     else
                     {
                         //Build insert command
-                        stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
-                            + "', '" + description + "', '" + comments + "', '" + s.price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                        stockInsert = "INSERT INTO Stock VALUES(null, '" + quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                            + "', '" + description + "', '" + comments + "', '" + price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
                             "', '" + dateEntered + "')";
                     }
 

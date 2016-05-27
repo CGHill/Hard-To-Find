@@ -19,6 +19,7 @@ namespace Hard_To_Find
         private List<Customer> foundCustomers;
         private List<Customer> allCustomers;
         private Customer currCustomer;
+        private bool newCustAndHaventRefreshed;
 
 
         //Constructor
@@ -41,6 +42,7 @@ namespace Hard_To_Find
             foundCustomers = new List<Customer>();
             allCustomers = new List<Customer>();
             currCustomer = null;
+            newCustAndHaventRefreshed = false;
 
             //Set up column widths
             DataGridViewColumn colFirstName = dataGridView1.Columns[0];
@@ -121,6 +123,8 @@ namespace Hard_To_Find
          Postcondition: Starts a search for customers depending on what search boxes have been filled in*/
         private void startSearch()
         {
+            newCustAndHaventRefreshed = true;
+
             //Reset datagrid and foundcustomers so searches don't stack
             foundCustomers = new List<Customer>();
             dataGridView1.Rows.Clear();
@@ -163,13 +167,13 @@ namespace Hard_To_Find
 
                 //Get fields if they have been entered
                 if (boxSearchFirstName.Text != "")
-                    firstName = SyntaxHelper.escapeSingleQuotes(boxSearchFirstName.Text);
+                    firstName = boxSearchFirstName.Text;
                 if (boxSearchLastName.Text != "")
-                    lastName = SyntaxHelper.escapeSingleQuotes(boxSearchLastName.Text);
+                    lastName = boxSearchLastName.Text;
                 if (boxSearchInstiution.Text != "")
-                    instutution = SyntaxHelper.escapeSingleQuotes(boxSearchInstiution.Text);
+                    instutution = boxSearchInstiution.Text;
                 if (boxSearchEmail.Text != "")
-                    email = SyntaxHelper.escapeSingleQuotes(boxSearchEmail.Text);
+                    email = boxSearchEmail.Text;
 
                 //Search for customers with fields entered
                 foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email, exactName);
@@ -305,28 +309,32 @@ namespace Hard_To_Find
             toggleBoxesReadOnly();
 
             //Update all fields
-            currCustomer.firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
-            currCustomer.lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
-            currCustomer.institution = SyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
-            currCustomer.address1 = SyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
-            currCustomer.address2 = SyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
-            currCustomer.address3 = SyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
-            currCustomer.postCode = SyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
-            currCustomer.country = SyntaxHelper.escapeSingleQuotes(boxCountry.Text);
-            currCustomer.email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
-            currCustomer.comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
-            currCustomer.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-            currCustomer.payment = SyntaxHelper.escapeSingleQuotes(boxPayment.Text);
+            currCustomer.firstName = boxFirstName.Text;
+            currCustomer.lastName = boxLastName.Text;
+            currCustomer.institution = boxInstitution.Text;
+            currCustomer.address1 = boxAddress1.Text;
+            currCustomer.address2 = boxAddress2.Text;
+            currCustomer.address3 = boxAddress3.Text;
+            currCustomer.postCode = boxPostcode.Text;
+            currCustomer.country = boxCountry.Text;
+            currCustomer.email = boxEmail.Text;
+            currCustomer.comments = boxComments.Text;
+            currCustomer.sales = boxSales.Text;
+            currCustomer.payment = boxPayment.Text;
 
             //Send to dbManager to update entry
             dbManager.updateCustomer(currCustomer);
 
-            dataGridView1.Rows[currRow].Cells[0].Value = currCustomer.firstName;
-            dataGridView1.Rows[currRow].Cells[1].Value = currCustomer.lastName;
-            dataGridView1.Rows[currRow].Cells[2].Value = currCustomer.address1;
-            dataGridView1.Rows[currRow].Cells[3].Value = currCustomer.address2;
-            dataGridView1.Rows[currRow].Cells[4].Value = currCustomer.country;
-            dataGridView1.Rows[currRow].Cells[5].Value = currCustomer.email;
+            //Stops from updating datagrid when new customer isn't on the list yet
+            if (!newCustAndHaventRefreshed)
+            {
+                dataGridView1.Rows[currRow].Cells[0].Value = currCustomer.firstName;
+                dataGridView1.Rows[currRow].Cells[1].Value = currCustomer.lastName;
+                dataGridView1.Rows[currRow].Cells[2].Value = currCustomer.address1;
+                dataGridView1.Rows[currRow].Cells[3].Value = currCustomer.address2;
+                dataGridView1.Rows[currRow].Cells[4].Value = currCustomer.country;
+                dataGridView1.Rows[currRow].Cells[5].Value = currCustomer.email;
+            }
         }
 
         /*Precondition: None
@@ -385,6 +393,7 @@ namespace Hard_To_Find
          Postcondition: New customer was entered into database, load up their details and set to currCustomer */
         public void addCustomer(Customer newCustomer)
         {
+            newCustAndHaventRefreshed = true;
             currCustomer = newCustomer;
             loadUpCustomer();
         }

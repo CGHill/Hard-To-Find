@@ -117,7 +117,7 @@ namespace Hard_To_Find
                     if (boxDescription.Focused)
                         boxDescription.Text = previousStock.description;
                     if (boxPrice.Focused)
-                        boxPrice.Text = "$" + previousStock.price.ToString();
+                        boxPrice.Text = "$" + String.Format("{0:0.00}", previousStock.price);
                     if (boxSubject.Focused)
                         boxSubject.Text = previousStock.subject;
                     if (boxCatalogues.Focused)
@@ -137,7 +137,9 @@ namespace Hard_To_Find
             //Closes form if escape is pressed
             if (keyData == Keys.Escape)
             {
-                this.Close();
+                //Try save data before closing
+                if(initiateSave())
+                    this.Close();
             }
 
             //Use Control + , or . to move between entries
@@ -172,7 +174,12 @@ namespace Hard_To_Find
          Postcondition: Saves the new stock into the database*/
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(indexOfNewStock >= 0 && wasAnyInfoEntered())
+            initiateSave();
+        }
+
+        private bool initiateSave()
+        {
+            if (indexOfNewStock >= 0 && wasAnyInfoEntered())
             {
                 saveEntry();
             }
@@ -250,6 +257,8 @@ namespace Hard_To_Find
                 Stock failedStock = newStockEntered[indexOfFailed];
                 loadStockIntoTextboxes(failedStock);
             }
+
+            return canSave;
         }
 
         /*Precondition:
@@ -260,14 +269,14 @@ namespace Hard_To_Find
             if (indexOfNewStock == newStockEntered.Count)
             {
                 int quantity = Convert.ToInt32(boxQuantity.Text);
-                string note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
-                string author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-                string title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-                string subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-                string publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-                string description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-                string comment = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
-                string priceString = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+                string note = boxNote.Text;
+                string author = boxAuthor.Text;
+                string title = boxTitle.Text;
+                string subtitle = boxSubtitle.Text;
+                string publisher = boxPublisher.Text;
+                string description = boxDescription.Text;
+                string comment = boxComment.Text;
+                string priceString = boxPrice.Text;
                 double price = 0.00;
                 if (priceString != "" && priceString.Any(x => !char.IsLetter(x)))
                 {
@@ -276,12 +285,12 @@ namespace Hard_To_Find
                     else
                         price = Convert.ToDouble(priceString);
                 }
-                string subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-                string catalogues = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-                string initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
-                string sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-                string bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-                string dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+                string subject = boxSubject.Text;
+                string catalogues = boxCatalogues.Text;
+                string initials = boxInitials.Text;
+                string sales = boxSales.Text;
+                string bookID = boxBookID.Text;
+                string dateEntered = boxDateEntered.Text;
 
                 Stock newStock = new Stock(quantity, note, author, title, subtitle, publisher, description, comment, price, subject, catalogues, initials, sales, bookID, dateEntered);
 
@@ -292,14 +301,14 @@ namespace Hard_To_Find
                 Stock currStock = newStockEntered[indexOfNewStock];
 
                 currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-                currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
-                currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-                currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-                currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-                currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-                currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-                currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
-                string priceString = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+                currStock.note = boxNote.Text;
+                currStock.author = boxAuthor.Text;
+                currStock.title = boxTitle.Text;
+                currStock.subtitle = boxSubtitle.Text;
+                currStock.publisher = boxPublisher.Text;
+                currStock.description = boxDescription.Text;
+                currStock.comments = boxComment.Text;
+                string priceString = boxPrice.Text;
                 if (priceString != "" && priceString.Any(x => !char.IsLetter(x)))
                 {
                     if (priceString[0] == '$')
@@ -309,12 +318,12 @@ namespace Hard_To_Find
                 }
                 else
                     currStock.price = 0.00;
-                currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-                currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-                currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
-                currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-                currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-                currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+                currStock.subject = boxSubject.Text;
+                currStock.catalogue = boxCatalogues.Text;
+                currStock.initials = boxInitials.Text;
+                currStock.sales = boxSales.Text;
+                currStock.bookID = boxBookID.Text;
+                currStock.dateEntered = boxDateEntered.Text;
 
                 //If data was already in database, update it in the databse
                 if (indexOfNewStock < newStockAlreadyInDatabase.Count)

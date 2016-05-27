@@ -61,18 +61,18 @@ namespace Hard_To_Find
          Postcondition: Creates a new customer and passes it to database for storage*/
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
-            string lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
-            string institution = SyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
-            string address1 = SyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
-            string address2 = SyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
-            string address3 = SyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
-            string postcode = SyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
-            string country = SyntaxHelper.escapeSingleQuotes(boxCountry.Text);
-            string email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
-            string comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
-            string sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-            string payment = SyntaxHelper.escapeSingleQuotes(boxPayment.Text);
+            string firstName = boxFirstName.Text;
+            string lastName = boxLastName.Text;
+            string institution = boxInstitution.Text;
+            string address1 = boxAddress1.Text;
+            string address2 = boxAddress2.Text;
+            string address3 = boxAddress3.Text;
+            string postcode = boxPostcode.Text;
+            string country = boxCountry.Text;
+            string email = boxEmail.Text;
+            string comments = boxComments.Text;
+            string sales = boxSales.Text;
+            string payment = boxPayment.Text;
 
             //Check that the basic things haven't been left empty so a blank customer isn't saved
             if (firstName != "" || lastName != "" || address1 != "" || address2 != "" || address3 != "")

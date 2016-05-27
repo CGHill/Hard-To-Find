@@ -262,8 +262,7 @@ namespace Hard_To_Find
 
                     if (noLetters)
                     {
-                        string price = SyntaxHelper.escapeSingleQuotes(priceCellValue);
-                        string finalPrice = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(price);
+                        string finalPrice = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(priceCellValue);
                         dataGridView1.Rows[e.RowIndex].Cells[3].Value = finalPrice;
                     }
                     else
@@ -277,9 +276,7 @@ namespace Hard_To_Find
 
                     if (noLetters)
                     {
-
-                        string discount = SyntaxHelper.escapeSingleQuotes(discountCellValue);
-                        string finalDiscount = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(discount);
+                        string finalDiscount = SyntaxHelper.checkAddDollarSignAndDoubleDecimal(discountCellValue);
                         dataGridView1.Rows[e.RowIndex].Cells[5].Value = finalDiscount;
                     }
                     else
@@ -396,28 +393,28 @@ namespace Hard_To_Find
         private Order createOrder()
         {
             //Get all information out of text boxes
-            string firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
-            string lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
-            string institution = SyntaxHelper.escapeSingleQuotes(boxInstitution.Text);
-            string add1 = SyntaxHelper.escapeSingleQuotes(boxAddress1.Text);
-            string add2 = SyntaxHelper.escapeSingleQuotes(boxAddress2.Text);
-            string add3 = SyntaxHelper.escapeSingleQuotes(boxAddress3.Text);
-            string postcode = SyntaxHelper.escapeSingleQuotes(boxPostcode.Text);
-            string country = SyntaxHelper.escapeSingleQuotes(boxCountry.Text);
-            string orderRef = SyntaxHelper.escapeSingleQuotes(boxOrderRef.Text);
-            string progress = SyntaxHelper.escapeSingleQuotes(boxProgress.Text);
-            string stringDate = SyntaxHelper.escapeSingleQuotes(boxInvoiceDate.Text);
+            string firstName = boxFirstName.Text;
+            string lastName = boxLastName.Text;
+            string institution = boxInstitution.Text;
+            string add1 = boxAddress1.Text;
+            string add2 = boxAddress2.Text;
+            string add3 = boxAddress3.Text;
+            string postcode = boxPostcode.Text;
+            string country = boxCountry.Text;
+            string orderRef = boxOrderRef.Text;
+            string progress = boxProgress.Text;
+            string stringDate = boxInvoiceDate.Text;
             string[] splitDate = stringDate.Split('/');
             DateTime invoiceDate = new DateTime(Convert.ToInt32(splitDate[2]), Convert.ToInt32(splitDate[1]), Convert.ToInt32(splitDate[0]));
 
-            string freightString = SyntaxHelper.escapeSingleQuotes(boxFreight.Text);
+            string freightString = boxFreight.Text;
             double freight = 0.00;
             if(freightString[0] == '$')
                 freight = Convert.ToDouble(freightString.Substring(1));
             else
                 freight = Convert.ToDouble(freightString);
 
-            string comments = SyntaxHelper.escapeSingleQuotes(boxComments.Text);
+            string comments = boxComments.Text;
 
             //Get invoice/orderID for current order
             int nextOrderIDAndInvoiceNo = dbManager.getNextOrderID();
@@ -443,8 +440,8 @@ namespace Hard_To_Find
             {
                 //Get quantity, price and discount from the datagrid
                 int quantity = Convert.ToInt32(dataGridView1.Rows[currRowIndex].Cells[0].Value.ToString());
-                string author = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[currRowIndex].Cells[1].Value.ToString());
-                string title = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[currRowIndex].Cells[2].Value.ToString());
+                string author = dataGridView1.Rows[currRowIndex].Cells[1].Value.ToString();
+                string title = dataGridView1.Rows[currRowIndex].Cells[2].Value.ToString();
                 string priceString = dataGridView1.Rows[currRowIndex].Cells[3].Value.ToString();
                 double price = 0.00;
                 if (priceString != "")
@@ -454,7 +451,7 @@ namespace Hard_To_Find
                     else
                         price = Convert.ToDouble(priceString);
                 }
-                string bookID = SyntaxHelper.escapeSingleQuotes(dataGridView1.Rows[currRowIndex].Cells[4].Value.ToString());
+                string bookID = dataGridView1.Rows[currRowIndex].Cells[4].Value.ToString();
                 string discountString = dataGridView1.Rows[currRowIndex].Cells[5].Value.ToString();
                 double discount = 0.00;
                 if (discountString != "")

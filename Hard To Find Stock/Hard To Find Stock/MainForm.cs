@@ -299,20 +299,28 @@ namespace Hard_To_Find_Stock
             }
         }
 
+
+        /*Precondition:
+         Postcondition: Updates the database from file on Google Drive */
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            //Get filepath of stock files in Google Drive
             List<string> filepaths = fileManager.getAllImportFilePaths();
 
             if (filepaths.Count > 0)
             {
+                //Loop over file paths
                 foreach (string s in filepaths)
                 {
+                    //Get all stock contained in CSVs
                     List<Stock> newStock = fileManager.importFromCSV(s);
 
                     int firstEntryID = newStock[0].stockID;
 
+                    //Delete stock that would be re-entered if contained in the update file
                     dbManager.deleteStockFromIDForward(firstEntryID);
 
+                    //Insert the new stock
                     dbManager.insertStock(newStock);
 
                     //Delete the now used file so it doesn't get repeated
@@ -327,8 +335,11 @@ namespace Hard_To_Find_Stock
             }
         }
 
+        /*Precondition:
+         Postcondition: Sorts the datagrid information on what the user selected */
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Check that there is stock in the list
             if (foundStock != null)
             {
                 if (foundStock.Count != 0)
@@ -337,6 +348,7 @@ namespace Hard_To_Find_Stock
 
                     string selectedSort = comboBox1.SelectedItem.ToString();
 
+                    //Sort by what the user selected
                     switch (selectedSort)
                     {
                         case "Quantity":
@@ -353,6 +365,7 @@ namespace Hard_To_Find_Stock
                             break;
                     }
 
+                    //Enter the newly sorted data back into datagrid
                     foreach (Stock s in foundStock)
                     {
                         dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, "$" + String.Format("{0:0.00}", s.price), s.bookID);
@@ -361,6 +374,8 @@ namespace Hard_To_Find_Stock
             }
         }
 
+        /*Precondition:
+         Postcondition: Allow user to set the location that the database gets updated from */
         private void btnSetStockImport_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
