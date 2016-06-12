@@ -314,5 +314,60 @@ namespace Hard_To_Find_Stock
         {
             File.Delete(filePath);
         }
+
+        /*Precondition: 
+          Postcondition: Checks for OneDrive directory and gets the latest file and copies it to current program directory */
+        public string copyFileFromOneDrive()
+        {
+            string updatedFileName = "";
+
+            //Get OneDrive directory
+            string oneDrivePath = @"%USERPROFILE%\SkyDrive\HTF_Backups";
+            string oneDrivePathFinal = Environment.ExpandEnvironmentVariables(oneDrivePath);
+            
+            //Check directory exists
+            if (Directory.Exists(oneDrivePathFinal))
+            {
+                //Get the directories of the files
+                DirectoryInfo dOneDrive = new DirectoryInfo(oneDrivePathFinal);
+
+                //Get fine newest file
+                int numFiles = 0;
+                int indexNewestFile = 0;
+                DateTime currNewest = DateTime.Now;
+
+                //Loop over all the files in each directory
+                foreach (var file in dOneDrive.GetFiles())
+                {
+                    if (numFiles == 0)
+                    {
+                        currNewest = file.LastWriteTimeUtc;
+                    }
+                    else
+                    {
+                        if (file.LastWriteTimeUtc > currNewest)
+                            indexNewestFile = numFiles;
+                    }
+
+                    numFiles++;
+                }
+
+                //Copy over newest file
+                int fileIndexer = 0;
+                foreach (var file in dOneDrive.GetFiles())
+                {
+                    if (fileIndexer == indexNewestFile)
+                    {
+                        file.CopyTo(Environment.CurrentDirectory + @"\HardToFindDB.sqlite", true);
+                        updatedFileName = file.Name;
+                    }
+
+                    fileIndexer++;
+                }
+            }
+
+            //Return name of file or blank if it couldn't copy over
+            return updatedFileName;
+        }
     }
 }

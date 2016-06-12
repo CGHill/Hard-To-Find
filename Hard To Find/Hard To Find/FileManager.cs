@@ -1254,6 +1254,66 @@ namespace Hard_To_Find
             }
         }
 
+        public bool copyDatabaseFileToOneDrive(string fileName)
+        {
+            bool savedToOneDrive = false;
+
+            string oneDrivePath = @"%USERPROFILE%\SkyDrive\HTF_Backups";
+            string oneDrivePathFinal = Environment.ExpandEnvironmentVariables(oneDrivePath);
+
+            if(!Directory.Exists(oneDrivePathFinal))
+            {
+                Directory.CreateDirectory(oneDrivePathFinal);
+            }
+
+            if(Directory.Exists(oneDrivePathFinal))
+            {
+                //Get the directories of the old files
+                DirectoryInfo dOneDrive = new DirectoryInfo(oneDrivePathFinal);
+
+                int numFiles = 0;
+                int indexOldestFile = 0;
+                DateTime currOldest = DateTime.Now;
+
+                //Loop over all the files in each directory
+                foreach (var file in dOneDrive.GetFiles())
+                {
+                    if (numFiles == 0)
+                    {
+                        currOldest = file.LastWriteTimeUtc;
+                    }
+                    else
+                    {
+                        if (file.LastWriteTimeUtc < currOldest)
+                            indexOldestFile = numFiles;
+                    }
+
+                    numFiles++;
+                }
+
+                if (numFiles >= 5)
+                {
+                    int fileIndexer = 0;
+                    foreach (var file in dOneDrive.GetFiles())
+                    {
+                        if (fileIndexer == indexOldestFile)
+                            file.Delete();
+
+                        fileIndexer++;
+                    }
+                }
+
+                if (File.Exists("HardToFindDB.sqlite"))
+                {
+                    File.Copy("HardToFindDB.sqlite", oneDrivePathFinal + @"\" + fileName + ".sqlite", true);
+                    File.SetLastWriteTime(oneDrivePathFinal + @"\" + fileName + ".sqlite", DateTime.Now);
+                    savedToOneDrive = true;
+                }
+            }
+
+            return savedToOneDrive;
+        }
+
         /*Precondition: 
          Postcondition: Checks that the file has the correct name then copies it into the directory to be used for the rest of the program */
         public bool restoreDatabaseFile(string filePath)

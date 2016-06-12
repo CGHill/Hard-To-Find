@@ -255,7 +255,7 @@ namespace Hard_To_Find
                 int stockID = orderedStock.stockID;
                 int quantity = orderedStock.quantity;
                 string author = SyntaxHelper.escapeSingleQuotes(orderedStock.author);
-                string title = SyntaxHelper.escapeSingleQuotes(orderedStock.author);
+                string title = SyntaxHelper.escapeSingleQuotes(orderedStock.title);
                 double price = orderedStock.price;
                 string bookID = SyntaxHelper.escapeSingleQuotes(orderedStock.bookID);
                 double discount = orderedStock.discount;
@@ -325,6 +325,7 @@ namespace Hard_To_Find
                 //Loop through all customers
                 foreach (Customer c in customers)
                 {
+                    int custID = c.custID;
                     string firstName = SyntaxHelper.escapeSingleQuotes(c.firstName);
                     string lastName = SyntaxHelper.escapeSingleQuotes(c.lastName);
                     string institution = SyntaxHelper.escapeSingleQuotes(c.institution);
@@ -348,7 +349,7 @@ namespace Hard_To_Find
                     }
                     else
                     {
-                        customerInsert = "INSERT INTO Customer VALUES(" + c.custID + ", '" + firstName + "', '" + lastName + "', '" + institution + "', '" + address1 + "', '" + address2 + "', '" + address3 +
+                        customerInsert = "INSERT INTO Customer VALUES(" + custID + ", '" + firstName + "', '" + lastName + "', '" + institution + "', '" + address1 + "', '" + address2 + "', '" + address3 +
                             "', '" + country + "', '" + postcode + "', '" + email + "', '" + comments + "', '" + sales + "', '" + payment + "')";
                     }
 
@@ -580,7 +581,7 @@ namespace Hard_To_Find
                     int stockID = o.stockID;
                     int quantity = o.quantity;
                     string author = SyntaxHelper.escapeSingleQuotes(o.author);
-                    string title = SyntaxHelper.escapeSingleQuotes(o.author);
+                    string title = SyntaxHelper.escapeSingleQuotes(o.title);
                     double price = o.price;
                     string bookID = SyntaxHelper.escapeSingleQuotes(o.bookID);
                     double discount = o.discount;
@@ -632,15 +633,15 @@ namespace Hard_To_Find
                     int stockID = o.stockID;
                     int quantity = o.quantity;
                     string author = SyntaxHelper.escapeSingleQuotes(o.author);
-                    string title = SyntaxHelper.escapeSingleQuotes(o.author);
+                    string title = SyntaxHelper.escapeSingleQuotes(o.title);
                     double price = o.price;
                     string bookID = SyntaxHelper.escapeSingleQuotes(o.bookID);
                     double discount = o.discount;
                     int orderedStockID = o.orderedStockID;
 
                     //Build insert command
-                    orderedStockInsert = "INSERT INTO orderedStock VALUES(null, " + o.orderID + ", " + o.stockID + ", " + o.quantity + ", '" + o.author + "', '" + o.title + "', '" +
-                        o.price + "', '" + o.bookID + "', '" + o.discount + "')";
+                    orderedStockInsert = "INSERT INTO orderedStock VALUES(null, " + orderID + ", " + stockID + ", " + quantity + ", '" + author + "', '" + title + "', '" +
+                        price + "', '" + bookID + "', '" + discount + "')";
 
                     SQLiteCommand insertCommand = new SQLiteCommand(orderedStockInsert, dbConnection);
                     insertCommand.ExecuteNonQuery();
