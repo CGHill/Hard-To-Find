@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Hard_To_Find
 {
@@ -81,15 +82,26 @@ namespace Hard_To_Find
 
                     //Get the file copied over
                     fileManager.copyDatabaseFile(path, fileName);
+                    bool oneDriveSaved = fileManager.copyDatabaseFileToOneDrive(fileName);
 
-                    MessageBox.Show("Backed up to: " + path);
+                    if(oneDriveSaved)
+                        MessageBox.Show("Backed up to: " + path + "\nAlso backed up to OneDrive " +
+                        "\nIf you are going to update the desk computer with OneDrive please allow time for the file to upload, this may take a while");
+                    else
+                        MessageBox.Show("Backed up to: " + path + "\nOneDrive backup could not be saved");
                 }
             }
             else
             {
                 string path = fileManager.getBackupStorageFilePath();
                 fileManager.copyDatabaseFile(path, fileName);
-                MessageBox.Show("Backed up to: " + path);
+                bool oneDriveSaved = fileManager.copyDatabaseFileToOneDrive(fileName);
+                
+                if (oneDriveSaved)
+                    MessageBox.Show("Backed up to: " + path + "\nAlso backed up to OneDrive " +
+                        "\nIf you are going to update the desk computer with OneDrive please allow time for the file to upload, this may take a while");
+                else
+                    MessageBox.Show("Backed up to: " + path + "\nOneDrive backup could not be saved");
             }
         }
 
@@ -410,6 +422,41 @@ namespace Hard_To_Find
                     MessageBox.Show("Error: Wrong file selected");
                 }
             }
+        }
+
+        /*
+         *Precondition: 
+         *Postcondition: Copies over the file the user selected from OneDrive into the programs main directory
+         */
+        private void btnRestoreFromOneDrive_Click(object sender, EventArgs e)
+        {
+            string oneDrivePath = @"%USERPROFILE%\SkyDrive\HTF_Backups";
+            string oneDrivePathFinal = Environment.ExpandEnvironmentVariables(oneDrivePath);
+
+            if (Directory.Exists(oneDrivePathFinal))
+            {
+                //Set up file browser, to search for txt files and default directory of C: drive
+                OpenFileDialog dialogBox = new OpenFileDialog();
+                dialogBox.Title = "Select Database File";
+                dialogBox.InitialDirectory = oneDrivePathFinal;
+
+                //Open the file browser and wait for user to select file
+                if (dialogBox.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path for the file the user clicked on
+                    string filename = dialogBox.FileName;
+
+                    //Pass the selected filepath into to get it copied
+                    bool success = fileManager.restoreDatabaseFile(filename);
+
+                    if (success)
+                        MessageBox.Show("Restored to backup");
+                    else
+                        MessageBox.Show("File was not an .sqlite file");
+                }
+            }
+            else
+                MessageBox.Show("OneDrive folder doesn't exist");
         }
     }
 }

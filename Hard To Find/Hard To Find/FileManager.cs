@@ -352,27 +352,6 @@ namespace Hard_To_Find
                 //Remove double quotations from line for SQL insert
                 string unquoted = line.Replace("\"", string.Empty);
 
-                //Check if it contains a single quotation
-                if (unquoted.Contains('\''))
-                {
-                    //Get number of single quotations
-                    int numQuotes = unquoted.Split('\'').Length - 1;
-
-                    int previousIndex = 0;
-
-                    //Loop over quotations
-                    for (int i = 0; i < numQuotes; i++)
-                    {
-                        //Insert quotation before existing one because it's an escape character in SQLite
-                        int indexOfQuote = unquoted.IndexOf("'", previousIndex);
-                        unquoted = unquoted.Insert(indexOfQuote, "'");
-
-                        //Move index after quotation that was just fixed to stop repeating on the same one
-                        previousIndex = indexOfQuote + 2;
-                    }
-
-                }
-
                 //Split on | instead of comma because Order entries could contain commas in comments
                 string[] splitObject = unquoted.Split('|');
 
@@ -482,7 +461,6 @@ namespace Hard_To_Find
             return importedObjects;
         }
 
-        //TODO fix up array indexes
         private Object formImportObjectFromArray(string[] splitObject, IMPORT_TYPE type)
         {
             Object completedObject = null;
@@ -640,28 +618,6 @@ namespace Hard_To_Find
                 //Remove double quotations from line for SQL insert
                 string unquoted = line.Replace("\"", string.Empty);
 
-                //Check if it contains a single quotation
-                if (unquoted.Contains('\''))
-                {
-                    //Get number of single quotations
-                    int numQuotes = unquoted.Split('\'').Length - 1;
-                    //int num = removedDashes.Count(c => c == '\'');
-
-                    int previousIndex = 0;
-
-                    //Loop over quotations
-                    for (int i = 0; i < numQuotes; i++)
-                    {
-                        //Insert quotation before existing one because it's an escape character in SQLite
-                        int indexOfQuote = unquoted.IndexOf("'", previousIndex);
-                        unquoted = unquoted.Insert(indexOfQuote, "'");
-
-                        //Move index after quotation that was just fixed to stop repeating on the same one
-                        previousIndex = indexOfQuote + 2;
-                    }
-
-                }
-
                 //Split on | instead of comma because Stock entries can contain commas
                 string[] splitStock = unquoted.Split('|');
 
@@ -732,15 +688,8 @@ namespace Hard_To_Find
                             string enteredBy = combinedLines[16];
 
                             //Create a new stock entry from it and insert into list
-                            Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, initials,sales, bookID, enteredBy);
+                            Stock newStock = new Stock(stockID, quantity, note, author, title, subtitle, publisher, description, comments, price, subject, catalogue, initials, sales, bookID, enteredBy);
                             allStock.Add(newStock);
-
-                            /*this.Invoke((MethodInvoker)delegate
-                            {
-                                listBox1.Items.Add("StockID: " + stockID.ToString() + " Quantity: " + quantity.ToString() + " Note: " + note + " Author: " + author + " Title: " + title + " Subtitle: " + subtitle
-                                + " Publisher: " + publisher + " Description: " + description + " Comments: " + comments + " Price: " + price + " Subject: " + subject + " Catalogue: " + catalogue + " Sales: " + sales
-                                + " BookID: " + bookID + " Date Entered: " + enteredBy);
-                            });*/
 
                             //Reset values
                             newLineCharacter = false;
@@ -813,27 +762,6 @@ namespace Hard_To_Find
             {
                 //Remove double quotations from line for SQL insert
                 string unquoted = line.Replace("\"", string.Empty);
-
-                //Check if it contains a single quotation
-                if (unquoted.Contains('\''))
-                {
-                    //Get number of single quotations
-                    int numQuotes = unquoted.Split('\'').Length - 1;
-
-                    int previousIndex = 0;
-
-                    //Loop over quotations
-                    for (int i = 0; i < numQuotes; i++)
-                    {
-                        //Insert quotation before existing one because it's an escape character in SQLite
-                        int indexOfQuote = unquoted.IndexOf("'", previousIndex);
-                        unquoted = unquoted.Insert(indexOfQuote, "'");
-
-                        //Move index after quotation that was just fixed to stop repeating on the same one
-                        previousIndex = indexOfQuote + 2;
-                    }
-
-                }
 
                 //Split on | instead of comma because Order entries could contain commas in comments
                 string[] splitOrder = unquoted.Split('|');
@@ -986,28 +914,6 @@ namespace Hard_To_Find
             {
                 //Remove double quotations from line for SQL insert
                 string unquoted = line.Replace("\"", string.Empty);
-
-                //Check if it contains a single quotation
-                if (unquoted.Contains('\''))
-                {
-                    //Get number of single quotations
-                    int numQuotes = unquoted.Split('\'').Length - 1;
-                    //int num = removedDashes.Count(c => c == '\'');
-
-                    int previousIndex = 0;
-
-                    //Loop over quotations
-                    for (int i = 0; i < numQuotes; i++)
-                    {
-                        //Insert quotation before existing one because it's an escape character in SQLite
-                        int indexOfQuote = unquoted.IndexOf("'", previousIndex);
-                        unquoted = unquoted.Insert(indexOfQuote, "'");
-
-                        //Move index after quotation that was just fixed to stop repeating on the same one
-                        previousIndex = indexOfQuote + 2;
-                    }
-
-                }
 
                 //Split on | instead of comma because Order entries could contain commas in comments
                 string[] splitOrder = unquoted.Split('|');
@@ -1188,28 +1094,6 @@ namespace Hard_To_Find
                 //Remove double quotations from line for SQL insert
                 string unquoted = line.Replace("\"", string.Empty);
 
-                //Check if it contains a single quotation
-                if (unquoted.Contains('\''))
-                {
-                    //Get number of single quotations
-                    int numQuotes = unquoted.Split('\'').Length - 1;
-                    //int num = removedDashes.Count(c => c == '\'');
-
-                    int previousIndex = 0;
-
-                    //Loop over quotations
-                    for (int i = 0; i < numQuotes; i++)
-                    {
-                        //Insert quotation before existing one because it's an escape character in SQLite
-                        int indexOfQuote = unquoted.IndexOf("'", previousIndex);
-                        unquoted = unquoted.Insert(indexOfQuote, "'");
-
-                        //Move index after quotation that was just fixed to stop repeating on the same one
-                        previousIndex = indexOfQuote + 2;
-                    }
-
-                }
-
                 //Split on | instead of comma because Order entries could contain commas in comments
                 string[] splitOrder = unquoted.Split('|');
 
@@ -1366,8 +1250,68 @@ namespace Hard_To_Find
         {
             if (File.Exists("HardToFindDB.sqlite"))
             {
-                File.Copy("HardToFindDB.sqlite", filePath + @"\" + fileName + ".sqlite");
+                File.Copy("HardToFindDB.sqlite", filePath + @"\" + fileName + ".sqlite", true);
             }
+        }
+
+        public bool copyDatabaseFileToOneDrive(string fileName)
+        {
+            bool savedToOneDrive = false;
+
+            string oneDrivePath = @"%USERPROFILE%\SkyDrive\HTF_Backups";
+            string oneDrivePathFinal = Environment.ExpandEnvironmentVariables(oneDrivePath);
+
+            if(!Directory.Exists(oneDrivePathFinal))
+            {
+                Directory.CreateDirectory(oneDrivePathFinal);
+            }
+
+            if(Directory.Exists(oneDrivePathFinal))
+            {
+                //Get the directories of the old files
+                DirectoryInfo dOneDrive = new DirectoryInfo(oneDrivePathFinal);
+
+                int numFiles = 0;
+                int indexOldestFile = 0;
+                DateTime currOldest = DateTime.Now;
+
+                //Loop over all the files in each directory
+                foreach (var file in dOneDrive.GetFiles())
+                {
+                    if (numFiles == 0)
+                    {
+                        currOldest = file.LastWriteTimeUtc;
+                    }
+                    else
+                    {
+                        if (file.LastWriteTimeUtc < currOldest)
+                            indexOldestFile = numFiles;
+                    }
+
+                    numFiles++;
+                }
+
+                if (numFiles >= 5)
+                {
+                    int fileIndexer = 0;
+                    foreach (var file in dOneDrive.GetFiles())
+                    {
+                        if (fileIndexer == indexOldestFile)
+                            file.Delete();
+
+                        fileIndexer++;
+                    }
+                }
+
+                if (File.Exists("HardToFindDB.sqlite"))
+                {
+                    File.Copy("HardToFindDB.sqlite", oneDrivePathFinal + @"\" + fileName + ".sqlite", true);
+                    File.SetLastWriteTime(oneDrivePathFinal + @"\" + fileName + ".sqlite", DateTime.Now);
+                    savedToOneDrive = true;
+                }
+            }
+
+            return savedToOneDrive;
         }
 
         /*Precondition: 
@@ -1566,6 +1510,8 @@ namespace Hard_To_Find
             }
         }
 
+        /*Precondition: 
+         Postcondition: Gets the last numToExport amount of stock entered into the database and puts it into a CSV file in the location set by the user is the Stock Export Location under setup*/
         public void writeStockExportToDeskPCFile(int numToExport)
         {
             string storagePath = getStockExportStorageFilePath();

@@ -186,11 +186,11 @@ namespace Hard_To_Find
 
                 //Find out which fields have been entered to be included in the search
                 if (boxSearchAuthor.Text != "")
-                    author = SyntaxHelper.escapeSingleQuotes(boxSearchAuthor.Text);
+                    author = boxSearchAuthor.Text;
                 if (boxSearchTitle.Text != "")
-                    title = SyntaxHelper.escapeSingleQuotes(boxSearchTitle.Text);
+                    title = boxSearchTitle.Text;
                 if (boxSearchSubject.Text != "")
-                    subject = SyntaxHelper.escapeSingleQuotes(boxSearchSubject.Text);
+                    subject = boxSearchSubject.Text;
 
                 bool exactPhrase = checkExactPhrase.Checked;
 
@@ -277,16 +277,16 @@ namespace Hard_To_Find
 
             //Update all stock information
             currStock.quantity = Convert.ToInt32(boxQuantity.Text);
-            currStock.note = SyntaxHelper.escapeSingleQuotes(boxNote.Text);
-            currStock.author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
-            currStock.title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
-            currStock.subtitle = SyntaxHelper.escapeSingleQuotes(boxSubtitle.Text);
-            currStock.publisher = SyntaxHelper.escapeSingleQuotes(boxPublisher.Text);
-            currStock.description = SyntaxHelper.escapeSingleQuotes(boxDescription.Text);
-            currStock.comments = SyntaxHelper.escapeSingleQuotes(boxComment.Text);
+            currStock.note = boxNote.Text;
+            currStock.author = boxAuthor.Text;
+            currStock.title = boxTitle.Text;
+            currStock.subtitle = boxSubtitle.Text;
+            currStock.publisher = boxPublisher.Text;
+            currStock.description = boxDescription.Text;
+            currStock.comments = boxComment.Text;
             
             currStock.price = 0.00;
-            string priceString = SyntaxHelper.escapeSingleQuotes(boxPrice.Text);
+            string priceString = boxPrice.Text;
             if (priceString != "")
             {
                 if (priceString[0] == '$')
@@ -295,12 +295,12 @@ namespace Hard_To_Find
                     currStock.price = Convert.ToDouble(priceString);
             }
 
-            currStock.subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
-            currStock.catalogue = SyntaxHelper.escapeSingleQuotes(boxCatalogues.Text);
-            currStock.initials = SyntaxHelper.escapeSingleQuotes(boxInitials.Text);
-            currStock.sales = SyntaxHelper.escapeSingleQuotes(boxSales.Text);
-            currStock.bookID = SyntaxHelper.escapeSingleQuotes(boxBookID.Text);
-            currStock.dateEntered = SyntaxHelper.escapeSingleQuotes(boxDateEntered.Text);
+            currStock.subject = boxSubject.Text;
+            currStock.catalogue = boxCatalogues.Text;
+            currStock.initials = boxInitials.Text;
+            currStock.sales = boxSales.Text;
+            currStock.bookID = boxBookID.Text;
+            currStock.dateEntered = boxDateEntered.Text;
 
             //Send updated stock information to database
             dbManager.updateStock(currStock);

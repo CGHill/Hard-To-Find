@@ -154,9 +154,22 @@ namespace Hard_To_Find
         {
             if (checkForTable("Customer"))
             {
-                string updateQuery = "UPDATE Customer SET firstName = '" + customer.firstName + "', lastName = '" + customer.lastName + "', institution = '" + customer.institution + "', address1 = '" + customer.address1 +
-                    "', address2 = '" + customer.address2 + "', address3 = '" + customer.address3 + "', country = '" + customer.country + "'" + ", postcode = '" + customer.postCode +
-                    "', email = '" + customer.email + "', comments = '" + customer.comments + "', sales = '" + customer.sales + "', payment = '" + customer.payment + "' WHERE customerID = " + customer.custID;
+                string firstName = SyntaxHelper.escapeSingleQuotes(customer.firstName);
+                string lastName = SyntaxHelper.escapeSingleQuotes(customer.lastName);
+                string institution = SyntaxHelper.escapeSingleQuotes(customer.institution);
+                string address1 = SyntaxHelper.escapeSingleQuotes(customer.address1);
+                string address2 = SyntaxHelper.escapeSingleQuotes(customer.address2);
+                string address3 = SyntaxHelper.escapeSingleQuotes(customer.address3);
+                string country = SyntaxHelper.escapeSingleQuotes(customer.country);
+                string postcode = SyntaxHelper.escapeSingleQuotes(customer.postCode);
+                string email = SyntaxHelper.escapeSingleQuotes(customer.email);
+                string comments = SyntaxHelper.escapeSingleQuotes(customer.comments);
+                string sales = SyntaxHelper.escapeSingleQuotes(customer.sales);
+                string payment = SyntaxHelper.escapeSingleQuotes(customer.payment);
+
+                string updateQuery = "UPDATE Customer SET firstName = '" + firstName + "', lastName = '" + lastName + "', institution = '" + institution + "', address1 = '" + address1 +
+                    "', address2 = '" + address2 + "', address3 = '" + address3 + "', country = '" + country + "'" + ", postcode = '" + postcode +
+                    "', email = '" + email + "', comments = '" + comments + "', sales = '" + sales + "', payment = '" + payment + "' WHERE customerID = " + customer.custID;
 
                 dbConnection.Open();
                 SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -171,11 +184,28 @@ namespace Hard_To_Find
         {
             if (checkForTable("Stock"))
             {
+                int quantity = stock.quantity;
+                string note = SyntaxHelper.escapeSingleQuotes(stock.note);
+                string author = SyntaxHelper.escapeSingleQuotes(stock.author);
+                string title = SyntaxHelper.escapeSingleQuotes(stock.title);
+                string subtitle = SyntaxHelper.escapeSingleQuotes(stock.subtitle);
+                string publisher = SyntaxHelper.escapeSingleQuotes(stock.publisher);
+                string description = SyntaxHelper.escapeSingleQuotes(stock.description);
+                string comments = SyntaxHelper.escapeSingleQuotes(stock.comments);
+                double price = stock.price;
+                string subject = SyntaxHelper.escapeSingleQuotes(stock.subject);
+                string catalogue = SyntaxHelper.escapeSingleQuotes(stock.catalogue);
+                string initials = SyntaxHelper.escapeSingleQuotes(stock.initials);
+                string sales = SyntaxHelper.escapeSingleQuotes(stock.sales);
+                string bookID = SyntaxHelper.escapeSingleQuotes(stock.bookID);
+                string dateEntered = SyntaxHelper.escapeSingleQuotes(stock.dateEntered);
+                int stockID = stock.stockID;
+
                 //Apostrophies cause program to crash
-                string updateQuery = "UPDATE Stock SET quantity =" + stock.quantity + ", note = '" + stock.note + "', author = '" + stock.author + "', title = '" + stock.title +
-                    "', subtitle = '" + stock.subtitle + "', publisher = '" + stock.publisher + "', description = '" + stock.description + "', comments = '" + stock.comments +
-                    "', price = '" + stock.price + "', subject = '" + stock.subject + "', catalogue = '" + stock.catalogue + "', initials = '" + stock.initials + "', sales = '" + stock.sales +
-                    "', bookID = '" + stock.bookID + "', dateEntered = '" + stock.dateEntered + "' WHERE stockID = " + stock.stockID;
+                string updateQuery = "UPDATE Stock SET quantity =" + quantity + ", note = '" + note + "', author = '" + author + "', title = '" + title +
+                    "', subtitle = '" + subtitle + "', publisher = '" + publisher + "', description = '" + description + "', comments = '" + comments +
+                    "', price = '" + price + "', subject = '" + subject + "', catalogue = '" + catalogue + "', initials = '" + initials + "', sales = '" + sales +
+                    "', bookID = '" + bookID + "', dateEntered = '" + dateEntered + "' WHERE stockID = " + stockID;
 
                 dbConnection.Open();
                 SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -190,10 +220,23 @@ namespace Hard_To_Find
         {
             if (checkForTable("Orders"))
             {
+                string firstName = SyntaxHelper.escapeSingleQuotes(order.firstName);
+                string lastName = SyntaxHelper.escapeSingleQuotes(order.lastName);
+                string institution = SyntaxHelper.escapeSingleQuotes(order.institution);
+                string postcode = SyntaxHelper.escapeSingleQuotes(order.postcode);
+                string orderReference = SyntaxHelper.escapeSingleQuotes(order.orderReference);
+                string progress = SyntaxHelper.escapeSingleQuotes(order.progress);
+                double freightCost = order.freightCost;
+                int invoiceNo = order.invoiceNo;
+                DateTime invoiceDate = order.invoiceDate;
+                string comments = SyntaxHelper.escapeSingleQuotes(order.comments);
+                int customerID = order.customerID;
+                int orderID = order.orderID;
+
                 //Apostrophies cause program to crash
-                string updateQuery = "UPDATE Orders SET customerFirstName = '" + order.firstName + "', customerLastName = '" + order.lastName + "', institution = '" + order.institution +
-                    "', postcode = '" + order.postcode + "', orderReference = '" + order.orderReference + "', progress = '" + order.progress + "', freightCost = '" + order.freightCost +
-                    "', invoice = '" + order.invoiceNo + "', invoiceDate = '" + order.invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', comments = '" + order.comments + "', customerID = '" + order.customerID + "' WHERE orderID = " + order.orderID;
+                string updateQuery = "UPDATE Orders SET customerFirstName = '" + firstName + "', customerLastName = '" + lastName + "', institution = '" + institution +
+                    "', postcode = '" + postcode + "', orderReference = '" + orderReference + "', progress = '" + progress + "', freightCost = '" + freightCost +
+                    "', invoice = '" + invoiceNo + "', invoiceDate = '" + invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', comments = '" + comments + "', customerID = '" + customerID + "' WHERE orderID = " + orderID;
 
                 dbConnection.Open();
                 SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -208,9 +251,19 @@ namespace Hard_To_Find
         {
             if (checkForTable("OrderedStock"))
             {
+                int orderID = orderedStock.orderID;
+                int stockID = orderedStock.stockID;
+                int quantity = orderedStock.quantity;
+                string author = SyntaxHelper.escapeSingleQuotes(orderedStock.author);
+                string title = SyntaxHelper.escapeSingleQuotes(orderedStock.title);
+                double price = orderedStock.price;
+                string bookID = SyntaxHelper.escapeSingleQuotes(orderedStock.bookID);
+                double discount = orderedStock.discount;
+                int orderedStockID = orderedStock.orderedStockID;
+
                 //Apostrophies cause program to crash
-                string updateQuery = "UPDATE OrderedStock SET stockID = " + orderedStock.stockID + ", quantity = " + orderedStock.quantity + ", author = '" + orderedStock.author + "', title = '" + orderedStock.title +
-                    "', price = '" + orderedStock.price + "', bookID = '" + orderedStock.bookID + "', discount = '" + orderedStock.discount + "' WHERE orderedStockID = " + orderedStock.orderedStockID;
+                string updateQuery = "UPDATE OrderedStock SET orderID =" + orderID + ", stockID = " + stockID + ", quantity = " + quantity + ", author = '" + author + "', title = '" + title +
+                    "', price = '" + price + "', bookID = '" + bookID + "', discount = '" + discount + "' WHERE orderedStockID = " + orderedStockID;
 
                 dbConnection.Open();
                 SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, dbConnection);
@@ -229,12 +282,25 @@ namespace Hard_To_Find
             //Check to see if customer table exists
             if (checkForTable("Customer"))
             {
+                string firstName = SyntaxHelper.escapeSingleQuotes(newCustomer.firstName);
+                string lastName = SyntaxHelper.escapeSingleQuotes(newCustomer.lastName);
+                string institution = SyntaxHelper.escapeSingleQuotes(newCustomer.institution);
+                string address1 = SyntaxHelper.escapeSingleQuotes(newCustomer.address1);
+                string address2 = SyntaxHelper.escapeSingleQuotes(newCustomer.address2);
+                string address3 = SyntaxHelper.escapeSingleQuotes(newCustomer.address3);
+                string country = SyntaxHelper.escapeSingleQuotes(newCustomer.country);
+                string postcode = SyntaxHelper.escapeSingleQuotes(newCustomer.postCode);
+                string email = SyntaxHelper.escapeSingleQuotes(newCustomer.email);
+                string comments = SyntaxHelper.escapeSingleQuotes(newCustomer.comments);
+                string sales = SyntaxHelper.escapeSingleQuotes(newCustomer.sales);
+                string payment = SyntaxHelper.escapeSingleQuotes(newCustomer.payment);
+
                 //Open DB
                 dbConnection.Open();
 
                 //Build insert command
-                string customerInsert = "INSERT INTO Customer VALUES(null, '" + newCustomer.firstName + "', '" + newCustomer.lastName + "', '" + newCustomer.institution + "', '" + newCustomer.address1 + "', '" + newCustomer.address2 + "', '" +
-                    newCustomer.address3 + "', '" + newCustomer.country + "', '" + newCustomer.postCode + "', '" + newCustomer.email + "', '" + newCustomer.comments + "', '" + newCustomer.sales + "', '" + newCustomer.payment + "')";
+                string customerInsert = "INSERT INTO Customer VALUES(null, '" + firstName + "', '" + lastName + "', '" + institution + "', '" + address1 + "', '" + address2 + "', '" +
+                    address3 + "', '" + country + "', '" + postcode + "', '" + email + "', '" + comments + "', '" + sales + "', '" + payment + "')";
 
                 //Insert new customer
                 SQLiteCommand insertCommand = new SQLiteCommand(customerInsert, dbConnection);
@@ -259,18 +325,32 @@ namespace Hard_To_Find
                 //Loop through all customers
                 foreach (Customer c in customers)
                 {
+                    int custID = c.custID;
+                    string firstName = SyntaxHelper.escapeSingleQuotes(c.firstName);
+                    string lastName = SyntaxHelper.escapeSingleQuotes(c.lastName);
+                    string institution = SyntaxHelper.escapeSingleQuotes(c.institution);
+                    string address1 = SyntaxHelper.escapeSingleQuotes(c.address1);
+                    string address2 = SyntaxHelper.escapeSingleQuotes(c.address2);
+                    string address3 = SyntaxHelper.escapeSingleQuotes(c.address3);
+                    string country = SyntaxHelper.escapeSingleQuotes(c.country);
+                    string postcode = SyntaxHelper.escapeSingleQuotes(c.postCode);
+                    string email = SyntaxHelper.escapeSingleQuotes(c.email);
+                    string comments = SyntaxHelper.escapeSingleQuotes(c.comments);
+                    string sales = SyntaxHelper.escapeSingleQuotes(c.sales);
+                    string payment = SyntaxHelper.escapeSingleQuotes(c.payment);
+
                     string customerInsert = "";
 
                     //Build insert command. If customer has an ID insert it with that ID if not (new customer) and insert with a new ID using autoincrement from SQLite
                     if (c.custID == -1)
                     {
-                        customerInsert = "INSERT INTO Customer VALUES(null, '" + c.firstName + "', '" + c.lastName + "', '" + c.institution + "', '" + c.address1 + "', '" + c.address2 + "', '" +
-                            c.address3 + "', '" + c.country + "', '" + c.postCode + "', '" + c.email + "', '" + c.comments + "', '" + c.sales + "', '" + c.payment + "')";
+                        customerInsert = "INSERT INTO Customer VALUES(null, '" + firstName + "', '" + lastName + "', '" + institution + "', '" + address1 + "', '" + address2 + "', '" +
+                            address3 + "', '" + country + "', '" + postcode + "', '" + email + "', '" + comments + "', '" + sales + "', '" + payment + "')";
                     }
                     else
                     {
-                        customerInsert = "INSERT INTO Customer VALUES(" + c.custID + ", '" + c.firstName + "', '" + c.lastName + "', '" + c.institution + "', '" + c.address1 + "', '" + c.address2 + "', '" + c.address3 +
-                            "', '" + c.country + "', '" + c.postCode + "', '" + c.email + "', '" + c.comments + "', '" + c.sales + "', '" + c.payment + "')";
+                        customerInsert = "INSERT INTO Customer VALUES(" + custID + ", '" + firstName + "', '" + lastName + "', '" + institution + "', '" + address1 + "', '" + address2 + "', '" + address3 +
+                            "', '" + country + "', '" + postcode + "', '" + email + "', '" + comments + "', '" + sales + "', '" + payment + "')";
                     }
 
                     SQLiteCommand insertCommand = new SQLiteCommand(customerInsert, dbConnection);
@@ -293,15 +373,32 @@ namespace Hard_To_Find
             //Check to see if stock table exists
             if (checkForTable("Stock"))
             {
+                int quantity = newStock.quantity;
+                string note = SyntaxHelper.escapeSingleQuotes(newStock.note);
+                string author = SyntaxHelper.escapeSingleQuotes(newStock.author);
+                string title = SyntaxHelper.escapeSingleQuotes(newStock.title);
+                string subtitle = SyntaxHelper.escapeSingleQuotes(newStock.subtitle);
+                string publisher = SyntaxHelper.escapeSingleQuotes(newStock.publisher);
+                string description = SyntaxHelper.escapeSingleQuotes(newStock.description);
+                string comments = SyntaxHelper.escapeSingleQuotes(newStock.comments);
+                double price = newStock.price;
+                string subject = SyntaxHelper.escapeSingleQuotes(newStock.subject);
+                string catalogue = SyntaxHelper.escapeSingleQuotes(newStock.catalogue);
+                string initials = SyntaxHelper.escapeSingleQuotes(newStock.initials);
+                string sales = SyntaxHelper.escapeSingleQuotes(newStock.sales);
+                string bookID = SyntaxHelper.escapeSingleQuotes(newStock.bookID);
+                string dateEntered = SyntaxHelper.escapeSingleQuotes(newStock.dateEntered);
+                int stockID = newStock.stockID;
+
                 //Open DB and start transcation - transaction hugely increases speed of insert
                 dbConnection.Open();
 
                 string stockInsert = "";
 
                 //Build insert command
-                stockInsert = "INSERT INTO Stock VALUES(null, '" + newStock.quantity + "', '" + newStock.note + "', '" + newStock.author + "', '" + newStock.title + "', '" + newStock.subtitle + "', '" + newStock.publisher
-                    + "', '" + newStock.description + "', '" + newStock.comments + "', '" + newStock.price + "', '" + newStock.subject + "', '" + newStock.catalogue + "', '" + newStock.initials + "', '" + newStock.sales + "', '" + newStock.bookID +
-                    "', '" + newStock.dateEntered + "')";
+                stockInsert = "INSERT INTO Stock VALUES(null, '" + quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                    + "', '" + description + "', '" + comments + "', '" + price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                    "', '" + dateEntered + "')";
 
 
                 SQLiteCommand insertCommand = new SQLiteCommand(stockInsert, dbConnection);
@@ -328,18 +425,35 @@ namespace Hard_To_Find
                 {
                     string stockInsert = "";
 
+                    int quantity = s.quantity;
+                    string note = SyntaxHelper.escapeSingleQuotes(s.note);
+                    string author = SyntaxHelper.escapeSingleQuotes(s.author);
+                    string title = SyntaxHelper.escapeSingleQuotes(s.title);
+                    string subtitle = SyntaxHelper.escapeSingleQuotes(s.subtitle);
+                    string publisher = SyntaxHelper.escapeSingleQuotes(s.publisher);
+                    string description = SyntaxHelper.escapeSingleQuotes(s.description);
+                    string comments = SyntaxHelper.escapeSingleQuotes(s.comments);
+                    double price = s.price;
+                    string subject = SyntaxHelper.escapeSingleQuotes(s.subject);
+                    string catalogue = SyntaxHelper.escapeSingleQuotes(s.catalogue);
+                    string initials = SyntaxHelper.escapeSingleQuotes(s.initials);
+                    string sales = SyntaxHelper.escapeSingleQuotes(s.sales);
+                    string bookID = SyntaxHelper.escapeSingleQuotes(s.bookID);
+                    string dateEntered = SyntaxHelper.escapeSingleQuotes(s.dateEntered);
+                    int stockID = s.stockID;
+
                     //Build insert command. If stock has an ID insert it with that ID if not (new stock) and insert with a new ID using autoincrement from SQLite
                     if (s.stockID == -1)
                     {
-                        stockInsert = "INSERT INTO Stock VALUES(null, '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
-                            + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.initials + "', '" + s.sales + "', '" + s.bookID +
-                            "', '" + s.dateEntered + "')";
+                        stockInsert = "INSERT INTO Stock VALUES(null, '" + quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                            + "', '" + description + "', '" + comments + "', '" + price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                            "', '" + dateEntered + "')";
                     }
                     else
                     {
-                        stockInsert = "INSERT INTO Stock VALUES(" + s.stockID + ", '" + s.quantity + "', '" + s.note + "', '" + s.author + "', '" + s.title + "', '" + s.subtitle + "', '" + s.publisher
-                            + "', '" + s.description + "', '" + s.comments + "', '" + s.price + "', '" + s.subject + "', '" + s.catalogue + "', '" + s.initials + "', '" + s.sales + "', '" + s.bookID +
-                            "', '" + s.dateEntered + "')";
+                        stockInsert = "INSERT INTO Stock VALUES(" + stockID + ", '" + quantity + "', '" + note + "', '" + author + "', '" + title + "', '" + subtitle + "', '" + publisher
+                            + "', '" + description + "', '" + comments + "', '" + price + "', '" + subject + "', '" + catalogue + "', '" + initials + "', '" + sales + "', '" + bookID +
+                            "', '" + dateEntered + "')";
                     }
 
                     SQLiteCommand insertCommand = new SQLiteCommand(stockInsert, dbConnection);
@@ -371,16 +485,29 @@ namespace Hard_To_Find
                 {
                     string orderInsert = "";
 
+                    string firstName = SyntaxHelper.escapeSingleQuotes(o.firstName);
+                    string lastName = SyntaxHelper.escapeSingleQuotes(o.lastName);
+                    string institution = SyntaxHelper.escapeSingleQuotes(o.institution);
+                    string postcode = SyntaxHelper.escapeSingleQuotes(o.postcode);
+                    string orderReference = SyntaxHelper.escapeSingleQuotes(o.orderReference);
+                    string progress = SyntaxHelper.escapeSingleQuotes(o.progress);
+                    double freightCost = o.freightCost;
+                    int invoiceNo = o.invoiceNo;
+                    DateTime invoiceDate = o.invoiceDate;
+                    string comments = SyntaxHelper.escapeSingleQuotes(o.comments);
+                    int customerID = o.customerID;
+                    int orderID = o.orderID;
+
                     //Build insert command. If order has an ID insert it with that ID if not (new order) and insert with a new ID using autoincrement from SQLite
                     if (o.orderID == -1)
                     {
-                        orderInsert = "INSERT INTO Orders VALUES(null, '" + o.firstName + "', '" + o.lastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" +
-                            o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo + "', '" + o.invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + o.comments + "', '" + o.customerID + "')";
+                        orderInsert = "INSERT INTO Orders VALUES(null, '" + firstName + "', '" + lastName + "', '" + institution + "', '" + postcode + "', '" + orderReference + "', '" +
+                            progress + "', '" + freightCost + "', '" + invoiceNo + "', '" + invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + comments + "', '" + customerID + "')";
                     }
                     else
                     {
-                        orderInsert = "INSERT INTO Orders VALUES(" + o.orderID + ", '" + o.firstName + "', '" + o.lastName + "', '" + o.institution + "', '" + o.postcode + "', '" + o.orderReference + "', '" +
-                            o.progress + "', '" + o.freightCost + "', '" + o.invoiceNo.ToString() + "', '" + o.invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + o.comments + "', '" + o.customerID + "')";
+                        orderInsert = "INSERT INTO Orders VALUES(" + orderID + ", '" + firstName + "', '" + lastName + "', '" + institution + "', '" + postcode + "', '" + orderReference + "', '" +
+                            progress + "', '" + freightCost + "', '" + invoiceNo + "', '" + invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + comments + "', '" + customerID + "')";
                     }
 
                     SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
@@ -403,6 +530,19 @@ namespace Hard_To_Find
             //Check to see if orders table exists
             if (checkForTable("Orders"))
             {
+                string firstName = SyntaxHelper.escapeSingleQuotes(newOrder.firstName);
+                string lastName = SyntaxHelper.escapeSingleQuotes(newOrder.lastName);
+                string institution = SyntaxHelper.escapeSingleQuotes(newOrder.institution);
+                string postcode = SyntaxHelper.escapeSingleQuotes(newOrder.postcode);
+                string orderReference = SyntaxHelper.escapeSingleQuotes(newOrder.orderReference);
+                string progress = SyntaxHelper.escapeSingleQuotes(newOrder.progress);
+                double freightCost = newOrder.freightCost;
+                int invoiceNo = newOrder.invoiceNo;
+                DateTime invoiceDate = newOrder.invoiceDate;
+                string comments = SyntaxHelper.escapeSingleQuotes(newOrder.comments);
+                int customerID = newOrder.customerID;
+                int orderID = newOrder.orderID;
+
                 //Open DB
                 dbConnection.Open();
 
@@ -410,9 +550,9 @@ namespace Hard_To_Find
                 string orderInsert = "";
 
                 //Build insert command
-                orderInsert = "INSERT INTO Orders VALUES(null, '" + newOrder.firstName + "', '" + newOrder.lastName + "', '" + newOrder.institution + "', '" + newOrder.postcode + "', '" +
-                    newOrder.orderReference + "', '" + newOrder.progress + "', '" + newOrder.freightCost + "', '" + newOrder.invoiceNo + "', '" + newOrder.invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + newOrder.comments + "', '" +
-                    newOrder.customerID + "')";
+                orderInsert = "INSERT INTO Orders VALUES(null, '" + firstName + "', '" + lastName + "', '" + institution + "', '" + postcode + "', '" +
+                    orderReference + "', '" + progress + "', '" + freightCost + "', '" + invoiceNo + "', '" + invoiceDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + comments + "', '" +
+                    customerID + "')";
 
                 SQLiteCommand insertCommand = new SQLiteCommand(orderInsert, dbConnection);
                 insertCommand.ExecuteNonQuery();
@@ -437,16 +577,26 @@ namespace Hard_To_Find
                 {
                     string orderedStockInsert = "";
 
+                    int orderID = o.orderID;
+                    int stockID = o.stockID;
+                    int quantity = o.quantity;
+                    string author = SyntaxHelper.escapeSingleQuotes(o.author);
+                    string title = SyntaxHelper.escapeSingleQuotes(o.title);
+                    double price = o.price;
+                    string bookID = SyntaxHelper.escapeSingleQuotes(o.bookID);
+                    double discount = o.discount;
+                    int orderedStockID = o.orderedStockID;
+
                     //Build insert command. If OrderedStock has an ID insert it with that ID if not (new orderedSock) and insert with a new ID using autoincrement from SQLite
                     if (o.orderedStockID == -1)
                     {
-                        orderedStockInsert = "INSERT INTO OrderedStock VALUES(null, " + o.orderID + ", " + o.stockID + ", " + o.quantity + ", '" + o.author + "', '" + o.title + "', '" +
-                            o.price + "', '" + o.bookID + "', '" + o.discount + "')";
+                        orderedStockInsert = "INSERT INTO OrderedStock VALUES(null, " + orderID + ", " + stockID + ", " + quantity + ", '" + author + "', '" + title + "', '" +
+                            price + "', '" + bookID + "', '" + discount + "')";
                     }
                     else
                     {
-                        orderedStockInsert = "INSERT INTO OrderedStock VALUES(" + o.orderedStockID + ", " + o.orderID + ", " + o.stockID + ", " + o.quantity + ", '" + o.author + "', '" + o.title + "', '" +
-                            o.price + "', '" + o.bookID + "', '" + o.discount + "')";
+                        orderedStockInsert = "INSERT INTO OrderedStock VALUES(" + orderedStockID + ", " + orderID + ", " + stockID + ", " + quantity + ", '" + author + "', '" + title + "', '" +
+                            price + "', '" + bookID + "', '" + discount + "')";
                     }
 
                     SQLiteCommand insertCommand = new SQLiteCommand(orderedStockInsert, dbConnection);
@@ -479,9 +629,19 @@ namespace Hard_To_Find
                 {
                     string orderedStockInsert = "";
 
+                    int orderID = o.orderID;
+                    int stockID = o.stockID;
+                    int quantity = o.quantity;
+                    string author = SyntaxHelper.escapeSingleQuotes(o.author);
+                    string title = SyntaxHelper.escapeSingleQuotes(o.title);
+                    double price = o.price;
+                    string bookID = SyntaxHelper.escapeSingleQuotes(o.bookID);
+                    double discount = o.discount;
+                    int orderedStockID = o.orderedStockID;
+
                     //Build insert command
-                    orderedStockInsert = "INSERT INTO orderedStock VALUES(null, " + o.orderID + ", " + o.stockID + ", " + o.quantity + ", '" + o.author + "', '" + o.title + "', '" +
-                        o.price + "', '" + o.bookID + "', '" + o.discount + "')";
+                    orderedStockInsert = "INSERT INTO orderedStock VALUES(null, " + orderID + ", " + stockID + ", " + quantity + ", '" + author + "', '" + title + "', '" +
+                        price + "', '" + bookID + "', '" + discount + "')";
 
                     SQLiteCommand insertCommand = new SQLiteCommand(orderedStockInsert, dbConnection);
                     insertCommand.ExecuteNonQuery();
@@ -563,6 +723,11 @@ namespace Hard_To_Find
             if (checkForTable("Customer"))
             {
                 dbConnection.Open();
+
+                firstName = SyntaxHelper.escapeSingleQuotes(firstName);
+                lastName = SyntaxHelper.escapeSingleQuotes(lastName);
+                institution = SyntaxHelper.escapeSingleQuotes(institution);
+                email = SyntaxHelper.escapeSingleQuotes(email);
 
                 bool addAnds = false;
 
@@ -702,6 +867,9 @@ namespace Hard_To_Find
             //Check to see if stock table exists
             if (checkForTable("Stock"))
             {
+                author = SyntaxHelper.escapeSingleQuotes(author);
+                title = SyntaxHelper.escapeSingleQuotes(title);
+
                 dbConnection.Open();
 
                 //build up a query string based on the parameters passed in
@@ -763,20 +931,46 @@ namespace Hard_To_Find
                 //Title included so add that to query
                 if (title != null)
                 {
-                    if (addAnds)
+                    if (!exactPhrase)
                     {
-                        if (exactPhrase)
-                            searchQuery += " AND title = '" + title + "'";
-                        else
-                            searchQuery += " AND title LIKE '%" + title + "%'";
+                        string[] splitTitle = title.Split(' ');
+
+                        foreach (string s in splitTitle)
+                        {
+                            if (addAnds)
+                            {
+                                if (exactPhrase)
+                                    searchQuery += " AND title = '" + s + "'";
+                                else
+                                    searchQuery += " AND title LIKE '%" + s + "%'";
+                            }
+                            else
+                            {
+                                if (exactPhrase)
+                                    searchQuery += " title = '" + s + "'";
+                                else
+                                    searchQuery += " title LIKE '%" + s + "%'";
+                                addAnds = true;
+                            }
+                        }
                     }
                     else
                     {
-                        if (exactPhrase)
-                            searchQuery += " title = '" + title + "'";
+                        if (addAnds)
+                        {
+                            if (exactPhrase)
+                                searchQuery += " AND title = '" + title + "'";
+                            else
+                                searchQuery += " AND title LIKE '%" + title + "%'";
+                        }
                         else
-                            searchQuery += " title LIKE '%" + title + "%'";
-                        addAnds = true;
+                        {
+                            if (exactPhrase)
+                                searchQuery += " title = '" + title + "'";
+                            else
+                                searchQuery += " title LIKE '%" + title + "%'";
+                            addAnds = true;
+                        }
                     }
                 }
                 //Subject included so add that to query

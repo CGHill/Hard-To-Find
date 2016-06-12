@@ -52,7 +52,6 @@
             this.rdoAllStock = new System.Windows.Forms.RadioButton();
             this.labResults = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnExportToDesk = new System.Windows.Forms.Button();
             this.boxInitials = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.boxDateEntered = new System.Windows.Forms.TextBox();
@@ -323,16 +322,6 @@
             this.label5.Size = new System.Drawing.Size(92, 13);
             this.label5.TabIndex = 33;
             this.label5.Text = "Number of results:";
-            // 
-            // btnExportToDesk
-            // 
-            this.btnExportToDesk.Location = new System.Drawing.Point(94, 294);
-            this.btnExportToDesk.Name = "btnExportToDesk";
-            this.btnExportToDesk.Size = new System.Drawing.Size(145, 33);
-            this.btnExportToDesk.TabIndex = 10;
-            this.btnExportToDesk.Text = "Export Stock To Desk";
-            this.btnExportToDesk.UseVisualStyleBackColor = true;
-            this.btnExportToDesk.Click += new System.EventHandler(this.btnExportToDesk_Click);
             // 
             // boxInitials
             // 
@@ -710,7 +699,6 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.btnExportToDesk);
             this.Controls.Add(this.labResults);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
@@ -755,7 +743,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.CheckBox checkExactPhrase;
-        private System.Windows.Forms.Button btnExportToDesk;
         private System.Windows.Forms.TextBox boxInitials;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox boxDateEntered;

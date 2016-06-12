@@ -200,13 +200,13 @@ namespace Hard_To_Find
 
                 //Get names if they have been entered
                 if (boxFirstName.Text != "")
-                    firstName = SyntaxHelper.escapeSingleQuotes(boxFirstName.Text);
+                    firstName = boxFirstName.Text;
                 if (boxLastName.Text != "")
-                    lastName = SyntaxHelper.escapeSingleQuotes(boxLastName.Text);
+                    lastName = boxLastName.Text;
                 if (boxInstiution.Text != "")
-                    instutution = SyntaxHelper.escapeSingleQuotes(boxInstiution.Text);
+                    instutution = boxInstiution.Text;
                 if (boxEmail.Text != "")
-                    email = SyntaxHelper.escapeSingleQuotes(boxEmail.Text);
+                    email = boxEmail.Text;
 
                 //Search for customers with names entered
                 foundCustomers = dbManager.searchCustomers(firstName, lastName, instutution, email, exactName);

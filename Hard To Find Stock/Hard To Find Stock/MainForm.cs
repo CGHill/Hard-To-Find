@@ -256,7 +256,7 @@ namespace Hard_To_Find_Stock
                     foreach (Stock s in allNewStock)
                     {
                         sw.WriteLine("-1" + "|\"" + s.quantity + "\"|\"" + s.note + "\"|\"" + s.author + "\"|\"" + s.title + "\"|\"" + s.subtitle + "\"|\"" + s.publisher + "\"|\"" + s.description +
-                            "\"|\"" + s.comments + "\"|\"" + "" + "\"|\"$" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + "" + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"");
+                            "\"|\"" + s.comments + "\"|\"" + "" + "\"|\"$" + s.price + "\"|\"" + s.subject + "\"|\"" + s.catalogue + "\"|\"" + s.initials + "\"|\"" + s.sales + "\"|\"" + s.bookID + "\"|\"" + s.dateEntered + "\"");
 
                         //Set id to negative so doesn't conflict and it gets a new ID when inserted into main table
                         s.stockID = -1;
@@ -299,36 +299,26 @@ namespace Hard_To_Find_Stock
             }
         }
 
+
+        /*Precondition:
+         Postcondition: Updates the database from file on Google Drive */
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<string> filepaths = fileManager.getAllImportFilePaths();
+            //Copy over latest file from OneDrive
+            string updatedFileName = fileManager.copyFileFromOneDrive();
 
-            if (filepaths.Count > 0)
-            {
-                foreach (string s in filepaths)
-                {
-                    List<Stock> newStock = fileManager.importFromCSV(s);
-
-                    int firstEntryID = newStock[0].stockID;
-
-                    dbManager.deleteStockFromIDForward(firstEntryID);
-
-                    dbManager.insertStock(newStock);
-
-                    //Delete the now used file so it doesn't get repeated
-                    fileManager.deleteFile(s);
-                }
-
-                MessageBox.Show("Update complete");
-            }
+            //Inform user if it succeeded or not
+            if (updatedFileName != "")
+                MessageBox.Show("Database updated from OneDrive with file: " + updatedFileName);
             else
-            {
-                MessageBox.Show("No files to update from");
-            }
+                MessageBox.Show("Database failed to update from OneDrive");
         }
 
+        /*Precondition:
+         Postcondition: Sorts the datagrid information on what the user selected */
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Check that there is stock in the list
             if (foundStock != null)
             {
                 if (foundStock.Count != 0)
@@ -337,6 +327,7 @@ namespace Hard_To_Find_Stock
 
                     string selectedSort = comboBox1.SelectedItem.ToString();
 
+                    //Sort by what the user selected
                     switch (selectedSort)
                     {
                         case "Quantity":
@@ -353,6 +344,7 @@ namespace Hard_To_Find_Stock
                             break;
                     }
 
+                    //Enter the newly sorted data back into datagrid
                     foreach (Stock s in foundStock)
                     {
                         dataGridView1.Rows.Add(s.quantity, s.author, s.title, s.subject, "$" + String.Format("{0:0.00}", s.price), s.bookID);
@@ -361,6 +353,8 @@ namespace Hard_To_Find_Stock
             }
         }
 
+        /*Precondition:
+         Postcondition: Allow user to set the location that the database gets updated from */
         private void btnSetStockImport_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();

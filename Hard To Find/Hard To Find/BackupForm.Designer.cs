@@ -37,10 +37,11 @@
             this.btnRestoreOrders = new System.Windows.Forms.Button();
             this.btnRestoreOrderedStock = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkNewStorage = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.checkNewStorage = new System.Windows.Forms.CheckBox();
+            this.btnRestoreFromOneDrive = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -138,6 +139,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Create backups";
             // 
+            // checkNewStorage
+            // 
+            this.checkNewStorage.AutoSize = true;
+            this.checkNewStorage.Location = new System.Drawing.Point(6, 64);
+            this.checkNewStorage.Name = "checkNewStorage";
+            this.checkNewStorage.Size = new System.Drawing.Size(165, 17);
+            this.checkNewStorage.TabIndex = 5;
+            this.checkNewStorage.Text = "Select New Storage Location";
+            this.checkNewStorage.UseVisualStyleBackColor = true;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -149,6 +160,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnRestoreFromOneDrive);
             this.groupBox2.Controls.Add(this.btnRestoreFile);
             this.groupBox2.Controls.Add(this.btnRestoreOrders);
             this.groupBox2.Controls.Add(this.btnRestoreOrderedStock);
@@ -169,15 +181,15 @@
             this.progressBar1.TabIndex = 10;
             this.progressBar1.Visible = false;
             // 
-            // checkNewStorage
+            // btnRestoreFromOneDrive
             // 
-            this.checkNewStorage.AutoSize = true;
-            this.checkNewStorage.Location = new System.Drawing.Point(6, 64);
-            this.checkNewStorage.Name = "checkNewStorage";
-            this.checkNewStorage.Size = new System.Drawing.Size(165, 17);
-            this.checkNewStorage.TabIndex = 5;
-            this.checkNewStorage.Text = "Select New Storage Location";
-            this.checkNewStorage.UseVisualStyleBackColor = true;
+            this.btnRestoreFromOneDrive.Location = new System.Drawing.Point(6, 66);
+            this.btnRestoreFromOneDrive.Name = "btnRestoreFromOneDrive";
+            this.btnRestoreFromOneDrive.Size = new System.Drawing.Size(146, 34);
+            this.btnRestoreFromOneDrive.TabIndex = 8;
+            this.btnRestoreFromOneDrive.Text = "Restore from OneDrive";
+            this.btnRestoreFromOneDrive.UseVisualStyleBackColor = true;
+            this.btnRestoreFromOneDrive.Click += new System.EventHandler(this.btnRestoreFromOneDrive_Click);
             // 
             // BackupForm
             // 
@@ -212,5 +224,6 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkNewStorage;
+        private System.Windows.Forms.Button btnRestoreFromOneDrive;
     }
 }

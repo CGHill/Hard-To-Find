@@ -62,7 +62,6 @@
             this.boxQuantity = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -353,19 +352,9 @@
             this.label1.TabIndex = 126;
             this.label1.Text = "Quantity:";
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(669, 343);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(109, 34);
-            this.btnCancel.TabIndex = 19;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(669, 290);
+            this.btnSave.Location = new System.Drawing.Point(689, 343);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 18;
@@ -412,7 +401,6 @@
             this.Controls.Add(this.boxQuantity);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "NewStockForm";
             this.Text = "New Stock";
@@ -457,7 +445,6 @@
         private System.Windows.Forms.TextBox boxQuantity;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
 
 

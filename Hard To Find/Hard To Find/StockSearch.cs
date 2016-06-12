@@ -174,11 +174,11 @@ namespace Hard_To_Find
 
                 //Find out which fields have been entered to be included in the search
                 if (boxAuthor.Text != "")
-                    author = SyntaxHelper.escapeSingleQuotes(boxAuthor.Text);
+                    author = boxAuthor.Text;
                 if (boxTitle.Text != "")
-                    title = SyntaxHelper.escapeSingleQuotes(boxTitle.Text);
+                    title = boxTitle.Text;
                 if (boxSubject.Text != "")
-                    subject = SyntaxHelper.escapeSingleQuotes(boxSubject.Text);
+                    subject = boxSubject.Text;
 
                 bool exactPhrase = checkExactPhrase.Checked;
 

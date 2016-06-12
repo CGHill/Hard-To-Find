@@ -86,6 +86,11 @@ namespace Hard_To_Find_Stock
          Postcondition: Saves the new stock into the database*/
         private void btnSave_Click(object sender, EventArgs e)
         {
+            initiateSave();
+        }
+
+        private bool initiateSave()
+        {
             if (indexOfNewStock >= 0 && wasAnyInfoEntered())
             {
                 saveEntry();
@@ -169,7 +174,8 @@ namespace Hard_To_Find_Stock
                 Stock failedStock = newStockEntered[indexOfFailed];
                 loadStockIntoTextboxes(failedStock);
             }
-            
+
+            return canSave;
         }
 
         /*Precondition: 
@@ -262,7 +268,7 @@ namespace Hard_To_Find_Stock
                     if (boxDescription.Focused)
                         boxDescription.Text = previousStock.description;
                     if (boxPrice.Focused)
-                        boxPrice.Text = "$" + previousStock.price.ToString();
+                        boxPrice.Text = "$" + String.Format("{0:0.00}", previousStock.price);
                     if (boxSubject.Focused)
                         boxSubject.Text = previousStock.subject;
                     if (boxCatalogues.Focused)
@@ -281,7 +287,9 @@ namespace Hard_To_Find_Stock
             //Closes form if escape is pressed
             if (keyData == Keys.Escape)
             {
-                this.Close();
+                //Try save before exiting
+                if(initiateSave())
+                    this.Close();
             }
 
             if(keyData == (Keys.Control | Keys.Oemcomma))

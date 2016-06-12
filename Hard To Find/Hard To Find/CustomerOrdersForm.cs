@@ -97,7 +97,7 @@ namespace Hard_To_Find
             //Loop over and display all stock for the order
             foreach (OrderedStock o in customersOrderedStock)
             {
-                dataGridView2.Rows.Add(o.quantity, o.author, o.title, o.price, o.bookID, o.discount);
+                dataGridView2.Rows.Add(o.quantity, o.author, o.title, "$" + String.Format("{0:0.00}", o.price), o.bookID, "$" + String.Format("{0:0.00}", o.discount));
             }
         }
 
