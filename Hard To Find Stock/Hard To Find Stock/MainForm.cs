@@ -304,14 +304,35 @@ namespace Hard_To_Find_Stock
          Postcondition: Updates the database from file on Google Drive */
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //Copy over latest file from OneDrive
-            string updatedFileName = fileManager.copyFileFromOneDrive();
+            //Get filepath of stock files in Google Drive
+            List<string> filepaths = fileManager.getAllImportFilePaths();
 
-            //Inform user if it succeeded or not
-            if (updatedFileName != "")
-                MessageBox.Show("Database updated from OneDrive with file: " + updatedFileName);
+            if (filepaths.Count > 0)
+            {
+                //Loop over file paths
+                foreach (string s in filepaths)
+                {
+                    //Get all stock contained in CSVs
+                    List<Stock> newStock = fileManager.importFromCSV(s);
+
+                    int firstEntryID = newStock[0].stockID;
+
+                    //Delete stock that would be re-entered if contained in the update file
+                    dbManager.deleteStockFromIDForward(firstEntryID);
+
+                    //Insert the new stock
+                    dbManager.insertStock(newStock);
+
+                    //Delete the now used file so it doesn't get repeated
+                    fileManager.deleteFile(s);
+                }
+
+                MessageBox.Show("Update complete");
+            }
             else
-                MessageBox.Show("Database failed to update from OneDrive");
+            {
+                MessageBox.Show("No files to update from");
+            }
         }
 
         /*Precondition:

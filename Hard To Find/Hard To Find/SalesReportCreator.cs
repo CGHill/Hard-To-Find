@@ -97,9 +97,9 @@ namespace Hard_To_Find
             Ap.Pages pages1 = new Ap.Pages();
             pages1.Text = "1";
             Ap.Words words1 = new Ap.Words();
-            words1.Text = "20";
+            words1.Text = "21";
             Ap.Characters characters1 = new Ap.Characters();
-            characters1.Text = "114";
+            characters1.Text = "125";
             Ap.Application application1 = new Ap.Application();
             application1.Text = "Microsoft Office Word";
             Ap.DocumentSecurity documentSecurity1 = new Ap.DocumentSecurity();
@@ -115,7 +115,7 @@ namespace Hard_To_Find
             Ap.LinksUpToDate linksUpToDate1 = new Ap.LinksUpToDate();
             linksUpToDate1.Text = "false";
             Ap.CharactersWithSpaces charactersWithSpaces1 = new Ap.CharactersWithSpaces();
-            charactersWithSpaces1.Text = "133";
+            charactersWithSpaces1.Text = "145";
             Ap.SharedDocument sharedDocument1 = new Ap.SharedDocument();
             sharedDocument1.Text = "false";
             Ap.HyperlinksChanged hyperlinksChanged1 = new Ap.HyperlinksChanged();
@@ -653,7 +653,7 @@ namespace Hard_To_Find
                 runProperties9.Append(runFonts18);
                 runProperties9.Append(fontSize9);
                 Text text9 = new Text();
-                    
+
                 //Quantity
                 text9.Text = booksPerOrder[indexOfArrays].ToString();
 
@@ -728,7 +728,7 @@ namespace Hard_To_Find
                 tableRow.Append(tableCell8);
 
                 table1.Append(tableRow);
-                
+
                 indexOfArrays++;
             }
             /**************************** End loop ***********************************/
@@ -751,7 +751,7 @@ namespace Hard_To_Find
             TableProperties tableProperties2 = new TableProperties();
             TableStyle tableStyle2 = new TableStyle() { Val = "TableGrid" };
             TableWidth tableWidth2 = new TableWidth() { Width = "0", Type = TableWidthUnitValues.Auto };
-            TableIndentation tableIndentation1 = new TableIndentation() { Width = 4673, Type = TableWidthUnitValues.Dxa };
+            TableIndentation tableIndentation1 = new TableIndentation() { Width = 4390, Type = TableWidthUnitValues.Dxa };
 
             TableBorders tableBorders2 = new TableBorders();
             TopBorder topBorder9 = new TopBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
@@ -776,18 +776,18 @@ namespace Hard_To_Find
             tableProperties2.Append(tableLook2);
 
             TableGrid tableGrid2 = new TableGrid();
-            GridColumn gridColumn5 = new GridColumn() { Width = "1985" };
+            GridColumn gridColumn5 = new GridColumn() { Width = "2268" };
             GridColumn gridColumn6 = new GridColumn() { Width = "2358" };
 
             tableGrid2.Append(gridColumn5);
             tableGrid2.Append(gridColumn6);
 
-            TableRow tableRow3 = new TableRow() { RsidTableRowAddition = "00FF01F2", RsidTableRowProperties = "00FF01F2" };
+            TableRow tableRow3 = new TableRow() { RsidTableRowAddition = "00FF01F2", RsidTableRowProperties = "00FB389B" };
 
             TableCell tableCell9 = new TableCell();
 
             TableCellProperties tableCellProperties9 = new TableCellProperties();
-            TableCellWidth tableCellWidth9 = new TableCellWidth() { Width = "1985", Type = TableWidthUnitValues.Dxa };
+            TableCellWidth tableCellWidth9 = new TableCellWidth() { Width = "2268", Type = TableWidthUnitValues.Dxa };
 
             tableCellProperties9.Append(tableCellWidth9);
 
@@ -863,15 +863,9 @@ namespace Hard_To_Find
 
             run12.Append(runProperties12);
             run12.Append(text12);
-            
-            BookmarkStart bookmarkStart1 = new BookmarkStart() { Name = "_GoBack", Id = "0" };
-            BookmarkEnd bookmarkEnd1 = new BookmarkEnd() { Id = "0" };
-
 
             paragraph13.Append(paragraphProperties13);
             paragraph13.Append(run12);
-            paragraph13.Append(bookmarkStart1);
-            paragraph13.Append(bookmarkEnd1);
 
             tableCell10.Append(tableCellProperties10);
             tableCell10.Append(paragraph13);
@@ -879,22 +873,121 @@ namespace Hard_To_Find
             tableRow3.Append(tableCell9);
             tableRow3.Append(tableCell10);
 
+            TableRow tableRow4 = new TableRow() { RsidTableRowAddition = "00FB389B", RsidTableRowProperties = "00FB389B" };
+
+            TableCell tableCell11 = new TableCell();
+
+            TableCellProperties tableCellProperties11 = new TableCellProperties();
+            TableCellWidth tableCellWidth11 = new TableCellWidth() { Width = "2268", Type = TableWidthUnitValues.Dxa };
+
+            tableCellProperties11.Append(tableCellWidth11);
+
+            Paragraph paragraph14 = new Paragraph() { RsidParagraphMarkRevision = "00370D51", RsidParagraphAddition = "00FB389B", RsidParagraphProperties = "00FF01F2", RsidRunAdditionDefault = "00FB389B" };
+
+            ParagraphProperties paragraphProperties14 = new ParagraphProperties();
+            Justification justification7 = new Justification() { Val = JustificationValues.Right };
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties14 = new ParagraphMarkRunProperties();
+            RunFonts runFonts26 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold16 = new Bold();
+
+            paragraphMarkRunProperties14.Append(runFonts26);
+            paragraphMarkRunProperties14.Append(bold16);
+
+            paragraphProperties14.Append(justification7);
+            paragraphProperties14.Append(paragraphMarkRunProperties14);
+
+            Run run13 = new Run();
+
+            RunProperties runProperties13 = new RunProperties();
+            RunFonts runFonts27 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold17 = new Bold();
+
+            runProperties13.Append(runFonts27);
+            runProperties13.Append(bold17);
+            Text text13 = new Text();
+            text13.Text = "Total Books Sold:";
+
+            run13.Append(runProperties13);
+            run13.Append(text13);
+
+            paragraph14.Append(paragraphProperties14);
+            paragraph14.Append(run13);
+
+            tableCell11.Append(tableCellProperties11);
+            tableCell11.Append(paragraph14);
+
+            TableCell tableCell12 = new TableCell();
+
+            TableCellProperties tableCellProperties12 = new TableCellProperties();
+            TableCellWidth tableCellWidth12 = new TableCellWidth() { Width = "2358", Type = TableWidthUnitValues.Dxa };
+
+            tableCellProperties12.Append(tableCellWidth12);
+
+            Paragraph paragraph15 = new Paragraph() { RsidParagraphMarkRevision = "00370D51", RsidParagraphAddition = "00FB389B", RsidParagraphProperties = "00FF01F2", RsidRunAdditionDefault = "00FB389B" };
+
+            ParagraphProperties paragraphProperties15 = new ParagraphProperties();
+            Justification justification8 = new Justification() { Val = JustificationValues.Right };
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties15 = new ParagraphMarkRunProperties();
+            RunFonts runFonts28 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold18 = new Bold();
+
+            paragraphMarkRunProperties15.Append(runFonts28);
+            paragraphMarkRunProperties15.Append(bold18);
+
+            paragraphProperties15.Append(justification8);
+            paragraphProperties15.Append(paragraphMarkRunProperties15);
+
+            Run run14 = new Run();
+
+            RunProperties runProperties14 = new RunProperties();
+            RunFonts runFonts29 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold19 = new Bold();
+
+            int totalBooksSold = 0;
+
+            foreach (int i in booksPerOrder)
+                totalBooksSold += i;
+
+            runProperties14.Append(runFonts29);
+            runProperties14.Append(bold19);
+            Text text14 = new Text();
+            text14.Text = totalBooksSold.ToString();
+
+            run14.Append(runProperties14);
+            run14.Append(text14);
+
+            paragraph15.Append(paragraphProperties15);
+            paragraph15.Append(run14);
+
+            tableCell12.Append(tableCellProperties12);
+            tableCell12.Append(paragraph15);
+
+            tableRow4.Append(tableCell11);
+            tableRow4.Append(tableCell12);
+
             table2.Append(tableProperties2);
             table2.Append(tableGrid2);
             table2.Append(tableRow3);
+            table2.Append(tableRow4);
 
-            Paragraph paragraph14 = new Paragraph() { RsidParagraphMarkRevision = "004C4FC4", RsidParagraphAddition = "00FF01F2", RsidRunAdditionDefault = "00FF01F2" };
+            Paragraph paragraph16 = new Paragraph() { RsidParagraphMarkRevision = "004C4FC4", RsidParagraphAddition = "00FF01F2", RsidRunAdditionDefault = "00FF01F2" };
 
-            ParagraphProperties paragraphProperties14 = new ParagraphProperties();
+            ParagraphProperties paragraphProperties16 = new ParagraphProperties();
 
-            ParagraphMarkRunProperties paragraphMarkRunProperties14 = new ParagraphMarkRunProperties();
-            RunFonts runFonts28 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            ParagraphMarkRunProperties paragraphMarkRunProperties16 = new ParagraphMarkRunProperties();
+            RunFonts runFonts30 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
 
-            paragraphMarkRunProperties14.Append(runFonts28);
+            paragraphMarkRunProperties16.Append(runFonts30);
 
-            paragraphProperties14.Append(paragraphMarkRunProperties14);
+            paragraphProperties16.Append(paragraphMarkRunProperties16);
+            BookmarkStart bookmarkStart1 = new BookmarkStart() { Name = "_GoBack", Id = "0" };
+            BookmarkEnd bookmarkEnd1 = new BookmarkEnd() { Id = "0" };
 
-            paragraph14.Append(paragraphProperties14);
+            paragraph16.Append(paragraphProperties16);
+            paragraph16.Append(bookmarkStart1);
+            paragraph16.Append(bookmarkEnd1);
 
             SectionProperties sectionProperties1 = new SectionProperties() { RsidRPr = "004C4FC4", RsidR = "00FF01F2" };
             PageSize pageSize1 = new PageSize() { Width = (UInt32Value)11906U, Height = (UInt32Value)16838U };
@@ -912,7 +1005,7 @@ namespace Hard_To_Find
             body1.Append(table1);
             body1.Append(paragraph11);
             body1.Append(table2);
-            body1.Append(paragraph14);
+            body1.Append(paragraph16);
             body1.Append(sectionProperties1);
 
             document1.Append(body1);
@@ -952,7 +1045,8 @@ namespace Hard_To_Find
             settings1.AddNamespaceDeclaration("w14", "http://schemas.microsoft.com/office/word/2010/wordml");
             settings1.AddNamespaceDeclaration("w15", "http://schemas.microsoft.com/office/word/2012/wordml");
             settings1.AddNamespaceDeclaration("sl", "http://schemas.openxmlformats.org/schemaLibrary/2006/main");
-            Zoom zoom1 = new Zoom() { Percent = "120" };
+            Zoom zoom1 = new Zoom() { Percent = "100" };
+            ProofState proofState1 = new ProofState() { Spelling = ProofingStateValues.Clean, Grammar = ProofingStateValues.Clean };
             DefaultTabStop defaultTabStop1 = new DefaultTabStop() { Val = 720 };
             CharacterSpacingControl characterSpacingControl1 = new CharacterSpacingControl() { Val = CharacterSpacingValues.DoNotCompress };
 
@@ -981,7 +1075,8 @@ namespace Hard_To_Find
             Rsid rsid8 = new Rsid() { Val = "00AB286F" };
             Rsid rsid9 = new Rsid() { Val = "00BC116E" };
             Rsid rsid10 = new Rsid() { Val = "00D26AC8" };
-            Rsid rsid11 = new Rsid() { Val = "00FF01F2" };
+            Rsid rsid11 = new Rsid() { Val = "00FB389B" };
+            Rsid rsid12 = new Rsid() { Val = "00FF01F2" };
 
             rsids1.Append(rsidRoot1);
             rsids1.Append(rsid1);
@@ -995,6 +1090,7 @@ namespace Hard_To_Find
             rsids1.Append(rsid9);
             rsids1.Append(rsid10);
             rsids1.Append(rsid11);
+            rsids1.Append(rsid12);
 
             M.MathProperties mathProperties1 = new M.MathProperties();
             M.MathFont mathFont1 = new M.MathFont() { Val = "Cambria Math" };
@@ -1040,6 +1136,7 @@ namespace Hard_To_Find
             OpenXmlUnknownElement openXmlUnknownElement2 = OpenXmlUnknownElement.CreateOpenXmlUnknownElement("<w15:docId w15:val=\"{454EFE2E-17DD-4236-8FF7-F2C7EA139650}\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" />");
 
             settings1.Append(zoom1);
+            settings1.Append(proofState1);
             settings1.Append(defaultTabStop1);
             settings1.Append(characterSpacingControl1);
             settings1.Append(compatibility1);
@@ -1071,12 +1168,12 @@ namespace Hard_To_Find
             RunPropertiesDefault runPropertiesDefault1 = new RunPropertiesDefault();
 
             RunPropertiesBaseStyle runPropertiesBaseStyle1 = new RunPropertiesBaseStyle();
-            RunFonts runFonts29 = new RunFonts() { AsciiTheme = ThemeFontValues.MinorHighAnsi, HighAnsiTheme = ThemeFontValues.MinorHighAnsi, EastAsiaTheme = ThemeFontValues.MinorHighAnsi, ComplexScriptTheme = ThemeFontValues.MinorBidi };
+            RunFonts runFonts31 = new RunFonts() { AsciiTheme = ThemeFontValues.MinorHighAnsi, HighAnsiTheme = ThemeFontValues.MinorHighAnsi, EastAsiaTheme = ThemeFontValues.MinorHighAnsi, ComplexScriptTheme = ThemeFontValues.MinorBidi };
             FontSize fontSize12 = new FontSize() { Val = "22" };
             FontSizeComplexScript fontSizeComplexScript1 = new FontSizeComplexScript() { Val = "22" };
             Languages languages1 = new Languages() { Val = "en-NZ", EastAsia = "en-US", Bidi = "ar-SA" };
 
-            runPropertiesBaseStyle1.Append(runFonts29);
+            runPropertiesBaseStyle1.Append(runFonts31);
             runPropertiesBaseStyle1.Append(fontSize12);
             runPropertiesBaseStyle1.Append(fontSizeComplexScript1);
             runPropertiesBaseStyle1.Append(languages1);
@@ -1902,7 +1999,7 @@ namespace Hard_To_Find
             StyleName styleName5 = new StyleName() { Val = "Table Grid" };
             BasedOn basedOn1 = new BasedOn() { Val = "TableNormal" };
             UIPriority uIPriority4 = new UIPriority() { Val = 39 };
-            Rsid rsid12 = new Rsid() { Val = "00BC116E" };
+            Rsid rsid13 = new Rsid() { Val = "00BC116E" };
 
             StyleParagraphProperties styleParagraphProperties1 = new StyleParagraphProperties();
             SpacingBetweenLines spacingBetweenLines10 = new SpacingBetweenLines() { After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto };
@@ -1931,7 +2028,7 @@ namespace Hard_To_Find
             style5.Append(styleName5);
             style5.Append(basedOn1);
             style5.Append(uIPriority4);
-            style5.Append(rsid12);
+            style5.Append(rsid13);
             style5.Append(styleParagraphProperties1);
             style5.Append(styleTableProperties2);
 
@@ -1940,7 +2037,7 @@ namespace Hard_To_Find
             BasedOn basedOn2 = new BasedOn() { Val = "Normal" };
             UIPriority uIPriority5 = new UIPriority() { Val = 34 };
             PrimaryStyle primaryStyle2 = new PrimaryStyle();
-            Rsid rsid13 = new Rsid() { Val = "006D7AD3" };
+            Rsid rsid14 = new Rsid() { Val = "006D7AD3" };
 
             StyleParagraphProperties styleParagraphProperties2 = new StyleParagraphProperties();
             Indentation indentation1 = new Indentation() { Left = "720" };
@@ -1953,7 +2050,7 @@ namespace Hard_To_Find
             style6.Append(basedOn2);
             style6.Append(uIPriority5);
             style6.Append(primaryStyle2);
-            style6.Append(rsid13);
+            style6.Append(rsid14);
             style6.Append(styleParagraphProperties2);
 
             styles1.Append(docDefaults1);
@@ -2568,9 +2665,9 @@ namespace Hard_To_Find
             document.PackageProperties.Subject = "";
             document.PackageProperties.Keywords = "";
             document.PackageProperties.Description = "";
-            document.PackageProperties.Revision = "10";
+            document.PackageProperties.Revision = "11";
             document.PackageProperties.Created = System.Xml.XmlConvert.ToDateTime("2016-04-06T01:33:00Z", System.Xml.XmlDateTimeSerializationMode.RoundtripKind);
-            document.PackageProperties.Modified = System.Xml.XmlConvert.ToDateTime("2016-04-06T01:42:00Z", System.Xml.XmlDateTimeSerializationMode.RoundtripKind);
+            document.PackageProperties.Modified = System.Xml.XmlConvert.ToDateTime("2016-09-15T09:42:00Z", System.Xml.XmlDateTimeSerializationMode.RoundtripKind);
             document.PackageProperties.LastModifiedBy = "Cameron Hill";
         }
 
