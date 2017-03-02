@@ -217,5 +217,31 @@ namespace Hard_To_Find
             //Return true if can set files and false if you can't
             return canStoreFiles;
         }
+
+        private void btnCurrentStockTake_Click(object sender, EventArgs e)
+        {
+            //Check if location for the reports storage has been set
+            bool haveStorageLocation = checkForStorageLocation();
+
+            if (haveStorageLocation)
+            {
+                StockTakeCreator stc = new StockTakeCreator();
+
+                string currDate = DateTime.Now.ToString("MMMM yyyy");
+
+                //Get file name and filepath
+                string documentName = currDate + " Stock take.docx";
+                string filePath = fileManager.getStorageFilePath() + @"\Stock Takes\" + documentName;
+
+                //Create the report
+                bool successfulFileCreation = stc.createReport(filePath);
+
+                //Open the report
+                if (successfulFileCreation)
+                    System.Diagnostics.Process.Start(filePath);
+                else
+                    MessageBox.Show("File failed to be created");
+            }
+        }
     }
 }

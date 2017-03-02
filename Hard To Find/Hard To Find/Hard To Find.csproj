@@ -149,6 +149,7 @@
     <Compile Include="SetupForm.Designer.cs">
       <DependentUpon>SetupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StockTakeCreator.cs" />
     <Compile Include="SyntaxHelper.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="StockForm.cs">

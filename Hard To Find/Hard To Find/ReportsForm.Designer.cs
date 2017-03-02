@@ -33,11 +33,12 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.btnFreightReport = new System.Windows.Forms.Button();
+            this.btnCurrentStockTake = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(73, 257);
+            this.btnMainMenu.Location = new System.Drawing.Point(73, 307);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(126, 32);
             this.btnMainMenu.TabIndex = 4;
@@ -83,11 +84,22 @@
             this.btnFreightReport.UseVisualStyleBackColor = true;
             this.btnFreightReport.Click += new System.EventHandler(this.btnFreightReport_Click);
             // 
+            // btnCurrentStockTake
+            // 
+            this.btnCurrentStockTake.Location = new System.Drawing.Point(73, 198);
+            this.btnCurrentStockTake.Name = "btnCurrentStockTake";
+            this.btnCurrentStockTake.Size = new System.Drawing.Size(126, 34);
+            this.btnCurrentStockTake.TabIndex = 5;
+            this.btnCurrentStockTake.Text = "Current Stock Take";
+            this.btnCurrentStockTake.UseVisualStyleBackColor = true;
+            this.btnCurrentStockTake.Click += new System.EventHandler(this.btnCurrentStockTake_Click);
+            // 
             // ReportsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 322);
+            this.ClientSize = new System.Drawing.Size(280, 361);
+            this.Controls.Add(this.btnCurrentStockTake);
             this.Controls.Add(this.btnFreightReport);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dateTimePicker1);
@@ -107,5 +119,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnFreightReport;
+        private System.Windows.Forms.Button btnCurrentStockTake;
     }
 }

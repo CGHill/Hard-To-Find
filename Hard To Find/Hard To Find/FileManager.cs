@@ -70,6 +70,8 @@ namespace Hard_To_Find
                 haveFolders = false;
             if (!Directory.Exists(folderPath + @"\Freight Reports"))
                 haveFolders = false;
+            if (!Directory.Exists(folderPath + @"\Stock Takes"))
+                haveFolders = false;
 
             return haveFolders;
         }
@@ -84,6 +86,7 @@ namespace Hard_To_Find
             string exportFilesFolderPath = newStorageFilePath + @"\Export Files";
             string salesReportsFolderPath = newStorageFilePath + @"\Sales Reports";
             string freightReportsFolderPath = newStorageFilePath + @"\Freight Reports";
+            string StockTakeFolderPath = newStorageFilePath + @"\Stock Takes";
 
             //Create the folders in their new directory
             Directory.CreateDirectory(invoiceFolderPath);
@@ -91,6 +94,7 @@ namespace Hard_To_Find
             Directory.CreateDirectory(exportFilesFolderPath);
             Directory.CreateDirectory(salesReportsFolderPath);
             Directory.CreateDirectory(freightReportsFolderPath);
+            Directory.CreateDirectory(StockTakeFolderPath);
 
             //If the storage loaction hasn't previously been set then create the file with the new storage location
             if (!File.Exists(STORAGE_FILE_NAME))
@@ -121,6 +125,7 @@ namespace Hard_To_Find
                 DirectoryInfo dExportFiles = new DirectoryInfo(oldStoragePath + @"\Export Files");
                 DirectoryInfo dSalesReports = new DirectoryInfo(oldStoragePath + @"\Sales Reports");
                 DirectoryInfo dFreightReports = new DirectoryInfo(oldStoragePath + @"\Freight Reports");
+                DirectoryInfo dStockTake = new DirectoryInfo(oldStoragePath + @"\Stock Takes");
 
 
                 //Loop over all the files in each directory and move them to the new location
@@ -146,6 +151,10 @@ namespace Hard_To_Find
                 {
                     Directory.Move(file.FullName, newStorageFilePath + @"\Freight Reports\" + file.Name);
                 }
+                foreach (var file in dStockTake.GetFiles())
+                {
+                    Directory.Move(file.FullName, newStorageFilePath + @"\Stock Takes\" + file.Name);
+                }
 
                 //Delete the old, now empty folders
                 Directory.Delete(oldStoragePath + @"\Invoices", true);
@@ -153,6 +162,7 @@ namespace Hard_To_Find
                 Directory.Delete(oldStoragePath + @"\Export Files", true);
                 Directory.Delete(oldStoragePath + @"\Sales Reports", true);
                 Directory.Delete(oldStoragePath + @"\Freight Reports", true);
+                Directory.Delete(oldStoragePath + @"\Stock Takes", true);
             }
         }
 
