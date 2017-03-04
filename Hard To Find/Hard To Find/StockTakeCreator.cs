@@ -32,8 +32,8 @@ namespace Hard_To_Find
 
             foreach (Stock i in allStockInStock)
             {
-                numStock++;
-                totalStockPrice += i.price;
+                numStock += i.quantity;
+                totalStockPrice += (i.price * i.quantity);
             }
 
             bool fileCreationSuccessful = true;
@@ -292,7 +292,9 @@ namespace Hard_To_Find
 
             runProperties4.Append(fontSize6);
             Text text4 = new Text();
-            text4.Text = numStock.ToString();
+            text4.Text = String.Format("{0:n0}", numStock);
+
+            
 
             run4.Append(runProperties4);
             run4.Append(text4);
