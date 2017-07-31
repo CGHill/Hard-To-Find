@@ -1260,6 +1260,37 @@ namespace Hard_To_Find
         }
 
         /*Precondition:
+         Postcondition: Returns a list of all of the customers email addresses*/
+        public List<string> getAllCustomersEmails()
+        {
+            List<string> foundCustomersEmails = new List<string>();
+
+            //Check to make sure customer table exists
+            if (checkForTable("Customer"))
+            {
+                dbConnection.Open();
+
+                string searchQuery = "SELECT email FROM Customer";
+                //Execute query
+                SQLiteCommand command = new SQLiteCommand(searchQuery, dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                //Loop over and store results
+                while (reader.Read())
+                {
+                    string email = reader[0].ToString();
+
+                    foundCustomersEmails.Add(email);
+                }
+
+                dbConnection.Close();
+            }
+
+            //Return results
+            return foundCustomersEmails;
+        }
+
+        /*Precondition:
          Postcondition: Returns a list of all the stock */
         public List<Stock> getAllStock()
         {

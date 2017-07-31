@@ -127,5 +127,43 @@ namespace Hard_To_Find
             // Call the base class
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        private void btnExportEmails_Click(object sender, EventArgs e)
+        {
+            //Setup folder browser
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select storage location";
+
+            //Check the user selected something
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                string path = folderBrowser.SelectedPath;
+
+                //Create file
+                string directoryName = Path.Combine(path, "EmailCSV.txt");
+                File.Create(directoryName).Dispose();
+
+                //Get all of the emails
+                List<string> customerEmails = dbManager.getAllCustomersEmails();
+
+                string customerEmailString = "";
+
+                foreach (string s in customerEmails)
+                {
+                    //Combine emails to 1 line separated by commas, ignoring empty strings
+                    if(s != "")
+                        customerEmailString += s + ",";
+                }
+
+                //Write to file
+                using (var tw = new StreamWriter(directoryName, true))
+                {
+                    tw.WriteLine(customerEmailString);
+                    tw.Close();
+                }
+
+                MessageBox.Show("Completed");
+            }
+        }
     }
 }

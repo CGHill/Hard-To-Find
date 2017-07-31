@@ -32,6 +32,7 @@
             this.btnHTFExport = new System.Windows.Forms.Button();
             this.btnMainMenu = new System.Windows.Forms.Button();
             this.checkAddHeaders = new System.Windows.Forms.CheckBox();
+            this.btnExportEmails = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnABEExport
@@ -46,7 +47,7 @@
             // 
             // btnHTFExport
             // 
-            this.btnHTFExport.Location = new System.Drawing.Point(61, 127);
+            this.btnHTFExport.Location = new System.Drawing.Point(61, 115);
             this.btnHTFExport.Name = "btnHTFExport";
             this.btnHTFExport.Size = new System.Drawing.Size(149, 37);
             this.btnHTFExport.TabIndex = 1;
@@ -56,7 +57,7 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(61, 228);
+            this.btnMainMenu.Location = new System.Drawing.Point(61, 294);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(149, 37);
             this.btnMainMenu.TabIndex = 2;
@@ -76,11 +77,22 @@
             this.checkAddHeaders.Text = "Add Headers To file";
             this.checkAddHeaders.UseVisualStyleBackColor = true;
             // 
+            // btnExportEmails
+            // 
+            this.btnExportEmails.Location = new System.Drawing.Point(61, 158);
+            this.btnExportEmails.Name = "btnExportEmails";
+            this.btnExportEmails.Size = new System.Drawing.Size(149, 33);
+            this.btnExportEmails.TabIndex = 4;
+            this.btnExportEmails.Text = "Export Email CSV";
+            this.btnExportEmails.UseVisualStyleBackColor = true;
+            this.btnExportEmails.Click += new System.EventHandler(this.btnExportEmails_Click);
+            // 
             // FileExportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 316);
+            this.ClientSize = new System.Drawing.Size(273, 343);
+            this.Controls.Add(this.btnExportEmails);
             this.Controls.Add(this.checkAddHeaders);
             this.Controls.Add(this.btnMainMenu);
             this.Controls.Add(this.btnHTFExport);
@@ -98,5 +110,6 @@
         private System.Windows.Forms.Button btnHTFExport;
         private System.Windows.Forms.Button btnMainMenu;
         private System.Windows.Forms.CheckBox checkAddHeaders;
+        private System.Windows.Forms.Button btnExportEmails;
     }
 }
