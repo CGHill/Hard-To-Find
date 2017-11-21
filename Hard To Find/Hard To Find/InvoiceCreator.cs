@@ -340,7 +340,7 @@ namespace Hard_To_Find
             runProperties4.Append(runFonts8);
             runProperties4.Append(fontSize8);
             Text text4 = new Text();
-            text4.Text = "Phone: +64 3 4745983, Email: books@hardtofind.co.nz";
+            text4.Text = "Phone: Phone: +64 3 4718518, Email: books@hardtofind.co.nz";
 
             run4.Append(runProperties4);
             run4.Append(text4);

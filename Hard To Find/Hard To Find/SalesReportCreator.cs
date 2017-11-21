@@ -23,6 +23,7 @@ namespace Hard_To_Find
         private string title;
         private int[] booksPerOrder;
         private double[] pricePerOrder;
+        private int totalBooksSold;
 
         //Constructor
         public SalesReportCreator(string title, List<Order> orders, int[] booksPerOrder, double[] pricePerOrder)
@@ -30,6 +31,7 @@ namespace Hard_To_Find
             this.dbManager = new DatabaseManager();
             grandTotal = 0;
             indexOfArrays = 0;
+            totalBooksSold = 0;
 
             this.title = title;
             this.orders = orders;
@@ -656,6 +658,7 @@ namespace Hard_To_Find
                     
                 //Quantity
                 text9.Text = booksPerOrder[indexOfArrays].ToString();
+                totalBooksSold += booksPerOrder[indexOfArrays];
 
                 run9.Append(runProperties9);
                 run9.Append(text9);
@@ -815,7 +818,7 @@ namespace Hard_To_Find
             runProperties11.Append(runFonts23);
             runProperties11.Append(bold13);
             Text text11 = new Text();
-            text11.Text = "Grand Total:";
+            text11.Text = "Books Sold:";
 
             run11.Append(runProperties11);
             run11.Append(text11);
@@ -859,7 +862,7 @@ namespace Hard_To_Find
             Text text12 = new Text();
 
             //Grandtotal
-            text12.Text = "$" + String.Format("{0:0.00}", grandTotal);
+            text12.Text = totalBooksSold.ToString();
 
             run12.Append(runProperties12);
             run12.Append(text12);
@@ -879,22 +882,122 @@ namespace Hard_To_Find
             tableRow3.Append(tableCell9);
             tableRow3.Append(tableCell10);
 
+            /*******************************/
+            TableRow tableRow4 = new TableRow() { RsidTableRowAddition = "00FF01F2", RsidTableRowProperties = "00FF01F2" };
+
+            TableCell tableCell11 = new TableCell();
+
+            TableCellProperties tableCellProperties11 = new TableCellProperties();
+            TableCellWidth tableCellWidth11 = new TableCellWidth() { Width = "1985", Type = TableWidthUnitValues.Dxa };
+
+            tableCellProperties11.Append(tableCellWidth11);
+
+            Paragraph paragraph14 = new Paragraph() { RsidParagraphMarkRevision = "00370D51", RsidParagraphAddition = "00FF01F2", RsidParagraphProperties = "00FF01F2", RsidRunAdditionDefault = "00FF01F2" };
+
+            ParagraphProperties paragraphProperties14 = new ParagraphProperties();
+            Justification justification7 = new Justification() { Val = JustificationValues.Right };
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties14 = new ParagraphMarkRunProperties();
+            RunFonts runFonts26 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold16 = new Bold();
+
+            paragraphMarkRunProperties14.Append(runFonts26);
+            paragraphMarkRunProperties14.Append(bold16);
+
+            paragraphProperties14.Append(justification7);
+            paragraphProperties14.Append(paragraphMarkRunProperties14);
+
+            Run run13 = new Run() { RsidRunProperties = "00370D51" };
+
+            RunProperties runProperties13 = new RunProperties();
+            RunFonts runFonts27 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold17 = new Bold();
+
+            runProperties13.Append(runFonts27);
+            runProperties13.Append(bold17);
+            Text text13 = new Text();
+            text13.Text = "Total Books Sold:";
+
+            run13.Append(runProperties13);
+            run13.Append(text13);
+
+            paragraph14.Append(paragraphProperties14);
+            paragraph14.Append(run13);
+
+            tableCell11.Append(tableCellProperties11);
+            tableCell11.Append(paragraph14);
+
+            TableCell tableCell12 = new TableCell();
+
+            TableCellProperties tableCellProperties12 = new TableCellProperties();
+            TableCellWidth tableCellWidth12 = new TableCellWidth() { Width = "2358", Type = TableWidthUnitValues.Dxa };
+
+            tableCellProperties12.Append(tableCellWidth12);
+
+            Paragraph paragraph15 = new Paragraph() { RsidParagraphMarkRevision = "00370D51", RsidParagraphAddition = "00FF01F2", RsidParagraphProperties = "00FF01F2", RsidRunAdditionDefault = "00FF01F2" };
+
+            ParagraphProperties paragraphProperties15 = new ParagraphProperties();
+            Justification justification8 = new Justification() { Val = JustificationValues.Right };
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties15 = new ParagraphMarkRunProperties();
+            RunFonts runFonts28 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold18 = new Bold();
+
+            paragraphMarkRunProperties15.Append(runFonts28);
+            paragraphMarkRunProperties15.Append(bold18);
+
+            paragraphProperties15.Append(justification8);
+            paragraphProperties15.Append(paragraphMarkRunProperties15);
+
+            Run run14 = new Run() { RsidRunProperties = "00370D51" };
+
+            RunProperties runProperties14 = new RunProperties();
+            RunFonts runFonts29 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold19 = new Bold();
+
+            runProperties14.Append(runFonts29);
+            runProperties14.Append(bold19);
+            Text text14 = new Text();
+
+            //Grandtotal
+            text14.Text = "$" + String.Format("{0:0.00}", grandTotal);
+
+            run14.Append(runProperties14);
+            run14.Append(text14);
+
+            BookmarkStart bookmarkStart2 = new BookmarkStart() { Name = "_GoBack", Id = "0" };
+            BookmarkEnd bookmarkEnd2 = new BookmarkEnd() { Id = "0" };
+
+
+            paragraph15.Append(paragraphProperties15);
+            paragraph15.Append(run14);
+            paragraph15.Append(bookmarkStart2);
+            paragraph15.Append(bookmarkEnd2);
+
+            tableCell12.Append(tableCellProperties12);
+            tableCell12.Append(paragraph15);
+
+            tableRow4.Append(tableCell11);
+            tableRow4.Append(tableCell12);
+            /*******************************/
+
             table2.Append(tableProperties2);
             table2.Append(tableGrid2);
             table2.Append(tableRow3);
+            table2.Append(tableRow4);
 
-            Paragraph paragraph14 = new Paragraph() { RsidParagraphMarkRevision = "004C4FC4", RsidParagraphAddition = "00FF01F2", RsidRunAdditionDefault = "00FF01F2" };
+            Paragraph paragraph16 = new Paragraph() { RsidParagraphMarkRevision = "004C4FC4", RsidParagraphAddition = "00FF01F2", RsidRunAdditionDefault = "00FF01F2" };
 
-            ParagraphProperties paragraphProperties14 = new ParagraphProperties();
+            ParagraphProperties paragraphProperties16 = new ParagraphProperties();
 
-            ParagraphMarkRunProperties paragraphMarkRunProperties14 = new ParagraphMarkRunProperties();
-            RunFonts runFonts28 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            ParagraphMarkRunProperties paragraphMarkRunProperties16 = new ParagraphMarkRunProperties();
+            RunFonts runFonts30 = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
 
-            paragraphMarkRunProperties14.Append(runFonts28);
+            paragraphMarkRunProperties16.Append(runFonts30);
 
-            paragraphProperties14.Append(paragraphMarkRunProperties14);
+            paragraphProperties16.Append(paragraphMarkRunProperties16);
 
-            paragraph14.Append(paragraphProperties14);
+            paragraph16.Append(paragraphProperties16);
 
             SectionProperties sectionProperties1 = new SectionProperties() { RsidRPr = "004C4FC4", RsidR = "00FF01F2" };
             PageSize pageSize1 = new PageSize() { Width = (UInt32Value)11906U, Height = (UInt32Value)16838U };
@@ -912,7 +1015,7 @@ namespace Hard_To_Find
             body1.Append(table1);
             body1.Append(paragraph11);
             body1.Append(table2);
-            body1.Append(paragraph14);
+            body1.Append(paragraph16);
             body1.Append(sectionProperties1);
 
             document1.Append(body1);

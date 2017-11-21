@@ -635,7 +635,7 @@ namespace Hard_To_Find
             runProperties15.Append(runFonts27);
             runProperties15.Append(fontSize27);
             Text text15 = new Text();
-            text15.Text = "Phone: +64 3 4745983, Email: books@hardtofind.co.nz";
+            text15.Text = "Phone: +64 3 4718518, Email: books@hardtofind.co.nz";
 
             run15.Append(runProperties15);
             run15.Append(text15);
